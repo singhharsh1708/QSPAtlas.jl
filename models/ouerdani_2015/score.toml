@@ -60,11 +60,13 @@ ran = true
     [[fixed.fixes]]
     description = "Initial tumour size P0 is not stated for the typical simulation; set to 150 mm^3 (mice) and 66.8 mm (patients), read from Figure 4 at t = 0."
     evidence = "Methods: P0 'set to the observed value' (individual baselines); no typical value given in text, Table 1, s001.txt/s004.txt (P0 = BASE/VB data column). Value read from the curve start in PSP4-4-660-g004.jpg (circular)."
+    figures = []
     id = "p0"
     kind = "from_target"
     [[fixed.fixes]]
     description = "Mouse panel simulated with the 100 mg/kg exposure (AUC 1140.8 ug*h/mL); the paper does not say which dose group the typical mouse simulation uses."
     evidence = "Only gamma depends on AUC (beta_alpha fixed to 0). With P0 = 150: 100 mg/kg rms 0.001, 30 mg/kg rms 0.074, 10 mg/kg rms 0.27 (explore log)."
+    figures = []
     id = "mouse_auc"
     kind = "from_target"
 

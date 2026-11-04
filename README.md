@@ -23,7 +23,7 @@ Five are graded on typical-value curves and one on a visual predictive check.
 | [Ouerdani 2015](models/ouerdani_2015/report.md) | pazopanib, tumour growth + angiogenesis (mouse, human) | **B†** | 0 of 4 / 4 of 4 | initial tumour size and mouse dose group not stated; taken from the figure |
 | [Hutchinson 2016](models/hutchinson_2016/report.md) | antiangiogenic transient vessel normalisation | **C** (Fig 2: B, Fig 6: C) | 0 of 30 / 22 of 30 | K = T0/V0 printed inverted; Fig 6 drug scale ~100x off Eq. 9 |
 | [Lindauer 2017](models/lindauer_2017/report.md) | pembrolizumab translational PK/RO/tumour growth | **C** | 0 of 5 / 1 of 5 | human blood volume and base scenario not stated; 6 of 64 tornado bars off |
-| [Fornari 2019](models/fornari_2019/report.md) | carboplatin bone-marrow toxicity QSP (rat, human) | **C** | did not run / 1 of 9 | equations not closed as printed; dose units inconsistent with its own PK figure |
+| [Fornari 2019](models/fornari_2019/report.md) | carboplatin bone-marrow toxicity QSP (rat, human) | **C** (Fig 3: B, Fig 4: C) | did not run / 6 of 9 | equations not closed as printed; rat Figure 3 reproduces once the PK table's litres are read per kg; human Figure 4 does not |
 | [Stroh 2019](models/stroh_2019/report.md) | masked tumour-activated antibody (Probody) QSP | **C** | 14 of 35 / 18 of 35 | human cleavage rate given only as an upper bound; "Total Drug" readout undefined |
 
 **Population figures.** Papers whose figures show population spread (visual predictive
@@ -93,6 +93,20 @@ error of 1e-6); on the stiff antibody models (Lindauer 2017, Stroh 2019) they fa
 BDF methods QNDF and FBDF are fastest (2 to 4 ms), with Rodas5P best at tight tolerances.
 
 ![Work-precision diagram, Stroh 2019 human projection](benchmarks/solvers/results/stroh_2019__human_4_5mgkg_1000x.png)
+
+## Validation
+
+- **Against mrgsolve.** The dosing and population machinery agrees with
+  [mrgsolve](https://mrgsolve.org) to a relative difference of 1e-8 or better on 26
+  deterministic cases (repeated doses, overlapping infusions, bioavailability, lag, steady
+  state, resets, simultaneous events) wherever both tools support the case, and within Monte
+  Carlo error on population quantiles. Where mrgsolve fails (a lag longer than the dosing
+  interval, a new infusion after a reset), QSPAtlas was checked against explicit doses or the
+  closed form instead. Scripts: [`validation/mrgsolve/`](validation/mrgsolve/).
+- **Independent rebuilds.** Every model was rebuilt a second time from its paper alone, with
+  separate code; no transcription error was found.
+
+Details: [validation page](https://singhharsh1708.github.io/QSPAtlas.jl/dev/validation/).
 
 ## How it works
 

@@ -24,12 +24,12 @@ function row3(label, s)
     cols = [score(refs[i], sol_series(s, v)...) for (i, v) in zip(ids3, vars3)]
     println(rpad(label, 62), join(cols, "  "))
 end
-row3("main (fixes; 0.862 umol per mg/kg = 0.320 kg, MW 371.25; dose at 24 h)", m.rat_problem(F))
-row3("DIAGNOSTIC dose 3.90 umol per mg/kg (Fig S3 PK-implied, ~1.45 kg)", m.rat_problem(F; dose_scale = 3.9))
-row3("dose 4.41 umol per mg/kg (Damage-curve estimate of Fig S3)", m.rat_problem(F; dose_scale = 4.41))
+row3("main (fixes; pk_per_kg: 2.694 umol/kg per mg/kg, MW 371.25; dose at 24 h)", m.rat_problem(F))
+row3("Table S3 as absolute litres, 0.320 kg rat (0.862 umol per mg/kg)", m.rat_problem(without("pk_per_kg")))
+row3("per kg, dose -5 % (2.56 umol/kg per mg/kg)", m.rat_problem(F; dose_scale = 0.95 * m.DOSE_UMOL_PER_MGKG_PERKG))
+row3("per kg, dose +5 % (2.83 umol/kg per mg/kg)", m.rat_problem(F; dose_scale = 1.05 * m.DOSE_UMOL_PER_MGKG_PERKG))
+row3("DIAGNOSTIC 3.90 umol per mg/kg (Fig S3 model line, = 43 mg/kg per kg)", m.rat_problem(F; dose_scale = 3.9))
 row3("first dose at t = 0 instead of 24 h", m.rat_problem(without("dose_time")))
-row3("dose 3.00 umol per mg/kg", m.rat_problem(F; dose_scale = 3.0))
-row3("dose 3.50 umol per mg/kg", m.rat_problem(F; dose_scale = 3.5))
 
 println("\nFigure 4 (columns: 4a neut, 4a plt, 4b neut, 4b plt)")
 ids4 = ["fig4a_neut", "fig4a_plt", "fig4b_neut", "fig4b_plt"]

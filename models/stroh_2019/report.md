@@ -103,6 +103,8 @@ Reading: Fig 4 used an unstated human kcleave (Table 2 gives only `< 3e-7 1/s`).
 - Initial receptor level is not stated (steady state ksynR/(kendo V) assumed).
 - Supplement s003: the printed `k` is described as zero-order rate constants but is a 32-entry parameter list; the real zero-order vector (receptor synthesis) is not printed; text says 52 states, the matrices have 55 (three receptor pools incl. an inert central one); the matrices are one parameter snapshot that differs from Tables 1-2 (Kmask 20, kcleave 1e-6 central/peripheral and 1e-5 tumour, k13 2.5e-9, k31 4.4e-6, ksynR tumour 2.8221e-5 vs 2.7e-4 in Table 2). Table 2's k13 = 1.9e-8 and k31 = 1.0e-5 are mutually consistent with Q = 1e-5, p = 0.5, V1/V3 and give C_tumour/C_plasma = p only in amount-based form, whereas the supplement coefficients (ratio 5.7e-4) do not; using them makes Fig 4c far worse (sensitivity).
 - Author surname printed "Miliard" in the supplement and "Millard" in the article metadata.
+- The Discussion describes Fig 4 as using a 10-fold higher tumour kcleave. With the tabulated 3e-7 in plasma and periphery and 3e-6 in the tumour, the 1000x and 10000x curves are missed (an independent rebuild: 4a at day 56 is 0.19 / 0.94 nM against about 1.2 / 6 in the figure; 4d is 1141 / 976 nmol against about 900 / 530). Fig 4 is reproduced almost exactly with kcleave = 1e-7 1/s in all compartments and no tumour boost (details in Self-check). Table 2 gives kcleave only as "< 3e-7", so 1e-7 is not used here as a fix and Fig 4 is not credited to the published model.
+
 
 ## What would raise the grade
 
@@ -110,6 +112,34 @@ Reading: Fig 4 used an unstated human kcleave (Table 2 gives only `< 3e-7 1/s`).
 2. A statement of what "Total Drug" sums in periphery and tumour (would make the readout documented rather than selected by comparison).
 3. Molecular weight, breathing rates, V2 and the initial receptor level.
 4. Higher resolution figures (the 709 px JPEG limits the digitisation to about 1 % of the axis).
+
+## Self-check (2026-11-04)
+
+An independent rebuild from the paper text and supplements s001 to s003, with separate code (the network generated from the paper's per-arm rules, plain OrdinaryDiffEq, no shared code).
+
+Structure: run with the parameter set embedded in s003, the rule-built network matches all 234 A1 and 84 A2 entries, with 0 mismatches and 0 extra entries. It also needs 55 states (52 listed plus 3 unnamed receptor states), as found here.
+
+The same unstated choices, made independently:
+- MW 150 kDa (monkey 3 / 5 / 10 mg/kg give 520 / 867 / 1733 nM; human 808 nM).
+- Human V2 = 2.6 L, inferred from ksynR in the periphery.
+- Elimination of free drug in the periphery as well as plasma (as in s003).
+- "Total Drug" as the six unbound species only. Including bound drug would put tumour mAb near 40 nM instead of the plotted 0.01 nM.
+- kopen = 0.0116 1/s from s003. A 10-fold change either way changes results by under 1 %.
+
+Fig 3 (kcleave 3e-7): shapes and order agree. For example the 3 mg/kg mAb crosses 0.1 nM at day 10.6 (figure about 11.1), and the M1 Pb-Tx lines run slightly low late (within about 1.5x).
+
+Fig 4: with the as-stated 3e-7 and a 10-fold tumour boost, the 1000x and 10000x curves are missed (4a at day 56: 0.19 / 0.94 nM against about 1.2 / 6; 4d: 1141 / 976 nmol against about 900 / 530). With kcleave = 1e-7 in all compartments and no tumour boost every Fig 4 read-out agrees:
+
+| readout (1000x / 10000x) | rebuild | figure |
+|---|---|---|
+| 4a at day 56 (nM) | 1.15 / 5.94 | about 1.2 / 6.2 |
+| 4c peak (nM) | 78.5 / 176 | about 79 / 178 |
+| 4d at day 56 (nmol) | 902 / 532 | about 900 / 530 |
+| 4e at day 56 (nmol) | 14.80 / 6.10 | about 14.8 / 6.05 |
+
+mAb and 10x and 100x also agree (4d: 1634 / 1605 / 1437 against about 1630 / 1605 / 1435). Keeping the 10-fold tumour boost at 1e-7 matches everything except 4e at 10000x (8.45 against about 6.05). The sensitivity scan above (1e-7 with the boost kept) passes 24 of 25 here; the rebuild's scan adds the no-boost case.
+
+kcleave is a model parameter given only as "< 3e-7", so choosing it by matching stays disallowed. Grade unchanged.
 
 ## Review
 
@@ -121,3 +151,6 @@ Fixes made after review (one round):
 3. Fig 3 coverage corrected; contaminated early marker points removed by a documented `min_x` rule in `digitise.toml`; traces regenerated; no pass/fail change (14/35 and 18/35).
 4. The "Total Drug" readout stays `:from_target`; the report no longer claims the published readout includes or excludes complexes (it is undefined).
 
+## Literature check (2026-11-04)
+
+No public source gives the human cleavage rate used for Figure 4 for these anti-CD166 molecules. The closest published values are for a different masked antibody (CX-072): 7e-8 to 1.3e-7 /s in tumour (Ippolito et al. 2024, supplement), so they cannot be used here. CytomX's bioanalytical convention (ASCO 2020 CX-072 clinical pharmacology poster, https://cytomx.com/wp-content/uploads/ASCO-2020-CX-072-Clinical-Pharmacology-Poster.pdf) defines "Total" as the intact plus activated (cleaved) forms; this is an assay definition and does not settle whether Figure 4 counts bound species. The molecular weight and the human peripheral volume were not found.

@@ -6,7 +6,8 @@ A documented change needed to make a model match its paper. `kind` is one of
 inferred), `:units` (unit inconsistency), `:ambiguity` (text allows several readings;
 the one used is stated), `:code` (taken from supplementary code where the text
 differs), or `:from_target` (an unstated input read from, or chosen by matching, the
-very figure being reproduced). `evidence` says where the fix comes from (supplement
+very figure being reproduced). `figures` names the figures the fix applies to (for
+example `["fig6"]`); empty means all of them. It only affects the per-figure grades. `evidence` says where the fix comes from (supplement
 file, equation number, figure) so a reader can check it; a fix without evidence
 cannot earn a B.
 
@@ -21,11 +22,15 @@ struct Fix
     kind::Symbol
     description::String
     evidence::String
-    function Fix(id, kind, description; evidence = "")
+    figures::Vector{String}
+    function Fix(id, kind, description; evidence = "", figures = String[])
         kind in (:typo, :missing, :units, :ambiguity, :code, :from_target) || throw(ArgumentError("unknown fix kind $kind"))
-        return new(String(id), kind, String(description), String(evidence))
+        return new(String(id), kind, String(description), String(evidence), String.(collect(figures)))
     end
 end
+
+# fixes that apply to figure `k` (a fix with no `figures` applies to all of them)
+fixes_for(fixes, k) = filter(f -> isempty(f.figures) || k in f.figures, fixes)
 
 """
     CurveResult(ref, x, y, comparison)
@@ -156,9 +161,10 @@ function figure_grades(r::Reproduction)
             cs = filter(c -> figure_key(c.ref) == k, run.curves)
             return !isempty(cs) && all(c -> c.comparison.passed, cs)   # no curves for this figure is not a pass
         end
+        fk = r.fixed === nothing ? Fix[] : fixes_for(r.fixed.fixes, k)
         g = ok(r.published) ? "A" :
-            (ok(r.fixed) && all(f -> !isempty(strip(f.evidence)), r.fixed.fixes)) ?
-                (any(f -> f.kind === :from_target, r.fixed.fixes) ? "B†" : "B") : "C"
+            (ok(r.fixed) && all(f -> !isempty(strip(f.evidence)), fk)) ?
+                (any(f -> f.kind === :from_target, fk) ? "B†" : "B") : "C"
         push!(out, k => g)
     end
     return out
@@ -178,7 +184,8 @@ function run_summary(run::Union{Run, Nothing})
         "ran" => ran(run),
         "matched" => matched(run),
         "error" => run.error,
-        "fixes" => [Dict("id" => f.id, "kind" => String(f.kind), "description" => f.description, "evidence" => f.evidence) for f in run.fixes],
+        "fixes" => [Dict("id" => f.id, "kind" => String(f.kind), "description" => f.description, "evidence" => f.evidence,
+            "figures" => f.figures) for f in run.fixes],
         "curves" => [Dict{String, Any}(
             "id" => c.ref.id, "figure" => c.ref.figure, "passed" => c.comparison.passed,
             "rms" => round(c.comparison.rms; sigdigits = 4), "p95" => round(c.comparison.p95; sigdigits = 4),

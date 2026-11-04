@@ -30,3 +30,5 @@ Mice: AUC 220.2 / 656.8 / 1140.8 for 10 / 30 / 100 mg/kg. Patients: mean AUC 771
 - 09:42 Both panels digitised (rule-based, black curves); overlay checked (the overlay image contains the paper's figure and is kept locally only).
 - 09:44 Targets frozen: `reference/*.csv`, `reference/digitise.toml`, default tolerances (RMS 0.015 / P95 0.03) in `protocol.jl`. No simulation had been compared yet.
 - After the freeze: the unstated inputs (P0, mouse dose, patient exposure) were tried, the fixes above chosen, the sensitivity runs summarised in `report.md` made.
+
+Self-check (2026-11-04): an independent rebuild from the paper alone was compared with these results; see the Self-check section in `report.md`.

@@ -39,8 +39,8 @@ function plot_fig2(path, refs; fixes)
     mkpath(dirname(path)); CM.save(path, fig)
 end
 
-# Figure 6 in the paper's layout. Inputs as printed (T0 = 70 because Figure 6 gives none); the drug C is plotted
-# as printed (Eq. 9), on its own right-hand axis, because its scale in the paper (0-5) is not what Eq. 9 gives.
+# Figure 6 in the paper's layout. Parameters as printed (alpha~_C = 1) plus the Figure 6 fixes passed in; the drug C is
+# plotted as printed (Eq. 9), on its own right-hand axis, because its scale in the paper (0-5) is not what Eq. 9 gives.
 function plot_fig6(path, refs; fixes)
     fig = CM.Figure(size = (1000, 600))
     for (i, panel) in enumerate(("a", "b", "c", "d"))
@@ -64,6 +64,17 @@ function plot_fig6(path, refs; fixes)
     end
     CM.Label(fig[0, 1:2], "Hutchinson 2016 Figure 6 regenerated (black T, magenta V, dashed blue C; dots: digitised T and V)"; fontsize = 13)
     mkpath(dirname(path)); CM.save(path, fig)
+end
+
+"""
+    sensitivity(; overrides, fixes = FIXES, label)
+
+Sensitivity run for Figure 6 (not a Fix, not graded, not written to score.toml): the 8 Figure 6 curves with the
+given parameter `overrides` (e.g. `(; alphaC_on = 0.01)`). Returns the `Run`.
+"""
+function sensitivity(; overrides = (;), fixes = FIXES, label = "sensitivity")
+    refs = filter(r -> startswith(r.id, "fig6_"), sort(collect(values(load_references(joinpath(@__DIR__, "reference")))); by = r -> r.id))
+    return run_curves(ref -> simulate_curve(ref; fixes, overrides), refs, label; fixes, tolerance = TOLERANCE, tolerances = TOLERANCES)
 end
 
 """

@@ -80,7 +80,7 @@ human_drug_table2() = (; Slope_MPP = 0.79, Slope_CMP = 0.57, Slope_MEP = 0.66, d
 human_drug_eq10() = (; Slope_MPP = 2.05 * 2.83 / 4.04, Slope_CMP = 1.47 * 2.83 / 4.04, Slope_MEP = 2.19 * 0.86 / 1.56, delta_Ret = 2.8, delta_Plt = 0.54)
 
 # PK parameters
-rat_pk() = (; QC = 0.06, Vcen = 0.26, Vper = 0.30, CL = 0.42)   # Table S3 (code lists L/h, L, L, L/h)
+rat_pk() = (; QC = 0.06, Vcen = 0.26, Vper = 0.30, CL = 0.42)   # Table S3 (code lists L/h, L, L, L/h); used per kg (L/h/kg, L/kg) with the dose in umol/kg, Fix pk_per_kg
 # Human: NOT in the paper. S11 cites Zandvliet et al. Br J Clin Pharmacol 2008;66:485 (PMC2561111, Table 2): CL = 0.76 CrCl + 1.5 L/h,
 # V1 15.5 L, Q 3.46 L/h, V2 9.86 L. S11 gives GFR = 125 mL/min = 7.5 L/h, assumed equal to CrCl in that formula.
 human_pk() = (; QC = 3.46, Vcen = 15.5, Vper = 9.86, CL = 0.76 * 7.5 + 1.5)

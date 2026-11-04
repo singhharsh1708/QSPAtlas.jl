@@ -161,6 +161,7 @@ makedocs(;
         "Method" => "method.md",
         "Models" => model_pages,
         "Population simulation" => "simulation.md",
+        "Validation" => "validation.md",
         "Solver benchmarks" => "benchmarks.md",
         "Recalibration" => "calibration.md",
         "Contributing a model" => "contributing.md",

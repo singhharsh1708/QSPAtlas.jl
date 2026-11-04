@@ -8,7 +8,7 @@ inputs_from_target = false
 pmcid = "PMC6875710"
 
 [figure_grades]
-fig3 = "C"
+fig3 = "B"
 fig4 = "C"
 
 [fixed]
@@ -20,51 +20,51 @@ ran = true
     [[fixed.curves]]
     figure = "Figure 3, common myeloid progenitors, mean model prediction"
     id = "fig3_CMP"
-    max = 0.1252
+    max = 0.007676
     n_points = 102
-    p95 = 0.1229
-    passed = false
-    rms = 0.09166
+    p95 = 0.006722
+    passed = true
+    rms = 0.003593
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 3, megakaryocyte-erythrocyte progenitors, mean model prediction"
     id = "fig3_MEP"
-    max = 0.2893
+    max = 0.00989
     n_points = 128
-    p95 = 0.2846
-    passed = false
-    rms = 0.1291
+    p95 = 0.007336
+    passed = true
+    rms = 0.004045
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 3, multipotent progenitors (rat, carboplatin 40 mg/kg x8 q14d), mean model prediction"
     id = "fig3_MPP"
-    max = 0.1795
+    max = 0.01372
     n_points = 131
-    p95 = 0.1595
-    passed = false
-    rms = 0.06758
+    p95 = 0.006753
+    passed = true
+    rms = 0.004206
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 3, neutrophils, mean model prediction"
     id = "fig3_Neut"
-    max = 0.1602
+    max = 0.01784
     n_points = 54
-    p95 = 0.1597
-    passed = false
-    rms = 0.1336
+    p95 = 0.01672
+    passed = true
+    rms = 0.01104
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 3, platelets, mean model prediction"
     id = "fig3_Plt"
-    max = 0.1235
+    max = 0.02543
     n_points = 129
-    p95 = 0.088
-    passed = false
-    rms = 0.04648
+    p95 = 0.01554
+    passed = true
+    rms = 0.007219
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
@@ -111,41 +111,49 @@ ran = true
     [[fixed.fixes]]
     description = "Eq 1 maturation terms read -ktr_CMP fdbk_mat_MPP - ktr_MEP fdbk_mat_MPP. Used: -ktr_CMP fdbk_mat_CMP MPP - ktr_MEP fdbk_mat_MEP MPP."
     evidence = "fdbk_mat_MPP is not defined anywhere (Eq 12 defines fdbk_mat_CMP, fdbk_mat_MEP); Eq 4 gain terms ktr_CMP fdbk_mat_CMP MPP and ktr_MEP fdbk_mat_MEP MPP are the same fluxes; supplement S4 kstem = (ktrCMP+ktrMEP-kprolMPP) MPP0 only closes the MPP steady state if the outflow is proportional to MPP; text on Eq 12 says the feedbacks are 'integrated in Eqs 1 and 4'."
+    figures = []
     id = "eq1_maturation"
     kind = "typo"
     [[fixed.fixes]]
     description = "Eq 9 prints only Neut, Mono, Ret, Plt. Added dRBC/dt = kcirc_Ret Ret - kcirc_RBC RBC."
     evidence = "Table 1 lists kcirc_RBC and the RBC baseline; Eqs 12-13 use RBC as a feedback signal; supplement S4 defines kcirc_Ret = kcirc_RBC RBC0/Ret0 (steady state of exactly this equation); S2 lists RBC among the states."
+    figures = []
     id = "rbc_equation"
     kind = "missing"
     [[fixed.fixes]]
     description = "Eq 7 platelet T1 equation ends with -a_Ret T1_Plt. Used -a_Plt T1_Plt."
     evidence = "Eq 8 defines a_Plt; the T2_Plt equation and supplement S3/S4 (ktrPlt = aPlt T1Plt/MEP0 ...) use a_Plt for the platelet chain; with a_Ret the S3 steady state of T1Plt is violated."
+    figures = []
     id = "plt_transit_rate"
     kind = "typo"
     [[fixed.fixes]]
     description = "Rat doses given at t = 24 h + 14 d x (0..7) (dose on 'day 1' of the time axis, which starts at day 0); human first dose at t = 0 (second at day 21, see human_schedule)."
     evidence = "Supplement Fig S3 plots the 30 mg/kg PK and Damage on an hour axis starting at 24 h with the dose at the left edge; Table S1 'Carbo dosing days 1, 15, 29...'; Fig 3 shows eight cycles (text: eight cycles) although Table S1 lists 1,15,...,85 for study E in the PDF. The Fig 4 axis starts at day 0 where the red line begins."
+    figures = []
     id = "dose_time"
     kind = "ambiguity"
     [[fixed.fixes]]
-    description = "Dose of d mg/kg enters the central compartment as d x 0.320 kg x 1000 / 371.25 umol (0.862 umol per mg/kg; 25.9 umol at 30 mg/kg)."
-    evidence = "Supplement S1: rats 'approximately 12 weeks old with a minimum 320g of body weight at the start of dosing' (only a minimum is stated; 0.320 kg is used). Carboplatin molecular weight 371.25 g/mol (PubChem CID 426756), standard constant. First-principles conversion, not fitted. NOTE: the PK curve of Supplement Fig S3 implies about 3.9 umol per mg/kg (a ~1.45 kg rat), i.e. the paper's dose/PK units are internally inconsistent or unstated; that value is only an ungraded diagnostic (dose_scale_from_S3.jl, sensitivity.jl)."
-    id = "dose_scale"
-    kind = "missing"
+    description = "Table S3 rat PK printed as QC 0.06 '1/h', VCen 0.26 'l', VPer 0.30 'l', CL 0.42 '1/h' (code: liter/hour, liter). Read per kg (L/kg, L/h/kg) with the dose per kg: d mg/kg enters Cen as d x 1000 / 371.25 umol/kg (2.694 umol/kg per mg/kg; 107.7 at 40 mg/kg), Cp = Cen/VCen in umol/L."
+    evidence = "(1) The rat PK was fitted (S5, Table S3 caption) to in-house 30 mg/kg data and to Siddik et al. 1987 (Biochem Pharmacol 36:1925, supplement ref 1), which reports carboplatin plasma clearance 10.3 mL/min/kg, close to inulin 10.1 mL/min/kg (glomerular filtration only): per kg, CL 0.42 L/h/kg = 7.0 mL/min/kg is consistent; as absolute litres for a 0.320 kg rat (S1) it is 21.9 mL/min/kg, twice the GFR of a drug cleared by filtration alone, and VCen would be 0.81 L/kg (Vss 1.75 L/kg), more than total body water (~0.67 L/kg) for a hydrophilic drug; per kg VCen 0.26 L/kg is extracellular water. (2) The observed in-house 30 mg/kg free-Pt points of Supplement Fig S3 (not a target) at 1, 3, 6, 12, 24 h after dose are matched by the per-kg reading with mean log10 offset 0.00 (rms 0.15 decade); the absolute reading is 3.1x low (pk_units_check.jl). (3) All doses in the paper are per kg (S1: 'dose volume 5ml/kg', Table S1 mg/Kg). Carboplatin MW 371.25 g/mol (PubChem CID 426756). No value is fitted: Table S3 numbers are used unchanged; the 0.320 kg absolute reading (0.862 umol per mg/kg) is kept as a sensitivity run."
+    figures = []
+    id = "pk_per_kg"
+    kind = "units"
     [[fixed.fixes]]
     description = "Human simulation: two carboplatin doses of 750 mg, at day 0 and day 21."
     evidence = "Fig 4 caption (main text): 'Two cycles of 21 days of carboplatin were simulated. Doses were calculated with the Calvert formula ... targeting an AUC ...'. Supplement S11/S12 say 'a single dose'; the figure-specific caption is used because it describes the plotted simulation."
+    figures = []
     id = "human_schedule"
     kind = "ambiguity"
     [[fixed.fixes]]
     description = "Human PK from Zandvliet 2008: CL = 0.76 x 7.5 + 1.5 = 7.2 L/h, V1 15.5 L, Q 3.46 L/h, V2 9.86 L; each 750 mg dose (= 2020 umol, MW 371.25) as a 30 min infusion."
     evidence = "Supplement S11 states the human PK model is the 2-compartment model of Zandvliet et al. (Br J Clin Pharmacol 2008;66:485-497, PMC2561111) and the Calvert dose AUC (GFR+25) with AUC 5 mg min/mL, GFR 125 mL/min = 750 mg; the parameter values are in Table 2 of Zandvliet (not in the paper or supplement). Assumed: GFR = CG creatinine clearance, 30 min infusion as in Zandvliet, ultrafiltrable Pt in umol/L equals carboplatin umol."
+    figures = []
     id = "human_pk"
     kind = "missing"
     [[fixed.fixes]]
     description = "Table 1 prints human baselines for Neut, Mono, Ret, RBC as ranges (2-7, 0.2-10, 40-115, 4100-5900); the midpoints 4.5, 5.1, 77.5, 5000 are used."
     evidence = "Table 1 human column. The midpoint rule was declared in models/fornari_2019/notes.md before any simulation and is not read from Figure 4 (the figure shows ~4.7 neutrophils at t = 0). The value matters: Mono0 changes ktr_Mono and thus the CMP/neutrophil time scale."
+    figures = []
     id = "human_baselines"
     kind = "ambiguity"
 

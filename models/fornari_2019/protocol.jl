@@ -31,9 +31,9 @@ const FIXES = [
     Fix("dose_time", :ambiguity,
         "Rat doses given at t = 24 h + 14 d x (0..7) (dose on 'day 1' of the time axis, which starts at day 0); human first dose at t = 0 (second at day 21, see human_schedule).";
         evidence = "Supplement Fig S3 plots the 30 mg/kg PK and Damage on an hour axis starting at 24 h with the dose at the left edge; Table S1 'Carbo dosing days 1, 15, 29...'; Fig 3 shows eight cycles (text: eight cycles) although Table S1 lists 1,15,...,85 for study E in the PDF. The Fig 4 axis starts at day 0 where the red line begins."),
-    Fix("dose_scale", :missing,
-        "Dose of d mg/kg enters the central compartment as d x 0.320 kg x 1000 / 371.25 umol (0.862 umol per mg/kg; 25.9 umol at 30 mg/kg).";
-        evidence = "Supplement S1: rats 'approximately 12 weeks old with a minimum 320g of body weight at the start of dosing' (only a minimum is stated; 0.320 kg is used). Carboplatin molecular weight 371.25 g/mol (PubChem CID 426756), standard constant. First-principles conversion, not fitted. NOTE: the PK curve of Supplement Fig S3 implies about 3.9 umol per mg/kg (a ~1.45 kg rat), i.e. the paper's dose/PK units are internally inconsistent or unstated; that value is only an ungraded diagnostic (dose_scale_from_S3.jl, sensitivity.jl)."),
+    Fix("pk_per_kg", :units,
+        "Table S3 rat PK printed as QC 0.06 '1/h', VCen 0.26 'l', VPer 0.30 'l', CL 0.42 '1/h' (code: liter/hour, liter). Read per kg (L/kg, L/h/kg) with the dose per kg: d mg/kg enters Cen as d x 1000 / 371.25 umol/kg (2.694 umol/kg per mg/kg; 107.7 at 40 mg/kg), Cp = Cen/VCen in umol/L.";
+        evidence = "(1) The rat PK was fitted (S5, Table S3 caption) to in-house 30 mg/kg data and to Siddik et al. 1987 (Biochem Pharmacol 36:1925, supplement ref 1), which reports carboplatin plasma clearance 10.3 mL/min/kg, close to inulin 10.1 mL/min/kg (glomerular filtration only): per kg, CL 0.42 L/h/kg = 7.0 mL/min/kg is consistent; as absolute litres for a 0.320 kg rat (S1) it is 21.9 mL/min/kg, twice the GFR of a drug cleared by filtration alone, and VCen would be 0.81 L/kg (Vss 1.75 L/kg), more than total body water (~0.67 L/kg) for a hydrophilic drug; per kg VCen 0.26 L/kg is extracellular water. (2) The observed in-house 30 mg/kg free-Pt points of Supplement Fig S3 (not a target) at 1, 3, 6, 12, 24 h after dose are matched by the per-kg reading with mean log10 offset 0.00 (rms 0.15 decade); the absolute reading is 3.1x low (pk_units_check.jl). (3) All doses in the paper are per kg (S1: 'dose volume 5ml/kg', Table S1 mg/Kg). Carboplatin MW 371.25 g/mol (PubChem CID 426756). No value is fitted: Table S3 numbers are used unchanged; the 0.320 kg absolute reading (0.862 umol per mg/kg) is kept as a sensitivity run."),
     Fix("human_schedule", :ambiguity,
         "Human simulation: two carboplatin doses of 750 mg, at day 0 and day 21.";
         evidence = "Fig 4 caption (main text): 'Two cycles of 21 days of carboplatin were simulated. Doses were calculated with the Calvert formula ... targeting an AUC ...'. Supplement S11/S12 say 'a single dose'; the figure-specific caption is used because it describes the plotted simulation."),
@@ -48,7 +48,8 @@ const FIXES = [
 fixhas(fixes, id) = any(f -> f.id == id, fixes)
 
 const DOSE_UMOL_PER_MGKG_S3 = 117.0 / 30               # diagnostic only (dose_scale_from_S3.jl, sensitivity.jl), never used in reproduce()
-const DOSE_UMOL_PER_MGKG_PHYS = 0.320 * 1000 / 371.25   # fix dose_scale: S1 minimum body weight 0.320 kg, MW 371.25 g/mol
+const DOSE_UMOL_PER_MGKG_PERKG = 1000 / 371.25         # fix pk_per_kg: umol/kg per mg/kg into VCen 0.26 L/kg (MW 371.25 g/mol)
+const DOSE_UMOL_PER_MGKG_PHYS = 0.320 * 1000 / 371.25   # sensitivity only: Table S3 as absolute litres, 0.320 kg rat (S1 minimum weight)
 const HUMAN_DOSE_UMOL = 750.0 / 371.25 * 1000          # Calvert: 5 x (125 + 25) = 750 mg
 const HUMAN_INFUSION_H = 0.5
 
@@ -69,7 +70,7 @@ end
 function rat_problem(fixes; dose_mgkg = 40.0, ndoses = 8, tend_d = 120.0, dose_scale = nothing, rat_drug_params = rat_drug(), dense = 0.05)
     sys, u0 = haematopoiesis_system(rat_physiology(), rat_drug_params, rat_pk();
         structure = (fixhas(fixes, "eq1_maturation") && fixhas(fixes, "rbc_equation") && fixhas(fixes, "plt_transit_rate")) ? :corrected : :as_printed)
-    scale = dose_scale !== nothing ? dose_scale : DOSE_UMOL_PER_MGKG_PHYS
+    scale = dose_scale !== nothing ? dose_scale : fixhas(fixes, "pk_per_kg") ? DOSE_UMOL_PER_MGKG_PERKG : DOSE_UMOL_PER_MGKG_PHYS
     t0 = fixhas(fixes, "dose_time") ? 24.0 : 0.0
     times = repeated_doses(t0, 336.0, ndoses)
     cb = bolus_callback(sys, sys.Cen, times, dose_mgkg * scale)
@@ -78,7 +79,7 @@ function rat_problem(fixes; dose_mgkg = 40.0, ndoses = 8, tend_d = 120.0, dose_s
     return (; prob, sys, callback = cb, saveat, tend = tend_d * 24)
 end
 
-"""Human problem (single carboplatin dose). `slopes` is :rat (Figure 4a) or :table2 (Figure 4b) or :eq10 (sensitivity only)."""
+"""Human problem (two carboplatin doses with fix human_schedule, else one). `slopes` is :rat (Figure 4a) or :table2 (Figure 4b) or :eq10 (sensitivity only)."""
 function human_problem(fixes; slopes = :table2, tend_d = 42.4, phys = nothing, pk = nothing, infusion = HUMAN_INFUSION_H, dose_umol = HUMAN_DOSE_UMOL, dense = 0.05, dose_times_h = nothing)
     for id in ("eq1_maturation", "rbc_equation", "plt_transit_rate", "human_pk", "human_baselines")
         fixhas(fixes, id) || error("human model needs fix $id (human PK and several human baselines are not given in the paper)")

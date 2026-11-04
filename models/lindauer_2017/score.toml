@@ -70,16 +70,19 @@ ran = true
     [[fixed.fixes]]
     description = "Human V_blood (blood volume entering the PD-1 target amount in blood) set to 5 L = 5e6 uL. The paper gives no human value and Table 1 has no V_blood row; 1400 uL is the mouse blood volume (s006 THETA(18))."
     evidence = "s006 line 'TVV_blood = THETA(18) ; Blood volume' = 1400 (20 g mouse); Figure 4/Results list V_blood among the sensitive human parameters; with 1400 uL the base case is -6.0 / -4.7 (log ratio) instead of -1.29 / -0.39 (identification grid in notes.md)."
+    figures = []
     id = "human_V_blood_5L"
     kind = "missing"
     [[fixed.fixes]]
     description = "Human KdegPD1 = 0.0194 * (70 kg / 0.02 kg)^-0.25 = 0.002522 1/h instead of the printed Table 1 value 0.00246. The Methods state this formula; the printed value is 2.5 % lower and cannot be obtained from it (SLtg, scaled by the same rule, is reproduced exactly: 2.575E-06)."
     evidence = "Methods, equation for KdegPD1_human (BW 20 g / 70 kg, exponent -0.25) vs Table 1 'Value in man' 0.00246; Table S3 SLtg 2.575E-06 = 1.98E-05 * 3500^-0.25."
+    figures = []
     id = "KdegPD1_allometric"
     kind = "typo"
     [[fixed.fixes]]
     description = "Base case of Figure 4 = Table S3 row 4: medium growth rate (L0 0.0036/day) with growth-proportional scaling of SLtg (6.247E-07). The paper does not say which of the six scenarios is the base case (Fig S1: 'one scenario (melanoma, 1)')."
     evidence = "Of the 12 scenario x schedule combinations only medium growth / growth-proportional, Q3W, gives the Figure 4 caption base values (-1.302 / -0.401 vs printed -1.29 / -0.39); next best -1.44 / -0.46."
+    figures = []
     id = "scenario_med_growth"
     kind = "from_target"
 

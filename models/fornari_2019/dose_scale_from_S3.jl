@@ -1,5 +1,7 @@
-# Infers the rat dose-to-amount conversion (umol per mg/kg) from the PK-only Supplement Figure S3 (30 mg/kg dose at t = 24 h).
-# Not part of reproduce(): the resulting number is hard-coded in protocol.jl (DOSE_UMOL_PER_MGKG_S3) with this script as evidence.
+# DIAGNOSTIC ONLY (not used by reproduce()): which dose amount the model LINES of Supplement Figure S3 (labelled 30 mg/kg, dose at t = 24 h)
+# imply with the Table S3 PK. Result: 117 umol in Cen (Damage curve: 132), i.e. about 43 mg/kg under the per-kg reading of Fix pk_per_kg,
+# so the plotted model line does not correspond to the 20 or 30 mg/kg of the caption (paper issue). The graded conversion is
+# 1000/371.25 umol/kg per mg/kg (Fix pk_per_kg, evidence in pk_units_check.jl); DOSE_UMOL_PER_MGKG_S3 is kept for sensitivity.jl.
 # The Figure S3 curves are digitised in reference/ancillary/ (blue free platinum in uM, orange Damage). Only one scale factor is
 # estimated, by linear least squares of the model curve (linear in dose) on the digitised curve; PK and Damage parameters are as printed.
 #   julia --startup-file=no --project=. models/fornari_2019/dose_scale_from_S3.jl

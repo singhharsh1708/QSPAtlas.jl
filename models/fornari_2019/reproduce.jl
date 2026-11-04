@@ -68,7 +68,7 @@ function plot_paper_figures(refs, figdir)
             (i, j) == (1, 1) && M.axislegend(ax; position = :rt, framevisible = false, labelsize = 10)
         end
     end
-    M.Label(fig4[0, 1:2], "Figure 4 regenerated: human, single carboplatin dose (Zandvliet PK, AUC 5)"; fontsize = 16, font = :bold)
+    M.Label(fig4[0, 1:2], "Figure 4 regenerated: human, two 21-day carboplatin cycles (Zandvliet PK, Calvert AUC 5)"; fontsize = 16, font = :bold)
     M.save(joinpath(figdir, "fig4_regenerated.png"), fig4)
     return nothing
 end

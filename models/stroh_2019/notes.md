@@ -45,3 +45,5 @@ Targets digitised and written to `reference/*.csv` and `reference/digitise.toml`
 ## Review (2026-11-04, one round)
 
 MW 150 kDa and human V2 2.6 L were made explicit :missing Fix entries (both runs); the kcleave wording was softened; the Fig 3 traces keep t >= 1 d (min_x rule; contaminated marker points, including one at negative time, were removed; no pass / fail change); the readout stays :from_target. Final grade after review: C.
+
+Self-check (2026-11-04): an independent rebuild from the paper alone was compared with these results; see the Self-check section in `report.md`.

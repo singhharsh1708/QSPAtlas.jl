@@ -88,3 +88,5 @@ Other findings:
 - The equation cross-check findings are in `report.md` (supplement typos for Ceb / FcRn, truncated central-compartment equation, s006 is the initial-estimate stream, RO > 0.01 branch).
 - s007.csv has no observations (DV all "."), so it cannot feed a Turing recalibration.
 - The Fig 3a nominal dose-response was not simulated (not a target).
+
+Self-check (2026-11-04): an independent rebuild from the paper alone was compared with these results; see the Self-check section in `report.md`.

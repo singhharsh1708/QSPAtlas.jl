@@ -41,7 +41,8 @@ kcirc and lambda1..lambda5 (Table 1). They are derived here directly from the st
 1. Rat dose -> amount conversion (mg/kg to umol in Cen) not stated anywhere. Body weight only "minimum 320 g" (S1); molecular weight not given.
    Fig S3 (PK model fit, 30 mg/kg) shows Cp(0) ~ 450 umol/L and a Damage peak ~4.77 => ~117 umol per 30 mg/kg (3.9 umol per mg/kg), which is
    4.5x what 0.32 kg x 371.25 g/mol gives (25.9 umol). Plan: as-published = 0.32 kg and MW 371.25 (the only stated/standard numbers);
-   fix `dose_scale` = value inferred from Fig S3 (PK-only evidence, independent of Fig 3). (Revised after review, see the last section.)
+   fix `dose_scale` = value inferred from Fig S3 (PK-only evidence, independent of Fig 3). (Revised twice, see "Review" and "PK units" below:
+   now Fix `pk_per_kg`, Table S3 per kg, 2.694 umol/kg per mg/kg.)
 2. ODE structural typos (above) - resolved by steady-state consistency (S6) - Fix kind :typo.
 3. RBC equation absent - Fix :missing from S4 (kcirc_Ret definition).
 4. Dose timing: Table S1 'dosing day 1'; Fig S3 x axis (hours) shows dose at t = 24 h; Fig 3 shows 8 doses (day 1,15,...,99; Table S1 lists
@@ -70,7 +71,7 @@ Verification overlay (local only, it contains the paper's figures): figures/digi
 Human-parameter rule (declared before comparing): as-published run uses the midpoint of each printed range (Neut0 4.5, Mono0 5.1, Ret0 77.5, RBC0 5000), the Zandvliet
 PK with 750 mg over 30 min, typical value, dose at t = 0, Table 2 human slopes as printed (b) and rat slopes (a). Sensitivity runs (not graded) afterwards.
 
-## Dose scale evidence (Fig S3, PK-only; decided 2026-11-04 before any Fig 3/4 simulation)
+## Dose scale evidence (Fig S3, PK-only; decided 2026-11-04 before any Fig 3/4 simulation; SUPERSEDED, see "PK units")
 `dose_scale_from_S3.jl`: with Table S3 PK parameters the digitised blue free-Pt line (clean
 terminal phase t >= 27 h, 5.2 ... 0.12 uM) is reproduced within 1-3 % by 117 umol in Cen for 30 mg/kg (3.90 umol per mg/kg; terminal rate 0.1725/h also matches
 the digitised 0.177/h, confirming the PK parameters). The orange Damage curve (peak 4.77) needs 132 umol (4.41 per mg/kg) with kdam = krep = 0.017, i.e. it is ~13 % higher
@@ -87,3 +88,38 @@ Sensitivity runs (`sensitivity.jl`) are summarised in `report.md`, which also ha
 
 ## Review (2026-11-04)
 The review graded the model D, because dose_scale had been set from Fig S3 (a value fitted to a figure). Done: dose_scale = 0.320 kg (S1 minimum weight) x 1000 / 371.25; S3 value 3.9 (~1.45 kg) diagnostic only. human_schedule fix (Fig 4 caption: two 21-day cycles) added. Rescored: Fig 3 all five fail (rms 0.047-0.134), Fig 4 passes only 4b neutrophils (0.0099); grade C. Report corrected.
+
+## PK units (2026-11-04, after the self-check)
+Question: are the Table S3 rat PK values (QC 0.06, VCen 0.26, VPer 0.30, CL 0.42; printed 'l' and '1/h', code 'liter', 'liter/hour')
+absolute or per kg? The independent self-check rebuild read them per kg and reproduced Fig 3. That alone would be choosing a reading by
+matching the target, so it was checked against evidence that does not use Fig 3 or Fig 4 (`pk_units_check.jl`):
+- Dimensions. With per-kg volumes and the dose in umol/kg, Cp = Cen/VCen is umol/L, exactly as with absolute values; the only thing
+  that changes is the amount per litre of central volume, by the factor 1/BW (3.125 for 0.320 kg). Nothing else in the model carries kg.
+- Cited source. The PK was fitted (S5, Table S3 caption) to in-house data and to Siddik et al. 1987 (Biochem Pharmacol 36:1925, supplement
+  ref 1). Siddik's abstract (PubMed 3297068): carboplatin plasma clearance 10.3 mL/min/kg, renal 9.3, inulin 10.1, i.e. glomerular filtration
+  only. Per kg, CL 0.42 L/h/kg = 7.0 mL/min/kg (free Pt, consistent order). Absolute in a 0.320 kg rat: 21.9 mL/min/kg, twice GFR, not possible
+  for a drug cleared by filtration alone.
+- Physiology. Per kg VCen 0.26 L/kg is about extracellular water (0.27 L/kg), Vss 0.56 L/kg. Absolute: VCen 0.81 L/kg and Vss 1.75 L/kg,
+  more than total body water (0.67 L/kg) for a hydrophilic, mostly unbound drug.
+- Observations. The in-house 30 mg/kg 'o' points of Fig S3 (non-target, read by eye from the 100 dpi rendering, 1-24 h after dose):
+  per kg mean log10(obs/model) +0.00, rms 0.15 decade; absolute +0.50 (model 3.1x low). The half-lives cannot discriminate (both readings
+  have the same rate constants); only the level does.
+- Fig S1 (30 mg/kg once, non-target model figure): per kg nadirs MPP 14.5, MEP 8.9, CMP 172, Plt 255, Ret 13.6 vs paper about 12, 8.5,
+  170, 230, 16; absolute 35, 50, 196, 510, 36.
+- Fig S3 model line: 117 umol in Cen is 43 mg/kg per kg, not the 20/30 mg/kg of the caption (paper issue). The earlier 3.90 umol per mg/kg
+  came from that line; it is not used.
+VERDICT: an evidenced :units fix, not a fit. The reading is binary (L or L/kg), no number is tuned, Table S3 values are used unchanged,
+and the evidence (cited source in per-kg units, physiology, the paper's own PK observations) is independent of the target figures.
+Caveat stated in the report: the reading was first suggested by a rebuild that had seen it match Fig 3.
+Fix `pk_per_kg` (:units) replaces `dose_scale`; DOSE_UMOL_PER_MGKG_PERKG = 1000/371.25. Sensitivity (`sensitivity.jl`, log): the 0.320 kg absolute reading fails all five Fig 3 lines (0.068/0.092/0.129/0.134/0.046);
+dose -5 % fails Neut only (0.018), +5 % passes all; first dose at t = 0 passes all.
+Human model: Zandvliet PK is in absolute L and L/h (population model for adults) and the Calvert dose is an absolute mg amount, so the human
+units are consistent as they are; the rat per-kg reading has no counterpart there and Fig 4 scores are unchanged (rat slopes act on Damage
+in umol/L, which is the same quantity in both species once the rat PK is per kg).
+Rescored: fig3 MPP 0.0042, CMP 0.0036, MEP 0.0040, Neut 0.0110, Plt 0.0072 (all pass);
+fig4a neut 0.0693, 4a plt 0.0323, 4b plt 0.0275 fail, 4b neut 0.0099 passes. Grade C (Fig 3 B, Fig 4 C).
+Text checks with the fixed model: platelet nadir 77 % (text 45 %), reticulocyte 96 %
+(text >95 %), peaks 112 % Plt and 120 % Ret of baseline (text 180 % and 290 %); 80 % recovery after the last dose MEP 26 d, MPP 43 d,
+CMP 90 d (text 12, 30, about 50). Fig S1 monocyte panel is a copy of the MPP panel (checked on the rendered PDF). Table 2 human slopes
+equal within-species MEP/CMP IC50 ratios times the rat slopes (0.79, 0.57, 0.67), not Eq 10 (1.44, 1.03, 1.21).
+

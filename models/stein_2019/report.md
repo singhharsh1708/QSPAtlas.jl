@@ -68,9 +68,30 @@ Seven design choices that the paper does not state (details and evidence in `pro
 - Caption says "confidence intervals" for the shaded areas, the legend says "Prediction interval".
 - Time origin: Methods call day 1 the infusion day and list sampling at "days 1, 2, 7..."; the figure shows the first samples at about 0.7-1 d after infusion, so day N is read as t = N d.
 
+## Self-check (2026-11-04)
+
+An independent rebuild from the paper and S1, with separate code (plain OrdinaryDiffEq, no shared code). The data set S1 (s002) was read at run time for its design only (ids, times, tocilizumab and steroid regressors); the values were ignored.
+
+Structure: the closed form and the ODE agree to 3e-13 in log. The derived values match the text (doubling time 0.78 d, ln2/alpha 4.33 d, ln2/beta 217 d against "220").
+
+Same unstated choices, made independently: omega read as SD (the footnote uses omega^2 for shrinkage, Monolix reports omega as an SD, and the variance reading puts the simulated p10 at days 10 to 13 at 350 to 600 against a band of about 700 to 3000), residual included, BLQ not censored, quantile bands from simulated replicates.
+
+VPC (S1 design, 90 patients, 500 replicates, 90 % interval of each percentile; Table 1 values for the reference patient):
+- p10 and p50 fall inside the bands to about day 90. At days 10 to 13: p10 1.3k to 1.8k (band 0.7k to 3k), p50 10.6k to 12.6k (band 9k to 20k).
+- p90 at the peak is about 2x low: 44k to 56k against 75k to 170k. The covariate variant (Table 1 log-Cmax effects, covariates drawn from Table 2 frequencies) gives 68k to 90k, inside the band. This agrees with the comedication sensitivity here, where the right-panel bands pass.
+- After day 150 all percentiles fall below the bands in every variant. In the pooled 185 to 380 d bin: p10 21 to 7.6 against 75 to 110, p50 122 to 55 against 200 to 420, p90 673 to 282 against 800 to 2800. The covariate model (p50 157 at day 183), omega as variance and LOQ handling do not close the gap. The published late bands would need FB x Cmax about 3x higher.
+
+These are the same failures as here (p90 at the peak and the persistence phase). Together with the same structure and reading, they point to the paper side, not a transcription error. Grade unchanged.
+
 ## Review
 
 Independent review, 2026-11-04: the review agreed with grade C (runnable, not matching; the result is failure under an assumed design, not definitive failure of the authors' simulation). Equations, parameters, the SD reading of omega and the s002.csv finding (S1 is simulated) were found sound. One fix round on the review findings: (1) the unstated design choices recorded as Fixes with evidence, as published redefined as the scheduled visits; (2) two misassigned points of the right p90 reference corrected by a stated rule, tolerance unchanged, old and new scores in Targets; (3) replicates 400 to 800 so the MC SE is below the 0.003 rule (max 0.0023); (4) report wording fixed: the assumed design is not published, the 'base model' wording is in Results (not in the caption), MC SE stated correctly. The grade comes from the new scores: still C.
+- The mlxtran code uses `tmax` (lower case) in one branch while the parameter is `Tmax`.
+- The mlxtran comment says non-recipients of a comedication have regressor value 99999; the data set S1 uses 9999. No effect, because the time is clipped at Tmax.
+- Table 1 gives the Log Cmax covariate effects as negative numbers (-0.63, -0.36), which only make sense as exp(theta x), not as theta^x in Eq. 6.
+- The text says Cmax is "twofold" higher with tocilizumab, while the Table 1 effect of 0.44 gives exp(0.44) = 1.55.
+- The text links Figure 3a to the base model, but Table 1 holds the parameters of the full covariate model. No base-model estimates are published, so the base model of Fig 3a cannot be run as described.
+
 
 ## What would raise the grade
 
@@ -79,3 +100,7 @@ An A or B needs the authors' VPC specification (comedication regressors per pati
 ## Files
 
 `model.jl`, `protocol.jl`, `reproduce.jl`, `reference/` (6 band CSVs, `digitise.toml`, `trace_fig3a.jl`, `check_overlay.jl`), `figures/comparison.png` (as published), `figures/comparison_fixed.png`, `figures/fig3.png` (regenerated simulated bands with one simulated cohort at nominal visit days; the paper's data and empirical lines are not shown), `figures/digitise_check*.png` (local only), `score.toml`. Notes: `notes.md`.
+
+## Literature check (2026-11-04)
+
+The paper's Results tie the Figure 3 VPC to the base model. The Monolix project files in the supplement enter comedication per patient as time-of-first-dose regressors, and values below the limit of quantification as censored data that are simulated in the VPC. The caption's 10th, 50th and 90th percentiles with 90 % intervals match Monolix defaults (500 simulations). The supplement writes "variance omega^2", consistent with Table 1 reporting omega as a standard deviation. The FDA clinical pharmacology review of tisagenlecleucel is not publicly available.

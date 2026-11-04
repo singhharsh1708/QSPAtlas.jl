@@ -61,6 +61,12 @@ Not applied: the s006 `IF(ROtumor>0.01) DE = SLtg*ROtumor` branch (tested with i
 - Table 1: V2 described as "central compartment" volume; Fig 1 legend calls Ce_b the "pembrolizumab:PD-1 complex in the endosomal space" (it is the FcRn-bound antibody); SLtg unit "%/day" vs "1/%day"; L1 "uL/day" vs "mm3/day".
 - Methods says the sensitivity response was "percentage change from baseline in tumour volume"; Fig 4 plots log10 ratio. Fig 3a caption says "over 6 months" but the x axis is dose.
 - Dose handling in humans (bolus vs infusion, body weight) is not stated; bolus and 70 kg used (no effect at the 26 week readout).
+- The s003 flowchart (Fig S1) says the one-way sensitivity analysis takes "one scenario (melanoma, 1) and typical response (no uncertainty)". This names a numbered scenario 1 for Fig 4, which supports the choice of a single base scenario. The scenario number does not settle the row: Table S3 lists fast / allometric first, which gives a base of -1.54 / -0.55 (caption -1.29 / -0.39), while the Fig 3a legend lists medium growth / growth-proportional first, which gives -1.302 / -0.401. An independent rebuild found both orders and chose the second. This is supporting evidence for `scenario_med_growth`, not proof.
+- PLQ is defined in Table 1 as plasma flow per volume of tumour tissue, but s006 multiplies it by the vascular volume V_vs (7 % of the tumour). The lymph flow L (a fraction of PLQ) is scaled the same way. The code was followed.
+- Lymph drainage is not returned to plasma. Plasma receives PLQ x Cvs, not (PLQ - L) x Cvs, and the interstitial lymph drainage (1 - v_ref_is) L Cis leaves the system. Mass is not conserved. Code and supplement text agree; the effect is small in absolute terms.
+- The blood PD-1 concentration counts receptors in V_blood (N_PD1_TC x N_Tcell x V_blood) but divides by V1 (s006 line 100). With the human V_blood of 5 L and V1 of 2.877 L the two volumes differ, so the concentration is not a count per blood volume. Using V1 in place of V_blood gives a base of -1.46 / -0.63, which is ruled out by the caption.
+- Tumour target production kin is a fixed amount per hour, while C_PD1_t = M_PD1_t / V_is. As the tumour shrinks, the target concentration rises to hundreds of nM. In the base case Cis falls from about 50 nM to about 0.05 nM after about day 30 and RO_tumour falls from about 100 % to about 37 %. This follows the published code and drives most of the bar pattern, including the saturated bars.
+
 
 ## What would raise the grade
 
@@ -72,6 +78,16 @@ Not applied: the s006 `IF(ROtumor>0.01) DE = SLtg*ROtumor` branch (tested with i
 
 Licence of article and supplements: CC BY-NC-ND 4.0 (XML `<permissions>`); the dataset s007.csv is not copied here. It is a 22-row stub (header + study 3832 IDs 2001-2008 only, all DV values `.`): it holds NO observations, so it cannot be used for a Turing recalibration. Column layout (for a real dataset): STUDY, ID, TAFD (days after first dose), TAI, TAFDH (h), TAIH, AMT (ug), AMTM, DV, EVID, VARID (1 = plasma PK mg/L, 2 = tumour volume mm3, 3 = RO blood, 4 = RO tumour), DOSE (mg/kg), BQL, LNDV.
 
+## Self-check (2026-11-04)
+
+An independent rebuild from the paper XML, the supplement (s001 to s006) and the figure images, with separate code (plain OrdinaryDiffEq, Rodas5P, reltol 1e-10, abstol 1e-12) and no shared code. It agrees with this model:
+- Base case with the Table 1 KdegPD1 (0.00246): -1.302 / -0.401 at 5 / 0.5 mg/kg, the same as here with that setting. With the allometric KdegPD1 (0.00252): -1.294 / -0.391. With Table 1 roundings (gamma 2.3, Tmulti 4.3): -1.339 / -0.416.
+- The same unstated choices, made independently: medium growth / growth-proportional scenario, Q3W, 70 kg, V_blood 5 L. Checks it ran: fast / allometric gives -1.54 / -0.55; Q2W gives -1.42 / -0.56; 80 kg gives -1.35 / -0.45; V_blood 5.2 L gives -1.289 / -0.384 and 4.9 L gives -1.308 / -0.409.
+- 58 of 64 bars within 0.05 log10 (mostly 0.02 to 0.03), the same count as here.
+- The same six failing bars. L (5 mg/kg): -1.505 / -0.844 against published -0.81 / -1.54; L (0.5 mg/kg): -0.987 / -0.011 against 0.01 / -0.97. Gamma x5: -7.03 / -2.67 against -2.77 / -1.80. The gamma x5 values do not change with solver or tolerance (Rodas5P and Rosenbrock23, reltol 1e-3 to 1e-10), and no single rescaling of gamma reproduces both published bars.
+
+New evidence: the s003 flowchart names "scenario 1" for the sensitivity analysis (see Issues). It supports the scenario choice but the fix stays `:from_target`, because the row is still identified with the caption base values. New paper issues from the rebuild are listed under Issues (PLQ volume, lymph drainage, blood PD-1 volume, fixed target production). Grade unchanged.
+
 ## Review
 
 Independent review, 2026-11-04. The review argued for D (no human blood volume in the paper); the final decision is C: under the atlas rule (docs/src/method.md) a gap filled from a standard physiological constant (human blood volume 5 L) is a valid `:missing` fix, and the reproduction still does not match. Fixes made in the review round:
@@ -79,3 +95,7 @@ Independent review, 2026-11-04. The review argued for D (no human blood volume i
 2. Failed solves return NaN (no finite stand-in) and score as maximum error.
 3. Targets switched to `kind: bars` with simulated values at exactly the reference x (step-function encoding removed); scores and tables above regenerated, grade C unchanged.
 4. Wording: line 5 no longer says the model cannot be run; baseline values reported as -1.294 / -0.391; L swap and gamma 5x explanations softened; RO <= 0.01 % branch also tested in the gamma runs (no effect).
+
+## Literature check (2026-11-04)
+
+The lymph flow L is defined in the supplementary NONMEM code as 0.002 x plasma flow x vascular volume, consistent with this implementation, so the apparent swap of the L bars in Figure 4 is not explained by a different definition. Q3W dosing is the primary schedule in the paper and in the FDA review of pembrolizumab. The human blood volume, the base-case scenario of Figure 4 and the derivation of the Table 1 KdegPD1 (0.00246) were not found in any public source; only the mouse blood volume (1400 uL) is published.

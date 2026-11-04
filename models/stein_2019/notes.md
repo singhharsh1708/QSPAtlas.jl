@@ -35,3 +35,5 @@ rms: left p10 0.107, p50 0.058, p90 0.033; right p10 0, p50 0.005, p90 0.052 (tw
 - Reference: two misassigned points of right p90 (x = 8.8772 and 9.9825) dropped by an outlier rule (documented in `reference/digitise.toml` and `reference/trace_fig3a.jl`). Tolerance unchanged.
 - Replicates 800 (400 gave a maximum MC SE of 0.0034, above 0.003; 800 gives 0.0023). `reproduce()` takes about 186 s in a fresh session.
 - New scores: as published, rms left p10 0.108, p50 0.059, p90 0.047, right p10 0, p50 0.010, p90 0.026; with fixes, left 0.108 / 0.060 / 0.035, right 0 / 0.006 / 0.024. Grade C. The comedication sensitivity passes 4 of 6 bands (left p10 and p50 fail) and is a lead only.
+
+Self-check (2026-11-04): an independent rebuild from the paper alone was compared with these results; see the Self-check section in `report.md`.

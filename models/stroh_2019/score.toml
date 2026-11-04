@@ -371,16 +371,19 @@ ran = true
     [[fixed.fixes]]
     description = "mg/kg doses are converted to nM with MW = 150 kDa (model.jl MW). Applied in BOTH the as-published and the fixed run."
     evidence = "The paper gives no molecular weight. 150 kDa is the standard IgG1 mass (Pb-Tx adds a prodomain, so the true mass is somewhat higher; value is a standard constant, not read from the figure). Consistency only, not the source: 4.5 mg/kg x 70 kg / 150 kDa / 2.6 L = 808 nM."
+    figures = []
     id = "molecular_weight_150kDa"
     kind = "missing"
     [[fixed.fixes]]
     description = "Human peripheral volume V2 = 2.6 L (not in Table 2). Applied in BOTH the as-published and the fixed run."
     evidence = "Derived from the paper's own tables: Table 1 monkey receptor concentration 9.0e-5 nmol/s / (1e-4 1/s * 0.1 L) = 9 nM; Results state normal-tissue receptor concentration is assumed equal in human; Table 2 ksynR peripheral 2.3e-3 nmol/s / (1e-4 * 9 nM) = 2.56 L ~ 2.6 L (= V1)."
+    figures = []
     id = "human_V2_2.6L"
     kind = "missing"
     [[fixed.fixes]]
     description = "Figure 4b,c periphery/tumour 'Total Drug' is read as the sum of the six UNBOUND forms. The as-published run used the other reading (unbound + target-bound, the same sum as for plasma)."
     evidence = "The paper does not define which forms 'Total Drug' sums in periphery and tumour (neither reading is the published one). The unbound reading was chosen because it matches Fig 4b,c for mAb0,0 and 10x (e.g. mAb ~1e-2 nM in tumour, far below the 270 nM target level, Table 2); selected by comparison with the figure, hence circular."
+    figures = []
     id = "unbound_readout"
     kind = "from_target"
 

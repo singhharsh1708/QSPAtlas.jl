@@ -46,7 +46,8 @@ next interval, and infusions longer than `ii` are carried across intervals and i
 main simulation.
 
 Two differences from NONMEM are deliberate. The iteration starts from the model's initial
-conditions rather than from zero, which matters for models with endogenous baselines (cell
+conditions rather than from zero (mrgsolve starts from the state at the steady-state
+record), which matters for models with endogenous baselines (cell
 counts, receptors) and gives the same answer for linear PK. Steady state is refused for
 models whose equations depend on time explicitly (for example a resistance term
 `exp(-δ t)`), because a periodic state does not exist there; `SteadyStateOptions(allow_time_dependent = true)`
@@ -58,8 +59,19 @@ of the cohort is simulated.
 ### Resets
 
 `Reset(time)` returns every state to its initial conditions and cancels running infusions
-and lagged doses that have not yet been given (NONMEM EVID 3). A reset followed by a dose
-at the same time (EVID 4) applies the reset first, then the dose with its own lag.
+and lagged doses that have not yet been given (NONMEM EVID 3); later `addl` doses are kept.
+A reset followed by a dose at the same time (EVID 4) applies the reset first, then the dose
+with its own lag.
+
+### Observations at event times
+
+An observation at the same time as a dose, an infusion change, a reset or a covariate
+change sees the state after the event (mrgsolve `recsort = 3`).
+
+### Validation
+
+The dosing semantics above were checked case by case against mrgsolve; see
+[Validation](validation.md).
 
 ## Subjects and population models
 

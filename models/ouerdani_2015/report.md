@@ -58,10 +58,36 @@ No :code fix: the NONMEM structural models agree with Eq. 1 and the n values in 
 - Table 1 unit for gamma0 and alpha0 is "day-1", but with Eqs. 2-3 their units also include (ug*h/mL)^-beta. Units row "mm3 | mm" for K0 and the residual error is a combined preclinical/clinical entry (fine, but easy to misread).
 - The text says n in mice was "not identifiable" and tested over 0.5 to 3; the value n = 1 for mice is stated only in the text and in the code, not in Table 1. Table 1 has no row for n at all (n = 0.5 in patients appears only in the Results text).
 - Supplement code s001/s004 carry initial estimates, not the Table 1 values (can mislead anyone using the code as the final model).
+- Table 1 gives the unit of b as "day-1". That holds only for n = 1 (mice). For patients (n = 0.5) the equation dK/dt = b P^n needs b in mm^0.5 per day; in general the unit is (size)^(1-n) per day. The units of alpha0 and gamma0 are also wrong when beta is not 0 (see above).
+- In the NONMEM code (s001, s004) THETA(10) is used twice: as the scale on ETA(2) in V0 and as the proportional error term in `W=SQRT(THETA(10)*IPRED**2+THETA(11)**2)`, where it acts as a variance, while Table 1 gives the proportional error as an SD in %. No effect on a typical-value simulation.
+
 
 ## What would raise the grade
 
 An A needs the authors' stated P0 and dose/exposure for Figure 4 so that no input has to be read off the target itself. Individual baselines and the ".csv" datasets (Clinical_data.csv, NMCaki2.csv) are not published; a stated typical P0 and the dose group would be enough.
+
+## Self-check (2026-11-04)
+
+An independent rebuild from the paper alone (Eqs. 1-3, Table 1, the NONMEM code in s001/s004, the Figure 4 image), with separate code (plain OrdinaryDiffEq, Rodas5P, abstol = reltol = 1e-10) and no shared code. Numerical comparison with this model's curves (same patient AUC, 771.6):
+
+| curve | max abs difference |
+|---|---|
+| mice P | 0.003 mm^3 |
+| mice K | 0.0007 mm^3 |
+| patients P | 0.2 mm (at t = 0) |
+| patients K | 0.06 mm |
+
+The only input that differs is the patient P0: 67 mm in the rebuild, 66.8 mm here (both read from the figure), which explains the 0.2 mm at t = 0.
+
+The rebuild made the same unstated choices independently:
+- Mouse dose group 100 mg/kg (AUC 1140.8). Its scan of all three AUCs gives the same ranking as the sensitivity above (P at day 75: 95, 30, 13.7 for 220.2, 656.8, 1140.8).
+- Mouse P0 = 150 mm^3, read from the figure.
+- Treatment continuous to 75 d and 82 months, 30.4375 days per month.
+- Patient AUC: it preferred 800 (Table S2) to 771.6. At 82 months the end values are P 47.20 / K 45.65 (AUC 800) and 47.66 / 46.10 (AUC 771.6), against about 47.2 / 45.6 in the figure. This agrees with the sensitivity result here (800 fits K tighter).
+
+It found the same inconsistencies in the paper: the units of b, alpha0 and gamma0, THETA(10) used twice, and code initial estimates that are not the Table 1 values. It found no transcription problem that changes the figure.
+
+What this does not change: P0 and the mouse dose group were again taken from Figure 4, so they are not independent evidence and the dagger stays. Grade unchanged.
 
 ## Review
 
@@ -70,3 +96,7 @@ Independent review, 2026-11-04. Equations, Table 1 values, the NONMEM cross-chec
 ## Files
 
 `model.jl`, `protocol.jl`, `reproduce.jl`, `reference/` (4 CSVs, `digitise.toml`, `trace_fig4.jl`, `check_overlay.jl`), `figures/comparison.png`, `figures/fig4.png` (regenerated paper layout), `notes.md`, `score.toml`. Note: the skeleton in `models/README.md` uses `include(...)`, which fails inside a bare `Module()`; this model uses `Base.include(@__MODULE__, ...)`.
+
+## Literature check (2026-11-04)
+
+The first author's PhD thesis (A. Ouerdani, Université Grenoble Alpes, 2016, HAL tel-01496174, https://theses.hal.science/tel-01496174v1/document) reproduces Figure 4 at higher resolution. Read from it and re-simulated: the mouse panel starts at P0 of about 150 mm^3 and matches only the 100 mg/kg group (AUC 1140.8), and the patient panel starts near 67 mm; the patient end values match the exposure predicted at 800 mg (802.4) slightly better than the mean 771.6 (a difference of about 0.5 mm). Neither text states P0, the dose group or the days-to-months conversion, so the two fixes stay `:from_target`.

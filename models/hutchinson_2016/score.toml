@@ -240,89 +240,102 @@ ran = true
     [[fixed.curves]]
     figure = "Figure 6a, no chemotherapy, tumour volume T (black)"
     id = "fig6_a_T"
-    max = 0.1786
+    max = 0.0904
     n_points = 70
-    p95 = 0.1762
+    p95 = 0.08785
     passed = false
-    rms = 0.1093
+    rms = 0.04872
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6a, no chemotherapy, carrying capacity V (magenta)"
     id = "fig6_a_V"
-    max = 0.1681
+    max = 0.0803
     n_points = 70
-    p95 = 0.1603
+    p95 = 0.07463
     passed = false
-    rms = 0.1058
+    rms = 0.03741
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6b, chemotherapy days 42-49, tumour volume T (black)"
     id = "fig6_b_T"
-    max = 0.2707
+    max = 0.6031
     n_points = 70
-    p95 = 0.2528
+    p95 = 0.5975
     passed = false
-    rms = 0.1788
+    rms = 0.3864
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6b, chemotherapy days 42-49, carrying capacity V (magenta)"
     id = "fig6_b_V"
-    max = 0.217
+    max = 0.5642
     n_points = 70
-    p95 = 0.2091
+    p95 = 0.546
     passed = false
-    rms = 0.1566
+    rms = 0.3404
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6c, chemotherapy days 54-61, tumour volume T (black)"
     id = "fig6_c_T"
-    max = 0.0804
+    max = 0.1912
     n_points = 70
-    p95 = 0.07786
+    p95 = 0.1855
     passed = false
-    rms = 0.05333
+    rms = 0.0986
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6c, chemotherapy days 54-61, carrying capacity V (magenta)"
     id = "fig6_c_V"
-    max = 0.1011
+    max = 0.1764
     n_points = 70
-    p95 = 0.09474
+    p95 = 0.1627
     passed = false
-    rms = 0.07773
+    rms = 0.07984
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6d, chemotherapy days 38-59, tumour volume T (black)"
     id = "fig6_d_T"
-    max = 0.2857
+    max = 0.3909
     n_points = 70
-    p95 = 0.2846
+    p95 = 0.3852
     passed = false
-    rms = 0.2411
+    rms = 0.3195
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6d, chemotherapy days 38-59, carrying capacity V (magenta)"
     id = "fig6_d_V"
-    max = 0.2806
+    max = 0.3951
     n_points = 70
-    p95 = 0.2633
+    p95 = 0.3804
     passed = false
-    rms = 0.2008
+    rms = 0.2951
     tol_p95 = 0.03
     tol_rms = 0.015
 
     [[fixed.fixes]]
     description = "Initial carrying capacity V0 = K*T0 instead of the printed K = T0/V0 (i.e. V0 = T0/K)."
     evidence = "Methods before Eq. 6 prints K = T0/V0; Table 1 describes K as 'Initial ratio of V/T'; supplement MLXTRAN code (s004) has V_0 = K*X, T_0 = X; Fig 2b starts at V(38) = 140 = K*T0 with K = 2, T0 = 70 as stated in the caption."
+    figures = []
     id = "K_is_V_over_T"
     kind = "typo"
+    [[fixed.fixes]]
+    description = "Figure 6: the resistance factor of Eq. 7 is exp(-lambda (t - tCon)), timed from the start of chemotherapy, instead of exp(-lambda t) with t read as days since inoculation."
+    evidence = "Eq. 7 writes exp(-lambda t) and nowhere defines the origin of t; the text says resistance builds up during chemotherapy and is likely to matter more in Fig 6(d) (long course) than in Fig 6(c). Both readings are textually possible; the one used is stated here. No parameter value is changed."
+    figures = ["fig6"]
+    id = "resistance_clock_from_tCon"
+    kind = "ambiguity"
+    [[fixed.fixes]]
+    description = "Figure 6: T0 = 80 mm^3 (Methods mean of 70 mm^3 not used) because the curves of all four panels start at T of about 80."
+    evidence = "The paper gives no T0 for Figure 6. Value read from the starting point of the T curves in Figure 6 itself (a protocol input, not a model parameter); an independent rebuild from the paper alone read the same 80. Circular for this one value, hence the dagger."
+    figures = ["fig6"]
+    id = "T0_fig6_from_figure"
+    kind = "from_target"
 
 [published]
 error = ""
