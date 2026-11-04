@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/src/assets/logo.png" alt="QSPAtlas logo" width="120"></p>
+
 # QSPAtlas.jl
 
 **Can published pharmacometric and QSP models be rebuilt from their papers?** This

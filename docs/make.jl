@@ -135,7 +135,8 @@ makedocs(;
     repo = Remotes.GitHub("singhharsh1708", "QSPAtlas.jl"),
     modules = [QSPAtlas],
     format = Documenter.HTML(; prettyurls = get(ENV, "CI", "false") == "true", size_threshold = 400_000,
-        canonical = "https://singhharsh1708.github.io/QSPAtlas.jl/", edit_link = "main"),
+        canonical = "https://singhharsh1708.github.io/QSPAtlas.jl/", edit_link = "main",
+        assets = ["assets/favicon.ico"]),   # logo.svg in assets/ is picked up for the sidebar
     pages = [
         "Home" => "index.md",
         "Method" => "method.md",
