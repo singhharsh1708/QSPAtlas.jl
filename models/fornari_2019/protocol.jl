@@ -152,6 +152,6 @@ function benchmark_setups()
     h = human_problem(FIXES; slopes = :table2)
     return [
         BenchmarkSetup(; name = "fornari_2019 rat, carboplatin 40 mg/kg x8 q14d (Fig 3)", prob = r.prob, callback = r.callback, saveat = r.saveat),
-        BenchmarkSetup(; name = "fornari_2019 human, single dose, Table 2 slopes (Fig 4b)", prob = h.prob, callback = h.callback, saveat = h.saveat),
+        BenchmarkSetup(; name = "fornari_2019 human, two 21-day cycles, Table 2 slopes (Fig 4b)", prob = h.prob, callback = h.callback, saveat = h.saveat),
     ]
 end
