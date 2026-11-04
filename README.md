@@ -68,6 +68,20 @@ p = percentiles(res, :P; q = (0.05, 0.5, 0.95))
 
 Full script: [`examples/population_ouerdani.jl`](examples/population_ouerdani.jl).
 
+**Performance.** Measured on a standard GitHub Actions runner (4 threads, Intel Xeon
+Platinum 8573C, Julia 1.10) by the Benchmarks workflow
+([`benchmarks/population/run.jl`](benchmarks/population/run.jl)); median of 3 runs after
+compilation.
+
+| model | 100 subjects | 1,000 subjects | 10,000 subjects |
+|---|---|---|---|
+| Ouerdani 2015 tumour model (2 states) | 0.14 s | 1.2 s | 15 s |
+| Two-compartment PK, 28 infusions, weight covariate | 0.15 s | 1.3 s | 15 s |
+
+About 1.5 ms per simulated subject, linear in cohort size. A visual predictive check with
+200 replicates of a 100-subject cohort (20,000 simulated subjects, 3 quantiles, 14 bins)
+takes 33 s.
+
 ## How it works
 
 ```

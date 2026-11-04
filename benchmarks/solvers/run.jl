@@ -28,6 +28,7 @@ const SOLVERS = [
     Dict(:alg => FBDF()), Dict(:alg => QNDF()), Dict(:alg => KenCarp4()), Dict(:alg => TRBDF2()),
 ]
 const ABSTOLS = 1.0 ./ 10.0 .^ (6:11)
+const LEVEL_SECONDS = 10.0  # wall time allowed for one tolerance level (3 timed solves plus the error estimate)
 const PROBE_SECONDS = 5.0   # wall time of one solve at the loosest tolerance, after compilation
 const RELTOLS = 1.0 ./ 10.0 .^ (3:8)
 
@@ -76,16 +77,30 @@ function bench_one(id, b)
             push!(rows, (; solver = name, ok = false, note = "too slow: probe took $(round(tprobe; digits = 1)) s"))
             continue
         end
-        wp = try
-            benchmark_problem(b, [s]; reference_alg = refalg, abstols = ABSTOLS, reltols = RELTOLS, numruns = 5, maxiters = 10^5)  # same step budget as the probe: a solver that needs more is too slow to time
-        catch e
-            push!(rows, (; solver = name, ok = false, note = first(sprint(showerror, e), 120)))
-            continue
+        # Walk the tolerance grid from loose to tight, one level at a time, and stop a solver
+        # at the first level that fails, gives a non-finite error, or takes longer than
+        # LEVEL_SECONDS. A solver that cannot keep up is reported up to where it got, instead
+        # of grinding through the tight tolerances with a growing dense solution (on GitHub
+        # runners that ran out of memory).
+        good = Tuple{Float64, Float64}[]
+        stopped = ""
+        for (a, r) in zip(ABSTOLS, RELTOLS)
+            local wp
+            tl = @elapsed wp = try
+                benchmark_problem(b, [s]; reference = refsol, abstols = [a], reltols = [r], numruns = 3, maxiters = 10^5)
+            catch e
+                stopped = first(sprint(showerror, e), 120)
+                nothing
+            end
+            wp === nothing && break
+            w = wp.wps[1]
+            e = w.errors[1] isa NamedTuple ? w.errors[1].L2 : w.errors[1]   # DiffEqDevTools 3: NamedTuple per tolerance; dense L2
+            (isfinite(e) && e > 0 && isfinite(w.times[1])) || (stopped = "non-finite error at abstol $a"; break)
+            push!(good, (e, w.times[1]))
+            GC.gc()
+            tl > LEVEL_SECONDS && (stopped = "stopped at abstol $a: level took $(round(tl; digits = 1)) s"; break)
         end
-        w = wp.wps[1]
-        l2 = [e isa NamedTuple ? e.L2 : e for e in w.errors]   # DiffEqDevTools 3: one NamedTuple per tolerance; dense L2
-        good = [(e, t) for (e, t) in zip(l2, w.times) if isfinite(e) && isfinite(t) && e > 0]
-        isempty(good) && (push!(rows, (; solver = name, ok = false, note = "no finite errors")); continue)
+        isempty(good) && (push!(rows, (; solver = name, ok = false, note = isempty(stopped) ? "no finite errors" : stopped)); continue)
         scatterlines!(ax, first.(good), last.(good); label = name)
         push!(rows, (; solver = name, ok = true, errors = first.(good), times = last.(good)))
     end

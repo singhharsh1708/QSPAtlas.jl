@@ -47,8 +47,12 @@ using QSPAtlas, Test
                 for c in run.curves
                     w = get(want, c.ref.id, nothing)
                     @test w !== nothing && w["passed"] == c.comparison.passed
-                    # numbers must not drift either: score.toml stores 4 significant digits
-                    w === nothing || @test isapprox(c.comparison.rms, w["rms"]; rtol = 1e-3, atol = 1e-5)
+                    # numbers must not drift either: score.toml stores 4 significant digits. Band
+                    # targets are scored from Monte Carlo simulations, whose percentiles move by up to
+                    # their Monte Carlo error (kept below 0.003 of the axis) when package versions
+                    # change, so they get that allowance; pass/fail above must still match exactly.
+                    atol = c.ref.kind === :band ? 3e-3 : 1e-5
+                    w === nothing || @test isapprox(c.comparison.rms, w["rms"]; rtol = 1e-3, atol)
                 end
             end
         end

@@ -17,10 +17,10 @@ end
 BenchmarkSetup(prob; kw...) = BenchmarkSetup(; prob, kw...)
 
 """
-    benchmark_problem(setup, solvers; reference_alg, abstols, reltols, numruns = 10, kwargs...)
+    benchmark_problem(setup, solvers; reference_alg = nothing, reference = nothing, abstols, reltols, numruns = 10, kwargs...)
 
 Work-precision set for one model problem. Solves a reference with `reference_alg` at
-abstol = reltol = 1e-12, then times every solver in `solvers` (DiffEqDevTools
+abstol = reltol = 1e-12 (or uses `reference`, a solution computed that way beforehand), then times every solver in `solvers` (DiffEqDevTools
 format, e.g. `[Dict(:alg => Tsit5())]`) across the tolerance grid.
 
 Error is the dense L2 error (`error_estimate = :L2`, `dense_errors = true`): both
@@ -30,10 +30,11 @@ each dose time twice (before and after the jump) and the comparison then measure
 dose size instead of the solver error. `saveat` is therefore not passed to the timed
 solves; timings include dense output.
 """
-function benchmark_problem(b::BenchmarkSetup, solvers; reference_alg, abstols = 1.0 ./ 10.0 .^ (5:10),
-        reltols = 1.0 ./ 10.0 .^ (2:7), numruns = 10, kwargs...)
+function benchmark_problem(b::BenchmarkSetup, solvers; reference_alg = nothing, reference = nothing,
+        abstols = 1.0 ./ 10.0 .^ (5:10), reltols = 1.0 ./ 10.0 .^ (2:7), numruns = 10, kwargs...)
     kw = b.callback === nothing ? (;) : (; callback = b.callback)
-    ref = solve(b.prob, reference_alg; abstol = 1e-12, reltol = 1e-12, kw...)
+    reference === nothing && reference_alg === nothing && throw(ArgumentError("give reference_alg or a precomputed reference solution"))
+    ref = reference === nothing ? solve(b.prob, reference_alg; abstol = 1e-12, reltol = 1e-12, kw...) : reference
     return WorkPrecisionSet(b.prob, abstols, reltols, solvers; appxsol = TestSolution(ref), error_estimate = :L2,
         dense_errors = true, numruns, names = [string(nameof(typeof(s[:alg]))) for s in solvers], kw..., kwargs...)
 end
