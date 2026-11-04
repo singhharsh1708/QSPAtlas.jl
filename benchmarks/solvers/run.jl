@@ -32,11 +32,14 @@ const LEVEL_SECONDS = 10.0  # wall time allowed for one tolerance level (3 timed
 const PROBE_SECONDS = 5.0   # wall time of one solve at the loosest tolerance, after compilation
 const RELTOLS = 1.0 ./ 10.0 .^ (3:8)
 
+# Reference solution at 1e-12. Vern9 gets a small step budget so that on a stiff model it
+# fails fast instead of storing millions of dense steps (that exhausted the memory of GitHub
+# runners); Rodas5P then computes the reference.
 function try_reference(b)
-    for alg in (Vern9(), Rodas5P())
+    for (alg, maxiters) in ((Vern9(), 10^5), (Rodas5P(), 10^7))
         kw = b.callback === nothing ? (;) : (; callback = b.callback)
         sol = try
-            solve(b.prob, alg; abstol = 1e-12, reltol = 1e-12, maxiters = 10^7, kw...)
+            solve(b.prob, alg; abstol = 1e-12, reltol = 1e-12, maxiters, kw...)
         catch
             nothing
         end
