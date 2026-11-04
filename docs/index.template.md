@@ -1,5 +1,8 @@
 # QSP Reproducibility Atlas
 
+> **Work in progress.** These readings of the papers have not yet been checked with the
+> papers' authors. Corrections are welcome: please open an issue on [GitHub](https://github.com/singhharsh1708/QSPAtlas.jl/issues).
+
 Published PK/PD and quantitative systems pharmacology (QSP) models, rebuilt from their
 papers in Julia ([ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl),
 [OrdinaryDiffEq.jl](https://github.com/SciML/OrdinaryDiffEq.jl)), checked against the

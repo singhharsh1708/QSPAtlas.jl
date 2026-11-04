@@ -2,6 +2,9 @@
 
 # QSPAtlas.jl
 
+> **Work in progress.** These readings of the papers have not yet been checked with the
+> papers' authors. Corrections are welcome: please open an issue.
+
 **Can published pharmacometric and QSP models be rebuilt from their papers?** This
 repository rebuilds published PK/PD and quantitative systems pharmacology models in
 Julia ([ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl),
