@@ -70,6 +70,17 @@ means one badly traced point cannot fail a curve on its own; the maximum is stil
 reported. A model may set a different tolerance for a curve, with the reason stated
 before comparing.
 
+## Population figures
+
+Figures that show population spread (visual predictive checks) are graded only on the
+authors' simulated quantities: shaded intervals of simulated percentiles are `band`
+references, scored as zero inside the interval and as the vertical distance to the nearer
+edge outside it; simulated percentile lines use the `vertical` metric, compared at matched
+times. Lines computed from observed data are never grade-bearing. The cohort design, bins,
+quantile definition, residual error and number of replicates are fixed before comparing,
+and replicates are added until the Monte Carlo error is small next to the tolerance. See
+[Population simulation](simulation.md).
+
 ## Regression testing
 
 `test/runtests.jl` runs every `models/*/reproduce.jl` in a fresh module and checks

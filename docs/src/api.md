@@ -38,6 +38,9 @@ doses
 resolve
 dosing_callback
 Reset
+reset_times
+steady_state_cycle
+with_steady_state
 SteadyStateOptions
 SteadyStateError
 ErrorModel
@@ -60,4 +63,13 @@ plot_vpc
 grade_label
 from_target
 figure_grades
+```
+
+## Internals
+
+Helpers that are not exported but are documented for contributors.
+
+```@autodocs
+Modules = [QSPAtlas]
+Public = false
 ```

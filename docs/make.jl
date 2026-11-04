@@ -38,8 +38,19 @@ for id in model_ids()
     report = replace(report, r"\]\((\./)?figures/" => "](../assets/models/$id/")
     open(joinpath(GEN, "$id.md"), "w") do io
         println(io, report)
-        if isfile(joinpath(figdir, "comparison.png")) && !occursin("comparison.png", report)
-            println(io, "\n## Comparison with digitised figure points\n\n![comparison](../assets/models/$id/comparison.png)\n")
+        # every figure the model produces, comparison plot first
+        if isdir(figdir)
+            figs = sort([f for f in readdir(figdir) if endswith(f, ".png") && !startswith(f, "digitise_check")];
+                by = f -> (!startswith(f, "comparison"), f))
+            if !isempty(figs)
+                println(io, "\n## Figures\n")
+                for f in figs
+                    caption = startswith(f, "comparison") ?
+                        "Simulation (blue) against points digitised from the paper's figure (black), per target curve" :
+                        "Regenerated in the paper's layout: " * replace(f[1:(end - 4)], "_" => " ")
+                    println(io, "![", caption, "](../assets/models/$id/", f, ")\n\n*", caption, ".*\n")
+                end
+            end
         end
         s = get(scores, id, nothing)
         if s !== nothing
@@ -63,6 +74,9 @@ end
 npass(r) = (isempty(r) || !get(r, "ran", false)) ? "did not run" :
     string(count(c -> c["passed"], r["curves"]), " of ", length(r["curves"]))
 
+# figures used on the home page
+cp(joinpath(ROOT, "examples", "population_ouerdani.png"), joinpath(SRC, "assets", "population_ouerdani.png"); force = true)
+
 # results table on the home page
 let ids = sort(collect(keys(scores)))
     n = length(ids)
@@ -85,7 +99,7 @@ let ids = sort(collect(keys(scores)))
     headline = string(counts["A"] + counts["B"], " of ", n, " reproduce (", counts["A"], " as published, ",
         counts["B"], " after documented fixes", ndag > 0 ? string(", ", ndag, " of those with inputs read from the figure (†)") : "",
         "); ", counts["C"], " run but do not match; ", counts["D"], " cannot be run from the published information.")
-    tmpl = read(joinpath(SRC, "index.template.md"), String)
+    tmpl = read(joinpath(@__DIR__, "index.template.md"), String)   # kept outside src/ so it is not published as a page
     write(joinpath(SRC, "index.md"), replace(tmpl, "{{HEADLINE}}" => headline, "{{TABLE}}" => table))
 end
 
@@ -126,6 +140,11 @@ let f = joinpath(ROOT, "benchmarks", "calibration", "results", "calibration.md")
     txt = isfile(f) ? read(f, String) : "# Recalibration\n\nNo results in this build.\n"
     txt = replace(txt, r"\]\((\./)?(fig_[^)]+\.png)\)" => s"](assets/calibration/\2)")
     write(joinpath(SRC, "calibration.md"), txt)
+end
+
+# contributing page = the model contract in models/README.md, so the two never drift apart
+let txt = read(joinpath(models_dir(), "README.md"), String)
+    write(joinpath(SRC, "contributing.md"), "# Contributing a model\n" * split(txt, '\n'; limit = 2)[2])
 end
 
 model_pages = ["models/$id.md" for id in model_ids()]
