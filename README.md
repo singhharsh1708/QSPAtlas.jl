@@ -6,11 +6,12 @@ Julia ([ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl),
 [OrdinaryDiffEq.jl](https://github.com/SciML/OrdinaryDiffEq.jl)), compares them with
 the curves in the papers' own figures, and grades each one.
 
-## First result: 5 oncology models from CPT: Pharmacometrics & Systems Pharmacology
+## First results: 6 oncology models from CPT: Pharmacometrics & Systems Pharmacology
 
-**1 of 5 reproduces its target figures, and only after two unstated inputs were read from
-the figure itself. The other 4 run once their gaps are filled from documented sources, but
+**1 of 6 reproduces its target figures, and only after two unstated inputs were read from
+the figure itself. The other 5 run once their gaps are filled from documented sources, but
 do not match.** No model needed a parameter that had no source at all, so none is graded D.
+Five are graded on typical-value curves and one on a visual predictive check.
 
 | model | what it is | grade | curves passing (as printed / with fixes) | main reason |
 |---|---|---|---|---|
@@ -32,6 +33,40 @@ Grades: **A** matches as published; **B** matches after documented fixes, each w
 evidence; **B†** a B that needed an input read from the figure being checked; **C** runs
 but does not match; **D** cannot be run from published information. How the figures were
 digitised, how curves are scored, and what may fill a gap are on the method page.
+
+## See it
+
+**A model that reproduces.** Ouerdani 2015, Figure 4: our simulation (blue) against points
+digitised from the paper's own curves (black). All four curves pass.
+
+![Ouerdani 2015 reproduction](models/ouerdani_2015/figures/comparison.png)
+
+```julia
+using QSPAtlas
+m = Module(); Base.include(m, joinpath(models_dir(), "ouerdani_2015", "reproduce.jl"))
+rep = m.reproduce()        # simulates, scores every curve, writes score.toml and the figure above
+grade_label(rep)           # "B†"
+```
+
+**A population figure that does not.** Stein 2019, Figure 3a: percentile bands from 800
+simulated replicates of the 90-patient study. The early expansion matches the authors'
+bands; the upper tail and the persistence phase fall below them.
+
+![Stein 2019 VPC](models/stein_2019/figures/fig3.png)
+
+**Population simulation.** 500 virtual mice from the Ouerdani model with the paper's
+between-subject variability and residual error.
+
+![500 virtual mice](examples/population_ouerdani.png)
+
+```julia
+mice = virtual_population(500; regimen = Regimen(Dose[]), obstimes = collect(0.0:1.0:75.0),
+                          covariate_sampler = rng -> (AUC = 1140.8,))
+res = simulate(model, mice; seed = 2015)                  # threaded, reproducible
+p = percentiles(res, :P; q = (0.05, 0.5, 0.95))
+```
+
+Full script: [`examples/population_ouerdani.jl`](examples/population_ouerdani.jl).
 
 ## How it works
 
