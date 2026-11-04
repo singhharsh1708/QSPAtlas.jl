@@ -1,0 +1,159 @@
+# Figure 6 digitisation settings (graded since review; was "secondary"). Same conventions as digitise.toml.
+paper = "hutchinson_2016"
+
+[[curve]]
+id = "fig6_a_T"
+figure = "Figure 6a, no chemotherapy, tumour volume T (black)"
+xaxis = "time [day] linear 30 80"
+yaxis = "T and V [mm^3] linear 0 170"
+kind = "curve"
+source = "PSP4-5-636-g006.jpg (PMC5192995)"
+image = "PSP4-5-636-g006.jpg"
+box = [3, 88, 42, 277]
+colour = "dark"
+tol = 0.2
+xcal = [87.55, 40.0, 230.7, 70.0]
+ycal = [27.47, 120.0, 69.0, 40.0]
+n = 70
+exclude_rects = [[3, 30, 60, 100]]
+dark_thr = 0.6
+px_range = [77, 236]
+outlier_px = 4.0
+outlier_window = 20
+
+[[curve]]
+id = "fig6_a_V"
+figure = "Figure 6a, no chemotherapy, carrying capacity V (magenta)"
+xaxis = "time [day] linear 30 80"
+yaxis = "T and V [mm^3] linear 0 170"
+kind = "curve"
+source = "PSP4-5-636-g006.jpg (PMC5192995)"
+image = "PSP4-5-636-g006.jpg"
+box = [3, 88, 42, 277]
+colour = [0.93, 0.45, 0.93]
+tol = 0.25
+xcal = [87.55, 40.0, 230.7, 70.0]
+ycal = [27.47, 120.0, 69.0, 40.0]
+n = 70
+exclude_rects = [[3, 30, 60, 100]]
+px_range = [77, 236]
+outlier_px = 3.0
+outlier_window = 20
+
+[[curve]]
+id = "fig6_b_T"
+figure = "Figure 6b, chemotherapy days 42-49, tumour volume T (black)"
+xaxis = "time [day] linear 35 75"
+yaxis = "T and V [mm^3] linear 0 170"
+kind = "curve"
+source = "PSP4-5-636-g006.jpg (PMC5192995)"
+image = "PSP4-5-636-g006.jpg"
+box = [3, 88, 355, 590]
+colour = "dark"
+tol = 0.2
+xcal = [383.0, 40.0, 561.45, 70.0]
+ycal = [27.46, 120.0, 68.86, 40.0]
+n = 70
+exclude_rects = [[3, 30, 380, 420], [68, 89, 355, 590]]
+dark_thr = 0.6
+px_range = [370, 569]
+outlier_px = 4.0
+outlier_window = 20
+
+[[curve]]
+id = "fig6_b_V"
+figure = "Figure 6b, chemotherapy days 42-49, carrying capacity V (magenta)"
+xaxis = "time [day] linear 35 75"
+yaxis = "T and V [mm^3] linear 0 170"
+kind = "curve"
+source = "PSP4-5-636-g006.jpg (PMC5192995)"
+image = "PSP4-5-636-g006.jpg"
+box = [3, 88, 355, 590]
+colour = [0.93, 0.45, 0.93]
+tol = 0.25
+xcal = [383.0, 40.0, 561.45, 70.0]
+ycal = [27.46, 120.0, 68.86, 40.0]
+n = 70
+exclude_rects = [[3, 30, 380, 420], [68, 89, 355, 590]]
+px_range = [370, 569]
+outlier_px = 3.0
+outlier_window = 20
+
+[[curve]]
+id = "fig6_c_T"
+figure = "Figure 6c, chemotherapy days 54-61, tumour volume T (black)"
+xaxis = "time [day] linear 35 75"
+yaxis = "T and V [mm^3] linear 0 170"
+kind = "curve"
+source = "PSP4-5-636-g006.jpg (PMC5192995)"
+image = "PSP4-5-636-g006.jpg"
+box = [129, 214, 42, 277]
+colour = "dark"
+tol = 0.2
+xcal = [69.6, 40.0, 248.4, 70.0]
+ycal = [153.87, 120.0, 195.13, 40.0]
+n = 70
+exclude_rects = [[129, 156, 50, 75]]
+dark_thr = 0.6
+px_range = [56, 256]
+outlier_px = 4.0
+outlier_window = 20
+
+[[curve]]
+id = "fig6_c_V"
+figure = "Figure 6c, chemotherapy days 54-61, carrying capacity V (magenta)"
+xaxis = "time [day] linear 35 75"
+yaxis = "T and V [mm^3] linear 0 170"
+kind = "curve"
+source = "PSP4-5-636-g006.jpg (PMC5192995)"
+image = "PSP4-5-636-g006.jpg"
+box = [129, 214, 42, 277]
+colour = [0.93, 0.45, 0.93]
+tol = 0.25
+xcal = [69.6, 40.0, 248.4, 70.0]
+ycal = [153.87, 120.0, 195.13, 40.0]
+n = 70
+exclude_rects = [[129, 156, 50, 75]]
+px_range = [56, 256]
+outlier_px = 3.0
+outlier_window = 20
+
+[[curve]]
+id = "fig6_d_T"
+figure = "Figure 6d, chemotherapy days 38-59, tumour volume T (black)"
+xaxis = "time [day] linear 35 75"
+yaxis = "T and V [mm^3] linear 0 170"
+kind = "curve"
+source = "PSP4-5-636-g006.jpg (PMC5192995)"
+image = "PSP4-5-636-g006.jpg"
+box = [129, 214, 355, 590]
+colour = "dark"
+tol = 0.2
+xcal = [383.0, 40.0, 561.47, 70.0]
+ycal = [153.86, 120.0, 195.15, 40.0]
+n = 70
+exclude_rects = [[129, 156, 380, 420], [190, 214, 355, 590]]
+dark_thr = 0.6
+px_range = [370, 569]
+outlier_px = 4.0
+outlier_window = 20
+
+[[curve]]
+id = "fig6_d_V"
+figure = "Figure 6d, chemotherapy days 38-59, carrying capacity V (magenta)"
+xaxis = "time [day] linear 35 75"
+yaxis = "T and V [mm^3] linear 0 170"
+kind = "curve"
+source = "PSP4-5-636-g006.jpg (PMC5192995)"
+image = "PSP4-5-636-g006.jpg"
+box = [129, 214, 355, 590]
+colour = [0.93, 0.45, 0.93]
+tol = 0.25
+xcal = [383.0, 40.0, 561.47, 70.0]
+ycal = [153.86, 120.0, 195.15, 40.0]
+n = 70
+exclude_rects = [[129, 156, 380, 420], [190, 214, 355, 590]]
+px_range = [370, 569]
+outlier_px = 3.0
+outlier_window = 20
+

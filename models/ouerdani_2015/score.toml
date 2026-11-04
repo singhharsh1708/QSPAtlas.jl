@@ -1,0 +1,117 @@
+blocker = ""
+citation = "Ouerdani A, et al. CPT Pharmacometrics Syst Pharmacol 2015;4:660-668"
+doi = "10.1002/psp4.12001"
+grade = "B"
+grade_label = "B†"
+id = "ouerdani_2015"
+inputs_from_target = true
+pmcid = "PMC4716582"
+
+[figure_grades]
+fig4 = "B†"
+
+[fixed]
+error = ""
+label = "with fixes"
+matched = true
+ran = true
+
+    [[fixed.curves]]
+    figure = "Figure 4 left, preclinical, carrying capacity K (dashed)"
+    id = "fig4_left_K"
+    max = 0.00251
+    n_points = 70
+    p95 = 0.002414
+    passed = true
+    rms = 0.001045
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4 left, preclinical, tumour size P (solid)"
+    id = "fig4_left_P"
+    max = 0.003139
+    n_points = 90
+    p95 = 0.00156
+    passed = true
+    rms = 0.0008654
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4 right, clinical, carrying capacity K (dashed)"
+    id = "fig4_right_K"
+    max = 0.01628
+    n_points = 70
+    p95 = 0.01598
+    passed = true
+    rms = 0.01117
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4 right, clinical, tumour size P (solid)"
+    id = "fig4_right_P"
+    max = 0.0148
+    n_points = 90
+    p95 = 0.01384
+    passed = true
+    rms = 0.008824
+    tol_p95 = 0.03
+    tol_rms = 0.015
+
+    [[fixed.fixes]]
+    description = "Initial tumour size P0 is not stated for the typical simulation; set to 150 mm^3 (mice) and 66.8 mm (patients), read from Figure 4 at t = 0."
+    evidence = "Methods: P0 'set to the observed value' (individual baselines); no typical value given in text, Table 1, s001.txt/s004.txt (P0 = BASE/VB data column). Value read from the curve start in PSP4-4-660-g004.jpg (circular)."
+    id = "p0"
+    kind = "from_target"
+    [[fixed.fixes]]
+    description = "Mouse panel simulated with the 100 mg/kg exposure (AUC 1140.8 ug*h/mL); the paper does not say which dose group the typical mouse simulation uses."
+    evidence = "Only gamma depends on AUC (beta_alpha fixed to 0). With P0 = 150: 100 mg/kg rms 0.001, 30 mg/kg rms 0.074, 10 mg/kg rms 0.27 (explore log)."
+    id = "mouse_auc"
+    kind = "from_target"
+
+[published]
+error = ""
+fixes = []
+label = "as published"
+matched = false
+ran = true
+
+    [[published.curves]]
+    figure = "Figure 4 left, preclinical, carrying capacity K (dashed)"
+    id = "fig4_left_K"
+    max = 0.1001
+    n_points = 70
+    p95 = 0.09732
+    passed = false
+    rms = 0.07948
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4 left, preclinical, tumour size P (solid)"
+    id = "fig4_left_P"
+    max = 0.09985
+    n_points = 90
+    p95 = 0.09855
+    passed = false
+    rms = 0.08097
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4 right, clinical, carrying capacity K (dashed)"
+    id = "fig4_right_K"
+    max = 0.04315
+    n_points = 70
+    p95 = 0.04239
+    passed = false
+    rms = 0.03306
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4 right, clinical, tumour size P (solid)"
+    id = "fig4_right_P"
+    max = 0.1905
+    n_points = 90
+    p95 = 0.1111
+    passed = false
+    rms = 0.06403
+    tol_p95 = 0.03
+    tol_rms = 0.015

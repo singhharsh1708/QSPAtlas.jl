@@ -1,0 +1,25 @@
+Manifest.toml
+!/Manifest.toml
+docs/build/
+docs/src/index.md
+docs/src/models/
+docs/src/assets/models/
+docs/src/assets/solvers/
+docs/src/assets/calibration/
+models/*/output/
+*.jl.cov
+*.jl.mem
+.DS_Store
+# Python env pulled in by calibration dependencies
+.CondaPkg/
+**/.CondaPkg/
+# overlays of digitised points ON the published figure images: kept locally, never
+# committed or published, because they contain the papers' figures
+models/*/figures/digitise_check*.png
+benchmarks/calibration/results/*overlay*.png
+# sub-environment manifests (root Manifest.toml is committed)
+benchmarks/*/Manifest.toml
+docs/Manifest.toml
+tools/*/Manifest.toml
+docs/src/benchmarks.md
+docs/src/calibration.md

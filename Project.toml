@@ -1,0 +1,42 @@
+name = "QSPAtlas"
+uuid = "7b1f3a52-9c4e-4d1a-b2e8-5a6c0f9d3e21"
+authors = ["Harsh Singh"]
+version = "0.1.0"
+
+[deps]
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+DiffEqCallbacks = "459566f4-90b8-5000-8ac3-15dfb0a30def"
+DiffEqDevTools = "f3b72e0c-5b89-59e1-b016-84e28bfd966d"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+ModelingToolkit = "961ee093-0014-501f-94e3-6117800e7a78"
+OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+SciMLBase = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+SymbolicIndexingInterface = "2efcf032-c050-4f8e-a9bb-153293bab1f5"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+
+[compat]
+CairoMakie = "0.15"
+DelimitedFiles = "1"
+DiffEqCallbacks = "4"
+DiffEqDevTools = "3"
+LinearAlgebra = "1"
+ModelingToolkit = "11.46"
+OrdinaryDiffEq = "7"
+Printf = "1"
+Random = "1"
+SciMLBase = "3"
+Statistics = "1"
+SymbolicIndexingInterface = "0.3"
+TOML = "1"
+julia = "1.10"
+
+[extras]
+Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Logging", "Test"]

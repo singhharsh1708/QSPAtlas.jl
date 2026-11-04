@@ -1,0 +1,43 @@
+# Digitisation record for stein_2019, Figure 3a (shaded simulated-percentile bands).
+# Regenerate: julia --startup-file=no --project=tools/digitise models/stein_2019/reference/trace_fig3a.jl
+# The image is not committed (CC BY-NC-ND 4.0, PMC6539725); it is read from $QSPATLAS_PAPERS/stein_2019/supplement/ (tools/digitise/README.md).
+image = "stein_2019/supplement/PSP4-8-285-g003.jpg"
+image_size = "709 x 768 px; panel (a) occupies rows 1-270"
+note = """Colour-run tracing of the light-blue (10th, 90th percentile) and light-pink (50th percentile) shaded areas of the Monolix VPC. \
+Per pixel column, runs of band-coloured pixels are found (gaps up to 10 rows bridged: dots, the empirical percentile line and red outlier marks lie on the bands); \
+upper blue run = 90th band, lower blue run = 10th band, pink run = 50th band; edges are the outer pixel boundaries; 5-column (right) or 11-column (left) running median. \
+The blue lines (empirical percentiles of the data) and blue dots are NOT targets."""
+
+[calibration.left]
+box = "frame: y axis at col 39 (rows 15-224), x axis at row 221 (cols 39-297)"
+xcal = [82.5, 50.0, 275.5, 350.0]          # [col, day, col, day] grid lines at 50 d and 350 d; x label '0' at col 50.3, grid lines every 32.2 px per 50 d
+xcheck = "100 d grid line col 115, 150 d col 147, 200 d col 179, 250 d col 211, 300 d col 244: all within 0.5 px"
+ycal = [90.5, 1e4, 192.5, 1e2]             # [row, value, row, value] centres of the printed tick labels 10,000 and 100
+ycheck = "label '1,000' at row 141.5 (predicted 141.5, exact); label '100,000' is drawn about 10 px below its position (predicted row 39.5, gridline at 38.5) so it is not used. LLOQ 50 predicted at row 207.9; the lowest quantifiable dots end at row 204 and the simulated-BLQ (red) dots start at row 205: consistent within one dot radius, a residual uncertainty of about 3 px (0.06 decade) on the y calibration"
+xlim = [-17.6, 383.4]                      # frame cols 39 and 297
+ylim = [27.6, 300000.0]                    # frame rows 221 and 15
+
+[calibration.right]
+box = "frame: y axis at col 392 (rows 11-219), x axis at row 216 (cols 392-642)"
+xcal = [406.0, 2.0, 634.0, 30.0]           # day labels 2 and 30
+xcheck = "4 d label col 422, 12 d grid col 487, 16 d col 519.5, 22 d col 569, 26 d col 601: within 0.7 px (8.143 px per day)"
+ycal = [89.0, 1e4, 185.0, 1e2]             # centres of printed tick labels 10,000 and 100
+ycheck = "label '1,000' at row 137 (predicted 137.0, exact); '100,000' label is displaced as in the left panel. LLOQ 50 predicted at row 199.5; red (BLQ) dots start at row 199-200: consistent. Uncertainty about 2-3 px (0.05 decade)"
+xlim = [0.28, 31.0]                        # frame cols 392 and 642
+ylim = [22.6, 420000.0]                    # frame rows 216 and 11
+
+[targets]
+# Scored part of each band (see trace_fig3a.jl TARGETS for the reasons)
+fig3a_right_p90 = "x 4.5-29.5 d"
+fig3a_right_p50 = "x 3.4-4.4 and 6.4-29.5 d (red outlier marks cover the band at 4.4-6.4 d)"
+fig3a_right_p10 = "x 6.4-29.5 d (lower edge leaves the axis box earlier; red outlier marks)"
+fig3a_left_p90 = "x 30-185 d (band to the right of ~187 d is a flat extension of the last bin)"
+fig3a_left_p50 = "x 30-185 d"
+fig3a_left_p10 = "x 30-185 d"
+nodes_left = "bin nodes (kinks of the band edges and of the empirical percentile lines): about 28 d, 68 d, 190 d"
+
+[post_review]
+# Done AFTER the first comparison, after the review of 2026-11-04. Tolerance unchanged.
+rule = "A band-edge point is dropped when its whole interval lies away from the interval of its neighbours (within 2 % of the x range + 0.5 d): hi < median(neighbour lo)/2 or lo > 2*median(neighbour hi). Applied to all six targets (trace_fig3a.jl, outlier_filter)."
+dropped = "fig3a_right_p90 at x = 8.8772 d (lo 339.8, hi 2005) and x = 9.9825 d (lo 549.0, hi 4117): the trace had picked the lower blue (10th percentile) band where the stacked dots at 9 and 10 d split the upper band; neighbours are 45,000-150,000. No other point of any target was removed."
+old_score = "right p90 rms 0.0515, p95 0.0434, max 0.2976 (with the two points); the first comparison used the dense-grid design, see report.md"

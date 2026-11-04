@@ -1,0 +1,743 @@
+blocker = ""
+citation = "Stroh M, et al. CPT Pharmacometrics Syst Pharmacol 2019;8:676-684"
+doi = "10.1002/psp4.12448"
+grade = "C"
+grade_label = "C"
+id = "stroh_2019"
+inputs_from_target = false
+pmcid = "PMC6765697"
+
+[figure_grades]
+fig3 = "C"
+fig4 = "C"
+
+[fixed]
+error = ""
+label = "with fixes"
+matched = false
+ran = true
+
+    [[fixed.curves]]
+    figure = "Figure 3a (3 mg/kg), model line Pb-Tx M1,S1, total drug in plasma"
+    id = "fig3a_M1S1"
+    max = 0.03661
+    n_points = 60
+    p95 = 0.0313
+    passed = false
+    rms = 0.01925
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 3a (3 mg/kg), model line Pb-Tx M1,0, total drug in plasma"
+    id = "fig3a_M1_0"
+    max = 0.01601
+    n_points = 60
+    p95 = 0.008791
+    passed = true
+    rms = 0.003419
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 3a (3 mg/kg), model line Pb-Tx M2,S2, total drug in plasma"
+    id = "fig3a_M2S2"
+    max = 0.02959
+    n_points = 60
+    p95 = 0.01116
+    passed = true
+    rms = 0.007699
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 3a (3 mg/kg), model line mAb0,0, total drug in plasma"
+    id = "fig3a_mAb00"
+    max = 0.02194
+    n_points = 60
+    p95 = 0.01431
+    passed = true
+    rms = 0.005144
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 3b (5 mg/kg), model line Pb-Tx M1,S2, total drug in plasma"
+    id = "fig3b_M1S2"
+    max = 0.03549
+    n_points = 60
+    p95 = 0.02849
+    passed = false
+    rms = 0.01769
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 3b (5 mg/kg), model line Pb-Tx M2,S1, total drug in plasma"
+    id = "fig3b_M2S1"
+    max = 0.03147
+    n_points = 60
+    p95 = 0.01176
+    passed = true
+    rms = 0.008403
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 3b (5 mg/kg), model line mAb0,0, total drug in plasma"
+    id = "fig3b_mAb00"
+    max = 0.008018
+    n_points = 60
+    p95 = 0.003396
+    passed = true
+    rms = 0.001831
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 3c (10 mg/kg), model line Pb-Tx M1,S2, total drug in plasma"
+    id = "fig3c_M1S2"
+    max = 0.02855
+    n_points = 60
+    p95 = 0.02588
+    passed = false
+    rms = 0.01513
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 3c (10 mg/kg), model line Pb-Tx M2,S1, total drug in plasma"
+    id = "fig3c_M2S1"
+    max = 0.02354
+    n_points = 60
+    p95 = 0.01473
+    passed = true
+    rms = 0.008993
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 3c (10 mg/kg), model line mAb0,0, total drug in plasma"
+    id = "fig3c_mAb00"
+    max = 0.03098
+    n_points = 60
+    p95 = 0.02352
+    passed = true
+    rms = 0.007565
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4a, plasma total drug, 10000x mask, human 4.5 mg/kg"
+    id = "fig4a_10000x"
+    max = 0.1231
+    n_points = 60
+    p95 = 0.116
+    passed = false
+    rms = 0.06957
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4a, plasma total drug, 1000x mask, human 4.5 mg/kg"
+    id = "fig4a_1000x"
+    max = 0.1067
+    n_points = 60
+    p95 = 0.1033
+    passed = false
+    rms = 0.06475
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4a, plasma total drug, 100x mask, human 4.5 mg/kg"
+    id = "fig4a_100x"
+    max = 0.05504
+    n_points = 60
+    p95 = 0.04572
+    passed = false
+    rms = 0.02618
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4a, plasma total drug, 10x mask, human 4.5 mg/kg"
+    id = "fig4a_10x"
+    max = 0.01168
+    n_points = 60
+    p95 = 0.007118
+    passed = true
+    rms = 0.002871
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4a, plasma total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4a_mAb"
+    max = 0.008797
+    n_points = 60
+    p95 = 0.006867
+    passed = true
+    rms = 0.004578
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4b, periphery total drug, 10000x mask, human 4.5 mg/kg"
+    id = "fig4b_10000x"
+    max = 0.1298
+    n_points = 60
+    p95 = 0.1186
+    passed = false
+    rms = 0.07366
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4b, periphery total drug, 1000x mask, human 4.5 mg/kg"
+    id = "fig4b_1000x"
+    max = 0.116
+    n_points = 60
+    p95 = 0.1068
+    passed = false
+    rms = 0.06831
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4b, periphery total drug, 100x mask, human 4.5 mg/kg"
+    id = "fig4b_100x"
+    max = 0.06399
+    n_points = 60
+    p95 = 0.0516
+    passed = false
+    rms = 0.03073
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4b, periphery total drug, 10x mask, human 4.5 mg/kg"
+    id = "fig4b_10x"
+    max = 0.02434
+    n_points = 60
+    p95 = 0.01562
+    passed = true
+    rms = 0.009117
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4b, periphery total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4b_mAb"
+    max = 0.005407
+    n_points = 32
+    p95 = 0.005301
+    passed = true
+    rms = 0.004282
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4c, tumour total drug, 10000x mask, human 4.5 mg/kg"
+    id = "fig4c_10000x"
+    max = 0.1516
+    n_points = 60
+    p95 = 0.1463
+    passed = false
+    rms = 0.09643
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4c, tumour total drug, 1000x mask, human 4.5 mg/kg"
+    id = "fig4c_1000x"
+    max = 0.1263
+    n_points = 60
+    p95 = 0.1199
+    passed = false
+    rms = 0.0759
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4c, tumour total drug, 100x mask, human 4.5 mg/kg"
+    id = "fig4c_100x"
+    max = 0.05346
+    n_points = 60
+    p95 = 0.0418
+    passed = false
+    rms = 0.02678
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4c, tumour total drug, 10x mask, human 4.5 mg/kg"
+    id = "fig4c_10x"
+    max = 0.01947
+    n_points = 48
+    p95 = 0.01325
+    passed = true
+    rms = 0.008195
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4c, tumour total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4c_mAb"
+    max = 0.002958
+    n_points = 21
+    p95 = 0.002489
+    passed = true
+    rms = 0.001303
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 10000x mask, human 4.5 mg/kg"
+    id = "fig4d_10000x"
+    max = 0.2293
+    n_points = 60
+    p95 = 0.2272
+    passed = false
+    rms = 0.191
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 1000x mask, human 4.5 mg/kg"
+    id = "fig4d_1000x"
+    max = 0.133
+    n_points = 60
+    p95 = 0.1298
+    passed = false
+    rms = 0.1084
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 100x mask, human 4.5 mg/kg"
+    id = "fig4d_100x"
+    max = 0.02112
+    n_points = 60
+    p95 = 0.01804
+    passed = true
+    rms = 0.01431
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 10x mask, human 4.5 mg/kg"
+    id = "fig4d_10x"
+    max = 0.005056
+    n_points = 60
+    p95 = 0.00413
+    passed = true
+    rms = 0.003518
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4d_mAb"
+    max = 0.009529
+    n_points = 60
+    p95 = 0.008295
+    passed = true
+    rms = 0.00739
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 10000x mask, human 4.5 mg/kg"
+    id = "fig4e_10000x"
+    max = 0.2657
+    n_points = 60
+    p95 = 0.2627
+    passed = false
+    rms = 0.2167
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 1000x mask, human 4.5 mg/kg"
+    id = "fig4e_1000x"
+    max = 0.09516
+    n_points = 60
+    p95 = 0.09465
+    passed = false
+    rms = 0.06764
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 100x mask, human 4.5 mg/kg"
+    id = "fig4e_100x"
+    max = 0.04011
+    n_points = 60
+    p95 = 0.03448
+    passed = false
+    rms = 0.02842
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 10x mask, human 4.5 mg/kg"
+    id = "fig4e_10x"
+    max = 0.01083
+    n_points = 60
+    p95 = 0.008747
+    passed = true
+    rms = 0.008127
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4e_mAb"
+    max = 0.007794
+    n_points = 60
+    p95 = 0.004751
+    passed = true
+    rms = 0.004001
+    tol_p95 = 0.03
+    tol_rms = 0.015
+
+    [[fixed.fixes]]
+    description = "mg/kg doses are converted to nM with MW = 150 kDa (model.jl MW). Applied in BOTH the as-published and the fixed run."
+    evidence = "The paper gives no molecular weight. 150 kDa is the standard IgG1 mass (Pb-Tx adds a prodomain, so the true mass is somewhat higher; value is a standard constant, not read from the figure). Consistency only, not the source: 4.5 mg/kg x 70 kg / 150 kDa / 2.6 L = 808 nM."
+    id = "molecular_weight_150kDa"
+    kind = "missing"
+    [[fixed.fixes]]
+    description = "Human peripheral volume V2 = 2.6 L (not in Table 2). Applied in BOTH the as-published and the fixed run."
+    evidence = "Derived from the paper's own tables: Table 1 monkey receptor concentration 9.0e-5 nmol/s / (1e-4 1/s * 0.1 L) = 9 nM; Results state normal-tissue receptor concentration is assumed equal in human; Table 2 ksynR peripheral 2.3e-3 nmol/s / (1e-4 * 9 nM) = 2.56 L ~ 2.6 L (= V1)."
+    id = "human_V2_2.6L"
+    kind = "missing"
+    [[fixed.fixes]]
+    description = "Figure 4b,c periphery/tumour 'Total Drug' is read as the sum of the six UNBOUND forms. The as-published run used the other reading (unbound + target-bound, the same sum as for plasma)."
+    evidence = "The paper does not define which forms 'Total Drug' sums in periphery and tumour (neither reading is the published one). The unbound reading was chosen because it matches Fig 4b,c for mAb0,0 and 10x (e.g. mAb ~1e-2 nM in tumour, far below the 270 nM target level, Table 2); selected by comparison with the figure, hence circular."
+    id = "unbound_readout"
+    kind = "from_target"
+
+[published]
+error = ""
+fixes = []
+label = "as published"
+matched = false
+ran = true
+
+    [[published.curves]]
+    figure = "Figure 3a (3 mg/kg), model line Pb-Tx M1,S1, total drug in plasma"
+    id = "fig3a_M1S1"
+    max = 0.03661
+    n_points = 60
+    p95 = 0.0313
+    passed = false
+    rms = 0.01925
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 3a (3 mg/kg), model line Pb-Tx M1,0, total drug in plasma"
+    id = "fig3a_M1_0"
+    max = 0.01601
+    n_points = 60
+    p95 = 0.008791
+    passed = true
+    rms = 0.003419
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 3a (3 mg/kg), model line Pb-Tx M2,S2, total drug in plasma"
+    id = "fig3a_M2S2"
+    max = 0.02959
+    n_points = 60
+    p95 = 0.01116
+    passed = true
+    rms = 0.007699
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 3a (3 mg/kg), model line mAb0,0, total drug in plasma"
+    id = "fig3a_mAb00"
+    max = 0.02194
+    n_points = 60
+    p95 = 0.01431
+    passed = true
+    rms = 0.005144
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 3b (5 mg/kg), model line Pb-Tx M1,S2, total drug in plasma"
+    id = "fig3b_M1S2"
+    max = 0.03549
+    n_points = 60
+    p95 = 0.02849
+    passed = false
+    rms = 0.01769
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 3b (5 mg/kg), model line Pb-Tx M2,S1, total drug in plasma"
+    id = "fig3b_M2S1"
+    max = 0.03147
+    n_points = 60
+    p95 = 0.01176
+    passed = true
+    rms = 0.008403
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 3b (5 mg/kg), model line mAb0,0, total drug in plasma"
+    id = "fig3b_mAb00"
+    max = 0.008018
+    n_points = 60
+    p95 = 0.003396
+    passed = true
+    rms = 0.001831
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 3c (10 mg/kg), model line Pb-Tx M1,S2, total drug in plasma"
+    id = "fig3c_M1S2"
+    max = 0.02855
+    n_points = 60
+    p95 = 0.02588
+    passed = false
+    rms = 0.01513
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 3c (10 mg/kg), model line Pb-Tx M2,S1, total drug in plasma"
+    id = "fig3c_M2S1"
+    max = 0.02354
+    n_points = 60
+    p95 = 0.01473
+    passed = true
+    rms = 0.008993
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 3c (10 mg/kg), model line mAb0,0, total drug in plasma"
+    id = "fig3c_mAb00"
+    max = 0.03098
+    n_points = 60
+    p95 = 0.02352
+    passed = true
+    rms = 0.007565
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4a, plasma total drug, 10000x mask, human 4.5 mg/kg"
+    id = "fig4a_10000x"
+    max = 0.1231
+    n_points = 60
+    p95 = 0.116
+    passed = false
+    rms = 0.06957
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4a, plasma total drug, 1000x mask, human 4.5 mg/kg"
+    id = "fig4a_1000x"
+    max = 0.1067
+    n_points = 60
+    p95 = 0.1033
+    passed = false
+    rms = 0.06475
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4a, plasma total drug, 100x mask, human 4.5 mg/kg"
+    id = "fig4a_100x"
+    max = 0.05504
+    n_points = 60
+    p95 = 0.04572
+    passed = false
+    rms = 0.02618
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4a, plasma total drug, 10x mask, human 4.5 mg/kg"
+    id = "fig4a_10x"
+    max = 0.01168
+    n_points = 60
+    p95 = 0.007118
+    passed = true
+    rms = 0.002871
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4a, plasma total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4a_mAb"
+    max = 0.008797
+    n_points = 60
+    p95 = 0.006867
+    passed = true
+    rms = 0.004578
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4b, periphery total drug, 10000x mask, human 4.5 mg/kg"
+    id = "fig4b_10000x"
+    max = 0.1289
+    n_points = 60
+    p95 = 0.1177
+    passed = false
+    rms = 0.0729
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4b, periphery total drug, 1000x mask, human 4.5 mg/kg"
+    id = "fig4b_1000x"
+    max = 0.1146
+    n_points = 60
+    p95 = 0.1054
+    passed = false
+    rms = 0.06711
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4b, periphery total drug, 100x mask, human 4.5 mg/kg"
+    id = "fig4b_100x"
+    max = 0.05894
+    n_points = 60
+    p95 = 0.04655
+    passed = false
+    rms = 0.02681
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4b, periphery total drug, 10x mask, human 4.5 mg/kg"
+    id = "fig4b_10x"
+    max = 0.02237
+    n_points = 60
+    p95 = 0.02119
+    passed = false
+    rms = 0.01643
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4b, periphery total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4b_mAb"
+    max = 0.1079
+    n_points = 32
+    p95 = 0.1071
+    passed = false
+    rms = 0.1008
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4c, tumour total drug, 10000x mask, human 4.5 mg/kg"
+    id = "fig4c_10000x"
+    max = 0.1446
+    n_points = 60
+    p95 = 0.1393
+    passed = false
+    rms = 0.09005
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4c, tumour total drug, 1000x mask, human 4.5 mg/kg"
+    id = "fig4c_1000x"
+    max = 0.1048
+    n_points = 60
+    p95 = 0.09838
+    passed = false
+    rms = 0.05728
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4c, tumour total drug, 100x mask, human 4.5 mg/kg"
+    id = "fig4c_100x"
+    max = 0.08275
+    n_points = 60
+    p95 = 0.07793
+    passed = false
+    rms = 0.0547
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4c, tumour total drug, 10x mask, human 4.5 mg/kg"
+    id = "fig4c_10x"
+    max = 0.1522
+    n_points = 48
+    p95 = 0.1506
+    passed = false
+    rms = 0.1208
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4c, tumour total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4c_mAb"
+    max = 0.1218
+    n_points = 21
+    p95 = 0.1163
+    passed = false
+    rms = 0.07432
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 10000x mask, human 4.5 mg/kg"
+    id = "fig4d_10000x"
+    max = 0.2293
+    n_points = 60
+    p95 = 0.2272
+    passed = false
+    rms = 0.191
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 1000x mask, human 4.5 mg/kg"
+    id = "fig4d_1000x"
+    max = 0.133
+    n_points = 60
+    p95 = 0.1298
+    passed = false
+    rms = 0.1084
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 100x mask, human 4.5 mg/kg"
+    id = "fig4d_100x"
+    max = 0.02112
+    n_points = 60
+    p95 = 0.01804
+    passed = true
+    rms = 0.01431
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 10x mask, human 4.5 mg/kg"
+    id = "fig4d_10x"
+    max = 0.005056
+    n_points = 60
+    p95 = 0.00413
+    passed = true
+    rms = 0.003518
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4d, periphery receptor-mediated uptake [nmol], mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4d_mAb"
+    max = 0.009529
+    n_points = 60
+    p95 = 0.008295
+    passed = true
+    rms = 0.00739
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 10000x mask, human 4.5 mg/kg"
+    id = "fig4e_10000x"
+    max = 0.2657
+    n_points = 60
+    p95 = 0.2627
+    passed = false
+    rms = 0.2167
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 1000x mask, human 4.5 mg/kg"
+    id = "fig4e_1000x"
+    max = 0.09516
+    n_points = 60
+    p95 = 0.09465
+    passed = false
+    rms = 0.06764
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 100x mask, human 4.5 mg/kg"
+    id = "fig4e_100x"
+    max = 0.04011
+    n_points = 60
+    p95 = 0.03448
+    passed = false
+    rms = 0.02842
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 10x mask, human 4.5 mg/kg"
+    id = "fig4e_10x"
+    max = 0.01083
+    n_points = 60
+    p95 = 0.008747
+    passed = true
+    rms = 0.008127
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4e, tumour receptor-mediated uptake [nmol], mAb0,0 (no mask), human 4.5 mg/kg"
+    id = "fig4e_mAb"
+    max = 0.007794
+    n_points = 60
+    p95 = 0.004751
+    passed = true
+    rms = 0.004001
+    tol_p95 = 0.03
+    tol_rms = 0.015

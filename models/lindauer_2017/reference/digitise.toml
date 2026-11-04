@@ -1,0 +1,50 @@
+# Digitisation record for lindauer_2017 Figure 4 (tornado plot, deterministic sensitivity analysis).
+# Image: $QSPATLAS_PAPERS/lindauer_2017/supplement/PSP4-6-11-g004.jpg (583 x 372 px, grey scale), PMC5270293; not in the repository (tools/digitise/README.md).
+# Method: manual bar-tip picking. The tips were located by scanning the pixel rows of each
+# bar (white bar = dark outline, tip is the single vertical edge; black bar = fill, tip is the last
+# dark pixel of the run starting at the baseline) and then fixed by hand in this file.
+# CSVs are regenerated with:
+#   julia --project=tools/digitise models/lindauer_2017/reference/digitise_bars.jl models/lindauer_2017/reference/digitise.toml
+# (this file has no [[curve]] tables, so the colour-trace tool digitise.jl does not apply).
+#
+# Axes: top x axis of each panel carries the log10 ratio scale, linear, ticks every 0.5.
+#   left  panel (5 mg/kg)  : tick pixels  -3 -> col 41, 0.5 -> col 282 (calibration);
+#                            check ticks (not used for calibration): -1 -> col 179, 0 -> col 248
+#   right panel (0.5 mg/kg): tick pixels  -2 -> col 331, 0.5 -> col 571 (calibration);
+#                            check ticks: -1 -> col 427, 0 -> col 523
+# The baseline (y axis crossing) is at col 159 (left) and col 486 (right); the caption gives its value
+# (-1.29 and -0.39), which is stored as the fig4_base_case reference (not digitised).
+#
+# Reference encoding: x = (bar index - 0.5)/2 so that the 16 bars occupy the box 0..8; one slot is 0.5 wide.
+# y = log10(tumour volume at 26 wk / initial) at the bar tip.
+# Scoring: kind: bars (vertical error at exactly matching x; a missing or NaN simulated bar is the maximum error).
+
+image = "lindauer_2017/supplement/PSP4-6-11-g004.jpg"
+source = "PSP4-6-11-g004.jpg (PMC5270293)"
+
+[[panel]]
+id = "5mgkg"
+figure = "Figure 4 left panel, 5 mg/kg"
+base_col = 159
+base_value = -1.29
+xcal = [41, -3.0, 282, 0.5]
+check_ticks = [[179, -1.0], [248, 0.0]]
+axis_lo = -3.0
+axis_hi = 0.5
+order = ["gamma", "FR", "SLtg", "L0", "Tmulti", "N_PD1_TC", "V_blood", "N_Tcell", "EMAXTP", "V1", "KdegPD1", "CL", "PLQ", "L", "CLup", "V2"]
+# tip pixel columns, one per bar, in plotted order
+tips_x5   = [57.0, 245.5, 133.5, 219.0, 202.0, 202.0, 202.0, 202.0, 201.5, 142.0, 199.0, 199.0, 141.5, 191.0, 148.0, 165.0]
+tips_x0p2 = [267.0, 154.0, 242.0, 153.0, 141.5, 141.5, 141.5, 141.5, 141.5, 201.0, 142.0, 141.5, 191.0, 141.5, 161.0, 157.5]
+
+[[panel]]
+id = "0p5mgkg"
+figure = "Figure 4 right panel, 0.5 mg/kg"
+base_col = 486
+base_value = -0.39
+xcal = [331, -2.0, 571, 0.5]
+check_ticks = [[427, -1.0], [523, 0.0]]
+axis_lo = -2.0
+axis_hi = 0.5
+order = ["gamma", "Tmulti", "N_PD1_TC", "V_blood", "N_Tcell", "EMAXTP", "V1", "FR", "KdegPD1", "CL", "PLQ", "L", "SLtg", "L0", "CLup", "EC50TP"]
+tips_x5   = [350.0, 538.5, 539.0, 538.5, 538.0, 538.0, 434.0, 542.0, 530.0, 525.0, 430.0, 523.0, 457.0, 510.0, 468.0, 470.0]
+tips_x0p2 = [550.0, 423.0, 423.0, 423.0, 423.0, 424.5, 537.0, 479.0, 429.0, 449.0, 523.0, 430.0, 518.0, 477.0, 489.0, 490.0]

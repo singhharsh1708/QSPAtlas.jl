@@ -1,0 +1,345 @@
+# Hutchinson 2016 digitisation settings (Figure 2; Figure 6 is in digitise_fig6.toml). Regenerate the CSVs with reference/digitise_hutchinson.jl.
+# Pixel coordinates are image rows/columns (1-based, pixel centres). Calibration ticks were found with sub-pixel centroids;
+# the unused ticks listed in 'check' were used afterwards to verify the calibration (see figures/digitise_check.png).
+paper = "hutchinson_2016"
+
+[[curve]]
+id = "fig2_a_T"
+figure = "Figure 2a, control, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 400"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [7, 119, 59, 319]
+colour = [0.125, 0.375, 0.625]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [71.0, 200.0, 104.0, 100.0]
+n = 60
+
+[[curve]]
+id = "fig2_b_V"
+figure = "Figure 2b, control, vessel carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 100 900"  # frame rows 5 and 120 map to 897 and 103 (review fix; was 100 1000)
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [7, 119, 405, 666]
+colour = [0.125, 0.375, 0.625]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [77.0, 400.0, 106.0, 200.0]
+n = 60
+
+[[curve]]
+id = "fig2_c_T_d04"
+figure = "Figure 2c, treatment Nmax=1, delta_V=0.04, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 250"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 59, 319]
+colour = [0.125, 0.375, 0.625]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [195.0, 200.0, 253.0, 100.0]
+n = 60
+exclude_rects = [[173, 250, 63, 133]]
+
+[[curve]]
+id = "fig2_c_T_d06"
+figure = "Figure 2c, treatment Nmax=1, delta_V=0.06, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 250"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 59, 319]
+colour = [0.8, 0.35, 0.2]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [195.0, 200.0, 253.0, 100.0]
+n = 60
+exclude_rects = [[173, 250, 63, 133]]
+
+[[curve]]
+id = "fig2_c_T_d08"
+figure = "Figure 2c, treatment Nmax=1, delta_V=0.08, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 250"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 59, 319]
+colour = [0.9, 0.7, 0.25]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [195.0, 200.0, 253.0, 100.0]
+n = 60
+exclude_rects = [[173, 250, 63, 133]]
+
+[[curve]]
+id = "fig2_c_T_d10"
+figure = "Figure 2c, treatment Nmax=1, delta_V=0.10, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 250"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 59, 319]
+colour = [0.45, 0.2, 0.5]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [195.0, 200.0, 253.0, 100.0]
+n = 60
+exclude_rects = [[173, 250, 63, 133]]
+
+[[curve]]
+id = "fig2_c_T_d12"
+figure = "Figure 2c, treatment Nmax=1, delta_V=0.12, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 250"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 59, 319]
+colour = [0.45, 0.65, 0.25]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [195.0, 200.0, 253.0, 100.0]
+n = 60
+exclude_rects = [[173, 250, 63, 133]]
+
+[[curve]]
+id = "fig2_d_V_d04"
+figure = "Figure 2d, treatment Nmax=1, delta_V=0.04, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 350"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 405, 666]
+colour = [0.125, 0.375, 0.625]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [185.63, 300.0, 262.57, 100.0]
+n = 60
+
+[[curve]]
+id = "fig2_d_V_d06"
+figure = "Figure 2d, treatment Nmax=1, delta_V=0.06, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 350"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 405, 666]
+colour = [0.8, 0.35, 0.2]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [185.63, 300.0, 262.57, 100.0]
+n = 60
+
+[[curve]]
+id = "fig2_d_V_d08"
+figure = "Figure 2d, treatment Nmax=1, delta_V=0.08, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 350"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 405, 666]
+colour = [0.9, 0.7, 0.25]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [185.63, 300.0, 262.57, 100.0]
+n = 60
+
+[[curve]]
+id = "fig2_d_V_d10"
+figure = "Figure 2d, treatment Nmax=1, delta_V=0.10, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 350"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 405, 666]
+colour = [0.45, 0.2, 0.5]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [185.63, 300.0, 262.57, 100.0]
+n = 60
+
+[[curve]]
+id = "fig2_d_V_d12"
+figure = "Figure 2d, treatment Nmax=1, delta_V=0.12, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 350"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [168, 281, 405, 666]
+colour = [0.45, 0.65, 0.25]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [185.63, 300.0, 262.57, 100.0]
+n = 60
+
+[[curve]]
+id = "fig2_e_T_N2"
+figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=2, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 300"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 59, 319]
+colour = [0.125, 0.375, 0.625]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [351.0, 250.0, 420.0, 100.0]
+n = 60
+exclude_rects = [[334, 411, 63, 143]]
+
+[[curve]]
+id = "fig2_e_T_N3"
+figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=3, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 300"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 59, 319]
+colour = [0.8, 0.35, 0.2]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [351.0, 250.0, 420.0, 100.0]
+n = 60
+exclude_rects = [[334, 411, 63, 143]]
+
+[[curve]]
+id = "fig2_e_T_N6"
+figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=6, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 300"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 59, 319]
+colour = [0.9, 0.7, 0.25]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [351.0, 250.0, 420.0, 100.0]
+n = 60
+exclude_rects = [[334, 411, 63, 143]]
+
+[[curve]]
+id = "fig2_e_T_N11"
+figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=11, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 300"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 59, 319]
+colour = [0.45, 0.2, 0.5]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [351.0, 250.0, 420.0, 100.0]
+n = 60
+exclude_rects = [[334, 411, 63, 143]]
+
+[[curve]]
+id = "fig2_e_T_N21"
+figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=21, tumour volume T"
+xaxis = "time [day] linear 36 73"
+yaxis = "tumour volume T [mm^3] linear 50 300"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 59, 319]
+colour = [0.45, 0.65, 0.25]
+tol = 0.2
+xcal = [85.0, 40.0, 299.0, 70.0]
+ycal = [351.0, 250.0, 420.0, 100.0]
+n = 60
+exclude_rects = [[334, 411, 63, 143]]
+
+[[curve]]
+id = "fig2_f_V_N2"
+figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=2, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 150"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 405, 666]
+colour = [0.125, 0.375, 0.625]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [328.0, 150.0, 443.0, 50.0]
+n = 60
+
+[[curve]]
+id = "fig2_f_V_N3"
+figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=3, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 150"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 405, 666]
+colour = [0.8, 0.35, 0.2]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [328.0, 150.0, 443.0, 50.0]
+n = 60
+
+[[curve]]
+id = "fig2_f_V_N6"
+figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=6, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 150"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 405, 666]
+colour = [0.9, 0.7, 0.25]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [328.0, 150.0, 443.0, 50.0]
+n = 60
+
+[[curve]]
+id = "fig2_f_V_N11"
+figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=11, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 150"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 405, 666]
+colour = [0.45, 0.2, 0.5]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [328.0, 150.0, 443.0, 50.0]
+n = 60
+
+[[curve]]
+id = "fig2_f_V_N21"
+figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=21, carrying capacity V"
+xaxis = "time [day] linear 36 73"
+yaxis = "carrying capacity V [mm^3] linear 50 150"
+kind = "curve"
+source = "PSP4-5-636-g002.jpg (PMC5192995)"
+image = "PSP4-5-636-g002.jpg"
+box = [330, 442, 405, 666]
+colour = [0.45, 0.65, 0.25]
+tol = 0.2
+xcal = [432.0, 40.0, 646.0, 70.0]
+ycal = [328.0, 150.0, 443.0, 50.0]
+n = 60
+

@@ -1,0 +1,142 @@
+blocker = ""
+citation = "Lindauer A, et al. CPT Pharmacometrics Syst Pharmacol 2017;6:11-20"
+doi = "10.1002/psp4.12130"
+grade = "C"
+grade_label = "C"
+id = "lindauer_2017"
+inputs_from_target = false
+pmcid = "PMC5270293"
+
+[figure_grades]
+fig4 = "C"
+
+[fixed]
+error = ""
+label = "with fixes"
+matched = false
+ran = true
+
+    [[fixed.curves]]
+    figure = "Figure 4 right panel, 0.5 mg/kg, bar for parameter multiplied by 0.2x"
+    id = "fig4_0p5mgkg_x0p2"
+    max = 0.3855
+    n_points = 16
+    p95 = 0.09915
+    passed = false
+    rms = 0.09641
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4 right panel, 0.5 mg/kg, bar for parameter multiplied by 5x"
+    id = "fig4_0p5mgkg_x5"
+    max = 0.3911
+    n_points = 16
+    p95 = 0.3591
+    passed = false
+    rms = 0.131
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4 left panel, 5 mg/kg, bar for parameter multiplied by 0.2x"
+    id = "fig4_5mgkg_x0p2"
+    max = 0.2021
+    n_points = 16
+    p95 = 0.05812
+    passed = false
+    rms = 0.05096
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4 left panel, 5 mg/kg, bar for parameter multiplied by 5x"
+    id = "fig4_5mgkg_x5"
+    max = 1.0
+    n_points = 16
+    p95 = 0.3965
+    passed = false
+    rms = 0.2548
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 4 caption, log ratio at the base parameter values: 5 mg/kg (x = 0.25) and 0.5 mg/kg (x = 0.75)"
+    id = "fig4_base_case"
+    max = 0.001211
+    n_points = 2
+    p95 = 0.001171
+    passed = true
+    rms = 0.000906
+    tol_p95 = 0.03
+    tol_rms = 0.015
+
+    [[fixed.fixes]]
+    description = "Human V_blood (blood volume entering the PD-1 target amount in blood) set to 5 L = 5e6 uL. The paper gives no human value and Table 1 has no V_blood row; 1400 uL is the mouse blood volume (s006 THETA(18))."
+    evidence = "s006 line 'TVV_blood = THETA(18) ; Blood volume' = 1400 (20 g mouse); Figure 4/Results list V_blood among the sensitive human parameters; with 1400 uL the base case is -6.0 / -4.7 (log ratio) instead of -1.29 / -0.39 (identification grid in notes.md)."
+    id = "human_V_blood_5L"
+    kind = "missing"
+    [[fixed.fixes]]
+    description = "Human KdegPD1 = 0.0194 * (70 kg / 0.02 kg)^-0.25 = 0.002522 1/h instead of the printed Table 1 value 0.00246. The Methods state this formula; the printed value is 2.5 % lower and cannot be obtained from it (SLtg, scaled by the same rule, is reproduced exactly: 2.575E-06)."
+    evidence = "Methods, equation for KdegPD1_human (BW 20 g / 70 kg, exponent -0.25) vs Table 1 'Value in man' 0.00246; Table S3 SLtg 2.575E-06 = 1.98E-05 * 3500^-0.25."
+    id = "KdegPD1_allometric"
+    kind = "typo"
+    [[fixed.fixes]]
+    description = "Base case of Figure 4 = Table S3 row 4: medium growth rate (L0 0.0036/day) with growth-proportional scaling of SLtg (6.247E-07). The paper does not say which of the six scenarios is the base case (Fig S1: 'one scenario (melanoma, 1)')."
+    evidence = "Of the 12 scenario x schedule combinations only medium growth / growth-proportional, Q3W, gives the Figure 4 caption base values (-1.302 / -0.401 vs printed -1.29 / -0.39); next best -1.44 / -0.46."
+    id = "scenario_med_growth"
+    kind = "from_target"
+
+[published]
+error = ""
+fixes = []
+label = "as published"
+matched = false
+ran = true
+
+    [[published.curves]]
+    figure = "Figure 4 right panel, 0.5 mg/kg, bar for parameter multiplied by 0.2x"
+    id = "fig4_0p5mgkg_x0p2"
+    max = 1.0
+    n_points = 16
+    p95 = 1.0
+    passed = false
+    rms = 0.939
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4 right panel, 0.5 mg/kg, bar for parameter multiplied by 5x"
+    id = "fig4_0p5mgkg_x5"
+    max = 1.0
+    n_points = 16
+    p95 = 1.0
+    passed = false
+    rms = 1.0
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4 left panel, 5 mg/kg, bar for parameter multiplied by 0.2x"
+    id = "fig4_5mgkg_x0p2"
+    max = 1.0
+    n_points = 16
+    p95 = 1.0
+    passed = false
+    rms = 0.9372
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4 left panel, 5 mg/kg, bar for parameter multiplied by 5x"
+    id = "fig4_5mgkg_x5"
+    max = 1.0
+    n_points = 16
+    p95 = 1.0
+    passed = false
+    rms = 0.9998
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 4 caption, log ratio at the base parameter values: 5 mg/kg (x = 0.25) and 0.5 mg/kg (x = 0.75)"
+    id = "fig4_base_case"
+    max = 1.0
+    n_points = 2
+    p95 = 1.0
+    passed = false
+    rms = 1.0
+    tol_p95 = 0.03
+    tol_rms = 0.015

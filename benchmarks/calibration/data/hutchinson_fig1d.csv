@@ -1,0 +1,36 @@
+# Source: Hutchinson LG et al., CPT Pharmacometrics Syst Pharmacol 2016;5:636-645, Figure 1d (PSP4-5-636-g001.jpg, 667 px wide), mean tumour volume per group (n = 10 mice per group).
+# Method: marker centres digitised with tools/digitise/digitise.jl helpers via benchmarks/calibration/digitise_fig1d.jl (colour classification, bounding-box midpoint of marker in +-2 px columns).
+# Calibration: x ticks day 35 -> col 392, day 75 -> col 662; y frame row 340 = 0 mm^3, row 199 = 800 mm^3 (0.176 px per mm^3, 1 px = 5.7 mm^3). Measurement days 38,42,45,49,52,56,59,63,67,71 taken from the marker columns.
+# Digitisation error about +-1 px (about 6 mm^3). Hidden markers: day 38 Control and Bevacizumab are covered by the Vanucizumab triangle and set to 70 (Methods: mean size 70 mm^3 at day 38); Control days 42 and 45 are partly covered by the green markers and were read by eye from a 12x zoom (85 and 95, +-6).
+# Columns: group (Control = omalizumab isotype control, Bevacizumab, Vanucizumab), time [days after inoculation], volume [mm^3].
+group,time,volume
+Control,38,70.0
+Control,42,85.0
+Control,45,95.0
+Control,49,113.5
+Control,52,130.5
+Control,56,187.2
+Control,59,204.3
+Control,63,283.7
+Control,67,343.3
+Control,71,431.2
+Bevacizumab,38,70.0
+Bevacizumab,42,82.3
+Bevacizumab,45,87.9
+Bevacizumab,49,85.1
+Bevacizumab,52,87.9
+Bevacizumab,56,133.3
+Bevacizumab,59,144.7
+Bevacizumab,63,178.7
+Bevacizumab,67,139.0
+Bevacizumab,71,150.4
+Vanucizumab,38,70.9
+Vanucizumab,42,62.4
+Vanucizumab,45,62.4
+Vanucizumab,49,59.6
+Vanucizumab,52,62.4
+Vanucizumab,56,79.4
+Vanucizumab,59,113.5
+Vanucizumab,63,96.5
+Vanucizumab,67,90.8
+Vanucizumab,71,105.0

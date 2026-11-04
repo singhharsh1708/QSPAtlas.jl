@@ -1,0 +1,52 @@
+name: Benchmarks
+
+# Solver work-precision benchmarks on the problems each model uses to reproduce its paper.
+# Started by hand (Actions tab, "Run workflow"); one job per model so a slow model cannot
+# block the others. Results are uploaded as artifacts.
+on:
+  workflow_dispatch:
+    inputs:
+      models:
+        description: "Space-separated model ids (empty = all)"
+        required: false
+        default: ""
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    outputs:
+      models: ${{ steps.ids.outputs.models }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: ids
+        run: |
+          if [ -n "${{ github.event.inputs.models }}" ]; then
+            ids="${{ github.event.inputs.models }}"
+          else
+            ids=$(for d in models/*/; do [ -f "$d/reproduce.jl" ] && basename "$d"; done)
+          fi
+          echo "models=$(printf '%s\n' $ids | jq -R . | jq -cs .)" >> "$GITHUB_OUTPUT"
+
+  bench:
+    needs: list
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        model: ${{ fromJSON(needs.list.outputs.models) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.10'
+      - uses: julia-actions/cache@v2
+      - name: Install benchmark environment
+        run: julia --project=benchmarks/solvers -e 'using Pkg; Pkg.develop(PackageSpec(path = pwd())); Pkg.instantiate()'
+      - name: Run benchmarks
+        run: julia --project=benchmarks/solvers benchmarks/solvers/run.jl ${{ matrix.model }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmarks-${{ matrix.model }}
+          path: benchmarks/solvers/results/

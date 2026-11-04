@@ -1,0 +1,25 @@
+# id: fig4_5mgkg_x0p2
+# figure: Figure 4 left panel, 5 mg/kg, bar for parameter multiplied by 0.2x
+# x: bar position [(index - 0.5)/2] linear 0 8
+# y: log10 tumour volume ratio, 26 wk / initial [-] linear -3.0 0.5
+# kind: bars
+# source: PSP4-6-11-g004.jpg (PMC5270293)
+# method: manual bar-tip picking, pixel columns in digitise.toml; xcal 41 -3.0 282 0.5 (px1 v1 px2 v2); the bar values are tumour size changes at the end of the bar, not a curve over x
+# order: gamma, FR, SLtg, L0, Tmulti, N_PD1_TC, V_blood, N_Tcell, EMAXTP, V1, KdegPD1, CL, PLQ, L, CLup, V2
+x,y
+0.25,0.2822
+0.75,-1.3589
+1.25,-0.0809
+1.75,-1.3734
+2.25,-1.5405
+2.75,-1.5405
+3.25,-1.5405
+3.75,-1.5405
+4.25,-1.5405
+4.75,-0.6763
+5.25,-1.5332
+5.75,-1.5405
+6.25,-0.8216
+6.75,-1.5405
+7.25,-1.2573
+7.75,-1.3081

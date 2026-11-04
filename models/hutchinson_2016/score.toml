@@ -1,0 +1,633 @@
+blocker = ""
+citation = "Hutchinson LG, et al. CPT Pharmacometrics Syst Pharmacol 2016;5:636-645"
+doi = "10.1002/psp4.12142"
+grade = "C"
+grade_label = "C"
+id = "hutchinson_2016"
+inputs_from_target = false
+pmcid = "PMC5192995"
+
+[figure_grades]
+fig2 = "B"
+fig6 = "C"
+
+[fixed]
+error = ""
+label = "with fixes"
+matched = false
+ran = true
+
+    [[fixed.curves]]
+    figure = "Figure 2a, control, tumour volume T"
+    id = "fig2_a_T"
+    max = 0.004159
+    n_points = 60
+    p95 = 0.003272
+    passed = true
+    rms = 0.001811
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2b, control, vessel carrying capacity V"
+    id = "fig2_b_V"
+    max = 0.003426
+    n_points = 60
+    p95 = 0.003238
+    passed = true
+    rms = 0.001848
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.04, tumour volume T"
+    id = "fig2_c_T_d04"
+    max = 0.002895
+    n_points = 60
+    p95 = 0.002366
+    passed = true
+    rms = 0.001472
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.06, tumour volume T"
+    id = "fig2_c_T_d06"
+    max = 0.005736
+    n_points = 60
+    p95 = 0.003072
+    passed = true
+    rms = 0.001847
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.08, tumour volume T"
+    id = "fig2_c_T_d08"
+    max = 0.005791
+    n_points = 60
+    p95 = 0.00514
+    passed = true
+    rms = 0.002185
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.10, tumour volume T"
+    id = "fig2_c_T_d10"
+    max = 0.04256
+    n_points = 60
+    p95 = 0.0042
+    passed = true
+    rms = 0.005971
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.12, tumour volume T"
+    id = "fig2_c_T_d12"
+    max = 0.005869
+    n_points = 60
+    p95 = 0.004262
+    passed = true
+    rms = 0.002432
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.04, carrying capacity V"
+    id = "fig2_d_V_d04"
+    max = 0.004213
+    n_points = 60
+    p95 = 0.003519
+    passed = true
+    rms = 0.001799
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.06, carrying capacity V"
+    id = "fig2_d_V_d06"
+    max = 0.006213
+    n_points = 60
+    p95 = 0.003818
+    passed = true
+    rms = 0.002308
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.08, carrying capacity V"
+    id = "fig2_d_V_d08"
+    max = 0.007143
+    n_points = 60
+    p95 = 0.003324
+    passed = true
+    rms = 0.002185
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.10, carrying capacity V"
+    id = "fig2_d_V_d10"
+    max = 0.004805
+    n_points = 60
+    p95 = 0.003807
+    passed = true
+    rms = 0.002287
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.12, carrying capacity V"
+    id = "fig2_d_V_d12"
+    max = 0.004602
+    n_points = 60
+    p95 = 0.003328
+    passed = true
+    rms = 0.002036
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=11, tumour volume T"
+    id = "fig2_e_T_N11"
+    max = 0.0046
+    n_points = 60
+    p95 = 0.004483
+    passed = true
+    rms = 0.002554
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=2, tumour volume T"
+    id = "fig2_e_T_N2"
+    max = 0.01342
+    n_points = 60
+    p95 = 0.01188
+    passed = true
+    rms = 0.0072
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=21, tumour volume T"
+    id = "fig2_e_T_N21"
+    max = 0.01346
+    n_points = 60
+    p95 = 0.01161
+    passed = true
+    rms = 0.006069
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=3, tumour volume T"
+    id = "fig2_e_T_N3"
+    max = 0.00976
+    n_points = 60
+    p95 = 0.009077
+    passed = true
+    rms = 0.004661
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=6, tumour volume T"
+    id = "fig2_e_T_N6"
+    max = 0.01073
+    n_points = 60
+    p95 = 0.009809
+    passed = true
+    rms = 0.006418
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=11, carrying capacity V"
+    id = "fig2_f_V_N11"
+    max = 0.009215
+    n_points = 60
+    p95 = 0.008739
+    passed = true
+    rms = 0.005366
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=2, carrying capacity V"
+    id = "fig2_f_V_N2"
+    max = 0.01373
+    n_points = 60
+    p95 = 0.01232
+    passed = true
+    rms = 0.006759
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=21, carrying capacity V"
+    id = "fig2_f_V_N21"
+    max = 0.02513
+    n_points = 60
+    p95 = 0.01917
+    passed = true
+    rms = 0.008787
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=3, carrying capacity V"
+    id = "fig2_f_V_N3"
+    max = 0.01541
+    n_points = 60
+    p95 = 0.008304
+    passed = true
+    rms = 0.004831
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=6, carrying capacity V"
+    id = "fig2_f_V_N6"
+    max = 0.008413
+    n_points = 60
+    p95 = 0.007156
+    passed = true
+    rms = 0.004077
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 6a, no chemotherapy, tumour volume T (black)"
+    id = "fig6_a_T"
+    max = 0.1786
+    n_points = 70
+    p95 = 0.1762
+    passed = false
+    rms = 0.1093
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 6a, no chemotherapy, carrying capacity V (magenta)"
+    id = "fig6_a_V"
+    max = 0.1681
+    n_points = 70
+    p95 = 0.1603
+    passed = false
+    rms = 0.1058
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 6b, chemotherapy days 42-49, tumour volume T (black)"
+    id = "fig6_b_T"
+    max = 0.2707
+    n_points = 70
+    p95 = 0.2528
+    passed = false
+    rms = 0.1788
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 6b, chemotherapy days 42-49, carrying capacity V (magenta)"
+    id = "fig6_b_V"
+    max = 0.217
+    n_points = 70
+    p95 = 0.2091
+    passed = false
+    rms = 0.1566
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 6c, chemotherapy days 54-61, tumour volume T (black)"
+    id = "fig6_c_T"
+    max = 0.0804
+    n_points = 70
+    p95 = 0.07786
+    passed = false
+    rms = 0.05333
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 6c, chemotherapy days 54-61, carrying capacity V (magenta)"
+    id = "fig6_c_V"
+    max = 0.1011
+    n_points = 70
+    p95 = 0.09474
+    passed = false
+    rms = 0.07773
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 6d, chemotherapy days 38-59, tumour volume T (black)"
+    id = "fig6_d_T"
+    max = 0.2857
+    n_points = 70
+    p95 = 0.2846
+    passed = false
+    rms = 0.2411
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[fixed.curves]]
+    figure = "Figure 6d, chemotherapy days 38-59, carrying capacity V (magenta)"
+    id = "fig6_d_V"
+    max = 0.2806
+    n_points = 70
+    p95 = 0.2633
+    passed = false
+    rms = 0.2008
+    tol_p95 = 0.03
+    tol_rms = 0.015
+
+    [[fixed.fixes]]
+    description = "Initial carrying capacity V0 = K*T0 instead of the printed K = T0/V0 (i.e. V0 = T0/K)."
+    evidence = "Methods before Eq. 6 prints K = T0/V0; Table 1 describes K as 'Initial ratio of V/T'; supplement MLXTRAN code (s004) has V_0 = K*X, T_0 = X; Fig 2b starts at V(38) = 140 = K*T0 with K = 2, T0 = 70 as stated in the caption."
+    id = "K_is_V_over_T"
+    kind = "typo"
+
+[published]
+error = ""
+fixes = []
+label = "as published"
+matched = false
+ran = true
+
+    [[published.curves]]
+    figure = "Figure 2a, control, tumour volume T"
+    id = "fig2_a_T"
+    max = 0.6171
+    n_points = 60
+    p95 = 0.5256
+    passed = false
+    rms = 0.2787
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2b, control, vessel carrying capacity V"
+    id = "fig2_b_V"
+    max = 0.6055
+    n_points = 60
+    p95 = 0.5185
+    passed = false
+    rms = 0.2921
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.04, tumour volume T"
+    id = "fig2_c_T_d04"
+    max = 0.6521
+    n_points = 60
+    p95 = 0.6108
+    passed = false
+    rms = 0.4219
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.06, tumour volume T"
+    id = "fig2_c_T_d06"
+    max = 0.4934
+    n_points = 60
+    p95 = 0.4702
+    passed = false
+    rms = 0.3615
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.08, tumour volume T"
+    id = "fig2_c_T_d08"
+    max = 0.357
+    n_points = 60
+    p95 = 0.3539
+    passed = false
+    rms = 0.303
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.10, tumour volume T"
+    id = "fig2_c_T_d10"
+    max = 0.2771
+    n_points = 60
+    p95 = 0.2753
+    passed = false
+    rms = 0.2634
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2c, treatment Nmax=1, delta_V=0.12, tumour volume T"
+    id = "fig2_c_T_d12"
+    max = 0.2401
+    n_points = 60
+    p95 = 0.2375
+    passed = false
+    rms = 0.1988
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.04, carrying capacity V"
+    id = "fig2_d_V_d04"
+    max = 0.6422
+    n_points = 60
+    p95 = 0.5967
+    passed = false
+    rms = 0.4258
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.06, carrying capacity V"
+    id = "fig2_d_V_d06"
+    max = 0.4116
+    n_points = 60
+    p95 = 0.3906
+    passed = false
+    rms = 0.3343
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.08, carrying capacity V"
+    id = "fig2_d_V_d08"
+    max = 0.3299
+    n_points = 60
+    p95 = 0.3151
+    passed = false
+    rms = 0.2627
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.10, carrying capacity V"
+    id = "fig2_d_V_d10"
+    max = 0.3035
+    n_points = 60
+    p95 = 0.2795
+    passed = false
+    rms = 0.2066
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2d, treatment Nmax=1, delta_V=0.12, carrying capacity V"
+    id = "fig2_d_V_d12"
+    max = 0.3504
+    n_points = 60
+    p95 = 0.3057
+    passed = false
+    rms = 0.1814
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=11, tumour volume T"
+    id = "fig2_e_T_N11"
+    max = 0.4959
+    n_points = 60
+    p95 = 0.4785
+    passed = false
+    rms = 0.3538
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=2, tumour volume T"
+    id = "fig2_e_T_N2"
+    max = 0.3088
+    n_points = 60
+    p95 = 0.3017
+    passed = false
+    rms = 0.2695
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=21, tumour volume T"
+    id = "fig2_e_T_N21"
+    max = 0.5191
+    n_points = 60
+    p95 = 0.4769
+    passed = false
+    rms = 0.2738
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=3, tumour volume T"
+    id = "fig2_e_T_N3"
+    max = 0.3716
+    n_points = 60
+    p95 = 0.3633
+    passed = false
+    rms = 0.3006
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=6, tumour volume T"
+    id = "fig2_e_T_N6"
+    max = 0.4305
+    n_points = 60
+    p95 = 0.4139
+    passed = false
+    rms = 0.3143
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=11, carrying capacity V"
+    id = "fig2_f_V_N11"
+    max = 0.7532
+    n_points = 60
+    p95 = 0.7527
+    passed = false
+    rms = 0.7034
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=2, carrying capacity V"
+    id = "fig2_f_V_N2"
+    max = 0.5974
+    n_points = 60
+    p95 = 0.5966
+    passed = false
+    rms = 0.5835
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=21, carrying capacity V"
+    id = "fig2_f_V_N21"
+    max = 1.018
+    n_points = 60
+    p95 = 0.9282
+    passed = false
+    rms = 0.6991
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=3, carrying capacity V"
+    id = "fig2_f_V_N3"
+    max = 0.6586
+    n_points = 60
+    p95 = 0.6582
+    passed = false
+    rms = 0.6136
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=6, carrying capacity V"
+    id = "fig2_f_V_N6"
+    max = 0.7066
+    n_points = 60
+    p95 = 0.7062
+    passed = false
+    rms = 0.6407
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 6a, no chemotherapy, tumour volume T (black)"
+    id = "fig6_a_T"
+    max = 0.2692
+    n_points = 70
+    p95 = 0.2621
+    passed = false
+    rms = 0.1678
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 6a, no chemotherapy, carrying capacity V (magenta)"
+    id = "fig6_a_V"
+    max = 0.2539
+    n_points = 70
+    p95 = 0.2447
+    passed = false
+    rms = 0.1814
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 6b, chemotherapy days 42-49, tumour volume T (black)"
+    id = "fig6_b_T"
+    max = 0.281
+    n_points = 70
+    p95 = 0.2631
+    passed = false
+    rms = 0.1898
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 6b, chemotherapy days 42-49, carrying capacity V (magenta)"
+    id = "fig6_b_V"
+    max = 0.2378
+    n_points = 70
+    p95 = 0.2302
+    passed = false
+    rms = 0.1939
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 6c, chemotherapy days 54-61, tumour volume T (black)"
+    id = "fig6_c_T"
+    max = 0.1367
+    n_points = 70
+    p95 = 0.1312
+    passed = false
+    rms = 0.08272
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 6c, chemotherapy days 54-61, carrying capacity V (magenta)"
+    id = "fig6_c_V"
+    max = 0.2031
+    n_points = 70
+    p95 = 0.1917
+    passed = false
+    rms = 0.1402
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 6d, chemotherapy days 38-59, tumour volume T (black)"
+    id = "fig6_d_T"
+    max = 0.276
+    n_points = 70
+    p95 = 0.275
+    passed = false
+    rms = 0.2314
+    tol_p95 = 0.03
+    tol_rms = 0.015
+    [[published.curves]]
+    figure = "Figure 6d, chemotherapy days 38-59, carrying capacity V (magenta)"
+    id = "fig6_d_V"
+    max = 0.2746
+    n_points = 70
+    p95 = 0.2595
+    passed = false
+    rms = 0.2215
+    tol_p95 = 0.03
+    tol_rms = 0.015

@@ -1,0 +1,4 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+QSPAtlas = "7b1f3a52-9c4e-4d1a-b2e8-5a6c0f9d3e21"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"

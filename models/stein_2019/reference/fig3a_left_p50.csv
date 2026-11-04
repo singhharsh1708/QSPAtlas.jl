@@ -1,0 +1,24 @@
+# id: fig3a_left_p50
+# figure: Figure 3a left panel, shaded simulated interval of the 50th percentile (pink band)
+# x: time since infusion [day] linear -18 383
+# y: tisagenlecleucel transgene [copies/ug] log 27.6 300000
+# kind: band
+# source: PSP4-8-285-g003.jpg (PMC6539725), authors' simulation (Monolix VPC prediction interval), NOT the empirical line or dots
+# method: trace_fig3a.jl colour-run trace of band-coloured pixels, 16 columns kept, calibration in digitise.toml; band edges = outer pixel boundaries
+x,lo,hi
+32.124,1311.0,2889.0
+41.451,955.9,2254.0
+50.777,729.0,1571.0
+60.104,608.6,1094.0
+69.43,464.2,729.0
+78.756,354.0,696.8
+97.409,323.4,508.0
+106.74,309.2,608.6
+116.06,282.5,581.7
+125.39,270.0,556.0
+134.72,258.1,531.5
+144.04,258.1,485.6
+153.37,235.8,464.2
+162.69,225.4,464.2
+172.02,215.4,424.1
+181.35,222.9,378.8

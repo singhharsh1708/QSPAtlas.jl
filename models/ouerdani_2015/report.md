@@ -1,0 +1,72 @@
+# ouerdani_2015: grade B†
+
+Ouerdani A, Struemper H, Suttle AB, Ouellet D, Ribba B. Preclinical Modeling of Tumor Growth and Angiogenesis Inhibition to Describe Pazopanib Clinical Effects in Renal Cell Carcinoma. CPT Pharmacometrics Syst Pharmacol 2015;4:660-668. DOI 10.1002/psp4.12001, PMC4716582.
+
+Grade B† (B with inputs read from the target figure): all four Figure 4 curves match after supplying two protocol inputs the paper does not give, the initial tumour size P0 and which mouse dose group the typical simulation shows. Both were taken from Figure 4 itself (P0 at t = 0; the dose group as the one of three published exposures that matches), so they are circular for those two values. Every model equation and parameter value comes from the paper, and with those two inputs set the published model reproduces 75 days (mice) and 82 months (patients) of P and K dynamics within 0.1-1 % of the axis.
+
+## Model
+
+Two ODEs (Eq. 1), fitted separately to CAKI-2 mouse data and to 47 RCC patients:
+
+    dP/dt = lambda * P * (1 - P/K) - alpha * exp(-delta * t) * P
+    dK/dt = b * P^n - gamma * K
+    alpha = alpha0 * AUC^beta_alpha         (Eq. 2)
+    gamma = gamma0 * AUC^beta_gamma         (Eq. 3)
+
+P is tumour size (volume in mm^3 for mice, sum of longest diameters in mm for patients). K is the carrying capacity set by tumour vasculature. alpha is the cytotoxic effect on P that decays with resistance rate delta; gamma is the antiangiogenic loss of K. n = 1 for mice and n = 0.5 for patients (text, and confirmed by the NONMEM `$DES` blocks in s004.txt and s001.txt). Time is in days (Table 1 and NONMEM). Exposure AUC is constant per dose group, so there is no dosing event; "treatment" is the continuous AUC and the decaying exp(-delta t) term. Parameters: Table 1 typical values, listed with sources in `model.jl`.
+
+## Targets
+
+Figure 4 (PSP4-4-660-g004.jpg, 568 px wide), "model simulation of tumor size (P) and carrying capacity (K) using the population parameter estimates". Four curves: left (mice, 0-75 d, 0-250 mm^3) P solid and K dashed; right (patients, 0-82 months, 40-70 mm) P and K.
+All four are authors' simulation lines (`kind: curve`). Both curves are black, so colour tracing was not possible; points were picked by rule from per-pixel-column dark runs (darkness-weighted centroid), assigning runs to P (continuous) or K (dashed) by position. Rules, calibration and every picked pixel are in `reference/trace_fig4.jl` and `reference/digitise.toml`. Calibration used two ticks per axis; extra ticks not used for calibration (50 d, 75 d, 50/100/150/250 mm^3, 80 mo, 82 mo, 40/50/55/60/70 mm) land on their tick marks in `figures/digitise_check.png` (local only: it contains the paper's figure), which also shows the picked points on the original. The curve start columns hugging the y axis and the tick columns at the right frame were excluded, so the references begin at about 0.97 d / 1.4 months (P) and K only where it enters the frame (day 12; month 15.8).
+Tolerance: default (RMS 0.015, P95 0.03 of the axis box). Errors are shortest two-dimensional distances in the normalised box, not vertical errors at fixed times; on the clinical panel (30 mm tall) 0.015 of the box corresponds to at most 0.45 mm vertically. Not changed after comparing.
+Targets frozen 2026-11-04 09:44 IST (reference CSVs, digitise.toml, tolerances in protocol.jl) before any simulation was compared.
+
+## Result
+
+From `score.toml` (with fixes; "as published" run fails every curve, see below).
+
+| curve | rms | p95 | pass |
+|---|---|---|---|
+| fig4_left_K | 0.0010 | 0.0024 | yes |
+| fig4_left_P | 0.0009 | 0.0016 | yes |
+| fig4_right_K | 0.0112 | 0.0160 | yes |
+| fig4_right_P | 0.0088 | 0.0138 | yes |
+
+As published (text-only guesses: mice P0 = 175 mm^3, midpoint of the 100-250 inclusion range, AUC = 30 mg/kg; patients P0 = 75 mm from a rough look at Figure 1, AUC = 771.6): left K 0.080, left P 0.081, right K 0.033, right P 0.064 (rms), all fail. These guesses are mine, not the paper's; the paper gives no value, so this run measures sensitivity to the unstated inputs rather than a real as-published reproduction.
+
+Sensitivity (diagnostic only, not graded):
+- Mouse panel, P0 = 150: 100 mg/kg rms 0.001, 30 mg/kg 0.074, 10 mg/kg 0.27. Only gamma depends on AUC (beta_alpha fixed to 0), so the dose group is identified clearly.
+- Patient panel: AUC 771.6 (stated mean exposure) rms 0.009/0.011 (P/K); AUC 800 rms 0.006/0.002; AUC 802.4 (Emax-predicted exposure at 800 mg, upper end of range) 0.007/0.002; AUC 629.4 fails. The 800-ish exposure fits K about six times tighter, which suggests Figure 4 used the full 800 mg dose rather than the 727 mg mean dose. I kept the stated 771.6 because both pass and it is the only value the text ties to the population.
+- Days per month for the clinical axis (not stated): 30.4375 used; 30 gives rms 0.013/0.014 (still passes), 31 gives 0.005/0.008, 28 fails.
+- n = 1 for patients (the mouse value) fails badly (rms 0.54), n = 2/3 for mice fails (0.05); the text and code values are supported.
+- P0 read error: patients 66.0-67.5 mm all pass (rms 0.009-0.013); mice 145-155 mm^3 pass (rms up to 0.004).
+
+## Fixes
+
+1. `p0` (:from_target). Initial tumour size P0 is not given for the typical simulation: the Methods say P0 was "set to the observed value" (individual baselines) and neither Table 1 nor the NONMEM code gives a typical value (P0 is the data column BASE/VB, `$THETA` has `0 FIX`). Used 150 mm^3 (mice) and 66.8 mm (patients), read from Figure 4 at t = 0. This is circular (the target defines the input); it is the only available source.
+2. `mouse_auc` (:from_target). The text gives AUC for three dose groups (220.2, 656.8, 1140.8 ug*h/mL) and the Figure 4 caption does not say which dose the typical mouse simulation uses. 100 mg/kg (AUC 1140.8) reproduces the curves (rms 0.001); the other two do not.
+
+No :code fix: the NONMEM structural models agree with Eq. 1 and the n values in the text. The `$THETA` values in the supplement code are initial estimates (e.g. mouse lambda 0.144, K0 566) not final estimates, so Table 1 was used.
+
+## Issues found in the paper
+
+- P0 for the typical simulation is not stated (text, Table 1, Fig. 4 caption).
+- Which mouse dose (exposure) Figure 4 left uses is not stated; neither is the patient exposure for the right panel (text gives mean AUC 771.6 and the Supplementary Table 2 uses 800; the figure matches 800-ish better).
+- The Figure 4 caption does not say the simulation is continuous treatment to 75 d / 82 months (mice were dosed for 24 days only; the model has no stop).
+- Model time is in days everywhere (Table 1, NONMEM) but Figure 4 right is in months; the conversion is not given.
+- Table 1 unit for gamma0 and alpha0 is "day-1", but with Eqs. 2-3 their units also include (ug*h/mL)^-beta. Units row "mm3 | mm" for K0 and the residual error is a combined preclinical/clinical entry (fine, but easy to misread).
+- The text says n in mice was "not identifiable" and tested over 0.5 to 3; the value n = 1 for mice is stated only in the text and in the code, not in Table 1. Table 1 has no row for n at all (n = 0.5 in patients appears only in the Results text).
+- Supplement code s001/s004 carry initial estimates, not the Table 1 values (can mislead anyone using the code as the final model).
+
+## What would raise the grade
+
+An A needs the authors' stated P0 and dose/exposure for Figure 4 so that no input has to be read off the target itself. Individual baselines and the ".csv" datasets (Clinical_data.csv, NMCaki2.csv) are not published; a stated typical P0 and the dose group would be enough.
+
+## Review
+
+Independent review, 2026-11-04. Equations, Table 1 values, the NONMEM cross-check and the digitising were found clean. The review argued for D: P0 and the mouse dose cannot be established from published information, and choosing them by matching the target gives no independent confirmation. Final decision: B†. The missing items are protocol inputs (a starting value and which of three published dose groups is shown), not model content; with them set, the published equations and parameters reproduce the full time course, which is the information a reader needs. The dagger and `inputs_from_target = true` in score.toml make the circularity explicit. The "as published" run uses guessed inputs and is a sensitivity check, not evidence that the published model fails.
+
+## Files
+
+`model.jl`, `protocol.jl`, `reproduce.jl`, `reference/` (4 CSVs, `digitise.toml`, `trace_fig4.jl`, `check_overlay.jl`), `figures/comparison.png`, `figures/fig4.png` (regenerated paper layout), `notes.md`, `score.toml`. Note: the skeleton in `models/README.md` uses `include(...)`, which fails inside a bare `Module()`; this model uses `Base.include(@__MODULE__, ...)`.

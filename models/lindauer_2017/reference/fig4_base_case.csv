@@ -1,0 +1,10 @@
+# id: fig4_base_case
+# figure: Figure 4 caption, log ratio at the base parameter values: 5 mg/kg (x = 0.25) and 0.5 mg/kg (x = 0.75)
+# x: dose slot [(index - 0.5)/2] linear 0 8
+# y: log10 tumour volume ratio, 26 wk / initial [-] linear -3 0.5
+# kind: bars
+# source: Figure 4 caption text (PMC5270293): -1.29 for 5 mg/kg, -0.39 for 0.5 mg/kg
+# method: values read from the caption, exact to the printed digits (not digitised)
+x,y
+0.25,-1.2900
+0.75,-0.3900

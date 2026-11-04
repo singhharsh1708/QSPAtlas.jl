@@ -1,0 +1,25 @@
+# id: fig3a_left_p90
+# figure: Figure 3a left panel, shaded simulated interval of the 90th percentile (blue band)
+# x: time since infusion [day] linear -18 383
+# y: tisagenlecleucel transgene [copies/ug] log 27.6 300000
+# kind: band
+# source: PSP4-8-285-g003.jpg (PMC6539725), authors' simulation (Monolix VPC prediction interval), NOT the empirical line or dots
+# method: trace_fig3a.jl colour-run trace of band-coloured pixels, 17 columns kept, calibration in digitise.toml; band edges = outer pixel boundaries
+x,lo,hi
+32.124,10460.0,37040.0
+41.451,7627.0,27000.0
+50.777,4856.0,20590.0
+60.104,3384.0,16430.0
+69.43,2358.0,10940.0
+78.756,2254.0,9559.0
+88.083,1968.0,8348.0
+97.409,1882.0,7627.0
+106.74,1798.0,6968.0
+116.06,1643.0,6086.0
+125.39,1501.0,5817.0
+134.72,1372.0,5315.0
+144.04,1198.0,4642.0
+153.37,1094.0,4241.0
+162.69,1000.0,3875.0
+172.02,913.7,3540.0
+181.35,913.7,3234.0

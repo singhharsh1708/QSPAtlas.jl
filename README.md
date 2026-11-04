@@ -1,0 +1,99 @@
+# QSPAtlas.jl
+
+**Can published pharmacometric and QSP models be rebuilt from their papers?** This
+repository rebuilds published PK/PD and quantitative systems pharmacology models in
+Julia ([ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl),
+[OrdinaryDiffEq.jl](https://github.com/SciML/OrdinaryDiffEq.jl)), compares them with
+the curves in the papers' own figures, and grades each one.
+
+## First result: 5 oncology models from CPT: Pharmacometrics & Systems Pharmacology
+
+**1 of 5 reproduces its target figures, and only after two unstated inputs were read from
+the figure itself. The other 4 run once their gaps are filled from documented sources, but
+do not match.** No model needed a parameter that had no source at all, so none is graded D.
+
+| model | what it is | grade | curves passing (as printed / with fixes) | main reason |
+|---|---|---|---|---|
+| [Ouerdani 2015](models/ouerdani_2015/report.md) | pazopanib, tumour growth + angiogenesis (mouse, human) | **B†** | 0 of 4 / 4 of 4 | initial tumour size and mouse dose group not stated; taken from the figure |
+| [Hutchinson 2016](models/hutchinson_2016/report.md) | antiangiogenic transient vessel normalisation | **C** (Fig 2: B, Fig 6: C) | 0 of 30 / 22 of 30 | K = T0/V0 printed inverted; Fig 6 drug scale ~100x off Eq. 9 |
+| [Lindauer 2017](models/lindauer_2017/report.md) | pembrolizumab translational PK/RO/tumour growth | **C** | 0 of 5 / 1 of 5 | human blood volume and base scenario not stated; 6 of 64 tornado bars off |
+| [Fornari 2019](models/fornari_2019/report.md) | carboplatin bone-marrow toxicity QSP (rat, human) | **C** | did not run / 1 of 9 | equations not closed as printed; dose units inconsistent with its own PK figure |
+| [Stroh 2019](models/stroh_2019/report.md) | masked tumour-activated antibody (Probody) QSP | **C** | 14 of 35 / 18 of 35 | human cleavage rate given only as an upper bound; "Total Drug" readout undefined |
+
+**Population figures.** Papers whose figures show population spread (visual predictive
+checks) are graded on the authors' *simulated* percentile intervals, using the population
+simulation layer below; observed-data lines are a diagnostic only.
+
+| model | what it is | grade | bands passing (as printed / with fixes) | main reason |
+|---|---|---|---|---|
+| [Stein 2019](models/stein_2019/report.md) | tisagenlecleucel CAR-T cellular kinetics, VPC | **C** | 2 of 6 / 2 of 6 | early expansion reproduces; upper tail and persistence phase fall below the authors' bands; VPC design (bins, BLQ, comedication) not stated |
+
+Grades: **A** matches as published; **B** matches after documented fixes, each with
+evidence; **B†** a B that needed an input read from the figure being checked; **C** runs
+but does not match; **D** cannot be run from published information. How the figures were
+digitised, how curves are scored, and what may fill a gap are on the method page.
+
+## How it works
+
+```
+models/<author_year>/
+├── model.jl       # equations and parameter values as printed, each value with its source
+├── protocol.jl    # dosing, targets, tolerances, documented fixes, benchmark problems
+├── reproduce.jl   # simulate, compare with digitised figure points, write score.toml + figures
+├── reference/     # digitised points (one CSV per curve) and the settings that regenerate them
+├── figures/       # comparison plots, regenerated paper figures, digitising overlays
+├── score.toml     # grade and per-curve errors
+├── report.md      # targets, results, fixes with evidence, problems found in the paper, review
+└── notes.md       # research notes: transcribed equations, parameter sources, target-freeze record
+```
+
+- Targets are the authors' own simulation lines, chosen and frozen before any comparison.
+- A curve passes when the RMS distance from the digitised points to the simulated curve is
+  at most 1.5 % of the figure's axis box and the 95th percentile at most 3 %.
+- Re-estimating parameters never counts as a fix; recalibration is reported separately.
+- Each report has a review section recording what was checked, what was disputed and
+  how it was settled.
+
+```julia
+using QSPAtlas
+m = Module(); Base.include(m, joinpath(models_dir(), "ouerdani_2015", "reproduce.jl"))
+rep = m.reproduce()   # simulates, compares, writes score.toml and figures
+```
+
+`test/runtests.jl` reruns every model and fails if any grade or curve result changes.
+
+## Population simulation
+
+An open simulation layer in the spirit of NONMEM/Pumas, built on ModelingToolkit:
+
+- dosing regimens: bolus, repeated doses (`ii`, `addl`), infusions (overlapping),
+  bioavailability, lag time, steady state (`ss`), resets;
+- `Subject`s with baseline and time-varying covariates, `PopulationModel` with
+  between-subject variability and additive, proportional, combined or exponential error;
+- `simulate` for one subject or a cohort, reproducible per (replicate, subject) and
+  independent of thread count;
+- `percentiles`, `vpc` with Monte Carlo standard errors, and plots.
+
+```julia
+# `model` is a PopulationModel (see examples/population_ouerdani.jl for a full one)
+regimen = Regimen(100.0; cmt = :central, ii = 24.0, addl = 6)      # 100 every 24 h, 7 doses
+pop = virtual_population(500; regimen, obstimes = collect(0:1.0:168))
+res = simulate(model, pop; seed = 1)
+v = vpc(model, pop; endpoint = :conc, q = (0.05, 0.5, 0.95), bins = collect(0:12.0:168), replicates = 200)
+```
+
+See `examples/population_ouerdani.jl` for 500 virtual mice from the Ouerdani model.
+
+## Also in the repository
+
+- `benchmarks/solvers/`: work-precision benchmarks of OrdinaryDiffEq solvers on the exact
+  problems used for each figure.
+- `benchmarks/calibration/`: Turing.jl (Bayesian) and PEtab.jl (maximum likelihood)
+  recalibration of the Hutchinson model against the paper's own mean tumour data.
+- `tools/digitise/`: the pixel digitiser used for every reference curve.
+
+## Licences and sources
+
+Code is MIT. Papers are open access on PubMed Central; no figure images or supplementary
+files are redistributed here. Reference CSVs hold coordinates digitised from the published
+figures, each with its source figure and method in the header.
