@@ -90,3 +90,7 @@ Other findings:
 - The Fig 3a nominal dose-response was not simulated (not a target).
 
 Self-check (2026-11-04): an independent rebuild from the paper alone was compared with these results; see the Self-check section in `report.md`.
+
+## Provenance ledger (2026-11-05)
+
+The as-published run now lists its fills as Fixes (scenario row 1, mouse V_blood, Q3W, 70 kg, bolus, Table S2 precision, s006 equations); the last five are kept in the fixed run. Without the scenario, V_blood, schedule, body-weight and bolus fixes the simulation throws NotRunnable. No number changed; grade C, strict D. The only passing target (fig4_base_case) is the one used to choose `scenario_med_growth`.

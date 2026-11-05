@@ -12,28 +12,43 @@ const TOLERANCES = Dict{String, Tolerance}()          # no per-curve overrides
 const T_START = 38.0     # day of first measurement and start of treatment (Methods, Preclinical data)
 const T_END = 71.0       # last time drawn in Fig 2 and Fig 6 (Fig 4 / Fig 6 axes end at day 71)
 
-# Fixes (only with evidence; see report.md). Ids are used by simulate_curve.
+# Fixes (only with evidence; see report.md). Ids are used by simulate_curve. Provenance ledger 2026-11-05:
+# every input the paper does not state is listed in the run that uses it; nothing is applied silently.
+
+# The as-published run needs one fill to run Figure 6 at all: the paper gives no T0 for it.
+const PUBLISHED_FILLS = [
+    Fix("T0_fig6_methods_mean", :missing,
+        "Figure 6: T0 = 70 mm^3, the mean tumour size at day 38 from the Methods (the paper gives no T0 for Figure 6).";
+        evidence = "Methods: the initial condition for T is the observed volume at day 38 (individual values); the Methods mean is 70 mm^3 and the Figure 2 caption uses T0 = 70. " *
+                   "Taken before the first comparison (notes.md, Timeline and Update item 1).",
+        basis = :interpretation, stage = :before_comparison, figures = ["fig6"]),
+]
+
 const FIXES = [
     Fix("K_is_V_over_T", :typo,
         "Initial carrying capacity V0 = K*T0 instead of the printed K = T0/V0 (i.e. V0 = T0/K).";
         evidence = "Methods before Eq. 6 prints K = T0/V0; Table 1 describes K as 'Initial ratio of V/T'; supplement MLXTRAN code (s004) has V_0 = K*X, T_0 = X; " *
-                   "Fig 2b starts at V(38) = 140 = K*T0 with K = 2, T0 = 70 as stated in the caption."),
-    # The next two apply to Figure 6 only (scenarios with fig = :fig6); Figure 2 is simulated exactly as before.
-    Fix("resistance_clock_from_tCon", :ambiguity,
-        "Figure 6: the resistance factor of Eq. 7 is exp(-lambda (t - tCon)), timed from the start of chemotherapy, instead of exp(-lambda t) with t read as days since inoculation.";
-        evidence = "Eq. 7 writes exp(-lambda t) and nowhere defines the origin of t; the text says resistance builds up during chemotherapy and is likely to matter more in Fig 6(d) (long course) than in Fig 6(c). " *
-                   "Both readings are textually possible; the one used is stated here. No parameter value is changed.",
-        figures = ["fig6"]),
+                   "Fig 2b starts at V(38) = 140 = K*T0 with K = 2, T0 = 70 as stated in the caption. Stage: notes.md lists the typo with the equations and the first comparison run already had both runs.",
+        basis = :supplement, stage = :before_comparison),
     Fix("T0_fig6_from_figure", :from_target,
         "Figure 6: T0 = 80 mm^3 (Methods mean of 70 mm^3 not used) because the curves of all four panels start at T of about 80.";
         evidence = "The paper gives no T0 for Figure 6. Value read from the starting point of the T curves in Figure 6 itself (a protocol input, not a model parameter); " *
-                   "an independent rebuild from the paper alone read the same 80. Circular for this one value, hence the dagger.",
-        figures = ["fig6"]),
+                   "an independent rebuild from the paper alone read the same 80, after its own comparison with the figure. Circular for this one value, hence the dagger.",
+        basis = :figure, stage = :after_comparison, figures = ["fig6"]),
 ]
+
+# Sensitivity only (not a fix, not graded): the resistance factor of Eq. 7 timed from the start of chemotherapy.
+# Adopted on 2026-11-04 after a rebuild showed it matches Figure 6; the text allows both readings and no source
+# outside the target figure settles it, so under the ledger rules it is a sensitivity run (report.md).
+const CLOCK_FROM_TCON = Fix("resistance_clock_from_tCon", :ambiguity,
+    "Figure 6: the resistance factor of Eq. 7 is exp(-lambda (t - tCon)), timed from the start of chemotherapy, instead of exp(-lambda t) with t read as days since inoculation.";
+    evidence = "Eq. 7 writes exp(-lambda t) and nowhere defines the origin of t; the text says resistance 'is likely to influence the reduction in tumor volume in Figure 6d, compared to Figure 6c', which fits this reading but does not exclude the other. " *
+               "The reading was adopted after a rebuild showed that it matches Figure 6, so it is used in sensitivity runs only.",
+    basis = :interpretation, stage = :after_comparison, figures = ["fig6"])
 
 # ---- scenarios ---------------------------------------------------------------------------------
 fig2_base = (; alpha_T = 0.1, alpha_V = 0.09, K = 2.0, T0 = 70.0)                  # Fig 2 caption
-fig6_base = (; alpha_T = 0.109, alpha_V = 0.119, K = 1.14, T0 = 70.0,              # Table 1 final model (population); T0 = 70: Methods mean size at day 38
+fig6_base = (; alpha_T = 0.109, alpha_V = 0.119, K = 1.14, T0 = NaN,               # Table 1 final model (population); T0 not stated: set by a fix (70 or 80)
     tnorm1 = 53.4, tnorm2 = 59.2, Nmax = 6.7, delta_V = 0.115,                      # Table 1, vanucizumab (delta_V van = 0.115)
     delta_T = 0.12, lambda = 0.08, alphaC_on = 1.0, k_C = 0.9,                      # chemotherapy section text
     fig = :fig6)                                                                    # marks scenarios the Figure 6 fixes apply to
@@ -95,7 +110,11 @@ the solver to stop (and restart its derivative) on the discontinuities.
 function hutchinson_problem(p; fixes = Fix[])
     ids = Set(f.id for f in fixes)
     is6 = get(p, :fig, :fig2) === :fig6
-    "T0_fig6_from_figure" in ids && is6 && (p = merge(p, (; T0 = 80.0)))
+    if is6
+        T0 = "T0_fig6_from_figure" in ids ? 80.0 : "T0_fig6_methods_mean" in ids ? 70.0 :
+             throw(NotRunnable("Figure 6: the initial tumour volume T0 is not stated"))
+        p = merge(p, (; T0))
+    end
     "resistance_clock_from_tCon" in ids && is6 && (p = merge(p, (; t_res0 = p.tCon)))
     T0, V0 = initial_state(p.T0, p.K; K_is_V_over_T = "K_is_V_over_T" in ids)
     kv = Pair[SYS.T => T0, SYS.V => V0]

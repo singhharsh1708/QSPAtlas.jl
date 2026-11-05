@@ -172,8 +172,9 @@ end
 function reproduce(; plots = true, figdir = joinpath(@__DIR__, "figures"), replicates = REPLICATES, sensitivity = false)
     refs = sort(collect(values(load_references(joinpath(@__DIR__, "reference")))); by = r -> r.id)
     S = simulate_design(; replicates)
-    published = run_curves(ref -> band_curve(ref.id, S; mode = :scheduled), refs, "as published"; tolerance = TOLERANCE, tolerances = TOLERANCES)
-    fixed = run_curves(ref -> band_curve(ref.id, S; mode = :fixed), refs, "with fixes"; fixes = FIXES, tolerance = TOLERANCE, tolerances = TOLERANCES)
+    published = run_curves(ref -> band_curve(ref.id, S; mode = band_mode(PUBLISHED_FILLS)), refs, "as published";
+        fixes = PUBLISHED_FILLS, tolerance = TOLERANCE, tolerances = TOLERANCES)
+    fixed = run_curves(ref -> band_curve(ref.id, S; mode = band_mode(FIXES)), refs, "with fixes"; fixes = FIXES, tolerance = TOLERANCE, tolerances = TOLERANCES)
     rep = Reproduction(; id = ID, citation = CITATION, doi = DOI, pmcid = PMCID, published, fixed)
     write_score(joinpath(@__DIR__, "score.toml"), rep)
     global LAST = (; S, refs, mc = mc_report(S, refs), mc_sched = mc_report(S, refs; mode = :scheduled))

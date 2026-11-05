@@ -25,7 +25,7 @@ function row3(label, s)
     println(rpad(label, 62), join(cols, "  "))
 end
 row3("main (fixes; pk_per_kg: 2.694 umol/kg per mg/kg, MW 371.25; dose at 24 h)", m.rat_problem(F))
-row3("Table S3 as absolute litres, 0.320 kg rat (0.862 umol per mg/kg)", m.rat_problem(without("pk_per_kg")))
+row3("Table S3 as absolute litres, 0.320 kg rat (0.862 umol per mg/kg)", m.rat_problem(vcat(without("pk_per_kg"), [m.PK_ABSOLUTE_SENSITIVITY])))
 row3("per kg, dose -5 % (2.56 umol/kg per mg/kg)", m.rat_problem(F; dose_scale = 0.95 * m.DOSE_UMOL_PER_MGKG_PERKG))
 row3("per kg, dose +5 % (2.83 umol/kg per mg/kg)", m.rat_problem(F; dose_scale = 1.05 * m.DOSE_UMOL_PER_MGKG_PERKG))
 row3("DIAGNOSTIC 3.90 umol per mg/kg (Fig S3 model line, = 43 mg/kg per kg)", m.rat_problem(F; dose_scale = 3.9))

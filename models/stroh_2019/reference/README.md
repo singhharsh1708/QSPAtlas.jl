@@ -1,0 +1,1 @@
+Source and licence: the numbers in this folder were read from figures of the article cited in each CSV header (CC BY-NC-ND 4.0, Stroh et al. 2019, doi:10.1002/psp4.12448). They are not our own data and remain subject to the article's terms where those apply. Attribution, licence link, what was changed and open questions: [DATA_LICENSES.md](../../../DATA_LICENSES.md).

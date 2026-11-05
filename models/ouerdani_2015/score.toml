@@ -3,6 +3,7 @@ citation = "Ouerdani A, et al. CPT Pharmacometrics Syst Pharmacol 2015;4:660-668
 doi = "10.1002/psp4.12001"
 grade = "B"
 grade_label = "B†"
+grade_strict = "D"
 id = "ouerdani_2015"
 inputs_from_target = true
 pmcid = "PMC4716582"
@@ -58,21 +59,48 @@ ran = true
     tol_rms = 0.015
 
     [[fixed.fixes]]
+    basis = "figure"
     description = "Initial tumour size P0 is not stated for the typical simulation; set to 150 mm^3 (mice) and 66.8 mm (patients), read from Figure 4 at t = 0."
     evidence = "Methods: P0 'set to the observed value' (individual baselines); no typical value given in text, Table 1, s001.txt/s004.txt (P0 = BASE/VB data column). Value read from the curve start in PSP4-4-660-g004.jpg (circular)."
-    figures = []
+    figures = ["fig4"]
     id = "p0"
     kind = "from_target"
+    stage = "after_comparison"
     [[fixed.fixes]]
+    basis = "figure"
     description = "Mouse panel simulated with the 100 mg/kg exposure (AUC 1140.8 ug*h/mL); the paper does not say which dose group the typical mouse simulation uses."
-    evidence = "Only gamma depends on AUC (beta_alpha fixed to 0). With P0 = 150: 100 mg/kg rms 0.001, 30 mg/kg rms 0.074, 10 mg/kg rms 0.27 (explore log)."
-    figures = []
+    evidence = "Only gamma depends on AUC (beta_alpha fixed to 0). With P0 = 150: 100 mg/kg rms 0.001, 30 mg/kg rms 0.074, 10 mg/kg rms 0.27 (explore log). Chosen by matching the figure."
+    figures = ["fig4"]
     id = "mouse_auc"
     kind = "from_target"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "Patient panel simulated with the stated mean exposure AUC = 771.6 ug*h/mL; the caption does not say which exposure Figure 4 right uses."
+    evidence = "Results: mean exposure of the 47 patients 771.6 ug*h/mL (range 629.4-802.4); Supplementary Table 2 uses 800. 771.6 is the only value the text ties to the population. Not chosen by matching: 800 fits K about six times tighter and was not adopted (report.md, Sensitivity). Stage: the notes record only that these inputs were tried after the 09:44 freeze; the exact order is not recorded, so :after_comparison."
+    figures = ["fig4"]
+    id = "patient_auc_mean"
+    kind = "ambiguity"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "standard"
+    description = "Clinical model time (days) put on the Figure 4 month axis with 365.25/12 = 30.4375 days per month."
+    evidence = "Table 1 and the NONMEM code use days; Figure 4 right is in months and the conversion is not stated. 365.25/12 is the mean calendar month (30 also passes, 28 fails; report.md). Stage: the notes record only that these inputs were tried after the 09:44 freeze; the exact order is not recorded, so :after_comparison."
+    figures = ["fig4"]
+    id = "days_per_month"
+    kind = "missing"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "Treatment is continuous over the whole horizon (75 d mice, 82 months patients): constant AUC and the exp(-delta t) term from t = 0, no stop."
+    evidence = "Eq. 1-3 and the NONMEM $DES blocks (s001, s004) have no dosing stop; the caption does not say how long treatment lasts (the mice were dosed for 24 days only). Stage: the notes record only that these inputs were tried after the 09:44 freeze; the exact order is not recorded, so :after_comparison."
+    figures = ["fig4"]
+    id = "continuous_treatment"
+    kind = "ambiguity"
+    stage = "after_comparison"
 
 [published]
 error = ""
-fixes = []
 label = "as published"
 matched = false
 ran = true
@@ -117,3 +145,44 @@ ran = true
     rms = 0.06403
     tol_p95 = 0.03
     tol_rms = 0.015
+
+    [[published.fixes]]
+    basis = "assumption"
+    description = "Initial tumour size P0 for the typical simulation: 175 mm^3 (mice, midpoint of the 100-250 mm^3 inclusion range) and 75 mm (patients, rough median baseline SLD read from Figure 1 right)."
+    evidence = "The paper gives no typical P0 (Methods: 'set to the observed value'). 175 is the midpoint of the Methods inclusion range; 75 is a rough reading of the observed baselines in Figure 1 (not a target). Neither point is named by the paper. Stage: the notes record only that these inputs were tried after the 09:44 freeze; the exact order is not recorded, so :after_comparison."
+    figures = ["fig4"]
+    id = "p0_text_guess"
+    kind = "missing"
+    stage = "after_comparison"
+    [[published.fixes]]
+    basis = "assumption"
+    description = "Mouse panel simulated with the middle dose group, 30 mg/kg (AUC 656.8 ug*h/mL)."
+    evidence = "Eq. 2-3 text gives AUC for 10, 30 and 100 mg/kg (220.2, 656.8, 1140.8); the caption does not say which one Figure 4 left shows. The middle group is an arbitrary choice among the three. Stage: the notes record only that these inputs were tried after the 09:44 freeze; the exact order is not recorded, so :after_comparison."
+    figures = ["fig4"]
+    id = "mouse_dose_text_guess"
+    kind = "missing"
+    stage = "after_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Patient panel simulated with the stated mean exposure AUC = 771.6 ug*h/mL; the caption does not say which exposure Figure 4 right uses."
+    evidence = "Results: mean exposure of the 47 patients 771.6 ug*h/mL (range 629.4-802.4); Supplementary Table 2 uses 800. 771.6 is the only value the text ties to the population. Not chosen by matching: 800 fits K about six times tighter and was not adopted (report.md, Sensitivity). Stage: the notes record only that these inputs were tried after the 09:44 freeze; the exact order is not recorded, so :after_comparison."
+    figures = ["fig4"]
+    id = "patient_auc_mean"
+    kind = "ambiguity"
+    stage = "after_comparison"
+    [[published.fixes]]
+    basis = "standard"
+    description = "Clinical model time (days) put on the Figure 4 month axis with 365.25/12 = 30.4375 days per month."
+    evidence = "Table 1 and the NONMEM code use days; Figure 4 right is in months and the conversion is not stated. 365.25/12 is the mean calendar month (30 also passes, 28 fails; report.md). Stage: the notes record only that these inputs were tried after the 09:44 freeze; the exact order is not recorded, so :after_comparison."
+    figures = ["fig4"]
+    id = "days_per_month"
+    kind = "missing"
+    stage = "after_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Treatment is continuous over the whole horizon (75 d mice, 82 months patients): constant AUC and the exp(-delta t) term from t = 0, no stop."
+    evidence = "Eq. 1-3 and the NONMEM $DES blocks (s001, s004) have no dosing stop; the caption does not say how long treatment lasts (the mice were dosed for 24 days only). Stage: the notes record only that these inputs were tried after the 09:44 freeze; the exact order is not recorded, so :after_comparison."
+    figures = ["fig4"]
+    id = "continuous_treatment"
+    kind = "ambiguity"
+    stage = "after_comparison"

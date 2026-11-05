@@ -2,7 +2,7 @@
 
 Hutchinson LG, Mueller HJ, Gaffney EA, Maini PK, Wagg J, Phipps A, Boetsch C, Byrne HM, Ribba B. Modeling longitudinal preclinical tumor size data to identify transient dynamics in tumor response to antiangiogenic drugs. CPT Pharmacometrics Syst Pharmacol 2016;5:636-645. DOI 10.1002/psp4.12142, PMC5192995.
 
-Grade C overall. Figure 2 (22 curves) reproduces after one documented typo fix (Figure 2 alone would be B, with no input read from a figure). Figure 6 (8 curves) does not reproduce even with two further fixes (T0 read from the figure, resistance clock from the start of chemotherapy): the printed alpha~_C = 1 wipes out the tumour in panels b and d, and panel a (no drug) misses its peak. A value of alpha~_C = 0.01 brings panels b to d close, but it is a model parameter that can only be inferred from Figure 6 itself, so it is reported as a sensitivity run and not as a fix (see Fixes, Issues 3-6, notes.md). Both figures were frozen as targets together before any comparison, so both are graded; the per-figure split is in `score.toml` (`figure_grades`). Note: `score.toml` shows Figure 2 as B† because the library attaches a run's fix list, which includes the Figure 6 T0 fix, to every figure; no Figure 2 curve uses it (Figure 2 numbers are identical to the earlier run).
+Grade C overall. Figure 2 (22 curves) reproduces after one documented typo fix (Figure 2 alone would be B, with no input read from a figure). Figure 6 (8 curves) does not reproduce even with T0 read from the figure: the printed alpha~_C = 1 wipes out the tumour in panels b and d, and panel a (no drug) misses its peak. A value of alpha~_C = 0.01 together with a resistance clock started at the beginning of chemotherapy brings panels b to d close, but both were adopted only after a comparison with Figure 6 and have no independent source, so they are sensitivity runs, not fixes (see Provenance, Issues 3-6, notes.md). Both figures were frozen as targets together before any comparison, so both are graded; the per-figure split is in `score.toml` (`figure_grades`). Strict grade (article and supplement only): D, because Figure 6 uses T0 read from the figure.
 
 ## Model
 
@@ -20,7 +20,7 @@ Two ODEs, tumour volume T and vessel-dependent carrying capacity V (both mm^3), 
 - Figure 2 panels a-f, PSP4-5-636-g002.jpg (667 px wide): 22 simulation lines (a: T, b: V control; c, d: five delta_V values; e, f: five Nmax values). Traced by colour (MATLAB default colours) with `reference/digitise_hutchinson.jl` (the repository digitiser plus rectangle exclusions for the legends), settings in `reference/digitise.toml`. Curves hidden under the top (green) curve are only digitised where visible. Calibration: two ticks per axis, checked on 2-3 other ticks per panel (max error 3 mm^3 on the 100-1000 V axis, otherwise below 0.5 % of an axis); overlay in `figures/digitise_check.png` (local only: it contains the paper's figure).
 - Tolerance: atlas default (RMS 0.015, P95 0.03 of the axis box), no per-curve changes.
 - Frozen: 2026-11-04 about 09:48 IST, before any simulation was compared.
-- Figure 6: T (black) and V (magenta) in the four panels, 8 curves, digitised the same way (`reference/digitise_fig6.toml`). The dashed blue drug curve C is not digitised (daily sawtooth, clipped at the axis top). Graded. The paper gives no T0 for this figure; the as-published run uses T0 = 70 mm^3 (the Methods mean tumour size at day 38) and the with-fixes run uses T0 = 80 read from the figure (Fixes item 3). One cleanup happened after the first comparison run: stray points on the blue drug sawtooth in 6b T were removed with an exclusion rectangle. It does not change any conclusion.
+- Figure 6: T (black) and V (magenta) in the four panels, 8 curves, digitised the same way (`reference/digitise_fig6.toml`). The dashed blue drug curve C is not digitised (daily sawtooth, clipped at the axis top). Graded. The paper gives no T0 for this figure; the as-published run uses T0 = 70 mm^3 (the Methods mean tumour size at day 38) and the with-fixes run uses T0 = 80 read from the figure (Fix 2). One cleanup happened after the first comparison run: stray points on the blue drug sawtooth in 6b T were removed with an exclusion rectangle. It does not change any conclusion.
 
 ## Result
 
@@ -53,58 +53,71 @@ Source: `score.toml`, written by `reproduce()` (graded: Figures 2 and 6, 30 curv
 
 As published all 22 fail because V0 = T0/K = 35 mm^3 instead of 140 mm^3. With the fix all 22 pass, worst rms 0.0088 (fig2_f_V_N21), worst p95 0.019. The lines for Nmax = 2 and 21 in panels e and f deviate slightly in a systematic way at the peak and tail (about 2-4 mm^3), well inside tolerance; I did not chase it.
 
-Figure 6 (8 curves), 2026-11-04 update. As published = printed inputs, T0 = 70, K as printed. With fixes = K fix, resistance clock from tCon, T0 = 80, alpha~_C = 1 as printed.
+Figure 6 (8 curves), 2026-11-05 ledger. As published = printed inputs, T0 = 70 (fill `T0_fig6_methods_mean`), K as printed. With fixes = K fix, T0 = 80, alpha~_C = 1 and the resistance factor exp(-lambda t) as printed. (Until 2026-11-05 the fixed run also timed the resistance clock from tCon; that reading is now a sensitivity run, first row of the table below.)
 
 | curve | as published rms | p95 | pass | with fixes rms | p95 | pass |
 |---|---|---|---|---|---|---|
-| fig6_a_T | 0.1678 | 0.2621 | no | 0.0487 | 0.0878 | no |
+| fig6_a_T | 0.1678 | 0.2621 | no | 0.0487 | 0.0879 | no |
 | fig6_a_V | 0.1814 | 0.2447 | no | 0.0374 | 0.0746 | no |
-| fig6_b_T | 0.1898 | 0.2631 | no | 0.3864 | 0.5975 | no |
-| fig6_b_V | 0.1939 | 0.2302 | no | 0.3404 | 0.5460 | no |
-| fig6_c_T | 0.0827 | 0.1312 | no | 0.0986 | 0.1855 | no |
-| fig6_c_V | 0.1402 | 0.1917 | no | 0.0798 | 0.1627 | no |
-| fig6_d_T | 0.2314 | 0.2750 | no | 0.3195 | 0.3852 | no |
-| fig6_d_V | 0.2215 | 0.2595 | no | 0.2951 | 0.3804 | no |
+| fig6_b_T | 0.1898 | 0.2631 | no | 0.1637 | 0.2368 | no |
+| fig6_b_V | 0.1939 | 0.2302 | no | 0.1288 | 0.1862 | no |
+| fig6_c_T | 0.0827 | 0.1312 | no | 0.0258 | 0.0443 | no |
+| fig6_c_V | 0.1402 | 0.1917 | no | 0.0277 | 0.0383 | no |
+| fig6_d_T | 0.2314 | 0.2750 | no | 0.2440 | 0.2900 | no |
+| fig6_d_V | 0.2215 | 0.2595 | no | 0.1877 | 0.2639 | no |
 
-Figure 6 does not match with the allowed fixes. Panel a (no drug, Table 1 parameters only) improves with T0 = 80 but still fails (peak about 147.5 mm^3 against about 165 in the figure). Panels b and d get worse than as published: with alpha~_C = 1 the tumour is eradicated, and the resistance clock from tCon removes the factor that had been switching the drug off.
+Figure 6 does not match with the allowed fixes. Panel a (no drug, Table 1 parameters only) improves with T0 = 80 but still fails (peak about 147.5 mm^3 against about 165 in the figure). Panels b and d stay far off: with alpha~_C = 1 the drug kills too much early on, until the absolute resistance factor switches it off.
 
 Sensitivity runs for Figure 6 (not fixes, not in `score.toml`; `sensitivity()` in `reproduce.jl`), all with the same tolerances:
 
 | run | a T | a V | b T | b V | c T | c V | d T | d V |
 |---|---|---|---|---|---|---|---|---|
+| alpha~_C = 1, T0 = 80, clock from tCon (the fixed run before 2026-11-05; rms) | 0.049 | 0.037 | 0.386 | 0.340 | 0.099 | 0.080 | 0.320 | 0.295 |
 | alpha~_C = 0.01, T0 = 80, clock from tCon (rms) | 0.049 | 0.037 | 0.011 | 0.014 | 0.019 | 0.022 | 0.019 | 0.015 |
 | pass | no | no | yes | yes | no | no | no | no |
 | alpha~_C = 0.01, T0 = 80, absolute clock (rms) | 0.049 | 0.037 | 0.100 | 0.073 | 0.312 | 0.189 | 0.226 | 0.145 |
 | alpha~_C = 0.01, T0 = 70, clock from tCon (rms) | 0.109 | 0.106 | 0.042 | 0.062 | 0.055 | 0.073 | 0.022 | 0.054 |
 
-With alpha~_C = 0.01 and both other choices, panels b to d are within a few mm^3 of the figure (an independent rebuild found the same), but only 6b T and 6b V pass the atlas tolerance (p95 0.019 and 0.026); 6c T/V (rms 0.019/0.022) and 6d T/V (rms 0.019/0.015, p95 0.030/0.027) just fail, and panel a fails regardless. So even if alpha~_C = 0.01 were admitted as a fix, Figure 6 would stay C. The three choices only work together: the absolute clock with alpha~_C = 0.01 fails all of b to d, as does T0 = 70. Diagnostic only: reading N = Nmax + 1 in the chemotherapy panels on top of alpha~_C = 0.01 would pass 6b T, 6c T, 6d T and 6d V, but this is not a fix (see Issues 2) and Figure 2 rules out N = Nmax + 1.
+Commands: `sensitivity()` (clock from tCon, the default), `sensitivity(; overrides = (; alphaC_on = 0.01))`, and `fixes = FIXES` for the absolute clock. With alpha~_C = 0.01 and both other choices, panels b to d are within a few mm^3 of the figure (an independent rebuild found the same), but only 6b T and 6b V pass the atlas tolerance (p95 0.019 and 0.026); 6c T/V (rms 0.019/0.022) and 6d T/V (rms 0.019/0.015, p95 0.030/0.027) just fail, and panel a fails regardless. So even if alpha~_C = 0.01 and the clock from tCon were admitted as fixes, Figure 6 would stay C. The three choices only work together: the absolute clock with alpha~_C = 0.01 fails all of b to d, as does T0 = 70. Diagnostic only: reading N = Nmax + 1 in the chemotherapy panels on top of alpha~_C = 0.01 would pass 6b T, 6c T, 6d T and 6d V, but this is not a fix (see Issues 2) and Figure 2 rules out N = Nmax + 1.
 
 ## Fixes
 
 1. `K_is_V_over_T` (typo): V0 = K T0 instead of the printed K = T0/V0. Evidence, independent of Fig 2: supplement MLXTRAN code `PSP4-5-636-s004.txt` has `T_0=X`, `V_0 = K*X`; Table 1 describes K as "Initial ratio of V/T". Consistency check: Fig 2b starts at V = 140 = 2 x 70.
 
-Figure 6 only (the "with fixes" run applies these to the Figure 6 scenarios; Figure 2 is simulated exactly as before):
+Figure 6 only:
 
-2. `resistance_clock_from_tCon` (:ambiguity): the resistance factor of Eq. 7 is exp(-lambda (t - tCon)), timed from the start of chemotherapy, not exp(-lambda t) with t in days since inoculation. Evidence: Eq. 7 writes exp(-lambda t) and never defines where t starts; the text says resistance is likely to influence Fig 6(d) compared with Fig 6(c), which fits a clock that runs from the start of the course (6d has a three-week course, 6c one week). Both readings are textually possible; no number is changed. Caveat: the choice was checked against the figure, and with the printed alpha~_C it does not improve the match (see Result), so it earns no grade by itself.
-3. `T0_fig6_from_figure` (:from_target): T0 = 80 mm^3 for all four Figure 6 panels. The paper gives no T0 for this figure (population parameters exclude it, Methods give a mean of 70). The value is read from the starting point of the T curves in Figure 6 itself, so it is a protocol input read from the target and carries the dagger. The independent rebuild read the same 80. A model parameter was not read from the figure.
+2. `T0_fig6_from_figure` (:from_target): T0 = 80 mm^3 for all four Figure 6 panels. The paper gives no T0 for this figure (population parameters exclude it, Methods give a mean of 70). The value is read from the starting point of the T curves in Figure 6 itself, so it is a protocol input read from the target and carries the dagger. The independent rebuild read the same 80. A model parameter was not read from the figure.
+
+Moved to a sensitivity run on 2026-11-05: `resistance_clock_from_tCon` (exp(-lambda (t - tCon)) in Eq. 7). Eq. 7 writes exp(-lambda t) without defining the origin of t. The text says resistance "is likely to influence the reduction in tumor volume in Figure 6d, compared to Figure 6c", which fits a clock that starts with the course but does not exclude days since inoculation. The reading was adopted after a rebuild showed that it matches Figure 6, and no source outside the target figure settles it, so under the ledger rules it is not a fix. With the printed alpha~_C it makes 6b and 6d worse; Figure 6 is C either way.
 
 Not a fix, sensitivity run only: alpha~_C = 0.01 in place of the printed 1 (see notes.md for the reasoning). No other fix. In particular N = Nmax (Eq. 5 as printed) is what Fig 2 shows (see Issues item 2), so the supplement code reading is not applied.
+
+## Provenance
+
+| fix | kind | basis | stage | runs | figures | evidence |
+|---|---|---|---|---|---|---|
+| T0_fig6_methods_mean | missing | interpretation | before | published | fig6 | no T0 for Fig 6; Methods mean at day 38 (70 mm^3), as in the Fig 2 caption |
+| K_is_V_over_T | typo | supplement | before | fixed | all | printed K = T0/V0; s004 code V_0 = K*X, Table 1 "initial ratio of V/T" |
+| T0_fig6_from_figure | from_target | figure | after | fixed | fig6 | T0 = 80 read from the Fig 6 curve starts |
+| resistance_clock_from_tCon | ambiguity | interpretation | after | sensitivity only | fig6 | origin of t in Eq. 7 undefined; adopted after a rebuild matched Fig 6 |
+
+Stage of `K_is_V_over_T`: the notes list the typo with the equations, and the first comparison run already had both runs. Strict grade D (`T0_fig6_from_figure` has basis :figure). No passing curve sits in a figure with a `:from_target` fix: the only passes are the 22 Figure 2 curves, and the T0 fix applies to Figure 6 only.
 
 ## Issues found in the paper
 
 1. Methods, before Eq. 6: K = T0/V0 is inverted (should be V0/T0), see Fix 1.
 2. Eq. 5 gives N = Nmax in the window, but the supplement code (`s004.txt`) has `N = Nmax*(Bev+Van)+1`. With a unit dose amount that is N = Nmax + 1, so Table 1 Nmax = 6.7 might mean a factor 7.7. Diagnostic (not a fix): Fig 2e/f with N = Nmax + 1 fails for Nmax = 2, 3 (rms 0.058, 0.025) and 6 (0.014-0.016, borderline), so Fig 2 was made with Eq. 5 as printed. Also in the code Bev and Van have ddt = 0 (accumulating dose compartments), so with repeated weekly doses both N = Nmax*dose + 1 and the delta_V*dose term would step up with each dose, unless the data file holds a single dose record of amount 1; and N = Nmax*dose + 1 gives N = 1 for controls and applies the window to treated animals only, whereas Eq. 5 is written for everyone. Any implementation must take a side. The dose-amount coding is not in the supplement, so the Table 1 delta_V and Nmax cannot be checked against the data fit.
-3. Figure 6: T0 is not given. The population parameters do not include it. Methods give a mean size of 70 mm^3, but the curves start at T about 80 and V about 91-96 (K = 1.14 would imply T0 about 83). With T0 = 70 the start is 10 mm^3 off. The with-fixes run uses 80 (Fix 3, :from_target).
+3. Figure 6: T0 is not given. The population parameters do not include it. Methods give a mean size of 70 mm^3, but the curves start at T about 80 and V about 91-96 (K = 1.14 would imply T0 about 83). With T0 = 70 the start is 10 mm^3 off. The with-fixes run uses 80 (Fix 2, :from_target).
 4. Figure 6: the drug scale does not match Eq. 9 and alpha~_C = 1 mg/mL/mm^3. Eq. 9 gives C of about 78-93 for the daily peak in 6b (C = V at the dose, N = 1); the figure's C axis runs 0-5 and the pre-window peak is about 0.9, a factor of about 100. Scaling alpha~_C by 0.01 matches that C scale but then the drug has almost no effect on T (6b: T(49) = 89 vs 65 in the figure); the printed value kills far too much (T(49) = 33). Neither reading reproduces both C and T with T0 = 70 and the absolute resistance clock (diagnostic only, not fitted). Update 2026-11-04: with T0 = 80 and the resistance clock from tCon, alpha~_C = 0.01 does give both the C scale of the figure and T and V in panels b to d within a few mm^3 (sensitivity table in Result). It stays a sensitivity run: alpha~_C is a model parameter, the printed value is explicit (text, 1 mg/mL/mm^3), and the only evidence for 0.01 is the C axis and the tumour curves of Figure 6, the figure being reproduced. The journal units of alpha~_C and delta_T are also garbled (the preprint text s001 has the consistent forms), so a unit slip is possible, but no source gives 0.01.
-5. Eq. 7: exp(-lambda t) is written with time t of undefined origin. Earlier note: with the printed alpha~_C = 1 and T0 = 70, starting the clock at day 38 kills the tumour completely. With alpha~_C = 0.01 (sensitivity run) the opposite holds: the absolute clock switches the drug off (exp(-0.08 x 54) = 0.013) and fails panels b to d, while the clock from tCon matches. The with-fixes run uses the clock from tCon (Fix 2).
-6. Figure 6a (no drug) with T0 inferred as 83 still gives T(60) = 148 vs about 165 in the figure and T(71) = 128 vs 137, so even the drug-free panel is not exactly reproduced from Table 1 (the figure may use other parameter values than the population estimates). With T0 = 80 (Fix 3) the peak is 147.5 at day 59.2 against about 165 in the figure; the rebuild found the same. Panel b has the same window and matches, and the figure reaches the 165 peak if the window ends near 60.5 or if Nmax is very large, so panel a was probably made with other window or Nmax settings. Not fixable from the paper.
+5. Eq. 7: exp(-lambda t) is written with time t of undefined origin. Earlier note: with the printed alpha~_C = 1 and T0 = 70, starting the clock at day 38 kills the tumour completely. With alpha~_C = 0.01 (sensitivity run) the opposite holds: the absolute clock switches the drug off (exp(-0.08 x 54) = 0.013) and fails panels b to d, while the clock from tCon matches. The clock from tCon is a sensitivity run (Provenance).
+6. Figure 6a (no drug) with T0 inferred as 83 still gives T(60) = 148 vs about 165 in the figure and T(71) = 128 vs 137, so even the drug-free panel is not exactly reproduced from Table 1 (the figure may use other parameter values than the population estimates). With T0 = 80 (Fix 2) the peak is 147.5 at day 59.2 against about 165 in the figure; the rebuild found the same. Panel b has the same window and matches, and the figure reaches the 165 peak if the window ends near 60.5 or if Nmax is very large, so panel a was probably made with other window or Nmax settings. Not fixable from the paper.
 7. BIC of the monotonic model is 2,759 in the text before Table 1 and 2797 later (BIC_M).
 8. The LRT statistic is printed as -Delta 2LL = -32764.61 (sign and form unclear).
 9. Fig 2 caption gives delta_V as a range 0.04-0.12 and Nmax as 2-21; the five values are only in the plot legends.
 
 ## Self-check (2026-11-04)
 
-An independent rebuild from the paper alone (plain ODE solver, no code shared with this model) agreed with Figure 2 to within 2e-5 of each curve's range, and found the Figure 6 reading above: alpha~_C = 0.01 (the figure's own C axis implies it; the printed 1 wipes out the tumour), the resistance factor timed from the start of chemotherapy, and T0 = 80 read from the figure. With these panels b to d come within about 5 mm^3, panel a still peaks near 147.5 instead of about 165. This atlas adopts the clock and T0 (a documented ambiguity and a flagged protocol input) but not alpha~_C, which is a model parameter inferred from the target figure; hence Figure 6 stays C.
+An independent rebuild from the paper alone (plain ODE solver, no code shared with this model) agreed with Figure 2 to within 2e-5 of each curve's range, and found the Figure 6 reading above: alpha~_C = 0.01 (the figure's own C axis implies it; the printed 1 wipes out the tumour), the resistance factor timed from the start of chemotherapy, and T0 = 80 read from the figure. With these panels b to d come within about 5 mm^3, panel a still peaks near 147.5 instead of about 165. This atlas adopts T0 (a flagged protocol input); alpha~_C and, since 2026-11-05, the clock are sensitivity runs because both were adopted after matching the target figure. Figure 6 stays C.
 
 ## Review
 

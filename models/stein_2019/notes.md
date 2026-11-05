@@ -37,3 +37,7 @@ rms: left p10 0.107, p50 0.058, p90 0.033; right p10 0, p50 0.005, p90 0.052 (tw
 - New scores: as published, rms left p10 0.108, p50 0.059, p90 0.047, right p10 0, p50 0.010, p90 0.026; with fixes, left 0.108 / 0.060 / 0.035, right 0 / 0.006 / 0.024. Grade C. The comedication sensitivity passes 4 of 6 bands (left p10 and p50 fail) and is a lead only.
 
 Self-check (2026-11-04): an independent rebuild from the paper alone was compared with these results; see the Self-check section in `report.md`.
+
+## Provenance ledger (2026-11-05)
+
+The seven shared design fills are listed in both runs (two new entries: `omega_as_sd`, `omega_diagonal`, applied before without an entry); the as-published run also lists `scheduled_visits` and `days_per_month`, the fixed run `dense_grid` and `left_bin_nodes`. Without them the band reading throws NotRunnable. No number changed; grade C, strict D.

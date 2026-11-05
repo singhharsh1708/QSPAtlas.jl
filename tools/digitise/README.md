@@ -59,6 +59,28 @@ For example
 
 Check the licence of each article before redistributing anything you download.
 
+## Image provenance keys
+
+Every table in a `digitise*.toml` that names an image with `image = ...` also carries two keys next to
+it, so the exact file behind a reference can be found and checked:
+
+| key | meaning |
+|---|---|
+| `image_url` | public Europe PMC URL the image was obtained from: the `supplementaryFiles` zip of the article (the URL shown above). The image is the zip member named by `image` (for `fornari_2019` the short names `g003`/`g004` mean `PSP4-8-858-g003.jpg`/`-g004.jpg`). |
+| `image_sha256` | SHA-256 of the exact file used for the digitisation, as hex |
+
+The hash was checked against a fresh download of each zip (2026-11-05): the members are byte-identical
+to the local copies the references were traced from. To verify a local copy:
+
+    shasum -a 256 $QSPATLAS_PAPERS/<model id>/supplement/<file>     # compare with image_sha256
+
+The tools ignore these keys (they read only the keys they need), and the generated files keep them:
+`models/ouerdani_2015/reference/trace_fig4.jl` writes them into its `digitise.toml` and
+`models/stroh_2019/reference/make_toml.jl` into each curve, so regenerating gives the same files.
+The Figure 1d image used by `benchmarks/calibration/digitise_fig1d.jl` has no toml; its URL and hash are in the
+header of that script. The Fornari Figure S3 PDF (`PSP4-8-858-s003.pdf`, ancillary curves only) has
+SHA-256 `f67179e46047f659653255702a1f94560e8814e31e09ec41e7e9158a4de05fac` from the same zip.
+
 ## Regenerating a model's references
 
 Run from the repository root with the `tools/digitise` environment (first time:

@@ -6,9 +6,10 @@ both axes are scaled to `[0, 1]` (log axes in decades). `rms` bounds the root me
 square distance over all reference points and `p95` bounds the 95th percentile, so
 one badly traced point cannot fail a curve on its own. The maximum is still reported.
 
-The defaults allow for digitising error: published figures are about 500-700 px
-wide, so one pixel is roughly 0.3-0.5 % of a plot panel's axis, and a 1-2 px line
-plus JPEG blur puts honest digitising error near 1 %. Tolerances are frozen in each
+The defaults allow for digitising error: the plot panels digitised so far are 85 to
+294 px wide or high, so one pixel is 0.3 to 1.2 % of an axis, and the tolerance is
+roughly 1.3 to 3.5 px vertically. It is a judgement, not yet a measured error
+distribution (see docs/src/method.md and the sensitivity tables). Tolerances are frozen in each
 model's `protocol.jl` before its simulations are compared.
 """
 Base.@kwdef struct Tolerance
@@ -34,6 +35,20 @@ struct CurveComparison
 end
 
 passes(c::CurveComparison) = c.passed
+
+# A simulated value can be placed on an axis if it is finite and, on a log axis,
+# positive. Anything else (NaN, Inf, zero or negative on a log axis) is a gap: it is
+# never moved onto the axis edge, which could otherwise create a false match.
+usable(a::Axis, v) = isfinite(v) && (a.scale === :linear || v > 0)
+
+# some values are finite but cannot be placed (zero or negative on a log axis): the
+# simulation lies below the axis there
+below_axis(ref, xs, ys) = any(isfinite(x) && isfinite(y) && !(usable(ref.xaxis, x) && usable(ref.yaxis, y)) for (x, y) in zip(xs, ys))
+
+function all_missed(ref, tolerance)
+    d = fill(1.0, length(ref.x))
+    return CurveComparison(ref.id, d, 1.0, 1.0, 1.0, tolerance, false)
+end
 
 # distance from point p to segment ab in 2-D
 function segdist(p, a, b)
@@ -79,8 +94,9 @@ of non-finite simulated points (gaps are never bridged), counts as the maximum e
 Simulated x must be sorted; one finite point is enough when it matches. For a band the
 default [`Tolerance`](@ref) is the allowance for digitising its edges.
 
-Simulated values are clipped to the axis box plus a margin of one box, so a
-simulation that leaves the figure is scored as far off rather than infinitely off.
+Each point's error is capped at 1.0 (one full axis box), so a simulation that leaves
+the figure is scored as far off rather than infinitely off; the cap is applied to the
+distance, never to the simulated points.
 """
 function compare_curve(ref::ReferenceCurve, xs::AbstractVector, ys::AbstractVector; tolerance::Tolerance = Tolerance())
     length(xs) == length(ys) || throw(DimensionMismatch("xs and ys differ in length"))
@@ -88,16 +104,23 @@ function compare_curve(ref::ReferenceCurve, xs::AbstractVector, ys::AbstractVect
     ref.kind === :band && return compare_vertical(ref, xs, ys, tolerance, (ref.ylo, ref.yhi))
     ref.kind === :curve && get(ref.meta, "metric", "nearest") == "vertical" && return compare_vertical(ref, xs, ys, tolerance, (ref.y, ref.y))
     length(xs) >= 2 || throw(ArgumentError("need at least two simulated points"))
-    clip(v) = clamp(v, -1.0, 2.0)
     # Non-finite points (a failed or blown-up solve) leave gaps: segments only join
     # neighbouring finite points, so a gap is never bridged by a straight line.
-    finite = [isfinite(x) && isfinite(y) for (x, y) in zip(xs, ys)]
-    sim = [(clip(normalise(ref.xaxis, x)), clip(normalise(ref.yaxis, y))) for (x, y) in zip(xs, ys)]
+    # Distances are measured on the true (unclipped) geometry and only then capped at
+    # 1.0: clipping the simulated points first would bend a steep segment towards the
+    # reference and could report a far-off curve as a perfect match.
+    finite = [usable(ref.xaxis, x) && usable(ref.yaxis, y) for (x, y) in zip(xs, ys)]
+    sim = [(normalise(ref.xaxis, x), normalise(ref.yaxis, y)) for (x, y) in zip(xs, ys)]
     segs = [i for i in 1:(length(sim) - 1) if finite[i] && finite[i + 1]]
-    isempty(segs) && throw(ArgumentError("simulation for $(ref.id) has no two neighbouring finite points"))
+    if isempty(segs)
+        # a simulation that lies entirely below a log axis (zero or negative values) is a
+        # complete miss, not an error; one with no finite values at all is an error
+        below_axis(ref, xs, ys) && return all_missed(ref, tolerance)
+        throw(ArgumentError("simulation for $(ref.id) has no two neighbouring finite points"))
+    end
     d = map(zip(ref.x, ref.y)) do (x, y)
         p = (normalise(ref.xaxis, x), normalise(ref.yaxis, y))
-        minimum(segdist(p, sim[i], sim[i + 1]) for i in segs)
+        min(minimum(segdist(p, sim[i], sim[i + 1]) for i in segs), 1.0)
     end
     r = sqrt(mean(abs2, d))
     q = quantile(d, 0.95)
@@ -120,11 +143,14 @@ end
 # FIRST; only the resulting error is capped, never the simulated values.
 function compare_vertical(ref::ReferenceCurve, xs, ys, tolerance::Tolerance, (los, his))
     length(xs) >= 1 || throw(ArgumentError("need at least one simulated point"))
-    finite = [isfinite(x) && isfinite(y) for (x, y) in zip(xs, ys)]
-    any(finite) || throw(ArgumentError("simulation for $(ref.id) has no finite points"))
+    finite = [usable(ref.xaxis, x) && usable(ref.yaxis, y) for (x, y) in zip(xs, ys)]
+    if !any(finite)
+        below_axis(ref, xs, ys) && return all_missed(ref, tolerance)
+        throw(ArgumentError("simulation for $(ref.id) has no finite points"))
+    end
     issorted(xs[finite]) || throw(ArgumentError("simulated x must be sorted to be compared at matched x"))
-    nx = [isfinite(x) ? normalise(ref.xaxis, x) : NaN for x in xs]
-    ny = [isfinite(y) ? normalise(ref.yaxis, y) : NaN for y in ys]
+    nx = [usable(ref.xaxis, x) ? normalise(ref.xaxis, x) : NaN for x in xs]
+    ny = [usable(ref.yaxis, y) ? normalise(ref.yaxis, y) : NaN for y in ys]
     segs = [i for i in 1:(length(xs) - 1) if finite[i] && finite[i + 1]]
     eps = 1e-9
     d = map(zip(ref.x, los, his)) do (x, lo, hi)

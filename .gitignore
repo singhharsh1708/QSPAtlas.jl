@@ -1,5 +1,3 @@
-Manifest.toml
-!/Manifest.toml
 docs/build/
 docs/src/index.md
 docs/src/models/
@@ -17,13 +15,10 @@ models/*/output/
 # committed or published, because they contain the papers' figures
 models/*/figures/digitise_check*.png
 benchmarks/calibration/results/*overlay*.png
-# sub-environment manifests (root Manifest.toml is committed)
-benchmarks/*/Manifest.toml
-docs/Manifest.toml
-tools/*/Manifest.toml
 docs/src/benchmarks.md
 docs/src/calibration.md
 benchmarks/population/results/
 docs/src/assets/population_ouerdani.png
 docs/src/contributing.md
 validation/mrgsolve/out/
+docs/src/sensitivity.md

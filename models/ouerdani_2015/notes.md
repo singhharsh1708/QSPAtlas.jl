@@ -32,3 +32,7 @@ Mice: AUC 220.2 / 656.8 / 1140.8 for 10 / 30 / 100 mg/kg. Patients: mean AUC 771
 - After the freeze: the unstated inputs (P0, mouse dose, patient exposure) were tried, the fixes above chosen, the sensitivity runs summarised in `report.md` made.
 
 Self-check (2026-11-04): an independent rebuild from the paper alone was compared with these results; see the Self-check section in `report.md`.
+
+## Provenance ledger (2026-11-05)
+
+The as-published run now lists its five fills as Fixes (`p0_text_guess`, `mouse_dose_text_guess`, `patient_auc_mean`, `days_per_month`, `continuous_treatment`); the last three are kept in the fixed run. Without a P0, dose or month fix the simulation throws NotRunnable. No number changed; grade B†, strict D.

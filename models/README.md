@@ -26,9 +26,14 @@ models/<author_year>/
 3. **Digitise authors' simulation lines**, not observations, wherever the figure has
    them (`kind: curve`). Observed data may be added as `kind: points` with a looser,
    stated tolerance, but grade-bearing targets should be simulation lines.
-4. **Fixes need evidence.** A `Fix` records what was changed and where the evidence
-   comes from (a supplement file, an equation that is dimensionally inconsistent, a
-   figure that only matches one reading). Re-estimating parameters is never a fix.
+4. **Fixes need evidence.** A `Fix` records what was changed, where the evidence comes
+   from (a supplement file, an equation that is dimensionally inconsistent), its
+   `basis` and its `stage` (before or after the first comparison). Matching the target
+   figure is not evidence: a protocol input chosen that way is `:from_target`, and a
+   model aspect chosen that way is not a fix at all (report it as a sensitivity run).
+   Re-estimating parameters is never a fix. Every choice the code makes that the paper
+   does not state is a fix, including the gap fills the as-published run needs
+   (`PUBLISHED_FILLS`); nothing may be applied silently.
 5. **Grades.** A: as-published run matches all targets. B: matches only with fixes.
    C: runs but does not match. D: cannot run from published information (set
    `blocker`). Unfinished work is not D.
@@ -52,8 +57,8 @@ const PMCID = "PMC4716582"
 
 function reproduce(; plots = true, figdir = joinpath(@__DIR__, "figures"))
     refs = sort(collect(values(load_references(joinpath(@__DIR__, "reference")))); by = r -> r.id)
-    published = run_curves(ref -> simulate_curve(ref; fixes = Fix[]), refs, "as published";
-        tolerance = TOLERANCE, tolerances = TOLERANCES)
+    published = run_curves(ref -> simulate_curve(ref; fixes = PUBLISHED_FILLS), refs, "as published";
+        fixes = PUBLISHED_FILLS, tolerance = TOLERANCE, tolerances = TOLERANCES)
     fixed = isempty(FIXES) ? nothing :
         run_curves(ref -> simulate_curve(ref; fixes = FIXES), refs, "with fixes";
             fixes = FIXES, tolerance = TOLERANCE, tolerances = TOLERANCES)

@@ -3,6 +3,7 @@ citation = "Stroh M, et al. CPT Pharmacometrics Syst Pharmacol 2019;8:676-684"
 doi = "10.1002/psp4.12448"
 grade = "C"
 grade_label = "C"
+grade_strict = "D"
 id = "stroh_2019"
 inputs_from_target = false
 pmcid = "PMC6765697"
@@ -144,7 +145,7 @@ ran = true
     n_points = 60
     p95 = 0.04572
     passed = false
-    rms = 0.02618
+    rms = 0.02619
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
@@ -369,27 +370,96 @@ ran = true
     tol_rms = 0.015
 
     [[fixed.fixes]]
-    description = "mg/kg doses are converted to nM with MW = 150 kDa (model.jl MW). Applied in BOTH the as-published and the fixed run."
-    evidence = "The paper gives no molecular weight. 150 kDa is the standard IgG1 mass (Pb-Tx adds a prodomain, so the true mass is somewhat higher; value is a standard constant, not read from the figure). Consistency only, not the source: 4.5 mg/kg x 70 kg / 150 kDa / 2.6 L = 808 nM."
+    basis = "standard"
+    description = "mg/kg doses are converted to nM with MW = 150 kDa (model.jl MW)."
+    evidence = "The paper gives no molecular weight. 150 kDa is the standard IgG1 mass (Pb-Tx adds a prodomain, so the true mass is somewhat higher; value is a standard constant, not read from the figure). Consistency only, not the source: 4.5 mg/kg x 70 kg / 150 kDa / 2.6 L = 808 nM. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
     figures = []
     id = "molecular_weight_150kDa"
     kind = "missing"
+    stage = "before_comparison"
     [[fixed.fixes]]
-    description = "Human peripheral volume V2 = 2.6 L (not in Table 2). Applied in BOTH the as-published and the fixed run."
-    evidence = "Derived from the paper's own tables: Table 1 monkey receptor concentration 9.0e-5 nmol/s / (1e-4 1/s * 0.1 L) = 9 nM; Results state normal-tissue receptor concentration is assumed equal in human; Table 2 ksynR peripheral 2.3e-3 nmol/s / (1e-4 * 9 nM) = 2.56 L ~ 2.6 L (= V1)."
-    figures = []
+    basis = "paper"
+    description = "Human peripheral volume V2 = 2.6 L (not in Table 2)."
+    evidence = "Derived from the paper's own tables: Table 1 monkey receptor concentration 9.0e-5 nmol/s / (1e-4 1/s * 0.1 L) = 9 nM; Results state normal-tissue receptor concentration is assumed equal in human; Table 2 ksynR peripheral 2.3e-3 nmol/s / (1e-4 * 9 nM) = 2.56 L ~ 2.6 L (= V1). Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig4"]
     id = "human_V2_2.6L"
     kind = "missing"
+    stage = "before_comparison"
     [[fixed.fixes]]
+    basis = "interpretation"
+    description = "Monkey kcleave for substrates S1 and S2 = 3e-7 1/s in plasma and periphery (Table 1 prints '<3e-7'); 0 for M1,0 (no substrate)."
+    evidence = "Results: '3e-7 1/second represented an upper bound on this value. This value of 3e-7 1/second was carried forward as the likely maximum value for k cleave' and, for Figure 3, 'with k cleave held fixed to the upper bound of 3e-7 1/second'. The paper names this point. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig3"]
+    id = "kcleave_monkey_3e-7"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "Human kcleave in plasma and periphery = 3e-7 1/s (Table 2 prints '<3e-7')."
+    evidence = "Table 2: '<3e-7, Assumed to be the same as monkey for central and peripheral compartments'; Results: kcleave 'assumed to have an upper bound of 3e-7'. The monkey value used for Figure 3 is 3e-7 (kcleave_monkey_3e-7). The value used for Figure 4 is not stated; 1e-7 would match it (report.md, Sensitivity), which is not used. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig4"]
+    id = "kcleave_human_3e-7"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "Human tumour kcleave = 10 x the plasma/periphery kcleave, in all Figure 4 panels."
+    evidence = "Discussion: 'Under the scenario of a 10-fold increased k cleave in the tumor relative to the periphery, Figure 4d suggests ...'; the supplement snapshot also has 10x. Whether the same fold applies to Figure 4a-c is not stated. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig4"]
+    id = "tumour_kcleave_10fold"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "supplement"
+    description = "Mask breathing: kopen = 1.16e-2 1/s and kclose = Kmask x kopen (the main text gives only Kmask = kclose/kopen)."
+    evidence = "Supplement s003 parameter list: kopen 1.16e-2, kclose 0.232 = 20 x 1.16e-2 for Kmask 20. The other split (kclose fixed) is a sensitivity run and is immaterial (report.md). Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = []
+    id = "breathing_kopen_supplement"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "The Pb-Tx dose enters plasma as the intact form with both masks closed (c_c); the parental mAb0,0 as m_m."
+    evidence = "Results: 'The Pb-Tx is depicted first as an intact moiety with two masks'. Whether the masks start closed or at the breathing equilibrium is not stated (breathing equilibrates within seconds, so this has no visible effect). Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = []
+    id = "dose_as_intact"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "assumption"
+    description = "Peripheral and tumour receptor start at steady state ksynR/(kendo V); the central receptor state starts at 0 with no synthesis."
+    evidence = "The initial receptor levels are not stated; s003 lists a central receptor state but prints no zero-order (synthesis) vector. The central choice is in notes.md before comparing; the steady-state start is not recorded there, so the stage is not known and is set to :after_comparison."
+    figures = []
+    id = "receptor_initial"
+    kind = "missing"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "'Total Drug' (nM) is the sum of all unbound and receptor-bound forms in the compartment (excluding internalised and eliminated pools). In the fixed run, Figure 4b,c use `unbound_readout` instead."
+    evidence = "Figure 3 and Figure 4a-c plot 'Total Drug (nM)'; the paper does not define which forms it sums. In plasma both readings are identical (no central receptor). Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = []
+    id = "readout_total_all_forms"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "Figure 4d,e 'Total Drug (nmol)' is the cumulative receptor-mediated uptake: the internalised pools tmdd_m + tmdd_o times the compartment volume."
+    evidence = "Figure 4d,e are described in the Discussion as receptor-mediated uptake in periphery and tumour; the y label says 'Total Drug (nmol)'. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig4"]
+    id = "readout_uptake_internalised"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "figure"
     description = "Figure 4b,c periphery/tumour 'Total Drug' is read as the sum of the six UNBOUND forms. The as-published run used the other reading (unbound + target-bound, the same sum as for plasma)."
     evidence = "The paper does not define which forms 'Total Drug' sums in periphery and tumour (neither reading is the published one). The unbound reading was chosen because it matches Fig 4b,c for mAb0,0 and 10x (e.g. mAb ~1e-2 nM in tumour, far below the 270 nM target level, Table 2); selected by comparison with the figure, hence circular."
-    figures = []
+    figures = ["fig4"]
     id = "unbound_readout"
     kind = "from_target"
+    stage = "after_comparison"
 
 [published]
 error = ""
-fixes = []
 label = "as published"
 matched = false
 ran = true
@@ -521,7 +591,7 @@ ran = true
     n_points = 60
     p95 = 0.04572
     passed = false
-    rms = 0.02618
+    rms = 0.02619
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
@@ -617,31 +687,31 @@ ran = true
     [[published.curves]]
     figure = "Figure 4c, tumour total drug, 100x mask, human 4.5 mg/kg"
     id = "fig4c_100x"
-    max = 0.08275
+    max = 0.08341
     n_points = 60
-    p95 = 0.07793
+    p95 = 0.08224
     passed = false
-    rms = 0.0547
+    rms = 0.0573
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
     figure = "Figure 4c, tumour total drug, 10x mask, human 4.5 mg/kg"
     id = "fig4c_10x"
-    max = 0.1522
+    max = 0.1797
     n_points = 48
-    p95 = 0.1506
+    p95 = 0.1776
     passed = false
-    rms = 0.1208
+    rms = 0.1573
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
     figure = "Figure 4c, tumour total drug, mAb0,0 (no mask), human 4.5 mg/kg"
     id = "fig4c_mAb"
-    max = 0.1218
+    max = 0.2952
     n_points = 21
-    p95 = 0.1163
+    p95 = 0.294
     passed = false
-    rms = 0.07432
+    rms = 0.281
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
@@ -744,3 +814,84 @@ ran = true
     rms = 0.004001
     tol_p95 = 0.03
     tol_rms = 0.015
+
+    [[published.fixes]]
+    basis = "standard"
+    description = "mg/kg doses are converted to nM with MW = 150 kDa (model.jl MW)."
+    evidence = "The paper gives no molecular weight. 150 kDa is the standard IgG1 mass (Pb-Tx adds a prodomain, so the true mass is somewhat higher; value is a standard constant, not read from the figure). Consistency only, not the source: 4.5 mg/kg x 70 kg / 150 kDa / 2.6 L = 808 nM. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = []
+    id = "molecular_weight_150kDa"
+    kind = "missing"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "paper"
+    description = "Human peripheral volume V2 = 2.6 L (not in Table 2)."
+    evidence = "Derived from the paper's own tables: Table 1 monkey receptor concentration 9.0e-5 nmol/s / (1e-4 1/s * 0.1 L) = 9 nM; Results state normal-tissue receptor concentration is assumed equal in human; Table 2 ksynR peripheral 2.3e-3 nmol/s / (1e-4 * 9 nM) = 2.56 L ~ 2.6 L (= V1). Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig4"]
+    id = "human_V2_2.6L"
+    kind = "missing"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Monkey kcleave for substrates S1 and S2 = 3e-7 1/s in plasma and periphery (Table 1 prints '<3e-7'); 0 for M1,0 (no substrate)."
+    evidence = "Results: '3e-7 1/second represented an upper bound on this value. This value of 3e-7 1/second was carried forward as the likely maximum value for k cleave' and, for Figure 3, 'with k cleave held fixed to the upper bound of 3e-7 1/second'. The paper names this point. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig3"]
+    id = "kcleave_monkey_3e-7"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Human kcleave in plasma and periphery = 3e-7 1/s (Table 2 prints '<3e-7')."
+    evidence = "Table 2: '<3e-7, Assumed to be the same as monkey for central and peripheral compartments'; Results: kcleave 'assumed to have an upper bound of 3e-7'. The monkey value used for Figure 3 is 3e-7 (kcleave_monkey_3e-7). The value used for Figure 4 is not stated; 1e-7 would match it (report.md, Sensitivity), which is not used. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig4"]
+    id = "kcleave_human_3e-7"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Human tumour kcleave = 10 x the plasma/periphery kcleave, in all Figure 4 panels."
+    evidence = "Discussion: 'Under the scenario of a 10-fold increased k cleave in the tumor relative to the periphery, Figure 4d suggests ...'; the supplement snapshot also has 10x. Whether the same fold applies to Figure 4a-c is not stated. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig4"]
+    id = "tumour_kcleave_10fold"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "supplement"
+    description = "Mask breathing: kopen = 1.16e-2 1/s and kclose = Kmask x kopen (the main text gives only Kmask = kclose/kopen)."
+    evidence = "Supplement s003 parameter list: kopen 1.16e-2, kclose 0.232 = 20 x 1.16e-2 for Kmask 20. The other split (kclose fixed) is a sensitivity run and is immaterial (report.md). Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = []
+    id = "breathing_kopen_supplement"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "The Pb-Tx dose enters plasma as the intact form with both masks closed (c_c); the parental mAb0,0 as m_m."
+    evidence = "Results: 'The Pb-Tx is depicted first as an intact moiety with two masks'. Whether the masks start closed or at the breathing equilibrium is not stated (breathing equilibrates within seconds, so this has no visible effect). Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = []
+    id = "dose_as_intact"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "assumption"
+    description = "Peripheral and tumour receptor start at steady state ksynR/(kendo V); the central receptor state starts at 0 with no synthesis."
+    evidence = "The initial receptor levels are not stated; s003 lists a central receptor state but prints no zero-order (synthesis) vector. The central choice is in notes.md before comparing; the steady-state start is not recorded there, so the stage is not known and is set to :after_comparison."
+    figures = []
+    id = "receptor_initial"
+    kind = "missing"
+    stage = "after_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "'Total Drug' (nM) is the sum of all unbound and receptor-bound forms in the compartment (excluding internalised and eliminated pools). In the fixed run, Figure 4b,c use `unbound_readout` instead."
+    evidence = "Figure 3 and Figure 4a-c plot 'Total Drug (nM)'; the paper does not define which forms it sums. In plasma both readings are identical (no central receptor). Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = []
+    id = "readout_total_all_forms"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Figure 4d,e 'Total Drug (nmol)' is the cumulative receptor-mediated uptake: the internalised pools tmdd_m + tmdd_o times the compartment volume."
+    evidence = "Figure 4d,e are described in the Discussion as receptor-mediated uptake in periphery and tumour; the y label says 'Total Drug (nmol)'. Stage: listed in notes.md under 'Modelling decisions made before comparing'."
+    figures = ["fig4"]
+    id = "readout_uptake_internalised"
+    kind = "ambiguity"
+    stage = "before_comparison"

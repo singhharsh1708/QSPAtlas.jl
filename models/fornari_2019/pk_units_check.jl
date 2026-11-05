@@ -6,6 +6,8 @@
 #   absolute: L and L/h for a 0.320 kg rat     -> 30 mg/kg = 25.9 umol into Vcen 0.26 L
 # (1) physiology / cited source, (2) the observed in-house 30 mg/kg free-Pt points of Supplement Fig S3 (non-target figure),
 # read by eye from the PDF rendered at 100 dpi (log axis: 1e3 at row 45, 1e-2 at row 515, 94 px per decade; +-3 px = +-0.03 decade).
+# Exact marker coordinates from the vector PDF (2026-11-05 check) give per kg -0.03 decade (16 points) and absolute 2.9x low;
+# the Siddik 'x' points give per kg 1.22x, absolute 3.8x low.
 using LinearAlgebra, Printf, Statistics
 
 QC, Vcen, Vper, CL = 0.06, 0.26, 0.30, 0.42

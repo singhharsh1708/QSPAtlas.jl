@@ -2,7 +2,7 @@
 
 Fornari C, Oplustil O'Connor L, Pin C, Smith A, Yates JWT, Cheung SYA, Jodrell DI, Mettetal JT, Collins TA. Quantifying drug-induced bone marrow toxicity using a novel haematopoiesis systems pharmacology model. CPT Pharmacometrics Syst Pharmacol 2019;8:858-868. DOI 10.1002/psp4.12459, PMC6875710.
 
-**Grade C** (by figure: Fig 3 B, Fig 4 C). The model cannot be run as printed (equations not closed). After documented typo/missing-equation fixes and one evidenced units fix (Table S3 rat PK read per kg, `pk_per_kg`) all five Figure 3 lines pass (rms 0.004-0.011). Of the human Figure 4 lines (two 21-day cycles, per the figure caption) only 4b neutrophils pass; 4a neutrophils, 4a platelets and 4b platelets fail, so the overall grade is C. Grade follows mechanically from these scores. Working notes: `notes.md`.
+**Grade C** (by figure: Fig 3 B, Fig 4 C). The model cannot be run as printed (equations not closed). After documented typo/missing-equation fixes and one evidenced units fix (Table S3 rat PK read per kg, `pk_per_kg`) all five Figure 3 lines pass (rms 0.004-0.011). Of the human Figure 4 lines (two 21-day cycles, per the figure caption) only 4b neutrophils pass; 4a neutrophils, 4a platelets and 4b platelets fail, so the overall grade is C. Grade follows mechanically from these scores. Strict grade (article and supplement only): D, because Figure 4 needs the human PK from a cited reference and assumed human baselines, and both figures need a standard molecular weight (see Provenance). Working notes: `notes.md`.
 
 ## Model
 
@@ -41,7 +41,7 @@ As published: **error, model not runnable** ("Eq 1 contains fdbk_mat_MPP ... Eq 
 | fig4b_neut | 0.0099 | 0.0179 | yes |
 | fig4b_plt | 0.0275 | 0.0526 | no |
 
-Figures: `figures/comparison.png`, `figures/fig3_regenerated.png`, `figures/fig4_regenerated.png`. The ungraded Fig 3 panels (monocytes, reticulocytes, RBC) also follow the paper's lines by eye, and Supplement Fig S1 (30 mg/kg once, not a target) is matched by the same model: nadirs MPP 14.5, MEP 8.9, CMP 172, platelets 255, reticulocytes 13.6 (paper about 12, 8.5, 170, 230, 16). The human model does not use the rat PK, so the per-kg fix leaves Fig 4 unchanged.
+Figures: `figures/comparison.png`, `figures/fig3_regenerated.png`, `figures/fig4_regenerated.png`. The ungraded Fig 3 panels (monocytes, reticulocytes, RBC) also follow the paper's lines by eye, and Supplement Fig S1 (30 mg/kg once, not a target) is matched by the same model (a result of the fixed model, not evidence for the units reading): nadirs MPP 14.5, MEP 8.9, CMP 172, platelets 255, reticulocytes 13.6 (paper about 12, 8.5, 170, 230, 16). The human model does not use the rat PK, so the per-kg fix leaves Fig 4 unchanged.
 
 ### Sensitivity (diagnostic only, `sensitivity.jl`; not fitted, does not change the grade)
 
@@ -56,13 +56,34 @@ Figures: `figures/comparison.png`, `figures/fig3_regenerated.png`, `figures/fig4
 | eq1_maturation | typo | Eq 1 maturation terms -ktr_CMP fdbk_mat_MPP - ktr_MEP fdbk_mat_MPP replaced by -ktr_CMP fdbk_mat_CMP MPP - ktr_MEP fdbk_mat_MEP MPP | fdbk_mat_MPP defined nowhere; Eq 4 gain terms are the same fluxes; S4 kstem needs outflow proportional to MPP; text says Eq 12 feedbacks enter Eqs 1 and 4 |
 | rbc_equation | missing | add dRBC/dt = kcirc_Ret Ret - kcirc_RBC RBC | Eq 9 prints four equations; Table 1 kcirc_RBC; S4 kcirc_Ret = kcirc_RBC RBC0/Ret0; Eqs 12-13 use RBC |
 | plt_transit_rate | typo | platelet T1 loss uses a_Plt, not a_Ret | Eq 8, T2_Plt equation, S3/S4 steady state |
-| dose_time | ambiguity | rat doses at t = 24 h + 14 d k (k = 0..7); human first dose at t = 0 | Fig S3 hour axis starts at 24 h with the dose at the left edge; Table S1 "day 1"; Fig 3 shows eight cycles |
-| pk_per_kg | units | Table S3 QC 0.06, VCen 0.26, VPer 0.30, CL 0.42 read as L/h/kg and L/kg; dose per kg, d mg/kg = d x 1000/371.25 umol/kg into Cen (107.7 at 40 mg/kg) | Table S3 says 'l' and '1/h', code says liter and liter/hour, but: (1) the cited PK data source, Siddik 1987 (Biochem Pharmacol 36:1925), gives carboplatin plasma clearance 10.3 mL/min/kg (inulin 10.1, filtration only); per kg CL is 7.0 mL/min/kg, as absolute litres in a 0.320 kg rat 21.9 mL/min/kg (twice GFR) with VCen 0.81 L/kg and Vss 1.75 L/kg (above total body water); (2) the observed in-house 30 mg/kg points of Fig S3 (not a target) match per kg with mean offset 0.00 decades, the absolute reading is 3.1x low (`pk_units_check.jl`); (3) all doses in the paper are per kg (5 mL/kg). MW 371.25 (PubChem CID 426756). Table S3 numbers unchanged, nothing fitted |
-| human_schedule | ambiguity | two 750 mg doses, day 0 and day 21 | Fig 4 caption: "Two cycles of 21 days of carboplatin were simulated. Doses were calculated with the Calvert formula"; S11/S12 say "a single dose" |
-| human_pk | missing | Zandvliet 2008 two-compartment PK: CL 0.76 x 7.5 + 1.5 = 7.2 L/h, V1 15.5, Q 3.46, V2 9.86; 750 mg (S11 Calvert) per dose as 30 min infusion | S11 cites the model but gives no values; values from Zandvliet Table 2 (PMC2561111); GFR = CrCl and 30 min infusion assumed |
-| human_baselines | ambiguity | midpoints of printed ranges: Neut0 4.5, Mono0 5.1, Ret0 77.5, RBC0 5000 | Table 1 prints ranges; rule declared before any simulation (not read off Fig 4) |
+| typical_value_lines | missing | the red "average" lines simulated as one typical-value run | no IIV model is given; residual error moves the mean by 1.5-1.8 % |
+| dose_time | ambiguity | rat doses at t = 24 h + 14 d k (k = 0..7) | Fig S3 hour axis starts at 24 h with the dose at the left edge; Table S1 "day 1"; the text says eight cycles |
+| carboplatin_mw | missing | MW 371.25 g/mol for mg to umol | not in the paper; PubChem CID 426756 |
+| pk_per_kg | units | Table S3 QC 0.06, VCen 0.26, VPer 0.30, CL 0.42 read as L/h/kg and L/kg; dose per kg, d mg/kg = d x 1000/371.25 umol/kg into Cen (107.7 at 40 mg/kg) | Table S3 says 'l' and '1/h', code says liter and liter/hour, but: (1) Table S3 was estimated by fitting Eq S1 to the Fig S3 free-Pt data (Table S3 caption); read per kg the model reproduces those data (in-house 30 mg/kg, 16 points: geometric mean obs/model 0.93; Siddik 20 mg/kg, 10 points: 1.22), read as litres for a 0.320 kg rat it is 2.9x and 3.8x below them; these are PK data, not targets; (2) the cited PK source, Siddik et al. 1987 (Biochem Pharmacol 36:1925; abstract only, full text not accessed), reports carboplatin plasma clearance 10.3 mL/min/kg and inulin clearance 10.1 mL/min/kg in a study of mice and rats (the abstract does not say which species these values are from); read per kg, CL 0.42 L/h/kg is 7.0 mL/min/kg, the same order; as absolute litres in a 0.320 kg rat CL is 21.9 mL/min/kg, implausibly twice the GFR of a drug cleared mainly by filtration, with VCen 0.81 L/kg and Vss 1.75 L/kg (above total body water); (3) the Fig S3 data also give a model-free clearance of 0.47 L/h per kg (0.15 L/h for a 0.320 kg rat) against the printed 0.42 (`pk_units_check.jl`). Table S3 numbers unchanged, nothing fitted |
+| human_schedule | ambiguity | two 750 mg doses (Calvert, S11), day 0 and day 21 | Fig 4 caption: "Two cycles of 21 days of carboplatin were simulated. Doses were calculated with the Calvert formula"; S11/S12 say "a single dose" |
+| human_pk | missing | Zandvliet 2008 two-compartment PK: CL 0.76 x CrCl + 1.5 L/h, V1 15.5, Q 3.46, V2 9.86; each dose as a 30 min infusion | S11 cites the model but gives no values; values and infusion duration from Zandvliet (PMC2561111) |
+| human_gfr_as_crcl | missing | S11 GFR 125 mL/min used as CrCl: CL = 7.2 L/h | the paper does not link GFR to the Zandvliet covariate |
+| human_baselines | ambiguity | midpoints of printed ranges: Neut0 4.5, Mono0 5.1, Ret0 77.5, RBC0 5000 | Table 1 prints ranges and names no point (midpoint = assumption); rule declared before any simulation (not read off Fig 4) |
 
-No parameter was fitted to a target or to a figure curve in the graded run. The units reading was decided on the cited source, physiology and the non-target Fig S3 observations; its agreement with Fig 3 is a result, not the reason. Table 2 human slopes are used as printed even though they disagree with Eq 10 (below).
+No parameter was fitted to a target or to a figure curve in the graded run. The units reading rests on the non-target Fig S3 PK data, physiology and the cited source; its agreement with Fig 3 (and Fig S1) is a result, not the reason. Table 2 human slopes are used as printed even though they disagree with Eq 10 (below).
+
+## Provenance
+
+| fix | kind | basis | stage | runs | figures | evidence |
+|---|---|---|---|---|---|---|
+| eq1_maturation | typo | paper | before | fixed | all | fdbk_mat_MPP undefined; Eq 4 fluxes, S4 steady state |
+| rbc_equation | missing | supplement | before | fixed | all | S4 kcirc_Ret = kcirc_RBC RBC0/Ret0 |
+| plt_transit_rate | typo | paper | before | fixed | all | Eq 8 a_Plt, S3/S4 steady state |
+| typical_value_lines | missing | assumption | before | fixed | all | no IIV model for the "average" lines |
+| dose_time | ambiguity | supplement | before | fixed | fig3 | Fig S3 dose at 24 h, Table S1 day 1 |
+| carboplatin_mw | missing | standard | before | fixed | all | PubChem 371.25 g/mol |
+| pk_per_kg | units | supplement | after | fixed | fig3 | only per kg reproduces the Fig S3 PK data; physiology; Siddik clearance consistent |
+| human_schedule | ambiguity | paper | after | fixed | fig4 | Fig 4 caption: two 21-day cycles (added in review, from the caption) |
+| human_pk | missing | reference | before | fixed | fig4 | Zandvliet 2008, cited in S11 |
+| human_gfr_as_crcl | missing | assumption | before | fixed | fig4 | GFR 125 mL/min used as CrCl |
+| human_baselines | ambiguity | assumption | before | fixed | fig4 | midpoints of the Table 1 ranges |
+
+The as-published run has no fills: it stops at the unclosed equations before any dose or human value is needed. `pk_per_kg` is a units reading adopted after a rebuild found that it matches Figure 3; it stays a fix because the Fig S3 PK data (not a target), physiology and the cited clearance support it without Figure 3 or 4 (details and numbers in `notes.md` and `pk_units_check.jl`). The absolute-litre reading is a sensitivity run (`pk_absolute_320g`, `sensitivity.jl`). No fix is `:from_target`, so no passing curve depends on one; the five Figure 3 passes depend on `pk_per_kg`. Strict grade D (bases :assumption, :standard and :reference).
 
 ## Issues found in the paper
 
@@ -71,9 +92,9 @@ No parameter was fitted to a target or to a figure curve in the graded run. The 
 3. Eq 7: platelet T1 equation uses a_Ret and the label "T1_Ptt".
 4. Eq 9: no RBC equation. Table 1 and S4 imply it. Table 1 does not list the reticulocyte kcirc (derived).
 5. Supplementary model code (s013): the PDF stops after the parameter mapping (page 4 ends at `k12_Carbo = QC/Vcen_Carbo;`); ODE right-hand sides, dosing and solver call are absent.
-6. Dose-to-amount conversion (molecular weight, per-kg basis) is not given anywhere. Table S3 and the code give the PK in litres and litres/hour, but the values are per kg (fix `pk_per_kg`); read as absolute litres for the stated 0.320 kg rats, CL would be twice the rat GFR and VCen larger than total body water, and the model is 3.1x below the paper's own PK observations.
+6. Dose-to-amount conversion (molecular weight, per-kg basis) is not given anywhere. Table S3 and the code give the PK in litres and litres/hour, but they behave as per-kg values (fix `pk_per_kg`): only that reading reproduces the paper's own PK data in Fig S3; read as absolute litres for the stated 0.320 kg rats, CL would be twice the rat GFR and VCen larger than total body water, and the model is about 3x below the paper's own PK observations.
 7. Fig S3: the plotted model line (Cp about 450 uM at the dose, Damage peak 4.77) corresponds to about 117 umol/kg, i.e. about 43 mg/kg, not to the 20 or 30 mg/kg of the caption; the in-house 30 mg/kg observations themselves agree with Table S3 at 30 mg/kg. The Damage curve is also about 13 % higher than the printed Damage ODE gives for the PK line in the same figure (peak 4.13) and decays faster (0.0154/h vs 0.0127/h) although kdam = krep = 0.017.
-8. Table S3 gives the units of QC and CL as 1/h; the code says L/h; both should be per kg (item 6).
+8. Table S3 gives the units of QC and CL as 1/h; the code says L/h; QC and CL should be flows (L/h), and the fitted values behave as per kg (item 6).
 9. Table S1 (PDF text) lists doses on days 1-85 for study E (seven doses) while Fig 3 and the text show eight cycles.
 10. Table 1 human baselines for Neut, Mono, Ret, RBC are literature ranges, not values (Mono 0.2-10 spans a factor 50). Human CMP0 20.9 and MEP0 15 differ slightly from 16 x MPP0 and 11 x MPP0 (S9).
 11. Table 2 human slopes are not Eq 10 applied to Table S2: Eq 10 gives MPP 1.44 (with the CMP ratio; Table S2 has no MPP IC50), CMP 1.03 and MEP 1.21, Table 2 prints 0.79, 0.57 and 0.66. The printed values equal 2.05 x 1.56/4.04 = 0.79, 1.47 x 1.56/4.04 = 0.57 and 2.19 x 0.86/2.83 = 0.67, i.e. within-species MEP/CMP IC50 ratios (human for MPP and CMP, rat for MEP) instead of the rat/human ratio: apparently a row/column mix-up in the IC50 lookup.
@@ -98,7 +119,7 @@ Changes after the self-check (2026-11-04): the `dose_scale` fix (0.320 kg absolu
 
 ## Self-check (2026-11-04)
 
-An independent rebuild from the paper and supplement alone (no access to this implementation) agreed on the closure fixes (Eq 1 maturation terms, added RBC equation, a_Plt in Eq 7, dose on day 1, eight cycles, two human cycles) and found the per-kg reading of Table S3, under which all eight Fig 3 panels and Fig S1 reproduce while the absolute-litre reading is 3x below the paper's PK observations. It also found issues 15 and 16, the Fig S3 dose mismatch (item 7) and the IC50 lookup pattern (item 11). The per-kg reading was then checked here against evidence that does not use the target figures (cited source, physiology, Fig S3 observations; `pk_units_check.jl`) before it was adopted.
+An independent rebuild from the paper and supplement alone (no access to this implementation) agreed on the closure fixes (Eq 1 maturation terms, added RBC equation, a_Plt in Eq 7, dose on day 1, eight cycles, two human cycles) and found the per-kg reading of Table S3, under which all eight Fig 3 panels and Fig S1 reproduce while the absolute-litre reading is 3x below the paper's PK observations. It also found issues 15 and 16, the Fig S3 dose mismatch (item 7) and the IC50 lookup pattern (item 11). The per-kg reading was then checked here against evidence that does not use the target figures (the Fig S3 PK data, physiology, the cited source; `pk_units_check.jl`) before it was adopted; a separate check on 2026-11-05 confirmed it from the exact Fig S3 marker coordinates.
 
 ## Literature check (2026-11-04)
 

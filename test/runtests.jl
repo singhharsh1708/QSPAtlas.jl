@@ -27,7 +27,14 @@ using QSPAtlas, Test
         expected = isfile(scorefile) ? read_score(scorefile) : nothing
         m = Module(Symbol("Model_", id))
         Base.include(m, joinpath(dir, "reproduce.jl"))
-        rep = Base.invokelatest(m.reproduce; plots = false)
+        # reproduce() writes score.toml as a side effect; restore the committed file so
+        # running the tests never changes tracked files
+        committed = isfile(scorefile) ? read(scorefile) : nothing
+        rep = try
+            Base.invokelatest(m.reproduce; plots = false)
+        finally
+            committed === nothing || write(scorefile, committed)
+        end
         @test rep isa Reproduction
         @test rep.id == id
         if expected === nothing
@@ -48,9 +55,11 @@ using QSPAtlas, Test
                     w = get(want, c.ref.id, nothing)
                     @test w !== nothing && w["passed"] == c.comparison.passed
                     # numbers must not drift either: score.toml stores 4 significant digits. Band
-                    # targets are scored from Monte Carlo simulations, whose percentiles move by up to
-                    # their Monte Carlo error (kept below 0.003 of the axis) when package versions
-                    # change, so they get that allowance; pass/fail above must still match exactly.
+                    # targets are scored from Monte Carlo simulations. Julia 1.11 changed the tail
+                    # branch of randn (log(rand) to log1p(-rand)), so about 7 % of normal draws differ
+                    # from 1.10 and the simulated percentiles move by up to their Monte Carlo error
+                    # (kept below 0.003 of the axis); they get that allowance. Pass/fail above must
+                    # still match exactly, and the solver output itself is bitwise identical.
                     atol = c.ref.kind === :band ? 3e-3 : 1e-5
                     w === nothing || @test isapprox(c.comparison.rms, w["rms"]; rtol = 1e-3, atol)
                 end

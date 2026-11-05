@@ -45,10 +45,12 @@ atol 1e-10, at most 1000 intervals). Doses whose lag pushes them past `ii` wrap 
 next interval, and infusions longer than `ii` are carried across intervals and into the
 main simulation.
 
-Two differences from NONMEM are deliberate. The iteration starts from the model's initial
-conditions rather than from zero (mrgsolve starts from the state at the steady-state
-record), which matters for models with endogenous baselines (cell
-counts, receptors) and gives the same answer for linear PK. Steady state is refused for
+Where the iteration starts is a deliberate choice: the model's initial conditions. mrgsolve
+starts from the state at the steady-state record; how NONMEM initialises its steady-state
+computation depends on the routine and has not been checked against NONMEM output here.
+The starting point does not matter when the periodic state is unique (linear PK); it can
+matter for models with endogenous baselines (cell counts, receptors) or several periodic
+solutions. Steady state is refused for
 models whose equations depend on time explicitly (for example a resistance term
 `exp(-δ t)`), because a periodic state does not exist there; `SteadyStateOptions(allow_time_dependent = true)`
 overrides this when the time dependence is known to be periodic with `ii`. If no steady
@@ -59,14 +61,18 @@ of the cohort is simulated.
 ### Resets
 
 `Reset(time)` returns every state to its initial conditions and cancels running infusions
-and lagged doses that have not yet been given (NONMEM EVID 3); later `addl` doses are kept.
+and lagged doses that have not yet been given (in the spirit of NONMEM EVID 3); later
+`addl` doses are kept. The treatment of lagged doses pending at a reset is our convention
+and has not been checked against NONMEM output.
 A reset followed by a dose at the same time (EVID 4) applies the reset first, then the dose
 with its own lag.
 
 ### Observations at event times
 
 An observation at the same time as a dose, an infusion change, a reset or a covariate
-change sees the state after the event (mrgsolve `recsort = 3`).
+change sees the state after the event (mrgsolve `recsort = 3`). A pre-dose observation at
+the dose time (a trough recorded before the dose in a NONMEM dataset) cannot be expressed
+yet; record-order-preserving dataset input is planned. Observe just before the dose instead.
 
 ### Validation
 
@@ -81,7 +87,9 @@ sub = Subject("1"; regimen, covariates = (WT = 70.0,), obstimes = collect(0:1.0:
 ```
 
 Covariates are constant or piecewise constant; a change at time `t` re-evaluates the
-model parameters from then on. Infusion rate parameters belong to the dosing code and may
+model parameters from then on (last value carried forward). NONMEM datasets usually apply a
+record's covariate value over the interval ending at that record (next observation carried
+backward); convert such data accordingly. Infusion rate parameters belong to the dosing code and may
 not be set by covariates.
 
 ```julia

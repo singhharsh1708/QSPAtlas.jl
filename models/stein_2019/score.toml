@@ -3,6 +3,7 @@ citation = "Stein AM, et al. CPT Pharmacometrics Syst Pharmacol 2019;8:285-295"
 doi = "10.1002/psp4.12388"
 grade = "C"
 grade_label = "C"
+grade_strict = "D"
 id = "stein_2019"
 inputs_from_target = false
 pmcid = "PMC6539725"
@@ -78,51 +79,80 @@ ran = true
     tol_rms = 0.015
 
     [[fixed.fixes]]
+    basis = "assumption"
     description = "Every virtual patient is observed at every time of the design (no missing visits, no unscheduled samples)."
-    evidence = "Methods 'Sample analysis' lists scheduled visits (days 1, 2, 7, 11, 14, 21, 28, then 3-monthly) and Results 836 measurements in 90 patients (9.3 per patient, 43 BLQ); who was sampled when is not given. Used by both runs."
+    evidence = "Methods 'Sample analysis' lists scheduled visits (days 1, 2, 7, 11, 14, 21, 28, then 3-monthly) and Results 836 measurements in 90 patients (9.3 per patient, 43 BLQ); who was sampled when is not given. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
     figures = []
     id = "all_patients_all_times"
     kind = "missing"
+    stage = "before_comparison"
     [[fixed.fixes]]
-    description = "Percentiles are taken over observations WITH residual error (log-normal, sd 0.56)."
-    evidence = "Fig 3a plots observations against simulated percentiles of observations (a VPC); Table 1 residual error a = 0.56. The caption does not say whether ipred or dv percentiles are shown. Used by both runs."
+    basis = "interpretation"
+    description = "Percentiles are taken over observations WITH residual error (log-normal; Table 1 a = 0.56 read as the sd of the log-scale residual)."
+    evidence = "Fig 3a plots observations against simulated percentiles of observations (a VPC); Table 1 residual error a = 0.56, Methods 'constant error model in log-space'. The caption does not say whether ipred or dv percentiles are shown. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
     figures = []
     id = "residual_included"
     kind = "ambiguity"
+    stage = "before_comparison"
     [[fixed.fixes]]
+    basis = "interpretation"
     description = "Simulated values below the LLOQ (50 copies/ug) are kept, not replaced by the LLOQ."
-    evidence = "Caption: red asterisks are 'simulated data points for the measurements that were BLQ'. This shows simulated values are plotted; it does not say how they enter the percentiles. Censoring to the LLOQ is a sensitivity run. Used by both runs."
+    evidence = "Caption: red asterisks are 'simulated data points for the measurements that were BLQ'. This shows simulated values are plotted; it does not say how they enter the percentiles. Censoring to the LLOQ is a sensitivity run. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
     figures = []
     id = "blq_kept"
     kind = "ambiguity"
+    stage = "before_comparison"
     [[fixed.fixes]]
+    basis = "assumption"
     description = "Percentiles are Hyndman-Fan type 7 (linear interpolation of order statistics) over the 90 patients, median over replicates."
-    evidence = "Quantile convention of the VPC is not stated; type 7 is the R/Monolix-style default and is the QSPAtlas `percentiles` default. Used by both runs."
+    evidence = "Quantile convention of the VPC is not stated; type 7 is the R/Monolix-style default and is the QSPAtlas `percentiles` default. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
     figures = []
     id = "quantile_type7"
     kind = "missing"
+    stage = "before_comparison"
     [[fixed.fixes]]
+    basis = "interpretation"
     description = "Base model (Eq. 1) without covariates and without the tocilizumab/corticosteroid effect (F = 1)."
-    evidence = "Results 'Analytical model': 'The base model characterized the data well, as shown by the visual predictive check and individual fits in Figure 3'; Results 'Covariate analysis': the final model is the base model. Methods 'Covariate model' says the full covariate model is the final model, and Table 1 lists Ftoci = 1.2, so the VPC may have used comedication regressors; their per-patient values are not published. Comedication is a sensitivity run with assumed timings. Used by both runs."
+    evidence = "Results 'Analytical model': 'The base model characterized the data well, as shown by the visual predictive check and individual fits in Figure 3'; Results 'Covariate analysis': the final model is the base model. Methods 'Covariate model' says the full covariate model is the final model, and Table 1 lists Ftoci = 1.2, so the VPC may have used comedication regressors; their per-patient values are not published. Comedication is a sensitivity run with assumed timings. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
     figures = []
     id = "base_model_no_comedication"
     kind = "ambiguity"
+    stage = "before_comparison"
     [[fixed.fixes]]
+    basis = "supplement"
+    description = "Table 1 random-effect numbers are read as standard deviations of eta (omega), not variances."
+    evidence = "Table 1 gives one unlabelled number per parameter; supplement line 77: 'random effect eta_i with variance omega^2'; Monolix reports omega as an SD. The variance reading is a sensitivity run. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    figures = []
+    id = "omega_as_sd"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "assumption"
+    description = "Random effects are uncorrelated (diagonal Omega)."
+    evidence = "No correlations between etas are reported; diagonal is the Monolix default. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    figures = []
+    id = "omega_diagonal"
+    kind = "missing"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "assumption"
     description = "Right panel read on a dense grid (0.25 d) instead of only at the scheduled visits."
-    evidence = "Monolix VPC bins come from the data's actual (unscheduled, irregular) sample times, which are not published; the band between visits is drawn from those bins. A dense grid removes the coarse chord between scheduled visits, which is not how the band was built. Only in the 'with fixes' run."
+    evidence = "Monolix VPC bins come from the data's actual (unscheduled, irregular) sample times, which are not published; the band between visits is drawn from those bins. A dense grid removes the coarse chord between scheduled visits, which is not how the band was built. Only in the 'with fixes' run. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
     figures = []
     id = "dense_grid"
     kind = "missing"
+    stage = "before_comparison"
     [[fixed.fixes]]
+    basis = "figure"
     description = "Left panel simulated percentile taken at three bin nodes (28, 68, 190 d) and joined by chords."
-    evidence = "Nodes are read from the kinks of the authors' band edges in Figure 3a (digitise.toml); the bins themselves are not stated, so this input comes from the target figure (circular, the dagger case). Only in the 'with fixes' run."
+    evidence = "Nodes are read from the kinks of the authors' band edges in Figure 3a (digitise.toml); the bins themselves are not stated, so this input comes from the target figure (circular, the dagger case). Only in the 'with fixes' run. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
     figures = []
     id = "left_bin_nodes"
     kind = "from_target"
+    stage = "before_comparison"
 
 [published]
 error = ""
-fixes = []
 label = "as published"
 matched = false
 ran = true
@@ -187,3 +217,76 @@ ran = true
     rms = 0.02574
     tol_p95 = 0.03
     tol_rms = 0.015
+
+    [[published.fixes]]
+    basis = "assumption"
+    description = "Every virtual patient is observed at every time of the design (no missing visits, no unscheduled samples)."
+    evidence = "Methods 'Sample analysis' lists scheduled visits (days 1, 2, 7, 11, 14, 21, 28, then 3-monthly) and Results 836 measurements in 90 patients (9.3 per patient, 43 BLQ); who was sampled when is not given. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    figures = []
+    id = "all_patients_all_times"
+    kind = "missing"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Percentiles are taken over observations WITH residual error (log-normal; Table 1 a = 0.56 read as the sd of the log-scale residual)."
+    evidence = "Fig 3a plots observations against simulated percentiles of observations (a VPC); Table 1 residual error a = 0.56, Methods 'constant error model in log-space'. The caption does not say whether ipred or dv percentiles are shown. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    figures = []
+    id = "residual_included"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Simulated values below the LLOQ (50 copies/ug) are kept, not replaced by the LLOQ."
+    evidence = "Caption: red asterisks are 'simulated data points for the measurements that were BLQ'. This shows simulated values are plotted; it does not say how they enter the percentiles. Censoring to the LLOQ is a sensitivity run. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    figures = []
+    id = "blq_kept"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "assumption"
+    description = "Percentiles are Hyndman-Fan type 7 (linear interpolation of order statistics) over the 90 patients, median over replicates."
+    evidence = "Quantile convention of the VPC is not stated; type 7 is the R/Monolix-style default and is the QSPAtlas `percentiles` default. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    figures = []
+    id = "quantile_type7"
+    kind = "missing"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Base model (Eq. 1) without covariates and without the tocilizumab/corticosteroid effect (F = 1)."
+    evidence = "Results 'Analytical model': 'The base model characterized the data well, as shown by the visual predictive check and individual fits in Figure 3'; Results 'Covariate analysis': the final model is the base model. Methods 'Covariate model' says the full covariate model is the final model, and Table 1 lists Ftoci = 1.2, so the VPC may have used comedication regressors; their per-patient values are not published. Comedication is a sensitivity run with assumed timings. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    figures = []
+    id = "base_model_no_comedication"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "supplement"
+    description = "Table 1 random-effect numbers are read as standard deviations of eta (omega), not variances."
+    evidence = "Table 1 gives one unlabelled number per parameter; supplement line 77: 'random effect eta_i with variance omega^2'; Monolix reports omega as an SD. The variance reading is a sensitivity run. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    figures = []
+    id = "omega_as_sd"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "assumption"
+    description = "Random effects are uncorrelated (diagonal Omega)."
+    evidence = "No correlations between etas are reported; diagonal is the Monolix default. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    figures = []
+    id = "omega_diagonal"
+    kind = "missing"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "As published: each patient observed at the scheduled visit days 1, 2, 7, 11, 14, 21, 28 and months 3 and 6 (day N read as t = N d); the simulated percentile at those times joined by straight segments in (day, log10 copies)."
+    evidence = "Methods 'Sample analysis' lists the scheduled visits; this is the most literal reading of the design. Stage: adopted in the review round after the first comparison, as the literal reading (not chosen by matching; it scores slightly worse than the dense design)."
+    figures = []
+    id = "scheduled_visits"
+    kind = "ambiguity"
+    stage = "after_comparison"
+    [[published.fixes]]
+    basis = "standard"
+    description = "Months 3 and 6 placed at 3 and 6 x 365.25/12 days (91.3 and 182.6 d)."
+    evidence = "The paper gives the late visits in months; 365.25/12 is the mean calendar month. Stage: with scheduled_visits, after the first comparison."
+    figures = []
+    id = "days_per_month"
+    kind = "missing"
+    stage = "after_comparison"

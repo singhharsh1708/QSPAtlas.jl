@@ -3,6 +3,7 @@ citation = "Hutchinson LG, et al. CPT Pharmacometrics Syst Pharmacol 2016;5:636-
 doi = "10.1002/psp4.12142"
 grade = "C"
 grade_label = "C"
+grade_strict = "D"
 id = "hutchinson_2016"
 inputs_from_target = false
 pmcid = "PMC5192995"
@@ -260,86 +261,83 @@ ran = true
     [[fixed.curves]]
     figure = "Figure 6b, chemotherapy days 42-49, tumour volume T (black)"
     id = "fig6_b_T"
-    max = 0.6031
+    max = 0.2545
     n_points = 70
-    p95 = 0.5975
+    p95 = 0.2368
     passed = false
-    rms = 0.3864
+    rms = 0.1637
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6b, chemotherapy days 42-49, carrying capacity V (magenta)"
     id = "fig6_b_V"
-    max = 0.5642
+    max = 0.1941
     n_points = 70
-    p95 = 0.546
+    p95 = 0.1862
     passed = false
-    rms = 0.3404
+    rms = 0.1288
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6c, chemotherapy days 54-61, tumour volume T (black)"
     id = "fig6_c_T"
-    max = 0.1912
+    max = 0.0456
     n_points = 70
-    p95 = 0.1855
+    p95 = 0.04432
     passed = false
-    rms = 0.0986
+    rms = 0.02584
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6c, chemotherapy days 54-61, carrying capacity V (magenta)"
     id = "fig6_c_V"
-    max = 0.1764
+    max = 0.04739
     n_points = 70
-    p95 = 0.1627
+    p95 = 0.0383
     passed = false
-    rms = 0.07984
+    rms = 0.02768
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6d, chemotherapy days 38-59, tumour volume T (black)"
     id = "fig6_d_T"
-    max = 0.3909
+    max = 0.2913
     n_points = 70
-    p95 = 0.3852
+    p95 = 0.29
     passed = false
-    rms = 0.3195
+    rms = 0.244
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
     figure = "Figure 6d, chemotherapy days 38-59, carrying capacity V (magenta)"
     id = "fig6_d_V"
-    max = 0.3951
+    max = 0.2824
     n_points = 70
-    p95 = 0.3804
+    p95 = 0.2639
     passed = false
-    rms = 0.2951
+    rms = 0.1877
     tol_p95 = 0.03
     tol_rms = 0.015
 
     [[fixed.fixes]]
+    basis = "supplement"
     description = "Initial carrying capacity V0 = K*T0 instead of the printed K = T0/V0 (i.e. V0 = T0/K)."
-    evidence = "Methods before Eq. 6 prints K = T0/V0; Table 1 describes K as 'Initial ratio of V/T'; supplement MLXTRAN code (s004) has V_0 = K*X, T_0 = X; Fig 2b starts at V(38) = 140 = K*T0 with K = 2, T0 = 70 as stated in the caption."
+    evidence = "Methods before Eq. 6 prints K = T0/V0; Table 1 describes K as 'Initial ratio of V/T'; supplement MLXTRAN code (s004) has V_0 = K*X, T_0 = X; Fig 2b starts at V(38) = 140 = K*T0 with K = 2, T0 = 70 as stated in the caption. Stage: notes.md lists the typo with the equations and the first comparison run already had both runs."
     figures = []
     id = "K_is_V_over_T"
     kind = "typo"
+    stage = "before_comparison"
     [[fixed.fixes]]
-    description = "Figure 6: the resistance factor of Eq. 7 is exp(-lambda (t - tCon)), timed from the start of chemotherapy, instead of exp(-lambda t) with t read as days since inoculation."
-    evidence = "Eq. 7 writes exp(-lambda t) and nowhere defines the origin of t; the text says resistance builds up during chemotherapy and is likely to matter more in Fig 6(d) (long course) than in Fig 6(c). Both readings are textually possible; the one used is stated here. No parameter value is changed."
-    figures = ["fig6"]
-    id = "resistance_clock_from_tCon"
-    kind = "ambiguity"
-    [[fixed.fixes]]
+    basis = "figure"
     description = "Figure 6: T0 = 80 mm^3 (Methods mean of 70 mm^3 not used) because the curves of all four panels start at T of about 80."
-    evidence = "The paper gives no T0 for Figure 6. Value read from the starting point of the T curves in Figure 6 itself (a protocol input, not a model parameter); an independent rebuild from the paper alone read the same 80. Circular for this one value, hence the dagger."
+    evidence = "The paper gives no T0 for Figure 6. Value read from the starting point of the T curves in Figure 6 itself (a protocol input, not a model parameter); an independent rebuild from the paper alone read the same 80, after its own comparison with the figure. Circular for this one value, hence the dagger."
     figures = ["fig6"]
     id = "T0_fig6_from_figure"
     kind = "from_target"
+    stage = "after_comparison"
 
 [published]
 error = ""
-fixes = []
 label = "as published"
 matched = false
 ran = true
@@ -537,11 +535,11 @@ ran = true
     [[published.curves]]
     figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=21, carrying capacity V"
     id = "fig2_f_V_N21"
-    max = 1.018
+    max = 1.0
     n_points = 60
     p95 = 0.9282
     passed = false
-    rms = 0.6991
+    rms = 0.6987
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
@@ -644,3 +642,12 @@ ran = true
     rms = 0.2215
     tol_p95 = 0.03
     tol_rms = 0.015
+
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Figure 6: T0 = 70 mm^3, the mean tumour size at day 38 from the Methods (the paper gives no T0 for Figure 6)."
+    evidence = "Methods: the initial condition for T is the observed volume at day 38 (individual values); the Methods mean is 70 mm^3 and the Figure 2 caption uses T0 = 70. Taken before the first comparison (notes.md, Timeline and Update item 1)."
+    figures = ["fig6"]
+    id = "T0_fig6_methods_mean"
+    kind = "missing"
+    stage = "before_comparison"

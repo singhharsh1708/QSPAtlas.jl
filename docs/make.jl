@@ -82,14 +82,15 @@ let ids = sort(collect(keys(scores)))
     n = length(ids)
     counts = Dict(g => count(id -> scores[id]["grade"] == g, ids) for g in ("A", "B", "C", "D"))
     io = IOBuffer()
-    println(io, "| model | paper | grade | curves passing (as published / with fixes) | meaning |")
-    println(io, "|---|---|---|---|---|")
+    println(io, "| model | paper | grade | strict grade | curves passing (as published / with fixes) | meaning |")
+    println(io, "|---|---|---|---|---|---|")
     for id in ids
         s = scores[id]
         dagger = get(s, "inputs_from_target", false)
         println(io, "| [", id, "](models/", id, ".md) | [", s["citation"], "](https://doi.org/", s["doi"], ") | **",
             get(s, "grade_label", s["grade"]), "**", length(get(s, "figure_grades", Dict())) > 1 ?
                 string(" (", join(["$k: $g" for (k, g) in sort(collect(s["figure_grades"]))], ", "), ")") : "",
+            " | ", get(s, "grade_strict", "?"),
             " | ", npass(get(s, "published", Dict())), " / ", npass(get(s, "fixed", Dict())),
             " | ", GRADE_TEXT[s["grade"]],
             dagger ? "; some inputs not stated in the paper were read from the target figure" : "", " |")
@@ -101,6 +102,61 @@ let ids = sort(collect(keys(scores)))
         "); ", counts["C"], " run but do not match; ", counts["D"], " cannot be run from the published information.")
     tmpl = read(joinpath(@__DIR__, "index.template.md"), String)   # kept outside src/ so it is not published as a page
     write(joinpath(SRC, "index.md"), replace(tmpl, "{{HEADLINE}}" => headline, "{{TABLE}}" => table))
+end
+
+
+# Sensitivity tables: how each grade depends on the tolerance and on the gap-filling rule.
+# Recomputed from the per-curve rms and p95 stored in score.toml, with the same grading
+# rules as src/score.jl (A needs a matching published run without fills; B needs
+# evidenced fixes; a :from_target fix gives a dagger).
+let factors = (0.5, 0.67, 1.0, 1.5, 2.0), io = IOBuffer()
+    function sens_grade(s, factor, figure = nothing)
+        runs = Dict{String, Any}()
+        for label in ("published", "fixed")
+            run = get(s, label, Dict())
+            isempty(run) && continue
+            curves = [c for c in get(run, "curves", []) if figure === nothing || QSPAtlas.figure_key(
+                QSPAtlas.ReferenceCurve(c["id"], "", [0.0], [0.0], QSPAtlas.Axis("x", "", :linear, 0, 1),
+                    QSPAtlas.Axis("y", "", :linear, 0, 1), :curve, Dict{String, String}())) == figure]
+            fixes = [f for f in get(run, "fixes", []) if figure === nothing || isempty(get(f, "figures", [])) || figure in f["figures"]]
+            ok = get(run, "ran", false) && !isempty(curves) &&
+                all(c -> c["rms"] <= factor * c["tol_rms"] && c["p95"] <= factor * c["tol_p95"], curves)
+            runs[label] = (; ok, fixes, ran = get(run, "ran", false))
+        end
+        pub = get(runs, "published", nothing); fix = get(runs, "fixed", nothing)
+        evid(fs) = all(f -> !isempty(strip(get(f, "evidence", ""))), fs)
+        pub !== nothing && pub.ok && isempty(pub.fixes) && return "A"
+        for r in (pub, fix)
+            r !== nothing && r.ok && evid(r.fixes) && return any(f -> f["kind"] == "from_target", r.fixes) ? "B†" : "B"
+        end
+        return any(r -> r !== nothing && r.ran, (pub, fix)) ? "C" : "D"
+    end
+    println(io, "# Sensitivity of the grades\n")
+    println(io, "Grades recomputed from the per-curve errors in each model's `score.toml`. The tolerance")
+    println(io, "factor scales both thresholds (RMS 0.015 and P95 0.03 of the axis box). The strict grade")
+    println(io, "counts only the article and its supplement as published information (see [Method](method.md)).\n")
+    println(io, "## Model grades\n")
+    println(io, "| model | strict grade | ", join(["tolerance x$(f)" for f in factors], " | "), " |")
+    println(io, "|---|---|", join(fill("---", length(factors)), "|"), "|")
+    for id in sort(collect(keys(scores)))
+        s = scores[id]
+        cells = [sens_grade(s, f) for f in factors]
+        cells = [f == 1.0 ? "**$(c)**" : c for (f, c) in zip(factors, cells)]
+        println(io, "| ", id, " | ", get(s, "grade_strict", "?"), " | ", join(cells, " | "), " |")
+    end
+    println(io, "\n## Figure grades\n")
+    println(io, "| model | figure | ", join(["x$(f)" for f in factors], " | "), " | uses a value read from the figure |")
+    println(io, "|---|---|", join(fill("---", length(factors)), "|"), "|---|")
+    for id in sort(collect(keys(scores)))
+        s = scores[id]
+        for fig in sort(collect(keys(get(s, "figure_grades", Dict()))))
+            cells = [sens_grade(s, f, fig) for f in factors]
+            allfixes = vcat([get(get(s, label, Dict()), "fixes", []) for label in ("published", "fixed")]...)
+            ft = any(f -> f["kind"] == "from_target" && (isempty(get(f, "figures", [])) || fig in f["figures"]), allfixes)
+            println(io, "| ", id, " | ", fig, " | ", join(cells, " | "), " | ", ft ? "yes" : "no", " |")
+        end
+    end
+    write(joinpath(SRC, "sensitivity.md"), String(take!(io)))
 end
 
 # copy benchmark and calibration outputs if present
@@ -162,6 +218,7 @@ makedocs(;
         "Models" => model_pages,
         "Population simulation" => "simulation.md",
         "Validation" => "validation.md",
+        "Sensitivity" => "sensitivity.md",
         "Solver benchmarks" => "benchmarks.md",
         "Recalibration" => "calibration.md",
         "Contributing a model" => "contributing.md",

@@ -96,20 +96,22 @@ matching the target, so it was checked against evidence that does not use Fig 3 
 - Dimensions. With per-kg volumes and the dose in umol/kg, Cp = Cen/VCen is umol/L, exactly as with absolute values; the only thing
   that changes is the amount per litre of central volume, by the factor 1/BW (3.125 for 0.320 kg). Nothing else in the model carries kg.
 - Cited source. The PK was fitted (S5, Table S3 caption) to in-house data and to Siddik et al. 1987 (Biochem Pharmacol 36:1925, supplement
-  ref 1). Siddik's abstract (PubMed 3297068): carboplatin plasma clearance 10.3 mL/min/kg, renal 9.3, inulin 10.1, i.e. glomerular filtration
-  only. Per kg, CL 0.42 L/h/kg = 7.0 mL/min/kg (free Pt, consistent order). Absolute in a 0.320 kg rat: 21.9 mL/min/kg, twice GFR, not possible
-  for a drug cleared by filtration alone.
+  ref 1). Siddik's abstract (PubMed 3297068; mice and rats, species of these values not stated; full text not accessed): carboplatin plasma
+  clearance 10.3 mL/min/kg, renal 9.3, inulin 10.1, i.e. glomerular filtration only. Per kg, CL 0.42 L/h/kg = 7.0 mL/min/kg (free Pt,
+  consistent order). Absolute in a 0.320 kg rat: 21.9 mL/min/kg, about twice the inulin clearance in the same study, implausible for a drug
+  excreted 80-90 % in urine within 4 h by filtration.
 - Physiology. Per kg VCen 0.26 L/kg is about extracellular water (0.27 L/kg), Vss 0.56 L/kg. Absolute: VCen 0.81 L/kg and Vss 1.75 L/kg,
   more than total body water (0.67 L/kg) for a hydrophilic, mostly unbound drug.
 - Observations. The in-house 30 mg/kg 'o' points of Fig S3 (non-target, read by eye from the 100 dpi rendering, 1-24 h after dose):
   per kg mean log10(obs/model) +0.00, rms 0.15 decade; absolute +0.50 (model 3.1x low). The half-lives cannot discriminate (both readings
   have the same rate constants); only the level does.
-- Fig S1 (30 mg/kg once, non-target model figure): per kg nadirs MPP 14.5, MEP 8.9, CMP 172, Plt 255, Ret 13.6 vs paper about 12, 8.5,
+- Fig S1 (30 mg/kg once, non-target model figure) (consequence, not evidence): per kg nadirs MPP 14.5, MEP 8.9, CMP 172, Plt 255, Ret 13.6 vs paper about 12, 8.5,
   170, 230, 16; absolute 35, 50, 196, 510, 36.
 - Fig S3 model line: 117 umol in Cen is 43 mg/kg per kg, not the 20/30 mg/kg of the caption (paper issue). The earlier 3.90 umol per mg/kg
   came from that line; it is not used.
 VERDICT: an evidenced :units fix, not a fit. The reading is binary (L or L/kg), no number is tuned, Table S3 values are used unchanged,
-and the evidence (cited source in per-kg units, physiology, the paper's own PK observations) is independent of the target figures.
+and the evidence (the paper's own Fig S3 fitting data, which only the per-kg reading reproduces, and physiology; the cited source's
+clearance is consistent) is independent of the target figures.
 Caveat stated in the report: the reading was first suggested by a rebuild that had seen it match Fig 3.
 Fix `pk_per_kg` (:units) replaces `dose_scale`; DOSE_UMOL_PER_MGKG_PERKG = 1000/371.25. Sensitivity (`sensitivity.jl`, log): the 0.320 kg absolute reading fails all five Fig 3 lines (0.068/0.092/0.129/0.134/0.046);
 dose -5 % fails Neut only (0.018), +5 % passes all; first dose at t = 0 passes all.
@@ -123,3 +125,9 @@ Text checks with the fixed model: platelet nadir 77 % (text 45 %), reticulocyte 
 CMP 90 d (text 12, 30, about 50). Fig S1 monocyte panel is a copy of the MPP panel (checked on the rendered PDF). Table 2 human slopes
 equal within-species MEP/CMP IC50 ratios times the rat slopes (0.79, 0.57, 0.67), not Eq 10 (1.44, 1.03, 1.21).
 
+
+## Provenance ledger (2026-11-05)
+
+- Units verdict (units check, 2026-11-05): the per-kg reading is supported by independent evidence (exact Fig S3 markers: per kg obs/model 0.93 and 1.22, absolute 2.9x and 3.8x low; model-free CL 0.47 L/h/kg vs 0.42). `pk_per_kg` stays a fix: kind :units, basis :supplement, stage :after_comparison. Wording above corrected (Siddik species unstated, abstract only; "implausible" instead of "not possible"; Fig S1 is a consequence).
+- New explicit fixes for choices that were applied without their own entry: `typical_value_lines`, `carboplatin_mw`, `human_gfr_as_crcl`; `dose_time` now covers the rat only (the human day-0 dose is part of `human_schedule`). The 0.320 kg absolute reading is the sensitivity fix `pk_absolute_320g`; without a dose-conversion fix the rat model throws NotRunnable.
+- No number changed; grade C (Fig 3 B, Fig 4 C), strict D.

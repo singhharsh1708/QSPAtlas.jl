@@ -61,6 +61,8 @@ spaghetti
 bands
 plot_vpc
 grade_label
+grade_strict
+NotRunnable
 from_target
 figure_grades
 ```

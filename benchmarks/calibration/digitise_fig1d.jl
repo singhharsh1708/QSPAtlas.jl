@@ -7,6 +7,8 @@ include(joinpath(@__DIR__, "..", "..", "tools", "digitise", "digitise.jl"))
 using Statistics, FileIO
 
 # The image is not in the repository: it is read from $QSPATLAS_PAPERS/hutchinson_2016/supplement/ (tools/digitise/README.md).
+# Image provenance (same keys as the digitise.toml files): image_url = https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5192995/supplementaryFiles (member PSP4-5-636-g001.jpg),
+# image_sha256 = 425e4178c358d7154e611c5cd0e27234adf46073fe7b85ebc13339486448a772
 img = loadimg(paper_image("hutchinson_2016", "PSP4-5-636-g001.jpg"))
 
 # calibration (pixels read with column_profile / row_profile, see notes.md in this folder)

@@ -2,7 +2,7 @@
 
 Stein AM, Grupp SA, Levine JE, et al. Tisagenlecleucel Model-Based Cellular Kinetic Analysis of Chimeric Antigen Receptor-T Cells. CPT Pharmacometrics Syst Pharmacol 2019;8:285-295. DOI 10.1002/psp4.12388, PMC6539725.
 
-Grade C: the model runs and, simulated under the most literal reading of the paper's design (90 patients observed at the scheduled visit days, Table 1 values, residual error), reproduces the right-panel 10th and 50th percentile bands (days 0-30) but not the 90th percentile at the peak nor the persistence phase of the left panel (days 30-185). Reading the design more densely (dense grid, band bin nodes; the "with fixes" run) does not change this. The paper does not state the VPC design (who is sampled when, bins, BLQ and quantile handling, base vs full covariate model); those choices are listed in FIXES with their evidence and are not published facts, so the result is "fails under this reading", not a definitive failure of the authors' simulation. The misses are mostly several times the digitising uncertainty and far above Monte Carlo error. Grade C means "runs, does not match", not "cannot run".
+Grade C: the model runs and, simulated under the most literal reading of the paper's design (90 patients observed at the scheduled visit days, Table 1 values, residual error), reproduces the right-panel 10th and 50th percentile bands (days 0-30) but not the 90th percentile at the peak nor the persistence phase of the left panel (days 30-185). Reading the design more densely (dense grid, band bin nodes; the "with fixes" run) does not change this. The paper does not state the VPC design (who is sampled when, bins, BLQ and quantile handling, base vs full covariate model); those choices are listed in FIXES with their evidence and are not published facts, so the result is "fails under this reading", not a definitive failure of the authors' simulation. The misses are mostly several times the digitising uncertainty and far above Monte Carlo error. Grade C means "runs, does not match", not "cannot run". Strict grade (article and supplement only): D (assumed design choices, standard month length, bin nodes read from the figure).
 
 ## Model
 
@@ -55,7 +55,25 @@ Local diagnostic (skipped when `PSP4-8-285-s002.csv` is absent): the paper's Dat
 
 ## Fixes
 
-Seven design choices that the paper does not state (details and evidence in `protocol.jl`): `all_patients_all_times` (:missing), `residual_included` (:ambiguity), `blq_kept` (:ambiguity; the caption's red asterisks show simulated values are plotted, not how they enter the percentiles), `quantile_type7` (:missing), `base_model_no_comedication` (:ambiguity; Results links the base model to Figure 3 and says the final model is the base model, Methods selects the full model, and nothing shows that the fitted Ftoci = 1.2 was replaced by 1, so this is unresolved), `dense_grid` (:missing), `left_bin_nodes` (:from_target: nodes read from the band in the target figure). The first five apply to both runs (the as-published run cannot be defined without them); the last two only to "with fixes". Model parameters were never changed. Because `left_bin_nodes` is :from_target, a match could only have earned B-dagger; there was no match.
+Design choices that the paper does not state (details and evidence in `protocol.jl`). Seven are shared by both runs, which cannot be defined without them: `all_patients_all_times`, `residual_included`, `blq_kept`, `quantile_type7`, `base_model_no_comedication` (Results links the base model to Figure 3 and says the final model is the base model, Methods selects the full model, and nothing shows that the fitted Ftoci = 1.2 was replaced by 1, so this is unresolved), `omega_as_sd` and `omega_diagonal` (the last two were applied without an entry before 2026-11-05). The as-published run adds `scheduled_visits` and `days_per_month`; the fixed run adds `dense_grid` and `left_bin_nodes` (:from_target: nodes read from the band in the target figure). Model parameters were never changed. Because `left_bin_nodes` is :from_target, a match could only have earned B-dagger; there was no match.
+
+## Provenance
+
+| fix | kind | basis | stage | runs | figures | evidence |
+|---|---|---|---|---|---|---|
+| all_patients_all_times | missing | assumption | before | both | fig3 | who was sampled when is not given |
+| residual_included | ambiguity | interpretation | before | both | fig3 | VPC of observations; a = 0.56 in log space |
+| blq_kept | ambiguity | interpretation | before | both | fig3 | caption plots simulated BLQ values; use in percentiles unstated |
+| quantile_type7 | missing | assumption | before | both | fig3 | quantile convention unstated; R/Monolix default |
+| base_model_no_comedication | ambiguity | interpretation | before | both | fig3 | Results tie Fig 3 to the base model; Methods say full model |
+| omega_as_sd | ambiguity | supplement | before | both | fig3 | supplement "eta with variance omega^2" |
+| omega_diagonal | missing | assumption | before | both | fig3 | no correlations reported |
+| scheduled_visits | ambiguity | interpretation | after | published | fig3 | Methods visit schedule, literal reading (set in review) |
+| days_per_month | missing | standard | after | published | fig3 | months 3 and 6 at 365.25/12 d |
+| dense_grid | missing | assumption | before | fixed | fig3 | VPC bins from unpublished sample times |
+| left_bin_nodes | from_target | figure | before | fixed | fig3 | nodes 28, 68, 190 d read from the band kinks |
+
+Stage: "before" means part of the design frozen at 14:50 before any comparison (`notes.md`); `scheduled_visits` and `days_per_month` came with the review round after the first comparison, as the literal reading, not by matching. Strict grade D (bases :assumption, :standard and :figure). The two passing bands (right p10, right p50) sit in Figure 3a, whose fixed run uses `left_bin_nodes`; they also pass in the as-published run, which has no `:from_target` fix, and the node fix only affects the left panel.
 
 ## Issues found in the paper
 

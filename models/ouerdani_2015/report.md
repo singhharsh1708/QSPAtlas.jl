@@ -2,7 +2,7 @@
 
 Ouerdani A, Struemper H, Suttle AB, Ouellet D, Ribba B. Preclinical Modeling of Tumor Growth and Angiogenesis Inhibition to Describe Pazopanib Clinical Effects in Renal Cell Carcinoma. CPT Pharmacometrics Syst Pharmacol 2015;4:660-668. DOI 10.1002/psp4.12001, PMC4716582.
 
-Grade B† (B with inputs read from the target figure): all four Figure 4 curves match after supplying two protocol inputs the paper does not give, the initial tumour size P0 and which mouse dose group the typical simulation shows. Both were taken from Figure 4 itself (P0 at t = 0; the dose group as the one of three published exposures that matches), so they are circular for those two values. Every model equation and parameter value comes from the paper, and with those two inputs set the published model reproduces 75 days (mice) and 82 months (patients) of P and K dynamics within 0.1-1 % of the axis.
+Grade B† (B with inputs read from the target figure): all four Figure 4 curves match after supplying two protocol inputs the paper does not give, the initial tumour size P0 and which mouse dose group the typical simulation shows. Both were taken from Figure 4 itself (P0 at t = 0; the dose group as the one of three published exposures that matches), so they are circular for those two values. Every model equation and parameter value comes from the paper, and with those two inputs set the published model reproduces 75 days (mice) and 82 months (patients) of P and K dynamics within 0.1-1 % of the axis. Three further fills are needed in both runs (the patient exposure, the days-to-months conversion and continuous treatment; see Provenance). Strict grade (article and supplement only): D.
 
 ## Model
 
@@ -33,7 +33,7 @@ From `score.toml` (with fixes; "as published" run fails every curve, see below).
 | fig4_right_K | 0.0112 | 0.0160 | yes |
 | fig4_right_P | 0.0088 | 0.0138 | yes |
 
-As published (text-only guesses: mice P0 = 175 mm^3, midpoint of the 100-250 inclusion range, AUC = 30 mg/kg; patients P0 = 75 mm from a rough look at Figure 1, AUC = 771.6): left K 0.080, left P 0.081, right K 0.033, right P 0.064 (rms), all fail. These guesses are mine, not the paper's; the paper gives no value, so this run measures sensitivity to the unstated inputs rather than a real as-published reproduction.
+As published (with the five fills listed under Provenance: mice P0 = 175 mm^3, midpoint of the 100-250 inclusion range, AUC = 30 mg/kg; patients P0 = 75 mm from a rough look at Figure 1, AUC = 771.6; 30.4375 days per month; continuous treatment): left K 0.079, left P 0.081, right K 0.033, right P 0.064 (rms), all fail. The P0 and dose fills are guesses (basis :assumption), not the paper's values; without them the run cannot start (`NotRunnable`), so this run measures sensitivity to the unstated inputs rather than a real as-published reproduction.
 
 Sensitivity (diagnostic only, not graded):
 - Mouse panel, P0 = 150: 100 mg/kg rms 0.001, 30 mg/kg 0.074, 10 mg/kg 0.27. Only gamma depends on AUC (beta_alpha fixed to 0), so the dose group is identified clearly.
@@ -42,10 +42,28 @@ Sensitivity (diagnostic only, not graded):
 - n = 1 for patients (the mouse value) fails badly (rms 0.54), n = 2/3 for mice fails (0.05); the text and code values are supported.
 - P0 read error: patients 66.0-67.5 mm all pass (rms 0.009-0.013); mice 145-155 mm^3 pass (rms up to 0.004).
 
+## Provenance
+
+Every input the paper does not state, in both runs (`protocol.jl`, `score.toml`). Stage: the notes record only that these inputs were tried after the 09:44 freeze, so all are `:after_comparison`.
+
+| fix | kind | basis | stage | runs | figures | evidence |
+|---|---|---|---|---|---|---|
+| p0_text_guess | missing | assumption | after | published | fig4 | P0 not stated; 175 = midpoint of the inclusion range, 75 = rough read of Figure 1 baselines |
+| mouse_dose_text_guess | missing | assumption | after | published | fig4 | dose group not stated; middle group (30 mg/kg) taken |
+| patient_auc_mean | ambiguity | interpretation | after | both | fig4 | stated mean exposure 771.6; kept although 800 fits better |
+| days_per_month | missing | standard | after | both | fig4 | days-to-months not stated; 365.25/12 |
+| continuous_treatment | ambiguity | interpretation | after | both | fig4 | Eq. 1-3 and NONMEM code have no dosing stop |
+| p0 | from_target | figure | after | fixed | fig4 | P0 read from Figure 4 at t = 0 |
+| mouse_auc | from_target | figure | after | fixed | fig4 | 100 mg/kg chosen as the dose group that matches |
+
+Strict grade D: the runs need values whose basis is outside the article and supplement (two guesses, a standard month length and two inputs read from Figure 4). All four passing curves (fig4_left_K, fig4_left_P, fig4_right_K, fig4_right_P) sit in Figure 4, which uses the two `:from_target` fixes.
+
 ## Fixes
 
 1. `p0` (:from_target). Initial tumour size P0 is not given for the typical simulation: the Methods say P0 was "set to the observed value" (individual baselines) and neither Table 1 nor the NONMEM code gives a typical value (P0 is the data column BASE/VB, `$THETA` has `0 FIX`). Used 150 mm^3 (mice) and 66.8 mm (patients), read from Figure 4 at t = 0. This is circular (the target defines the input); it is the only available source.
 2. `mouse_auc` (:from_target). The text gives AUC for three dose groups (220.2, 656.8, 1140.8 ug*h/mL) and the Figure 4 caption does not say which dose the typical mouse simulation uses. 100 mg/kg (AUC 1140.8) reproduces the curves (rms 0.001); the other two do not.
+
+The fixed run also keeps the three shared fills above (`patient_auc_mean`, `days_per_month`, `continuous_treatment`).
 
 No :code fix: the NONMEM structural models agree with Eq. 1 and the n values in the text. The `$THETA` values in the supplement code are initial estimates (e.g. mouse lambda 0.144, K0 566) not final estimates, so Table 1 was used.
 

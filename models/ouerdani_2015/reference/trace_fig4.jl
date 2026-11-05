@@ -93,6 +93,8 @@ end
 
 out = Dict{String, Any}()
 out["image"] = "ouerdani_2015/supplement/PSP4-4-660-g004.jpg"   # relative to $QSPATLAS_PAPERS
+out["image_sha256"] = "fcb16abd0a517f31dfee4f9a1bfd832c3c72b6ec317c3334f3f89365a9c28402"   # provenance of the image used, see tools/digitise/README.md
+out["image_url"] = "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4716582/supplementaryFiles"
 out["note"] = "Figure 4 digitised by manual rules, see trace_fig4.jl header for the assignment rules. Pixel coordinates (col,row) of every picked point are listed per curve before thinning."
 out["calibration"] = Dict(
     "left" => Dict("xcal" => [48.0, 0.0, 265.5, 70.0], "ycal" => [239.5, 0.0, 52.0, 200.0], "xcheck" => "50 d at col 203.5, 75 d at frame col 281", "ycheck" => "ticks 50,100,150 at rows 192.4,145.6,98.5; 250 at frame row 5"),

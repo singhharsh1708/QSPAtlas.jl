@@ -3,8 +3,13 @@ using TOML
 MATLAB = Dict("blue"=>[0.0,0.447,0.741], "orange"=>[0.85,0.325,0.098], "yellow"=>[0.929,0.694,0.125],
               "purple"=>[0.494,0.184,0.556], "green"=>[0.466,0.674,0.188], "lblue"=>[0.301,0.745,0.933])
 curves = Dict{String,Any}[]
+# provenance of the figure images (tools/digitise/README.md): SHA-256 of the exact files used, and the Europe PMC zip they come from
+const IMAGE_URL = "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6765697/supplementaryFiles"
+const IMAGE_SHA256 = Dict("PSP4-8-676-g003.jpg" => "5589f952299df9871c02c2d63b4ac719a9493903c8f5fa3e0ee71152c875a022",
+                          "PSP4-8-676-g004.jpg" => "45fdb4127141c4e54ade51052150176473155c3ccb5012d9910076983016142c")
 function add!(id, fig, xaxis, yaxis, src, box, colour, xcal, ycal, yscale; excl = [], n = 60, tol = 0.40, kind = "curve", palette = ["blue","orange","yellow","purple","green"])
-    d = Dict{String,Any}("image"=>String(split(src, " ")[1]), "id"=>id, "figure"=>fig, "xaxis"=>xaxis, "yaxis"=>yaxis, "source"=>src, "box"=>box,
+    img = String(split(src, " ")[1])
+    d = Dict{String,Any}("image"=>img, "image_sha256"=>IMAGE_SHA256[img], "image_url"=>IMAGE_URL, "id"=>id, "figure"=>fig, "xaxis"=>xaxis, "yaxis"=>yaxis, "source"=>src, "box"=>box,
         "colour"=>MATLAB[colour], "colour_name"=>colour, "xcal"=>xcal, "ycal"=>ycal, "xscale"=>"linear", "yscale"=>yscale,
         "n"=>n, "tol"=>tol, "kind"=>kind, "palette"=>palette)
     isempty(excl) || (d["exclude_boxes"] = excl)

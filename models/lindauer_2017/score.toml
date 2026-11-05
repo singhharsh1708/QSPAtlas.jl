@@ -3,6 +3,7 @@ citation = "Lindauer A, et al. CPT Pharmacometrics Syst Pharmacol 2017;6:11-20"
 doi = "10.1002/psp4.12130"
 grade = "C"
 grade_label = "C"
+grade_strict = "D"
 id = "lindauer_2017"
 inputs_from_target = false
 pmcid = "PMC5270293"
@@ -68,27 +69,72 @@ ran = true
     tol_rms = 0.015
 
     [[fixed.fixes]]
+    basis = "standard"
     description = "Human V_blood (blood volume entering the PD-1 target amount in blood) set to 5 L = 5e6 uL. The paper gives no human value and Table 1 has no V_blood row; 1400 uL is the mouse blood volume (s006 THETA(18))."
-    evidence = "s006 line 'TVV_blood = THETA(18) ; Blood volume' = 1400 (20 g mouse); Figure 4/Results list V_blood among the sensitive human parameters; with 1400 uL the base case is -6.0 / -4.7 (log ratio) instead of -1.29 / -0.39 (identification grid in notes.md)."
+    evidence = "Standard adult blood volume (70 kg x 70 mL/kg). s006 line 'TVV_blood = THETA(18) ; Blood volume' = 1400 (20 g mouse); Figure 4/Results list V_blood among the sensitive human parameters; with 1400 uL the base case is -6.0 / -4.7 (log ratio) instead of -1.29 / -0.39. The 5 L value was declared in notes.md before any simulation (candidate menu), not tuned (5.2 L would fit the caption slightly better)."
     figures = []
     id = "human_V_blood_5L"
     kind = "missing"
+    stage = "before_comparison"
     [[fixed.fixes]]
+    basis = "paper"
     description = "Human KdegPD1 = 0.0194 * (70 kg / 0.02 kg)^-0.25 = 0.002522 1/h instead of the printed Table 1 value 0.00246. The Methods state this formula; the printed value is 2.5 % lower and cannot be obtained from it (SLtg, scaled by the same rule, is reproduced exactly: 2.575E-06)."
-    evidence = "Methods, equation for KdegPD1_human (BW 20 g / 70 kg, exponent -0.25) vs Table 1 'Value in man' 0.00246; Table S3 SLtg 2.575E-06 = 1.98E-05 * 3500^-0.25."
+    evidence = "Methods, equation for KdegPD1_human (BW 20 g / 70 kg, exponent -0.25) vs Table 1 'Value in man' 0.00246; Table S3 SLtg 2.575E-06 = 1.98E-05 * 3500^-0.25. Noted as an inconsistency before running, applied after seeing its effect on the base case; the evidence is textual and independent of Figure 4."
     figures = []
     id = "KdegPD1_allometric"
     kind = "typo"
+    stage = "after_comparison"
     [[fixed.fixes]]
+    basis = "figure"
     description = "Base case of Figure 4 = Table S3 row 4: medium growth rate (L0 0.0036/day) with growth-proportional scaling of SLtg (6.247E-07). The paper does not say which of the six scenarios is the base case (Fig S1: 'one scenario (melanoma, 1)')."
-    evidence = "Of the 12 scenario x schedule combinations only medium growth / growth-proportional, Q3W, gives the Figure 4 caption base values (-1.302 / -0.401 vs printed -1.29 / -0.39); next best -1.44 / -0.46."
+    evidence = "Of the 12 scenario x schedule combinations only medium growth / growth-proportional, Q3W, gives the Figure 4 caption base values (-1.302 / -0.401 vs printed -1.29 / -0.39); next best -1.44 / -0.46. Chosen by matching fig4_base_case."
     figures = []
     id = "scenario_med_growth"
     kind = "from_target"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "Figure 4 doses every 3 weeks (bolus at days 0, 21, ..., 168; response at 26 weeks)."
+    evidence = "The Figure 4 schedule is not stated. Q3W is the schedule of Figure 3a ('once every 3 weeks') and the regimen the paper recommends (2 mg/kg Q3W). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "schedule_Q3W"
+    kind = "missing"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "mg/kg doses converted to amounts with a 70 kg body weight (MW 149000 g/mol from s006)."
+    evidence = "Methods: 'A standard body weight of 20 g and 70 kg was assumed for mice and humans' (stated for the allometric scaling; its use for dosing is not stated). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "dose_body_weight_70kg"
+    kind = "missing"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "assumption"
+    description = "Each human dose is an IV bolus into the central compartment."
+    evidence = "Dose administration in the human simulations (bolus or infusion, duration) is not stated; no effect at the 26-week readout (report.md, Issues). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "bolus_doses"
+    kind = "missing"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "supplement"
+    description = "Species-invariant estimates taken at Table S2 precision (gamma 2.28, Tmulti 4.32, EMAXTP 94.7, EC50TP 1.46) instead of the Table 1 roundings (gamma 2.3, Tmulti 4.3)."
+    evidence = "Table 1 and Table S2 print the same estimates at different precision; Table S2 is the estimation output. Table 1 roundings give a base case of -1.340 / -0.418 instead of -1.302 / -0.401 (notes.md). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "table_s2_full_precision"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[fixed.fixes]]
+    basis = "supplement"
+    description = "Where the supplement equations (s001) and the NONMEM control stream (s006) differ, s006 is followed: Ceb in both endosomal transfer terms, the full central-compartment equation, K_IVIV = 1, MW 149000. The s006 branch DE = SLtg*RO for RO <= 0.01 % is not applied (no effect, report.md)."
+    evidence = "s001 prints dCeb/dt and dFcRn/dt with Cvs where s006 and mass balance have Ceb, and a truncated central-compartment equation (report.md, Issues). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "equations_from_s006"
+    kind = "code"
+    stage = "before_comparison"
 
 [published]
 error = ""
-fixes = []
 label = "as published"
 matched = false
 ran = true
@@ -143,3 +189,60 @@ ran = true
     rms = 1.0
     tol_p95 = 0.03
     tol_rms = 0.015
+
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Figure 4 base case = Table S3 row 1, fast growth with allometric SLtg (L0 0.0088/day, SLtg 2.575E-06)."
+    evidence = "The Fig S1 flowchart (s003) says the sensitivity analysis takes 'one scenario (melanoma, 1)'; Table S3 lists fast / allometric first. The Fig 3a legend order would make row 4 'scenario 1' instead (report.md, Issues). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "scenario_table_s3_row1"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "assumption"
+    description = "Human V_blood (blood volume entering the PD-1 target amount in blood) = 1400 uL, the only V_blood printed (the mouse value in s006)."
+    evidence = "Table 1 has no V_blood row and no human value is printed; s006 'TVV_blood = THETA(18)' = 1400 uL for a 20 g mouse. Nothing says it is used for man. Declared in notes.md before any simulation was run."
+    figures = []
+    id = "human_V_blood_mouse_value"
+    kind = "missing"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "Figure 4 doses every 3 weeks (bolus at days 0, 21, ..., 168; response at 26 weeks)."
+    evidence = "The Figure 4 schedule is not stated. Q3W is the schedule of Figure 3a ('once every 3 weeks') and the regimen the paper recommends (2 mg/kg Q3W). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "schedule_Q3W"
+    kind = "missing"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "interpretation"
+    description = "mg/kg doses converted to amounts with a 70 kg body weight (MW 149000 g/mol from s006)."
+    evidence = "Methods: 'A standard body weight of 20 g and 70 kg was assumed for mice and humans' (stated for the allometric scaling; its use for dosing is not stated). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "dose_body_weight_70kg"
+    kind = "missing"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "assumption"
+    description = "Each human dose is an IV bolus into the central compartment."
+    evidence = "Dose administration in the human simulations (bolus or infusion, duration) is not stated; no effect at the 26-week readout (report.md, Issues). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "bolus_doses"
+    kind = "missing"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "supplement"
+    description = "Species-invariant estimates taken at Table S2 precision (gamma 2.28, Tmulti 4.32, EMAXTP 94.7, EC50TP 1.46) instead of the Table 1 roundings (gamma 2.3, Tmulti 4.3)."
+    evidence = "Table 1 and Table S2 print the same estimates at different precision; Table S2 is the estimation output. Table 1 roundings give a base case of -1.340 / -0.418 instead of -1.302 / -0.401 (notes.md). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "table_s2_full_precision"
+    kind = "ambiguity"
+    stage = "before_comparison"
+    [[published.fixes]]
+    basis = "supplement"
+    description = "Where the supplement equations (s001) and the NONMEM control stream (s006) differ, s006 is followed: Ceb in both endosomal transfer terms, the full central-compartment equation, K_IVIV = 1, MW 149000. The s006 branch DE = SLtg*RO for RO <= 0.01 % is not applied (no effect, report.md)."
+    evidence = "s001 prints dCeb/dt and dFcRn/dt with Cvs where s006 and mass balance have Ceb, and a truncated central-compartment equation (report.md, Issues). Declared in notes.md before any simulation was run."
+    figures = []
+    id = "equations_from_s006"
+    kind = "code"
+    stage = "before_comparison"

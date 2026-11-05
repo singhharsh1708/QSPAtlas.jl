@@ -20,7 +20,7 @@ variants = Dict{String, Function}(
 )
 function sim(sp, out, mod)
     sys = get_system()
-    pars, dosed, bw = molecule_setup(sp)
+    pars, dosed, bw = molecule_setup(sp; fixes = FIXES)
     pars = mod(sp, copy(pars))
     prob = ODEProblem(sys, problem_pairs(sys, pars), (0.0, sp.tend))
     cb = bolus_callback(sys, getproperty(sys, dosed), [0.0], dose_nM(sp.dose, bw, pars[:V1]))

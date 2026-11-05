@@ -48,3 +48,8 @@ Source of the candidates: an independent rebuild from the paper alone. It matche
 5. N = Nmax*dose + 1 with accumulating dose compartments (s004 MLXTRAN): not applied. A code-versus-text discrepancy that cannot be settled (dose records are not in the supplement); Figure 2 e/f rule out N = Nmax + 1 for small Nmax. Run as a diagnostic only (report.md, Result).
 
 Outcome: with fixes (K, clock, T0) Figure 6 fails all 8 curves with the printed alpha~_C = 1 (6b and 6d worse than as published, 6a and 6c V better). Model grade C; figure grades from `score.toml`: Figure 6 C. Figure 2 numbers are unchanged. The library computes figure grades from the run's whole fix list, so `score.toml` labels Figure 2 B† although no Figure 2 curve uses the T0 fix; the Figure 2 grade is B on its own evidence.
+
+## Provenance ledger (2026-11-05)
+
+- The as-published run now lists its Figure 6 fill `T0_fig6_methods_mean` (T0 = 70, Methods mean); without a T0 fix Figure 6 throws NotRunnable.
+- `resistance_clock_from_tCon` moved from the fixed run to a sensitivity run: it was adopted after a rebuild showed it matches Figure 6, and the text allows both readings, so no independent evidence justifies it on its own. With fixes Figure 6 now uses the printed exp(-lambda t); scores in report.md. Grade unchanged: C (Figure 2 B, Figure 6 C).

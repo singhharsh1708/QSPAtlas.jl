@@ -2,7 +2,7 @@
 
 Lindauer A, Valiathan CR, Mehta K, Sriram V, de Greef R, Elassaiss-Schaap J, de Alwis DP. Translational PK/PD modeling of tumor growth inhibition supports dose-range selection of the anti-PD-1 antibody pembrolizumab. CPT Pharmacometrics Syst Pharmacol 2017;6:11-20. DOI 10.1002/psp4.12130, PMC5270293.
 
-Reason for C: as printed, the human model lacks a human V_blood (only the mouse 1400 uL is printed), the Fig 4 base scenario and the schedule. With a documented physiological fill (5 L) plus two other fixes (one circular, `:from_target`) the model runs, and 58 of the 64 digitised bars plus both caption base values agree (rms 0.017 log10 units, max 0.049). Six bars do not (two gamma 5x bars, four L bars), so all four bar curves fail the frozen tolerance under the vertical-error `:bars` scoring and the grade is C, not B. As published (mouse V_blood) the base case is off by about 5 log10 units.
+Reason for C: as printed, the human model lacks a human V_blood (only the mouse 1400 uL is printed), the Fig 4 base scenario and the schedule. With a documented physiological fill (5 L) plus two other fixes (one circular, `:from_target`) the model runs, and 58 of the 64 digitised bars plus both caption base values agree (rms 0.017 log10 units, max 0.049). Six bars do not (two gamma 5x bars, four L bars), so all four bar curves fail the frozen tolerance under the vertical-error `:bars` scoring and the grade is C, not B. As published (mouse V_blood) the base case is off by about 5 log10 units. Strict grade (article and supplement only): D. The only passing target, `fig4_base_case`, is the target used to choose the scenario, so that pass is circular (see Provenance).
 
 ## Model
 
@@ -26,7 +26,7 @@ Decision (written in `notes.md` before any simulation): Fig 3a central lines are
 
 ## Result
 
-From `score.toml` (as published; with fixes). Run settings in the "as published" column: scenario 1 of Table S3 (fast / allometric), Q3W, 70 kg, V_blood 1400 uL (the only printed value), Table 1 KdegPD1.
+From `score.toml` (as published; with fixes). Run settings in the "as published" column: scenario 1 of Table S3 (fast / allometric), Q3W, 70 kg, bolus, V_blood 1400 uL (the only printed value), Table 1 KdegPD1; all listed as fills in Provenance.
 
 | curve | as published rms / p95 | pass | with fixes rms / p95 | pass | main contributors with fixes |
 |---|---|---|---|---|---|
@@ -50,6 +50,25 @@ Solver: Rodas5P, abstol 1e-14, reltol 1e-9; base case identical to 6 digits with
 
 Not applied: the s006 `IF(ROtumor>0.01) DE = SLtg*ROtumor` branch (tested with it on: no change at the base case, and none in the gamma 5x / 0.2x runs, -7.0273 / -2.6732 and 0.2841 / 0.2842 either way), Table 1 roundings gamma 2.3 / Tmulti 4.3 (base -1.340 / -0.418, Table S2 full-precision values used instead).
 
+## Provenance
+
+All fills of the as-published run were declared in `notes.md` before any simulation ("As-published run (declared a priori)"). Without the scenario, V_blood, schedule, body-weight and bolus fixes the simulation throws `NotRunnable`.
+
+| fix | kind | basis | stage | runs | figures | evidence |
+|---|---|---|---|---|---|---|
+| scenario_table_s3_row1 | ambiguity | interpretation | before | published | fig4 | Fig S1 "one scenario (melanoma, 1)"; Table S3 row 1 |
+| human_V_blood_mouse_value | missing | assumption | before | published | fig4 | only printed V_blood is the mouse 1400 uL |
+| schedule_Q3W | missing | interpretation | before | both | fig4 | Fig 4 schedule unstated; Fig 3a and the recommended regimen are Q3W |
+| dose_body_weight_70kg | missing | interpretation | before | both | fig4 | Methods: standard human body weight 70 kg |
+| bolus_doses | missing | assumption | before | both | fig4 | route and duration unstated; no effect at 26 weeks |
+| table_s2_full_precision | ambiguity | supplement | before | both | fig4 | Table S2 estimates instead of Table 1 roundings |
+| equations_from_s006 | code | supplement | before | both | fig4 | s006 followed where s001 has typos or a truncated equation |
+| human_V_blood_5L | missing | standard | before | fixed | fig4 | adult blood volume 5 L; value declared before running, not tuned |
+| KdegPD1_allometric | typo | paper | after | fixed | fig4 | Methods formula gives 0.002522; Table 1 prints 0.00246 |
+| scenario_med_growth | from_target | figure | after | fixed | fig4 | only row 4 gives the caption base values |
+
+`KdegPD1_allometric` is a parameter value adopted after a comparison; it stays a fix because its evidence is the Methods formula, which reproduces the Table S3 SLtg exactly, not the figure. Strict grade D (bases :assumption, :standard and :figure). Passing curve in a figure with a `:from_target` fix: `fig4_base_case`, the target used to choose `scenario_med_growth`.
+
 ## Issues found in the paper
 
 - Fig 4 base case is not defined: scenario, schedule (Q2W/Q3W), body weight, and human V_blood are not stated; Table 1 lists no V_blood although the text and Fig 4 treat it as a parameter; Fig S1 only says "one scenario (melanoma, 1)".
@@ -71,7 +90,7 @@ Not applied: the s006 `IF(ROtumor>0.01) DE = SLtg*ROtumor` branch (tested with i
 ## What would raise the grade
 
 - The authors' MATLAB scenario file: base scenario, schedule, V_blood, and how L and gamma were perturbed (this would settle the L swap and gamma 5x bars). With the L row corrected and gamma 5x explained, the four bar curves would be near the tolerance; the remaining offsets are 0.01-0.05 log10 (rounded Table S3 values).
-- A stated base case would remove the circular `:from_target` fix (B instead of B-dagger) and a stated human V_blood the `:missing` fix.
+- A stated base case would remove the circular `:from_target` fix, and a stated human V_blood the `:missing` fix. This would make the one passing target non-circular; it would not by itself change the grade, because four of the five targets still fail.
 - Fig 3a targets would need the central-line definition (nominal or bootstrap median) and the human bootstrap parameter table.
 
 ## Data note (not in the repo)

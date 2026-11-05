@@ -55,8 +55,8 @@ end
 
 function reproduce(; plots = true, figdir = joinpath(@__DIR__, "figures"))
     refs = sort(collect(values(load_references(joinpath(@__DIR__, "reference")))); by = r -> r.id)
-    published = run_curves(ref -> simulate_curve(ref; fixes = Fix[]), refs, "as published";
-        tolerance = TOLERANCE, tolerances = TOLERANCES)
+    published = run_curves(ref -> simulate_curve(ref; fixes = PUBLISHED_FILLS), refs, "as published";
+        fixes = PUBLISHED_FILLS, tolerance = TOLERANCE, tolerances = TOLERANCES)
     fixed = isempty(FIXES) ? nothing :
         run_curves(ref -> simulate_curve(ref; fixes = FIXES), refs, "with fixes";
             fixes = FIXES, tolerance = TOLERANCE, tolerances = TOLERANCES)

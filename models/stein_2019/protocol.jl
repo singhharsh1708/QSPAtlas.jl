@@ -50,33 +50,74 @@ const TIMES = sort(unique(vcat(TIMES_RIGHT, TIMES_LEFT, SCHEDULED)))
 const NODES_LEFT = [28.0, 68.0, 190.0]   # bin nodes of the left panel, read from the band kinks (digitise.toml): :from_target
 const TSPAN = (0.0, 190.0)
 
-# ---- fixes ----------------------------------------------------------------------------------
-# Every design choice that is not stated by the paper. `evidence` says what supports it. The first
-# five are used by both runs (the as-published run is not definable without them); the last two
-# are what distinguishes the "with fixes" run from "as published".
-const FIXES = [
+# ---- fixes (provenance ledger 2026-11-05) ---------------------------------------------------
+# Every design choice that is not stated by the paper, with basis and stage. The shared fills are used by
+# both runs (the as-published run is not definable without them); `scheduled_visits` and `days_per_month`
+# define the as-published reading, `dense_grid` and `left_bin_nodes` the "with fixes" reading.
+const FROZEN = " Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+const SHARED_FILLS = [
     Fix("all_patients_all_times", :missing,
         "Every virtual patient is observed at every time of the design (no missing visits, no unscheduled samples).";
-        evidence = "Methods 'Sample analysis' lists scheduled visits (days 1, 2, 7, 11, 14, 21, 28, then 3-monthly) and Results 836 measurements in 90 patients (9.3 per patient, 43 BLQ); who was sampled when is not given. Used by both runs."),
+        evidence = "Methods 'Sample analysis' lists scheduled visits (days 1, 2, 7, 11, 14, 21, 28, then 3-monthly) and Results 836 measurements in 90 patients (9.3 per patient, 43 BLQ); who was sampled when is not given. Used by both runs." * FROZEN,
+        basis = :assumption, stage = :before_comparison),
     Fix("residual_included", :ambiguity,
-        "Percentiles are taken over observations WITH residual error (log-normal, sd 0.56).";
-        evidence = "Fig 3a plots observations against simulated percentiles of observations (a VPC); Table 1 residual error a = 0.56. The caption does not say whether ipred or dv percentiles are shown. Used by both runs."),
+        "Percentiles are taken over observations WITH residual error (log-normal; Table 1 a = 0.56 read as the sd of the log-scale residual).";
+        evidence = "Fig 3a plots observations against simulated percentiles of observations (a VPC); Table 1 residual error a = 0.56, Methods 'constant error model in log-space'. The caption does not say whether ipred or dv percentiles are shown. Used by both runs." * FROZEN,
+        basis = :interpretation, stage = :before_comparison),
     Fix("blq_kept", :ambiguity,
         "Simulated values below the LLOQ (50 copies/ug) are kept, not replaced by the LLOQ.";
-        evidence = "Caption: red asterisks are 'simulated data points for the measurements that were BLQ'. This shows simulated values are plotted; it does not say how they enter the percentiles. Censoring to the LLOQ is a sensitivity run. Used by both runs."),
+        evidence = "Caption: red asterisks are 'simulated data points for the measurements that were BLQ'. This shows simulated values are plotted; it does not say how they enter the percentiles. Censoring to the LLOQ is a sensitivity run. Used by both runs." * FROZEN,
+        basis = :interpretation, stage = :before_comparison),
     Fix("quantile_type7", :missing,
         "Percentiles are Hyndman-Fan type 7 (linear interpolation of order statistics) over the 90 patients, median over replicates.";
-        evidence = "Quantile convention of the VPC is not stated; type 7 is the R/Monolix-style default and is the QSPAtlas `percentiles` default. Used by both runs."),
+        evidence = "Quantile convention of the VPC is not stated; type 7 is the R/Monolix-style default and is the QSPAtlas `percentiles` default. Used by both runs." * FROZEN,
+        basis = :assumption, stage = :before_comparison),
     Fix("base_model_no_comedication", :ambiguity,
         "Base model (Eq. 1) without covariates and without the tocilizumab/corticosteroid effect (F = 1).";
-        evidence = "Results 'Analytical model': 'The base model characterized the data well, as shown by the visual predictive check and individual fits in Figure 3'; Results 'Covariate analysis': the final model is the base model. Methods 'Covariate model' says the full covariate model is the final model, and Table 1 lists Ftoci = 1.2, so the VPC may have used comedication regressors; their per-patient values are not published. Comedication is a sensitivity run with assumed timings. Used by both runs."),
+        evidence = "Results 'Analytical model': 'The base model characterized the data well, as shown by the visual predictive check and individual fits in Figure 3'; Results 'Covariate analysis': the final model is the base model. Methods 'Covariate model' says the full covariate model is the final model, and Table 1 lists Ftoci = 1.2, so the VPC may have used comedication regressors; their per-patient values are not published. Comedication is a sensitivity run with assumed timings. Used by both runs." * FROZEN,
+        basis = :interpretation, stage = :before_comparison),
+    Fix("omega_as_sd", :ambiguity,
+        "Table 1 random-effect numbers are read as standard deviations of eta (omega), not variances.";
+        evidence = "Table 1 gives one unlabelled number per parameter; supplement line 77: 'random effect eta_i with variance omega^2'; Monolix reports omega as an SD. The variance reading is a sensitivity run. Used by both runs." * FROZEN,
+        basis = :supplement, stage = :before_comparison),
+    Fix("omega_diagonal", :missing,
+        "Random effects are uncorrelated (diagonal Omega).";
+        evidence = "No correlations between etas are reported; diagonal is the Monolix default. Used by both runs." * FROZEN,
+        basis = :assumption, stage = :before_comparison),
+]
+
+const PUBLISHED_FILLS = [
+    SHARED_FILLS...,
+    Fix("scheduled_visits", :ambiguity,
+        "As published: each patient observed at the scheduled visit days 1, 2, 7, 11, 14, 21, 28 and months 3 and 6 (day N read as t = N d); the simulated percentile at those times joined by straight segments in (day, log10 copies).";
+        evidence = "Methods 'Sample analysis' lists the scheduled visits; this is the most literal reading of the design. Stage: adopted in the review round after the first comparison, as the literal reading (not chosen by matching; it scores slightly worse than the dense design).",
+        basis = :interpretation, stage = :after_comparison),
+    Fix("days_per_month", :missing,
+        "Months 3 and 6 placed at 3 and 6 x 365.25/12 days (91.3 and 182.6 d).";
+        evidence = "The paper gives the late visits in months; 365.25/12 is the mean calendar month. Stage: with scheduled_visits, after the first comparison.",
+        basis = :standard, stage = :after_comparison),
+]
+
+const FIXES = [
+    SHARED_FILLS...,
     Fix("dense_grid", :missing,
         "Right panel read on a dense grid (0.25 d) instead of only at the scheduled visits.";
-        evidence = "Monolix VPC bins come from the data's actual (unscheduled, irregular) sample times, which are not published; the band between visits is drawn from those bins. A dense grid removes the coarse chord between scheduled visits, which is not how the band was built. Only in the 'with fixes' run."),
+        evidence = "Monolix VPC bins come from the data's actual (unscheduled, irregular) sample times, which are not published; the band between visits is drawn from those bins. A dense grid removes the coarse chord between scheduled visits, which is not how the band was built. Only in the 'with fixes' run." * FROZEN,
+        basis = :assumption, stage = :before_comparison),
     Fix("left_bin_nodes", :from_target,
         "Left panel simulated percentile taken at three bin nodes (28, 68, 190 d) and joined by chords.";
-        evidence = "Nodes are read from the kinks of the authors' band edges in Figure 3a (digitise.toml); the bins themselves are not stated, so this input comes from the target figure (circular, the dagger case). Only in the 'with fixes' run."),
+        evidence = "Nodes are read from the kinks of the authors' band edges in Figure 3a (digitise.toml); the bins themselves are not stated, so this input comes from the target figure (circular, the dagger case). Only in the 'with fixes' run." * FROZEN,
+        basis = :figure, stage = :before_comparison),
 ]
+
+"Which reading of the band curves a fix list asks for (NotRunnable if the design is not given)."
+function band_mode(fixes)
+    ids = Set(f.id for f in fixes)
+    all(f -> f.id in ids, SHARED_FILLS) || throw(NotRunnable("the VPC design (sampling, residual, BLQ, quantiles, model, random effects) is not stated"))
+    ("dense_grid" in ids && "left_bin_nodes" in ids) && return :fixed
+    ("scheduled_visits" in ids && "days_per_month" in ids) && return :scheduled
+    throw(NotRunnable("the VPC times and bins are not stated"))
+end
 
 # ---- population model ---------------------------------------------------------------------
 const ETAS = [:foldx, :Tmax, :Cmax, :α, :FB, :β]

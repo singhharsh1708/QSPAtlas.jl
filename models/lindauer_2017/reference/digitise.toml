@@ -20,6 +20,8 @@
 # Scoring: kind: bars (vertical error at exactly matching x; a missing or NaN simulated bar is the maximum error).
 
 image = "lindauer_2017/supplement/PSP4-6-11-g004.jpg"
+image_sha256 = "107f645a44cc68f447bc23e1df95697990bd011f600de24ad3af5553f22423b0"
+image_url = "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5270293/supplementaryFiles"
 source = "PSP4-6-11-g004.jpg (PMC5270293)"
 
 [[panel]]

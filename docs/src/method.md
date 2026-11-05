@@ -30,8 +30,18 @@ physiological constant (a molecular weight, IgG mass of about 150 kDa, human blo
 volume of about 5 L). Each such fill is a documented `:missing` fix. A model is D
 only when an essential equation or value has none of these sources. Values chosen
 by matching the scored figure are `:from_target` (B†) for protocol inputs and never
-allowed for parameters. Reviews debated this line for three of the five models; the
-rule is applied the same way to all of them.
+allowed for parameters. This rule was written after reviews had argued for D on three
+of the models (Fornari, Lindauer, Stroh), and it is what keeps them at C. To show its
+effect, every model also has a **strict grade**: under the strict reading only the
+article and its supplement count as published information, and a model that needs any
+value from elsewhere (a cited reference, a standard value, an assumption or the target
+figure) is D. Both grades are listed on each model page and in the
+[sensitivity tables](sensitivity.md).
+
+**Provenance of every choice.** Each fix records its basis (paper, supplement,
+interpretation, cited reference, standard value, assumption, target figure) and its
+stage: whether it was chosen before or after the simulation was first compared with
+the target. A published run that needs gap fills lists them and can never be graded A.
 
 Grades describe the paper, not the effort spent. Re-estimating parameters never
 counts as a fix, and recalibration results are reported separately without changing
@@ -63,12 +73,21 @@ keeps steep sections (dosing spikes, rapid expansion) from being penalised for t
 horizontal digitising error.
 
 A curve passes when the root mean square error is at most **0.015** and the 95th
-percentile is at most **0.03** of the axis box. Published figures are 500-700 px
-wide, so one pixel is about 0.3-0.5 % of a panel axis; a 1-2 px line plus JPEG blur
-puts careful digitising error near 1 %. The 95th percentile instead of the maximum
-means one badly traced point cannot fail a curve on its own; the maximum is still
-reported. A model may set a different tolerance for a curve, with the reason stated
-before comparing.
+percentile is at most **0.03** of the axis box. The plot panels digitised so far are 85
+to 294 px wide or high, so one pixel is 0.3 to 1.2 % of an axis, and the tolerance
+corresponds to roughly 1.3 to 3.5 px on the vertical axis. Careful tracing of the
+cleanest curves scores about 0.001 to 0.002. The tolerance is a judgement, not yet a
+measured digitising error distribution; a measured error study is planned, and the
+[sensitivity of every grade to the tolerance](sensitivity.md) is published. On a log
+axis spanning many decades the same tolerance allows a larger relative error (on a
+six-decade axis, rms 0.015 corresponds to a uniform factor of about 1.23). The 95th
+percentile instead of the maximum means one badly traced point cannot fail a curve on
+its own; the maximum is still reported. A model may set a different tolerance for a
+curve, with the reason stated before comparing.
+
+The nearest-distance metric scores only the regions where the figure has digitised
+points: a simulated feature with no reference points nearby costs nothing. Per-curve
+coverage of the x range is part of the planned metric upgrades.
 
 ## Population figures
 

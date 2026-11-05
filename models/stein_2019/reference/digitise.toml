@@ -2,6 +2,8 @@
 # Regenerate: julia --startup-file=no --project=tools/digitise models/stein_2019/reference/trace_fig3a.jl
 # The image is not committed (CC BY-NC-ND 4.0, PMC6539725); it is read from $QSPATLAS_PAPERS/stein_2019/supplement/ (tools/digitise/README.md).
 image = "stein_2019/supplement/PSP4-8-285-g003.jpg"
+image_sha256 = "c2802fc9ce437bba9c2c4f4b21512ded7cc9589494a50f2f86c8d71c8fb649e2"
+image_url = "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6539725/supplementaryFiles"
 image_size = "709 x 768 px; panel (a) occupies rows 1-270"
 note = """Colour-run tracing of the light-blue (10th, 90th percentile) and light-pink (50th percentile) shaded areas of the Monolix VPC. \
 Per pixel column, runs of band-coloured pixels are found (gaps up to 10 rows bridged: dots, the empirical percentile line and red outlier marks lie on the bands); \

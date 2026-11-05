@@ -2,7 +2,7 @@
 
 Stroh M, Sagert J, Burke JM, Apgar JF, Lin L, Millard BL (printed "Miliard" in the supplement), Kavanaugh WM. Quantitative Systems Pharmacology Model of a Masked, Tumor-Activated Antibody. CPT Pharmacometrics Syst Pharmacol 2019;8(9):676-684. DOI 10.1002/psp4.12448, PMC6765697.
 
-**Grade C, one line:** the model runs and was verified entry by entry against the supplement matrices, 7 of 10 monkey (Fig 3) lines pass, but only 14 of 35 targets pass as published (18 of 35 with the one readout fix, flagged circular). The human Fig 4 lines for the masked variants fail; Fig 4 used an unstated human kcleave (Table 2 gives only `< 3e-7 1/s`). The sensitivity scan shows about 1e-7 would match, but that value is not stated in the paper and choosing it by agreement would be tuning, so it is not used.
+**Grade C, one line:** the model runs and was verified entry by entry against the supplement matrices, 7 of 10 monkey (Fig 3) lines pass, but only 14 of 35 targets pass as published (18 of 35 with the one readout fix, flagged circular). The human Fig 4 lines for the masked variants fail; Fig 4 used an unstated human kcleave (Table 2 gives only `< 3e-7 1/s`). The sensitivity scan shows about 1e-7 would match, but that value is not stated in the paper and choosing it by agreement would be tuning, so it is not used. Strict grade (article and supplement only): D (standard molecular weight, assumed receptor start, readout read from Figure 4).
 
 ## Model
 
@@ -67,13 +67,36 @@ Regenerated paper figures: `figures/fig3_regenerated.png`, `figures/fig4_regener
 
 ## Fixes
 
-The as-published run and the fixed run both use fixes 1 and 2 (they are needed for the model to run at all, same values in both runs); only fix 3 changes the simulated curves.
+The as-published run needs ten fills to run at all (without them the simulation throws `NotRunnable`); the fixed run keeps them and adds `unbound_readout`, the only change between the two runs. All are listed in Provenance.
 
-1. `molecular_weight_150kDa` (`:missing`): doses in mg/kg are converted to nM with MW = 150 kDa. Evidence: the paper gives no molecular weight; 150 kDa is the standard IgG1 mass (the Pb-Tx prodomain makes the true mass somewhat higher). Consistency check only: 4.5 mg/kg x 70 kg / 150 kDa / 2.6 L = 808 nM, the ~800 nM of Fig 4a at t = 0.
-2. `human_V2_2.6L` (`:missing`): human peripheral volume 2.6 L (not in Table 2). Evidence from the paper's own tables: Table 1 monkey receptor concentration 9.0e-5 nmol/s / (1e-4 1/s * 0.1 L) = 9 nM; the Results assume equal normal-tissue receptor concentration in human; Table 2 ksynR peripheral 2.3e-3 nmol/s / (1e-4 * 9 nM) = 2.56 L, i.e. V1.
-3. `unbound_readout` (`:from_target`, circular): the paper does not define what "Total Drug" sums in periphery and tumour (Fig 4b, 4c); neither reading is the published one. The as-published run sums unbound + target-bound forms (same as for plasma); the fixed run sums the six unbound forms. The unbound reading was chosen because it matches Fig 4b,c for mAb0,0 and 10x (for example mAb at about 1e-2 nM in tumour, far below the 270 nM target level of Table 2), selected by comparison with the figure. With it the mAb and 10x curves in b and c go from rms 0.07-0.12 to 0.001-0.009 (pass). It does not change the grade (still C, 17 curves fail).
+1. `molecular_weight_150kDa` (`:missing`, standard): doses in mg/kg are converted to nM with MW = 150 kDa. The paper gives no molecular weight; 150 kDa is the standard IgG1 mass (the Pb-Tx prodomain makes the true mass somewhat higher). Consistency check only: 4.5 mg/kg x 70 kg / 150 kDa / 2.6 L = 808 nM, the ~800 nM of Fig 4a at t = 0.
+2. `human_V2_2.6L` (`:missing`, paper): human peripheral volume 2.6 L (not in Table 2), by arithmetic from the paper's own tables: Table 1 monkey receptor concentration 9.0e-5 nmol/s / (1e-4 1/s * 0.1 L) = 9 nM; the Results assume equal normal-tissue receptor concentration in human; Table 2 ksynR peripheral 2.3e-3 nmol/s / (1e-4 * 9 nM) = 2.56 L, i.e. V1.
+3. `kcleave_monkey_3e-7` and `kcleave_human_3e-7` (`:ambiguity`, interpretation): Tables 1 and 2 print kcleave only as `< 3e-7 1/s`; the bound is used as the value. For the monkey the paper names this point ("with k cleave held fixed to the upper bound of 3e-7 1/second", Figure 3). For man Table 2 says "assumed to be the same as monkey", which points to the same 3e-7, but the value used for Figure 4 is not stated (Sensitivity: about 1e-7 would match).
+4. `tumour_kcleave_10fold` (`:ambiguity`, interpretation): tumour kcleave 10 x plasma, in all of Figure 4. The Discussion names "the scenario of a 10-fold increased k cleave in the tumor" for Figure 4d; it does not say the same for 4a-c.
+5. `breathing_kopen_supplement`, `dose_as_intact`, `receptor_initial`, `readout_total_all_forms`, `readout_uptake_internalised`: the breathing split from s003, the dosed form, the initial receptor levels and the definition of the plotted quantities (Provenance).
+6. `unbound_readout` (`:from_target`, circular): the paper does not define what "Total Drug" sums in periphery and tumour (Fig 4b, 4c); neither reading is the published one. The as-published run sums unbound + target-bound forms (same as for plasma); the fixed run sums the six unbound forms. The unbound reading was chosen because it matches Fig 4b,c for mAb0,0 and 10x (for example mAb at about 1e-2 nM in tumour, far below the 270 nM target level of Table 2), selected by comparison with the figure. With it the mAb and 10x curves in b and c go from rms 0.07-0.12 to 0.001-0.009 (pass). It does not change the grade (still C, 17 curves fail).
 
 No model parameter was fitted or chosen by comparison.
+
+## Provenance
+
+| fix | kind | basis | stage | runs | figures | evidence |
+|---|---|---|---|---|---|---|
+| molecular_weight_150kDa | missing | standard | before | both | all | no MW in the paper; IgG1 150 kDa |
+| human_V2_2.6L | missing | paper | before | both | fig4 | arithmetic from Tables 1-2 and equal receptor concentration |
+| kcleave_monkey_3e-7 | ambiguity | interpretation | before | both | fig3 | Results: kcleave "held fixed to the upper bound of 3e-7" for Fig 3 |
+| kcleave_human_3e-7 | ambiguity | interpretation | before | both | fig4 | Table 2 "<3e-7, assumed to be the same as monkey" |
+| tumour_kcleave_10fold | ambiguity | interpretation | before | both | fig4 | Discussion: "10-fold increased k cleave in the tumor" (Fig 4d) |
+| breathing_kopen_supplement | ambiguity | supplement | before | both | all | s003 kopen 1.16e-2, kclose = Kmask x kopen |
+| dose_as_intact | ambiguity | interpretation | before | both | all | Pb-Tx "depicted first as an intact moiety with two masks" |
+| receptor_initial | missing | assumption | after (not recorded) | both | all | receptor at steady state, central receptor 0 |
+| readout_total_all_forms | ambiguity | interpretation | before | both | all | "Total Drug" undefined; unbound + bound forms |
+| readout_uptake_internalised | ambiguity | interpretation | before | both | fig4 | Fig 4d,e = cumulative internalised pools |
+| unbound_readout | from_target | figure | after | fixed | fig4 | Fig 4b,c periphery/tumour as unbound forms, chosen by matching |
+
+Stage: notes.md lists the modelling decisions made before comparing; the steady-state receptor start is not among them, so it is `:after_comparison`. The bound `< 3e-7` used as a value and the 10-fold tumour boost were applied in both runs without a ledger entry before 2026-11-05; they are now listed, with no number changed. Strict grade D (bases :standard, :assumption and :figure).
+
+Passing curves in Figure 4, which uses the `:from_target` fix `unbound_readout`: four pass only with it (fig4b_10x, fig4b_mAb, fig4c_10x, fig4c_mAb); seven pass in both runs without it (fig4a_10x, fig4a_mAb, fig4d_100x, fig4d_10x, fig4d_mAb, fig4e_10x, fig4e_mAb).
 
 ## Sensitivity (informational, not graded, not a fix)
 

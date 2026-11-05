@@ -19,16 +19,39 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ['1.10', '1.11']
+        version: ['1.10', '1.11', '1.12']
     steps:
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v2
         with:
           version: ${{ matrix.version }}
       - uses: julia-actions/cache@v2
+      # The committed Manifest.toml was resolved on Julia 1.10. Newer Julia versions cannot use it
+      # (Julia 1.12 fails to load stdlibs with it, 1.11 re-resolves anyway), so they resolve fresh
+      # and act as a canary for new package versions. The `test-manifest` job covers the exact versions.
+      - name: Resolve afresh (drop the Julia 1.10 manifest)
+        if: matrix.version != '1.10'
+        run: rm -f Manifest.toml
       - uses: julia-actions/julia-buildpkg@v1
       # Runs test/core.jl and every models/*/reproduce.jl; grades must match score.toml.
       - uses: julia-actions/julia-runtest@v1
+
+  # The committed Manifest.toml (resolved on Julia 1.10) used as is: instantiate installs exactly
+  # the recorded versions, Pkg.test keeps them, and the last step fails if anything rewrote the manifest.
+  test-manifest:
+    name: Julia 1.10, committed Manifest.toml
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.10'
+      - uses: julia-actions/cache@v2
+      - name: Test with the committed manifest
+        run: julia --project -e 'using Pkg; Pkg.instantiate(); Pkg.test()'
+      - name: Manifest unchanged
+        run: git diff --exit-code -- Manifest.toml
 
   docs:
     name: Documentation

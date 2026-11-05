@@ -130,9 +130,9 @@ the maturation terms, so the steady state of S6 does not hold; Eq 9 has no RBC e
 applies the Fixes `eq1_maturation`, `rbc_equation` and `plt_transit_rate` described in protocol.jl / report.md.
 """
 function haematopoiesis_system(phys, drug, pk; structure::Symbol = :corrected, name = :haem)
-    structure === :corrected || error("model as printed cannot be run: Eq 1 contains fdbk_mat_MPP, which is defined nowhere (Eq 12 defines fdbk_mat_CMP and fdbk_mat_MEP), " *
+    structure === :corrected || throw(QSPAtlas.NotRunnable("model as printed cannot be run: Eq 1 contains fdbk_mat_MPP, which is defined nowhere (Eq 12 defines fdbk_mat_CMP and fdbk_mat_MEP), " *
         "and its maturation terms lack the factor MPP, so the steady state of supplement S6 is violated; Eq 9 omits the RBC equation; Eq 7 uses a_Ret in the platelet T1 equation. " *
-        "The supplementary ODE code (s013) is truncated before the right-hand sides.")
+        "The supplementary ODE code (s013) is truncated before the right-hand sides."))
     r = derive_rates(phys)
     @variables MPP(t) CMP(t) MEP(t) N1(t) N2(t) N3(t) M1(t) M2(t) M3(t) R1(t) R2(t) R3(t) P1(t) P2(t) P3(t)
     @variables Neut(t) Mono(t) Ret(t) Plt(t) RBC(t) Damage(t) Cen(t) Per(t) Cp(t)

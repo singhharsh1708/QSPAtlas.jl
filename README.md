@@ -15,24 +15,31 @@ the curves in the papers' own figures, and grades each one.
 
 **1 of 6 reproduces its target figures, and only after two unstated inputs were read from
 the figure itself. The other 5 run once their gaps are filled from documented sources, but
-do not match.** No model needed a parameter that had no source at all, so none is graded D.
-Five are graded on typical-value curves and one on a visual predictive check.
+do not match.** Five are graded on typical-value curves and one on a visual predictive check.
 
-| model | what it is | grade | curves passing (as printed / with fixes) | main reason |
-|---|---|---|---|---|
-| [Ouerdani 2015](models/ouerdani_2015/report.md) | pazopanib, tumour growth + angiogenesis (mouse, human) | **B†** | 0 of 4 / 4 of 4 | initial tumour size and mouse dose group not stated; taken from the figure |
-| [Hutchinson 2016](models/hutchinson_2016/report.md) | antiangiogenic transient vessel normalisation | **C** (Fig 2: B, Fig 6: C) | 0 of 30 / 22 of 30 | K = T0/V0 printed inverted; Fig 6 drug scale ~100x off Eq. 9 |
-| [Lindauer 2017](models/lindauer_2017/report.md) | pembrolizumab translational PK/RO/tumour growth | **C** | 0 of 5 / 1 of 5 | human blood volume and base scenario not stated; 6 of 64 tornado bars off |
-| [Fornari 2019](models/fornari_2019/report.md) | carboplatin bone-marrow toxicity QSP (rat, human) | **C** (Fig 3: B, Fig 4: C) | did not run / 6 of 9 | equations not closed as printed; rat Figure 3 reproduces once the PK table's litres are read per kg; human Figure 4 does not |
-| [Stroh 2019](models/stroh_2019/report.md) | masked tumour-activated antibody (Probody) QSP | **C** | 14 of 35 / 18 of 35 | human cleavage rate given only as an upper bound; "Total Drug" readout undefined |
+Two caveats belong next to these grades. Under the atlas gap-filling rule (values the paper
+leaves out may come from cited references or standard constants) none of the six is D;
+under the **strict rule**, where only the article and its supplement count, all six are D,
+because every one needs at least one value from elsewhere. And some passes rest on inputs
+read from the figure being reproduced: all four Ouerdani curves, Lindauer's one passing
+target, and 4 of Stroh's 18. The [sensitivity page](https://singhharsh1708.github.io/QSPAtlas.jl/dev/sensitivity/)
+shows how each grade changes with the tolerance.
+
+| model | what it is | grade | strict grade | curves passing (as printed / with fixes) | main reason |
+|---|---|---|---|---|---|
+| [Ouerdani 2015](models/ouerdani_2015/report.md) | pazopanib, tumour growth + angiogenesis (mouse, human) | **B†** | D | 0 of 4 / 4 of 4 | initial tumour size and mouse dose group not stated; taken from the figure |
+| [Hutchinson 2016](models/hutchinson_2016/report.md) | antiangiogenic transient vessel normalisation | **C** (Fig 2: B, Fig 6: C) | D | 0 of 30 / 22 of 30 | K = T0/V0 printed inverted; Fig 6 drug scale about 100x off Eq. 9, not reproduced |
+| [Lindauer 2017](models/lindauer_2017/report.md) | pembrolizumab translational PK/RO/tumour growth | **C** | D | 0 of 5 / 1 of 5 | human blood volume and base scenario not stated; 6 of 64 tornado bars off |
+| [Fornari 2019](models/fornari_2019/report.md) | carboplatin bone-marrow toxicity QSP (rat, human) | **C** (Fig 3: B, Fig 4: C) | D | did not run / 6 of 9 | equations not closed as printed; rat Figure 3 reproduces once the PK table is read per kg (supported by the supplement's own PK data); human Figure 4 does not |
+| [Stroh 2019](models/stroh_2019/report.md) | masked tumour-activated antibody (Probody) QSP | **C** | D | 14 of 35 / 18 of 35 | human cleavage rate given only as an upper bound; "Total Drug" readout undefined |
 
 **Population figures.** Papers whose figures show population spread (visual predictive
 checks) are graded on the authors' *simulated* percentile intervals, using the population
 simulation layer below; observed-data lines are a diagnostic only.
 
-| model | what it is | grade | bands passing (as printed / with fixes) | main reason |
-|---|---|---|---|---|
-| [Stein 2019](models/stein_2019/report.md) | tisagenlecleucel CAR-T cellular kinetics, VPC | **C** | 2 of 6 / 2 of 6 | early expansion reproduces; upper tail and persistence phase fall below the authors' bands; VPC design (bins, BLQ, comedication) not stated |
+| model | what it is | grade | strict grade | bands passing (as printed / with fixes) | main reason |
+|---|---|---|---|---|---|
+| [Stein 2019](models/stein_2019/report.md) | tisagenlecleucel CAR-T cellular kinetics, VPC | **C** | D | 2 of 6 / 2 of 6 | early expansion reproduces; upper tail and persistence phase fall below the authors' bands; VPC design (bins, BLQ, comedication) not stated |
 
 Grades: **A** matches as published; **B** matches after documented fixes, each with
 evidence; **B†** a B that needed an input read from the figure being checked; **C** runs
@@ -103,8 +110,9 @@ BDF methods QNDF and FBDF are fastest (2 to 4 ms), with Rodas5P best at tight to
   Carlo error on population quantiles. Where mrgsolve fails (a lag longer than the dosing
   interval, a new infusion after a reset), QSPAtlas was checked against explicit doses or the
   closed form instead. Scripts: [`validation/mrgsolve/`](validation/mrgsolve/).
-- **Independent rebuilds.** Every model was rebuilt a second time from its paper alone, with
-  separate code; no transcription error was found.
+- **Second implementations.** Every model was implemented a second time from its paper alone,
+  with separate code, within this project (not yet by outside people); no transcription
+  error was found. This compares simulations only, not the digitising.
 
 Details: [validation page](https://singhharsh1708.github.io/QSPAtlas.jl/dev/validation/).
 
@@ -123,6 +131,9 @@ models/<author_year>/
 ```
 
 - Targets are the authors' own simulation lines, chosen and frozen before any comparison.
+  For these first six models the freeze is recorded in each model's notes but cannot be
+  checked from the public history; new models get a public freeze tag before the first
+  simulation.
 - A curve passes when the RMS distance from the digitised points to the simulated curve is
   at most 1.5 % of the figure's axis box and the 95th percentile at most 3 %.
 - Re-estimating parameters never counts as a fix; recalibration is reported separately.
@@ -169,6 +180,13 @@ See `examples/population_ouerdani.jl` for 500 virtual mice from the Ouerdani mod
 
 ## Licences and sources
 
-Code is MIT. Papers are open access on PubMed Central; no figure images or supplementary
-files are redistributed here. Reference CSVs hold coordinates digitised from the published
-figures, each with its source figure and method in the header.
+The MIT licence ([LICENSE](LICENSE)) covers the code only. The six papers are open access
+on PubMed Central under Creative Commons licences: Ouerdani 2015, Lindauer 2017, Stroh 2019
+and Stein 2019 are CC BY-NC-ND 4.0, Fornari 2019 is CC BY-NC 4.0, Hutchinson 2016 is CC BY
+4.0. No paper figure images or supplement files are included. The reference CSVs and
+`digitise.toml` files hold coordinates read from the published figures, and the models restate
+the papers' equations and parameter values. These are facts taken from the cited articles and
+remain subject to the articles' terms where those apply; the MIT licence does not change that.
+Stroh 2019 also has `supplement_check/` CSVs transcribed from the paper's supplement, which are
+under review. Per-paper licences, attribution statements, the files derived from each paper
+and the open questions are in [DATA_LICENSES.md](DATA_LICENSES.md).

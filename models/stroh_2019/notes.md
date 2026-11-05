@@ -47,3 +47,7 @@ Targets digitised and written to `reference/*.csv` and `reference/digitise.toml`
 MW 150 kDa and human V2 2.6 L were made explicit :missing Fix entries (both runs); the kcleave wording was softened; the Fig 3 traces keep t >= 1 d (min_x rule; contaminated marker points, including one at negative time, were removed; no pass / fail change); the readout stays :from_target. Final grade after review: C.
 
 Self-check (2026-11-04): an independent rebuild from the paper alone was compared with these results; see the Self-check section in `report.md`.
+
+## Provenance ledger (2026-11-05)
+
+The as-published run now lists its ten fills as Fixes (MW, human V2, kcleave = 3e-7 for monkey and man from the '<3e-7' bound, the 10-fold tumour kcleave, the breathing split, dosed form, initial receptor, and the two readout definitions); the fixed run keeps them and adds `unbound_readout`. Before this, the kcleave bound used as a value and the tumour boost were applied in both runs without an entry. Without the fills the simulation throws NotRunnable. No number changed; grade C, strict D. Passes that need the :from_target readout: fig4b_10x, fig4b_mAb, fig4c_10x, fig4c_mAb.

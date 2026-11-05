@@ -67,12 +67,14 @@ function plot_fig6(path, refs; fixes)
 end
 
 """
-    sensitivity(; overrides, fixes = FIXES, label)
+    sensitivity(; overrides, fixes = vcat(FIXES, [CLOCK_FROM_TCON]), label)
 
-Sensitivity run for Figure 6 (not a Fix, not graded, not written to score.toml): the 8 Figure 6 curves with the
-given parameter `overrides` (e.g. `(; alphaC_on = 0.01)`). Returns the `Run`.
+Sensitivity run for Figure 6 (not graded, not written to score.toml): the 8 Figure 6 curves with the
+given parameter `overrides` (e.g. `(; alphaC_on = 0.01)`). By default the graded fixes plus the resistance clock
+from tCon (`CLOCK_FROM_TCON`, a sensitivity reading, see protocol.jl); pass `fixes = FIXES` for the absolute clock.
+Returns the `Run`.
 """
-function sensitivity(; overrides = (;), fixes = FIXES, label = "sensitivity")
+function sensitivity(; overrides = (;), fixes = vcat(FIXES, [CLOCK_FROM_TCON]), label = "sensitivity")
     refs = filter(r -> startswith(r.id, "fig6_"), sort(collect(values(load_references(joinpath(@__DIR__, "reference")))); by = r -> r.id))
     return run_curves(ref -> simulate_curve(ref; fixes, overrides), refs, label; fixes, tolerance = TOLERANCE, tolerances = TOLERANCES)
 end
@@ -86,8 +88,8 @@ frozen as targets together before any comparison, so all are graded (see report.
 function reproduce(; plots = true, figdir = joinpath(@__DIR__, "figures"))
     refs = sort(collect(values(load_references(joinpath(@__DIR__, "reference")))); by = r -> r.id)
     allrefs = Dict(r.id => r for r in refs)
-    published = run_curves(ref -> simulate_curve(ref; fixes = Fix[]), refs, "as published";
-        tolerance = TOLERANCE, tolerances = TOLERANCES)
+    published = run_curves(ref -> simulate_curve(ref; fixes = PUBLISHED_FILLS), refs, "as published";
+        fixes = PUBLISHED_FILLS, tolerance = TOLERANCE, tolerances = TOLERANCES)
     fixed = isempty(FIXES) ? nothing :
         run_curves(ref -> simulate_curve(ref; fixes = FIXES), refs, "with fixes";
             fixes = FIXES, tolerance = TOLERANCE, tolerances = TOLERANCES)

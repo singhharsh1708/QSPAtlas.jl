@@ -1,8 +1,9 @@
 # Validation
 
-Two independent checks back the atlas: the population simulation layer was compared with
-an established open-source tool, and every model was rebuilt a second time from its paper
-alone, with separate code, and compared with the atlas implementation.
+Two checks back the atlas: the population simulation layer was compared with an
+established open-source tool, and every model was implemented a second time from its paper
+alone, with separate code, and compared with the atlas implementation. Both checks were
+made within this project; none has yet been made by outside people.
 
 ## Simulation layer against mrgsolve
 
@@ -37,19 +38,24 @@ Differences in convention, documented in [Population simulation](simulation.md):
 - **Observations at a dose time** see the state after the dose (mrgsolve `recsort = 3`).
 - **A reset** cancels lagged doses that have not yet been given and keeps later `addl` doses.
 
-## Independent rebuilds of the six models
+## Second implementations of the six models
 
-Each model was rebuilt from its paper and supplement alone, without access to the atlas
-code, in plain OrdinaryDiffEq without ModelingToolkit. The rebuild made its own choices for
-every unstated input. Results:
+Each model was implemented a second time from its paper and supplement alone, without
+access to the atlas code, in plain OrdinaryDiffEq without ModelingToolkit, within this
+project. The second implementation made its own choices for every unstated input. It
+compared simulations only: nothing was re-digitised, so digitising errors are not covered
+by this check. Where both implementations chose an unstated input (a dose group, a starting
+value) by matching the figure, their agreement is not independent evidence for that choice.
+Results:
 
 | model | agreement with the atlas implementation |
 |---|---|
-| Ouerdani 2015 | Figure 4 curves agree to 0.003 mm³ (mice) and 0.06 mm (patients); the only difference is the starting size read from the figure (66.8 vs 67 mm). The same dose group (100 mg/kg) was chosen independently. |
-| Hutchinson 2016 | All 22 Figure 2 curves agree to within 2e-5 of each curve's range. The rebuild found a reading of Figure 6 that reproduces panels b to d (see the model page). |
+| Ouerdani 2015 | Figure 4 curves agree to 0.003 mm³ (mice) and 0.06 mm (patient K); the patient P curves differ by 0.2 mm at the start only, because the two implementations read the starting size from the figure as 66.8 and 67 mm (66.8 vs 67 mm). The same dose group (100 mg/kg) was chosen independently. |
+| Hutchinson 2016 | All 22 Figure 2 curves agree to within 2e-5 of each curve's range. The rebuild found a reading of Figure 6 (resistance clock from the start of chemotherapy, chemotherapy scale 0.01) that brings panels b to d close; without independent evidence for it, it is reported as a sensitivity run and Figure 6 stays C. |
 | Lindauer 2017 | Identical base values (-1.302 and -0.401 with the Table 1 KdegPD1) and the same six bars that do not match the figure, with the same unstated choices made independently. |
 | Fornari 2019 | Same closure fixes. The rebuild found that reading the rat PK volumes per kg reproduces Figure 3 (see the model page). |
 | Stroh 2019 | The reaction network built from the text matches the supplement matrices entry for entry (234 and 84 entries). |
 | Stein 2019 | Same reading of the variability (standard deviations) and the same result: early phase inside the published bands, late phase below them in every variant tried. |
 
-No transcription error was found in any atlas model.
+No transcription error was found in any atlas model. One second implementation (Fornari)
+changed the reading of a units question that decides a figure grade; see that model's page.

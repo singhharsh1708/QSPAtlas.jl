@@ -28,7 +28,15 @@ end
     @test QSPAtlas.matched(good)
     bad = run_curves(_ -> (grid, 1.3 .* sol(grid; idxs = sys.C).u), [ref], "as published")
     @test !QSPAtlas.matched(bad) && QSPAtlas.ran(bad)
-    broken = run_curves(_ -> error("boom"), [ref], "as published")
+    broken = run_curves(_ -> throw(NotRunnable("Eq 3 uses an undefined symbol")), [ref], "as published")
+    @test_throws ErrorException run_curves(_ -> error("a bug in the model code"), [ref], "as published")
+    # a published run with gap fills can match, but is never graded A
+    filled = run_curves(_ -> (grid, sol(grid; idxs = sys.C).u), [ref], "as published";
+        fixes = [Fix("mw", :missing, "molecular weight"; evidence = "IgG", basis = :standard, stage = :before_comparison)])
+    @test grade(Reproduction(id = "x", citation = "", doi = "", published = filled)) == 'B'
+    @test grade_strict(Reproduction(id = "x", citation = "", doi = "", published = filled)) == 'D'
+    @test grade_strict(Reproduction(id = "x", citation = "", doi = "", published = good)) == 'A'
+    @test_throws ArgumentError Fix("p0", :from_target, "start value"; evidence = "fig", basis = :paper)
     @test !QSPAtlas.ran(broken)
     @test grade(Reproduction(id = "x", citation = "", doi = "", published = good)) == 'A'
     @test grade(Reproduction(id = "x", citation = "", doi = "", published = bad, fixed = good)) == 'B'
@@ -74,5 +82,23 @@ end
     both = run_curves(_ -> ([0.0, 1.0], [0.0, 1.0]), [r1, r2], "with fixes"; fixes = [Fix("f", :typo, "x"; evidence = "e")])
     fg = Dict(figure_grades(Reproduction(id = "x", citation = "", doi = "", published = good, fixed = both)))
     @test fg["fig1"] == "A" && fg["fig2"] == "B"
+end
+
+@testset "steep simulated segments are not clipped into a false match" begin
+    ax = Axis("x", "-", :linear, 0, 1)
+    ref = ReferenceCurve("c", "steep", [0.25], [0.5], ax, ax, :curve, Dict{String, String}())
+    c = compare_curve(ref, [0.0, 1.0], [0.0, 10.0])        # line y = 10x passes far above (0.25, 0.5)
+    @test isapprox(c.d[1], sqrt(0.25^2 + 0.5^2 - (0.25 + 5)^2 / 101); atol = 1e-12)   # true distance 0.199
+    @test !passes(c)
+    far = compare_curve(ref, [0.0, 1.0], [50.0, 50.0])     # whole curve far outside the box
+    @test far.d[1] == 1.0
+end
+
+@testset "non-positive values on a log axis are gaps, not edge points" begin
+    ax = Axis("x", "-", :linear, 0, 1)
+    ref = ReferenceCurve("c", "log", [0.5], [sqrt(10.0)], ax, Axis("y", "-", :log, 1, 10), :curve, Dict{String, String}())
+    @test compare_curve(ref, [0.0, 1.0], [-1.0, 100.0]).d == [1.0]          # no placeable segment: a complete miss
+    c = compare_curve(ref, [0.0, 0.4, 1.0], [-1.0, 100.0, 100.0])
+    @test !passes(c) && c.d[1] > 0.4
 end
 
