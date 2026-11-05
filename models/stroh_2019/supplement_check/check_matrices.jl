@@ -1,9 +1,16 @@
-# Structural check of model.jl against the supplement matrices (PSP4-8-676-s003.pdf, transcribed to A1.csv / A2.csv).
+# Structural check of model.jl against the supplement matrices (PSP4-8-676-s003.pdf).
+# The transcribed matrices (A1.csv, A2.csv, k.csv) are supplement content and are not
+# distributed with this repository (see DATA_LICENSES.md). To run the check, transcribe
+# them from your own copy of s003.pdf into <QSPATLAS_PAPERS>/stroh_2019/derived/ (default
+# QSPATLAS_PAPERS: the folder "papers" next to the repository), same CSV layout: A1/A2 with
+# a header row and one row per matrix entry, k with the supplement's parameter list.
 # Builds A1 and A2 from the reaction list of model.jl with the parameter values of the supplement's printed
 # parameter list (k.csv) and unit volume ratios, and compares entry by entry.
 #   julia --project=. models/stroh_2019/supplement_check/check_matrices.jl
 using DelimitedFiles
 Base.include(Main, joinpath(@__DIR__, "..", "model.jl"))
+const DERIVED = joinpath(get(ENV, "QSPATLAS_PAPERS", normpath(joinpath(@__DIR__, "..", "..", "..", "..", "papers"))), "stroh_2019", "derived")
+isdir(DERIVED) || error("transcribed supplement matrices not found in $DERIVED (see the header of this file)")
 
 # supplement state order (N = 55)
 idx = Dict{Symbol, Int}()
@@ -40,7 +47,7 @@ for rx in reactions()
     end
 end
 function load(f)
-    d = readdlm(joinpath(@__DIR__, f), ','; skipstart = 1)
+    d = readdlm(joinpath(DERIVED, f), ','; skipstart = 1)
     D = Dict{Tuple{Int, Int}, Float64}()
     for k in 1:size(d, 1); add!(D, (Int(d[k, 1]), Int(d[k, 2])), Float64(d[k, 3])); end
     return D

@@ -187,6 +187,6 @@ and Stein 2019 are CC BY-NC-ND 4.0, Fornari 2019 is CC BY-NC 4.0, Hutchinson 201
 `digitise.toml` files hold coordinates read from the published figures, and the models restate
 the papers' equations and parameter values. These are facts taken from the cited articles and
 remain subject to the articles' terms where those apply; the MIT licence does not change that.
-Stroh 2019 also has `supplement_check/` CSVs transcribed from the paper's supplement, which are
-under review. Per-paper licences, attribution statements, the files derived from each paper
+The matrices transcribed from Stroh 2019's supplement for its structural check are not in the
+repository (they were in earlier commits); the check reads them from a local folder. Per-paper licences, attribution statements, the files derived from each paper
 and the open questions are in [DATA_LICENSES.md](DATA_LICENSES.md).
