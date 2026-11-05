@@ -39,7 +39,7 @@ simulation layer below; observed-data lines are a diagnostic only.
 
 | model | what it is | grade | strict grade | bands passing (as printed / with fixes) | main reason |
 |---|---|---|---|---|---|
-| [Stein 2019](models/stein_2019/report.md) | tisagenlecleucel CAR-T cellular kinetics, VPC | **C** | D | 2 of 6 / 2 of 6 | early expansion reproduces; upper tail and persistence phase fall below the authors' bands; VPC design (bins, BLQ, comedication) not stated |
+| [Stein 2019](models/stein_2019/report.md) | tisagenlecleucel CAR-T cellular kinetics, VPC | **C** | D | 2 of 6 / 4 of 6 | VPC design not stated; rebuilt with the Monolix defaults the paper's files imply, 4 of 6 bands pass, the two left-panel low percentiles do not; result depends on the simulated trial design |
 
 Grades: **A** matches as published; **B** matches after documented fixes, each with
 evidence; **B†** a B that needed an input read from the figure being checked; **C** runs

@@ -187,6 +187,36 @@ end
     @test a2[5] ≈ trough rtol = 1e-6
 end
 
+@testset "SS=1 cancels pending ADDL doses of earlier records (NONMEM)" begin
+    ev(reg, ctl = DoseControl()) = [(e.time, e.kind) for e in resolve(reg, ROUTES, ctl)]
+    # bolus 100 every 12 h from 0 (ADDL 5: 0, 12, ..., 60); SS=1 dose at 30 every 24 h with one ADDL (54)
+    early = Regimen(100.0; cmt = :central, ii = 12.0, addl = 5)
+    ss = Regimen(50.0; cmt = :central, time = 30.0, ii = 24.0, addl = 1, ss = true)
+    @test ev(vcat(early, ss)) == [(0.0, :bolus), (12.0, :bolus), (24.0, :bolus), (30.0, :steady_state), (30.0, :bolus), (54.0, :bolus)]
+    # an ADDL dose at the SS time itself is pending too; a later record (and its ADDL) is kept
+    later = Regimen(7.0; cmt = :central, time = 40.0, ii = 12.0, addl = 1)
+    @test ev(vcat(Regimen(100.0; cmt = :central, ii = 15.0, addl = 3), ss, later)) ==
+          [(0.0, :bolus), (15.0, :bolus), (30.0, :steady_state), (30.0, :bolus), (40.0, :bolus), (52.0, :bolus), (54.0, :bolus)]
+    # a dose record of its own at a later time (not an ADDL dose of an earlier record) is kept
+    @test ev(vcat(Regimen(100.0; cmt = :central, time = 36.0), ss)) == [(30.0, :steady_state), (30.0, :bolus), (36.0, :bolus), (54.0, :bolus)]
+    # ADDL infusions: the one running at 30 is stopped there, the later ones are cancelled
+    inf = Regimen(100.0; cmt = :central, ii = 12.0, addl = 3, duration = 10.0)    # 0-10, 12-22, 24-34, 36-46
+    @test ev(vcat(inf, ss))[end - 4:end] == [(24.0, :infusion_start), (30.0, :steady_state), (30.0, :infusion_stop), (30.0, :bolus), (54.0, :bolus)]
+    # an SS=2 record cancels nothing: all six ADDL boluses plus its own dose
+    ss2 = Regimen(50.0; cmt = :central, time = 30.0, ii = 24.0, ss = 2)
+    @test count(e -> e[2] === :bolus, ev(vcat(early, ss2))) == 7
+    # closed form after the steady-state record: the steady state of 50 every 24 h alone
+    peak = 50 / (1 - exp(-K * 24))
+    obst = [29.0, 30.0, 37.0, 49.0, 53.9, 54.0, 61.0]
+    sim(reg) = rows(zero_re_prediction(pkmodel(), Subject("c"; regimen = reg, obstimes = obst)), :A)
+    got = sim(vcat(early, ss))
+    @test got[1] ≈ 100 * sum(exp(-K * (29 - 12j)) for j in 0:2) rtol = 1e-8
+    @test got[2:5] ≈ peak .* exp.(-K .* (obst[2:5] .- 30)) rtol = 1e-7
+    @test got[6:7] ≈ (peak * exp(-K * 24) + 50) .* exp.(-K .* (obst[6:7] .- 54)) rtol = 1e-7
+    # the same as the regimen with the cancelled doses left out by hand
+    @test got ≈ sim(vcat(Regimen(100.0; cmt = :central, ii = 12.0, addl = 2), ss)) rtol = 1e-10
+end
+
 @testset "oral first order absorption at steady state (with F)" begin
     tau, amt, F = 12.0, 200.0, 0.8
     # closed form: A_c(s) = F D ka/(ka-k) (e^{-ks}/(1-e^{-k tau}) - e^{-ka s}/(1-e^{-ka tau}))

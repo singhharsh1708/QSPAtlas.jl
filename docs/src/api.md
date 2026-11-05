@@ -45,12 +45,16 @@ steady_state_cycle
 with_steady_state
 SteadyStateOptions
 SteadyStateError
+NMData
+read_nmdata
+write_nmdata
 ErrorModel
 AdditiveError
 ProportionalError
 CombinedError
 ExponentialError
 Subject
+occasion_at
 PopulationModel
 SimResult
 simulate
@@ -59,6 +63,7 @@ virtual_population
 percentiles
 vpc
 VPCResult
+StratifiedVPC
 mc_check
 failure_rate
 spaghetti

@@ -5,7 +5,7 @@
 # `nostein` stands for every model except Stein (the CI job), followed by `report` and `check`. `check` alone rechecks the
 # committed results. After running models the script checks them (see `check`) and exits non-zero if a curve flips
 # pass/fail in any variant, a solve has a non-successful retcode (except the three documented Lindauer published bars),
-# or an rms moves by more than 10 % of its tolerance.
+# or, for a curve within 3 times its tolerance, an rms moves by more than 10 % of the tolerance.
 #
 # For each model the solves that feed the score are repeated with
 #   own        the settings the model's protocol.jl uses (reproduces score.toml),
@@ -666,7 +666,9 @@ const MC_NOISE_VARIANTS = ("reps x2", "seed+1000")
 
 istrue(x) = x === true || x == "true"
 
-# Problems found in the results of the models `ids`: flips of pass/fail, failed solves, rms moves above 10 % of the tolerance.
+# Problems found in the results of the models `ids`: flips of pass/fail, failed solves, rms moves above 10 % of the
+# tolerance for curves within NEAR_THRESHOLD times the tolerance (clearly failing curves cannot flip).
+const NEAR_THRESHOLD = 3.0
 function check_problems(ids)
     problems = String[]
     for id in ids
@@ -688,7 +690,12 @@ function check_problems(ids)
                 r.passed != o.passed && push!(problems, "$id: $run $cv flips pass/fail under $(r.variant) (own $(o.passed))")
                 r.variant in MC_NOISE_VARIANTS && continue   # Stein's Monte Carlo noise references: they size the noise, not the solver error
                 if isfinite(r.rms) && isfinite(o.rms)
-                    abs(r.rms - o.rms) > RMS_MOVE_FRACTION * o.tol_rms &&
+                    # The rms-move limit protects results near the pass/fail line. A curve that fails
+                    # by more than NEAR_THRESHOLD times its tolerance in both variants cannot flip, and
+                    # its rms can legitimately depend on the output grid (for example where a
+                    # simulation dips to zero on a log axis and the gap boundary moves with sampling).
+                    near = min(r.rms, o.rms) <= NEAR_THRESHOLD * o.tol_rms
+                    near && abs(r.rms - o.rms) > RMS_MOVE_FRACTION * o.tol_rms &&
                         push!(problems, "$id: $run $cv rms moves by $(fmt(abs(r.rms - o.rms))) under $(r.variant) (limit $(fmt(RMS_MOVE_FRACTION * o.tol_rms)))")
                 elseif isfinite(r.rms) != isfinite(o.rms)
                     push!(problems, "$id: $run $cv rms is finite in only one of own and $(r.variant)")

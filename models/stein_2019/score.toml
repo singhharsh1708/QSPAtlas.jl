@@ -18,87 +18,87 @@ matched = false
 ran = true
 
     [[fixed.curves]]
-    band_centre_dev_rms = 4.829
+    band_centre_dev_rms = 4.416
     band_n = 17
     coverage = 0.3721
     figure = "Figure 3a left panel, shaded simulated interval of the 10th percentile (blue band)"
     id = "fig3a_left_p10"
-    max = 0.1563
+    max = 0.1435
     n_points = 17
-    p95 = 0.1552
+    p95 = 0.1419
     passed = false
-    rms = 0.1081
-    sim_coverage = 0.404
+    rms = 0.09551
+    sim_coverage = 0.9084
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
-    band_centre_dev_rms = 2.779
+    band_centre_dev_rms = 1.963
     band_n = 16
     coverage = 0.3721
     figure = "Figure 3a left panel, shaded simulated interval of the 50th percentile (pink band)"
     id = "fig3a_left_p50"
-    max = 0.08382
+    max = 0.06151
     n_points = 16
-    p95 = 0.07578
+    p95 = 0.05405
     passed = false
-    rms = 0.05971
-    sim_coverage = 0.404
+    rms = 0.03837
+    sim_coverage = 0.9084
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
-    band_centre_dev_rms = 1.439
+    band_centre_dev_rms = 0.9698
     band_n = 17
     coverage = 0.3721
     figure = "Figure 3a left panel, shaded simulated interval of the 90th percentile (blue band)"
     id = "fig3a_left_p90"
-    max = 0.05441
+    max = 0.0203
     n_points = 17
-    p95 = 0.04556
-    passed = false
-    rms = 0.03452
-    sim_coverage = 0.404
+    p95 = 0.01912
+    passed = true
+    rms = 0.01089
+    sim_coverage = 0.9084
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
-    band_centre_dev_rms = 0.609
+    band_centre_dev_rms = 0.4032
     band_n = 60
     coverage = 0.7316
     figure = "Figure 3a right panel, shaded simulated interval of the 10th percentile (blue band)"
     id = "fig3a_right_p10"
-    max = 0.0003889
+    max = 0.0
     n_points = 60
     p95 = 0.0
     passed = true
-    rms = 5.021e-5
-    sim_coverage = 0.9674
+    rms = 0.0
+    sim_coverage = 0.9766
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
-    band_centre_dev_rms = 1.033
+    band_centre_dev_rms = 0.6462
     band_n = 52
     coverage = 0.8155
     figure = "Figure 3a right panel, shaded simulated interval of the 50th percentile (pink band)"
     id = "fig3a_right_p50"
-    max = 0.01769
+    max = 0.02518
     n_points = 52
-    p95 = 0.01251
+    p95 = 0.007424
     passed = true
-    rms = 0.005646
-    sim_coverage = 0.9674
+    rms = 0.004591
+    sim_coverage = 0.9766
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
-    band_centre_dev_rms = 1.379
+    band_centre_dev_rms = 0.7683
     band_n = 65
     coverage = 0.7915
     figure = "Figure 3a right panel, shaded simulated interval of the 90th percentile (blue band)"
     id = "fig3a_right_p90"
-    max = 0.04664
+    max = 0.05665
     n_points = 65
-    p95 = 0.03841
-    passed = false
-    rms = 0.02347
-    sim_coverage = 0.9674
+    p95 = 0.004222
+    passed = true
+    rms = 0.007241
+    sim_coverage = 0.9766
     tol_p95 = 0.03
     tol_rms = 0.015
 
@@ -119,30 +119,6 @@ ran = true
     kind = "ambiguity"
     stage = "before_comparison"
     [[fixed.fixes]]
-    basis = "interpretation"
-    description = "Simulated values below the LLOQ (50 copies/ug) are kept, not replaced by the LLOQ."
-    evidence = "Caption: red asterisks are 'simulated data points for the measurements that were BLQ'. This shows simulated values are plotted; it does not say how they enter the percentiles. Censoring to the LLOQ is a sensitivity run. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
-    figures = []
-    id = "blq_kept"
-    kind = "ambiguity"
-    stage = "before_comparison"
-    [[fixed.fixes]]
-    basis = "assumption"
-    description = "Percentiles are Hyndman-Fan type 7 (linear interpolation of order statistics) over the 90 patients, median over replicates."
-    evidence = "Quantile convention of the VPC is not stated; type 7 is the R/Monolix-style default and is the QSPAtlas `percentiles` default. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
-    figures = []
-    id = "quantile_type7"
-    kind = "missing"
-    stage = "before_comparison"
-    [[fixed.fixes]]
-    basis = "interpretation"
-    description = "Base model (Eq. 1) without covariates and without the tocilizumab/corticosteroid effect (F = 1)."
-    evidence = "Results 'Analytical model': 'The base model characterized the data well, as shown by the visual predictive check and individual fits in Figure 3'; Results 'Covariate analysis': the final model is the base model. Methods 'Covariate model' says the full covariate model is the final model, and Table 1 lists Ftoci = 1.2, so the VPC may have used comedication regressors; their per-patient values are not published. Comedication is a sensitivity run with assumed timings. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
-    figures = []
-    id = "base_model_no_comedication"
-    kind = "ambiguity"
-    stage = "before_comparison"
-    [[fixed.fixes]]
     basis = "supplement"
     description = "Table 1 random-effect numbers are read as standard deviations of eta (omega), not variances."
     evidence = "Table 1 gives one unlabelled number per parameter; supplement line 77: 'random effect eta_i with variance omega^2'; Monolix reports omega as an SD. The variance reading is a sensitivity run. Used by both runs. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
@@ -159,21 +135,77 @@ ran = true
     kind = "missing"
     stage = "before_comparison"
     [[fixed.fixes]]
-    basis = "assumption"
-    description = "Right panel read on a dense grid (0.25 d) instead of only at the scheduled visits."
-    evidence = "Monolix VPC bins come from the data's actual (unscheduled, irregular) sample times, which are not published; the band between visits is drawn from those bins. A dense grid removes the coarse chord between scheduled visits, which is not how the band was built. Only in the 'with fixes' run. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    basis = "supplement"
+    description = "Base model as in the supplement's mlxtran: Eq. 1 with the comedication effect of Eq. 2 entered per patient through the time-of-first-dose regressors (Ftoci 1.2, Fster 1.0), no covariate effects on Cmax."
+    evidence = "Results: 'The base model characterized the data well, as shown by the visual predictive check ... in Figure 3' and 'the final cellular kinetic model was the same as the base model'. The mlxtran printed in Supplementary Material S1 (lines 100-152, 'the mlxtran code used for fitting the model') has parameter = {foldx, Tmax, Cmax, Ftoci, Fster, alpha, FB, beta} and regressor = {TOCI1T, STERSTT}; Table 1 lists Ftoci and Fster as fixed effects. The covariate model of the paper is the set of Cmax covariates (Table 1 'log Cmax covariate effect'), not used here. A Monolix VPC simulates each subject with its own regressors. Replaces base_model_no_comedication of the previous design. Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
     figures = []
-    id = "dense_grid"
-    kind = "missing"
-    stage = "before_comparison"
+    id = "mlx_base_model_regressors"
+    kind = "ambiguity"
+    stage = "after_comparison"
     [[fixed.fixes]]
-    basis = "figure"
-    description = "Left panel simulated percentile taken at three bin nodes (28, 68, 190 d) and joined by chords."
-    evidence = "Nodes are read from the kinks of the authors' band edges in Figure 3a (digitise.toml); the bins themselves are not stated, so this input comes from the target figure (circular, the dagger case). Only in the 'with fixes' run. Stage: part of the design frozen at 14:50 before any comparison (notes.md)."
+    basis = "assumption"
+    description = "Per-patient comedication regressors drawn from Table 2: tocilizumab with probability 0.36, first dose 5.7 d times exp(0.7 z) clamped to 1-27 d; corticosteroids with probability 0.26, 7.5 d times exp(1.2 z) clamped to 0.11-170 d (z standard normal); independent; none = no effect."
+    evidence = "The patients' own regressors are in Data set S1 (supplement, PSP4-8-285-s002.csv: 32 of 90 with tocilizumab, median 5.75 d; 23 with steroids, median 7.45 d), which is not redistributed with this repository, so the graded run cannot read them. Table 2 gives the proportions, medians and ranges; the log-normal shape, its spread and the independence are assumptions, the same sampler as the comedication sensitivity pre-registered on 2026-11-04, which had already shown that these regressors improve agreement with the bands (4 of 6), so this choice is not blind to the target; the spreads have no independent evidence. reproduce(s1 = true) runs the design of Data set S1 itself when the file is present locally. Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
     figures = []
-    id = "left_bin_nodes"
-    kind = "from_target"
-    stage = "before_comparison"
+    id = "mlx_regressor_timing"
+    kind = "missing"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "interpretation"
+    description = "Each of the 90 patients observed at the Methods visits up to one year: days 1, 2, 7, 11, 14, 21, 28 and months 3, 6, 9, 12 (day N read as t = N d, month = 365.25/12 d)."
+    evidence = "Methods 'Sample analysis' (visit schedule) and Results ('the longest follow-up for this analysis was only 1 year'). A Monolix VPC simulates the design of the data set (the actual sample times), which is in Data set S1 (not redistributed); the nominal visits are the published version of that design. Missing visits are not modelled (all_patients_all_times). Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
+    figures = []
+    id = "mlx_nominal_visits"
+    kind = "missing"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "standard"
+    description = "Months placed at multiples of 365.25/12 days."
+    evidence = "The paper gives the late visits in months; 365.25/12 is the mean calendar month. Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
+    figures = []
+    id = "days_per_month"
+    kind = "missing"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "assumption"
+    description = "Bins of the pooled observation times by the Monolix least-squares criterion (Lavielle & Bleakley 2011: beta 0.2, number of bins by log(J) + 0.3 beta K). On the nominal visits every visit is its own bin."
+    evidence = "Lavielle & Bleakley, J Pharmacokinet Pharmacodyn 2011;38:861-871: the automatic binning implemented in Monolix 4 with these defaults. The paper does not state its Monolix version or bins; the Monolix 2024R1 documentation lists least-squares as an option with equal width as the default and an undocumented automatic bin count. With tied times a bin made of one visit has zero within-bin variance, so the criterion puts each visit in its own bin. Least-squares binning is therefore documented for Monolix 4 (and as an option in 2024R1, whose default is equal width), not for the version the paper used: an assumption. Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
+    figures = []
+    id = "mlx_ls_binning"
+    kind = "missing"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "assumption"
+    description = "Each bin's percentile is placed at the mean observation time of the bin and the nodes are joined by straight segments in (day, log10 copies)."
+    evidence = "Lavielle & Bleakley 2011 take the bin mean time as the time that represents the bin; where Monolix draws the node is not documented. On the nominal visits the node is the visit time. Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
+    figures = []
+    id = "mlx_bin_node_mean_time"
+    kind = "missing"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "assumption"
+    description = "Percentiles of each bin by Hyndman-Fan type 5 (piecewise linear, R5), not type 7."
+    evidence = "Monolix 2024R1 VPC documentation: 'The calculation of percentiles follows the piecewise linear method, also called R5 method.' Whether the version used for the paper did the same is not documented (the 2016R1 to 2019R1 pages could not be retrieved), so the convention is an assumption for the paper's era. QSPAtlas `percentiles` has type 7 only, so type 5 is computed in this model's protocol.jl. Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
+    figures = []
+    id = "mlx_percentile_r5"
+    kind = "missing"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "reference"
+    description = "All simulated values, including those below the LLOQ of 50 copies/ug, enter the simulated percentiles (no censoring of the simulated data)."
+    evidence = "Methods: BLQ data were fixed-point censored (CENSORING column); caption: red asterisks are simulated values for the BLQ measurements (the Monolix 'BLQ simulated' display). Monolix documentation, 'Correcting the VPC for missing observations' (2024R1): with censored data used and simulated, 'all simulated values are used to calculate the simulated percentiles'. Documented for 2024R1; the paper's caption (simulated BLQ points shown) is consistent with it. Replaces blq_kept of the previous design (same numbers, now with a source). Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
+    figures = []
+    id = "mlx_blq_simulated"
+    kind = "ambiguity"
+    stage = "after_comparison"
+    [[fixed.fixes]]
+    basis = "reference"
+    description = "Prediction interval 90 % over the simulated replicates (Monolix default; 500 simulations). The compared quantity is the median over replicates of each simulated percentile, with as many replicates as the Monte Carlo rule needs."
+    evidence = "Monolix 2024R1 VPC documentation: 'By default 500 simulations are performed', 'By default, prediction intervals are computed with a level of 90%'; Lavielle & Bleakley 2011 (Monolix 4) also use 90 %. The interval level only sets the displayed band in figures/fig3.png; the score compares the median of each simulated percentile with the authors' band. Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
+    figures = []
+    id = "mlx_pi_90_500"
+    kind = "missing"
+    stage = "after_comparison"
 
 [published]
 error = ""

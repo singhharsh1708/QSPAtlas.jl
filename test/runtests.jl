@@ -13,6 +13,12 @@ using QSPAtlas, Test
     @testset "steadystate" begin
         isfile(joinpath(@__DIR__, "steadystate.jl")) && include("steadystate.jl")
     end
+    @testset "dataset" begin
+        isfile(joinpath(@__DIR__, "dataset.jl")) && include("dataset.jl")
+    end
+    @testset "iov" begin
+        isfile(joinpath(@__DIR__, "iov.jl")) && include("iov.jl")
+    end
     @testset "summaries" begin
         isfile(joinpath(@__DIR__, "summaries.jl")) && include("summaries.jl")
     end

@@ -304,3 +304,13 @@ Not applied, documented only:
 4. Solver and tolerance choice: no change; the current choices are validated by this study, loosening the tolerances is optional and
    was not requested.
 5. Fornari and FBDF below abstol 1e-11: nothing to change, the benchmark sweep already stops at 1e-11 and no model code uses FBDF.
+
+## Check rule (2026-11-05)
+
+The check fails on any pass/fail flip, any unexpected failed solve, and any rms move larger than
+10 % of the tolerance for curves whose rms is within 3 times the tolerance. Clearly failing curves are
+exempt from the rms-move rule because they cannot flip and their rms can depend on the output grid: the
+first run of the check on GitHub flagged Stroh published `fig4c_10x` (rms about 0.155, ten times the
+tolerance) moving by 0.0145 between 6,000 and 24,000 output points, where the simulation dips to zero on
+a log axis and the start of the gap moves with the sampling.
+

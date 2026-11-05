@@ -22,6 +22,7 @@ include("dosing.jl")
 include("regimen.jl")
 include("population.jl")
 include("simulate.jl")
+include("dataset.jl")
 include("summaries.jl")
 include("plotting.jl")
 include("simplots.jl")
@@ -34,9 +35,10 @@ export models_dir, model_ids
 export bolus_callback, repeated_doses
 export Route, Dose, Regimen, DoseControl, DoseEvent, doses, resolve, dosing_callback
 export ErrorModel, AdditiveError, ProportionalError, CombinedError, ExponentialError
-export Subject, PopulationModel, SimResult, simulate, zero_re_prediction, virtual_population
+export Subject, PopulationModel, SimResult, simulate, zero_re_prediction, virtual_population, occasion_at
 export Reset, reset_times, SteadyStateOptions, SteadyStateError, steady_state_cycle, with_steady_state
-export percentiles, vpc, VPCResult, mc_check, failure_rate, spaghetti, bands, plot_vpc
+export NMData, read_nmdata, write_nmdata
+export percentiles, vpc, VPCResult, StratifiedVPC, mc_check, failure_rate, spaghetti, bands, plot_vpc
 export plot_reproduction
 export benchmark_problem, BenchmarkSetup
 

@@ -41,3 +41,68 @@ Self-check (2026-11-04): an independent rebuild from the paper alone was compare
 ## Provenance ledger (2026-11-05)
 
 The seven shared design fills are listed in both runs (two new entries: `omega_as_sd`, `omega_diagonal`, applied before without an entry); the as-published run also lists `scheduled_visits` and `days_per_month`, the fixed run `dense_grid` and `left_bin_nodes`. Without them the band reading throws NotRunnable. No number changed; grade C, strict D.
+
+## VPC design reconstruction (2026-11-05)
+
+Aim: an assumed reconstruction of the VPC, informed by the Monolix documentation (not a verified copy of
+what the authors ran), from sources that are not Figure 3a, and grade it. It is not blind to the target: it
+comes after the first comparison (2026-11-04) and after the previous design's scores were known, and the
+comedication regressors (the source of its gain, 4 of 6 instead of 2 of 6) had been run on 2026-11-04 as the
+comedication sensitivity (4 of 6 bands) and shown to improve agreement before they were adopted. The other
+choices were fixed from the sources before the reconstruction was compared with the bands. The 4 of 6 is
+conditional on the assumptions below.
+
+Documented vs assumed (version matters; the paper does not state its Monolix version, probably 2016R1 to
+2019R1, whose pages could not be retrieved):
+- Monolix 2024R1 docs: 500 simulations, 90 % PI, all simulated values incl. BLQ in the percentiles
+  (:reference); R5 percentiles (:assumption for the paper's era); binning equal width = default,
+  least-squares = option.
+- Monolix 4 (Lavielle & Bleakley 2011): least-squares automatic binning, 90 % intervals. Default of the
+  paper's version not documented, so least-squares binning is an :assumption.
+- No document: bin node at the bin mean time; comedication regressor spreads (log-normal, independent,
+  sd of log 0.7 and 1.2, clamps) from Table 2 marginals, no independent evidence. :assumption.
+
+Sources read:
+- Paper: Monolix used, version not stated; BLQ fixed-point censored (CENSORING column); Results tie Fig 3
+  to the base model and say the final model equals the base model; Results "longest follow-up ... 1 year";
+  Methods visit schedule (days 1, 2, 7, 11, 14, 21, 28, 3-monthly months 3-12).
+- Supplement S1 (s001.pdf lines 100-152): the mlxtran has only the model block (no VPC or task settings);
+  parameter = {foldx, Tmax, Cmax, Ftoci, Fster, alpha, FB, beta}, regressor = {TOCI1T, STERSTT}. So the
+  model that was fitted (base = final) carries the comedication effect through per-patient regressors.
+- Data set S1 (s002.csv): 90 ids, 836 rows, times 0.88-379.8 d, TOCI1T for 32 patients, STERSTT for 23
+  (9999 = none). Same design as the study (Table 2). Not redistributed (DATA_LICENSES.md), so CI cannot read it.
+- Monolix 2024R1 VPC page: 10/50/90 percentiles, 90 % PI, 500 simulations, percentiles "R5"; binning
+  equal width (default), equal size or least-squares, automatic bin count (rule not documented).
+- Monolix 2024R1 "Correcting the VPC for missing observations": with censored data used and simulated, all
+  simulated values (also below LOQ) enter the simulated percentiles; observed BLQ are drawn from the
+  conditional distribution.
+- Lavielle & Bleakley 2011 (JPKPD 38:861, HAL hal-00654842): Monolix 4 automatic binning, J = sum n_k
+  var_k^beta, beta 0.2, K by log J + lambda beta K, lambda 0.3; 90 % intervals.
+- Older version-specific Monolix pages (2016R1-2019R1) could not be retrieved (the old lixoft.com pages
+  redirect to 2024R1).
+
+Graded "with fixes" run (CI): Monolix settings above on the published design: 90 patients at the nominal
+visits to 12 months, regressors drawn from Table 2 (the 2026-11-04 comedication sampler), base model with
+Ftoci 1.2 / Fster 1.0, residual error, least-squares bins (one per visit on nominal times), type 5
+percentiles, all simulated values kept, 90 % interval. 500 replicates unless the MC SE rule needs more.
+Local check (not graded): the same on the S1 design (own times and regressors; least-squares gives 8 bins,
+nodes 2.9, 6.5, 12.0, 20.3, 28.6, 83.5, 175, 311 d).
+
+Results (2026-11-05, logs/2026-11-05-stein-vpc-*.log): graded reconstruction 4 of 6 (rms left p10 0.096,
+p50 0.038 fail; left p90 0.011, right p10 0.000, p50 0.005, p90 0.007 pass), max MC SE 0.0027 box with 500
+replicates, so 500 kept. As published unchanged (2 of 6). Previous fixed design 2 of 6 (reported only).
+Grade C, strict D. S1 design (local, 2000 replicates, max MC SE 0.0025): 2 of 6 (right p10, p90); right p50
+0.0155 and left p90 0.0153 just above 0.015. S1 without regressors (500 replicates): 1 of 6.
+Fresh-module check: grade and every curve equal score.toml; 310 s with compilation (over the 4 min budget;
+cost is per simulated subject, solver tolerance 1e-8 vs 1e-10 makes little difference). src/ not edited;
+type 5 percentiles and least-squares binning are local to protocol.jl.
+
+## Wording and metadata fix (2026-11-05, independent review finding 7)
+
+The reconstruction was described as what Monolix builds by default. Reworded as an assumed reconstruction
+informed by the Monolix documentation: the binning method (least-squares, a Monolix 4 / 2024R1 option, equal
+width is the 2024R1 default) and the R5 convention (2024R1 only) are not documented for the paper's version,
+and the regressor spreads have no independent evidence, so those fixes now carry basis :assumption (stage
+after_comparison). Only text and Fix metadata changed; no number, design, target or tolerance. The settings
+were chosen after the 2026-11-04 comedication sensitivity had shown that the regressors improve agreement,
+so the 4 of 6 bands are conditional on the assumptions.

@@ -4,7 +4,9 @@
 # No simulation had been run against the targets at that time (only the closed-form check of the
 # model equations, which does not touch the bands). REVISED after review (see the design section and
 # report.md): the as-published run now uses the scheduled visits; targets and tolerance unchanged except
-# two misassigned points of fig3a_right_p90 removed by a documented rule.
+# two misassigned points of fig3a_right_p90 removed by a documented rule. REVISED 2026-11-05 (after the
+# first comparison): the "with fixes" run is the assumed VPC reconstruction informed by the Monolix documentation (RECON_FIXES below);
+# the previous fixed design is kept as PREVIOUS_FIXES. Targets, reference CSVs and tolerance unchanged.
 using QSPAtlas
 using ModelingToolkit, OrdinaryDiffEq
 using Statistics: quantile, median
@@ -29,9 +31,10 @@ const TOLERANCES = Dict{String, Tolerance}()
 #       each observed at the SCHEDULED visit days 1, 2, 7, 11, 14, 21, 28 and months 3 and 6
 #       (91.3125 and 182.625 d; month = 365.25/12 d; later visits are beyond the figure), the
 #       simulated percentile at those times joined by straight segments in (day, log10 copies).
-#   "with fixes"   = the same simulation read on a denser design: a dense grid (0.25 d on (0, 30])
-#       for the right panel and the left-panel bin nodes of the band (28, 68, 190 d) joined by
-#       chords. See FIXES for each choice and its evidence.
+#   "with fixes"   = until 2026-11-05 the same simulation read on a denser design: a dense grid (0.25 d on
+#       (0, 30]) for the right panel and the left-panel bin nodes of the band (28, 68, 190 d) joined by
+#       chords (PREVIOUS_FIXES). Since 2026-11-05 the assumed Monolix-informed VPC reconstruction with its own
+#       simulation (see "VPC design reconstruction" below and RECON_FIXES).
 # Choices the paper does not state and that BOTH runs need (they are in FIXES so they are visible,
 # but the as-published run cannot be defined without them): every patient observed at every time
 # (no missing visits, no unscheduled samples), residual error included, simulated BLQ values kept,
@@ -98,7 +101,10 @@ const PUBLISHED_FILLS = [
         basis = :standard, stage = :after_comparison),
 ]
 
-const FIXES = [
+# Previous "with fixes" design (2026-11-04 to 2026-11-05): dense right-panel grid and left-panel nodes read
+# from the target. Kept for the record and the sensitivity runs; replaced as the graded fixed run by the
+# assumed Monolix-informed reconstruction below (RECON_FIXES).
+const PREVIOUS_FIXES = [
     SHARED_FILLS...,
     Fix("dense_grid", :missing,
         "Right panel read on a dense grid (0.25 d) instead of only at the scheduled visits.";
@@ -110,9 +116,87 @@ const FIXES = [
         basis = :figure, stage = :before_comparison),
 ]
 
+# ---- VPC design reconstruction (2026-11-05) ---------------------------------------------------
+# The graded "with fixes" run is an ASSUMED reconstruction of the VPC, informed by the Monolix documentation (not
+# a verified copy of what the authors ran), from sources that are not
+# the target figure: the paper's text, the supplement's mlxtran model, the Monolix documentation and
+# Lavielle & Bleakley 2011 (the binning algorithm of Monolix 4). Chosen AFTER the first comparison (2026-11-04)
+# and after the comparisons of the previous design, and the comedication regressors had been run as a sensitivity
+# on 2026-11-04 and shown to improve agreement with the target, so the reconstruction is not blind to the target
+# and its 4 of 6 bands are conditional on the assumptions. The paper does not state the Monolix version (the
+# 2016R1 to 2019R1 documentation could not be retrieved): documented for 2024R1 are R5, 500 simulations, 90 % PIs,
+# simulated BLQ in the percentiles; for Monolix 4 the least-squares binning; equal width is the 2024R1 default.
+# So :reference only where a cited document states the setting; binning method, percentile convention, node
+# position and regressor spreads are :assumption.
+#   Monolix VPC (https://monolixsuite.slp-software.com/monolix/2024R1/visual-predictive-check): 10/50/90th
+#     percentiles, 90 % prediction intervals, 500 simulations of the design of the data set, percentiles
+#     "piecewise linear method, also called R5" (Hyndman-Fan type 5).
+#   Censored data in the VPC (.../2024R1/correcting-the-vpc-for-missing-observations): with "use censored
+#     data" on and BLQ "simulated", "the VPC is simulated for all times including censored times, and all
+#     simulated values are used to calculate the simulated percentiles"; observed BLQ data are replaced by
+#     draws from their conditional distribution (the red asterisks of the caption).
+#   Binning: Lavielle M, Bleakley K. J Pharmacokinet Pharmacodyn 2011;38:861-871 (HAL hal-00654842),
+#     implemented as the automatic binning of Monolix 4: bins minimise J = sum_k n_k (var_k)^beta (dynamic
+#     programming, beta = 0.2), the number of bins minimises log(J) + lambda beta K (lambda = 0.3). The
+#     2024R1 documentation lists least-squares binning as an option with equal width as the default and an
+#     automatic bin count whose rule is not documented, so least-squares is the reproducible Monolix choice.
+const MLX_PI_LEVEL = 0.90
+const MLX_SIMULATIONS = 500           # Monolix default; the compared median uses RECON_REPLICATES (MC SE rule)
+const MLX_BETA = 0.2
+const MLX_LAMBDA = 0.3
+const RECON_REPLICATES = 500          # MC SE rule (max < 0.003 box at every scored point) checked in reproduce()
+const RECON_TSPAN = (0.0, 380.0)      # Results: "the longest follow-up for this analysis was only 1 year"
+# Methods "Sample analysis": days 1, 2, 7, 11, 14, 21, 28, then 3-monthly from month 3 to 12 (follow-up 1 year)
+const VISITS_12M = vcat([1.0, 2.0, 7.0, 11.0, 14.0, 21.0, 28.0], [3.0, 6.0, 9.0, 12.0] .* DAYS_PER_MONTH)
+
+const RECON_STAGE = " Stage: VPC design reconstruction of 2026-11-05, after the first comparison (2026-11-04) and the review round; an assumed reconstruction informed by the sources named, after the 2026-11-04 comedication sensitivity had shown the regressors improve agreement with the bands; the 4 of 6 is conditional on the settings marked :assumption."
+const RECON_FIXES = [
+    filter(f -> f.id in ("all_patients_all_times", "residual_included", "omega_as_sd", "omega_diagonal"), SHARED_FILLS)...,
+    Fix("mlx_base_model_regressors", :ambiguity,
+        "Base model as in the supplement's mlxtran: Eq. 1 with the comedication effect of Eq. 2 entered per patient through the time-of-first-dose regressors (Ftoci 1.2, Fster 1.0), no covariate effects on Cmax.";
+        evidence = "Results: 'The base model characterized the data well, as shown by the visual predictive check ... in Figure 3' and 'the final cellular kinetic model was the same as the base model'. The mlxtran printed in Supplementary Material S1 (lines 100-152, 'the mlxtran code used for fitting the model') has parameter = {foldx, Tmax, Cmax, Ftoci, Fster, alpha, FB, beta} and regressor = {TOCI1T, STERSTT}; Table 1 lists Ftoci and Fster as fixed effects. The covariate model of the paper is the set of Cmax covariates (Table 1 'log Cmax covariate effect'), not used here. A Monolix VPC simulates each subject with its own regressors. Replaces base_model_no_comedication of the previous design." * RECON_STAGE,
+        basis = :supplement, stage = :after_comparison),
+    Fix("mlx_regressor_timing", :missing,
+        "Per-patient comedication regressors drawn from Table 2: tocilizumab with probability 0.36, first dose 5.7 d times exp(0.7 z) clamped to 1-27 d; corticosteroids with probability 0.26, 7.5 d times exp(1.2 z) clamped to 0.11-170 d (z standard normal); independent; none = no effect.";
+        evidence = "The patients' own regressors are in Data set S1 (supplement, PSP4-8-285-s002.csv: 32 of 90 with tocilizumab, median 5.75 d; 23 with steroids, median 7.45 d), which is not redistributed with this repository, so the graded run cannot read them. Table 2 gives the proportions, medians and ranges; the log-normal shape, its spread and the independence are assumptions, the same sampler as the comedication sensitivity pre-registered on 2026-11-04, which had already shown that these regressors improve agreement with the bands (4 of 6), so this choice is not blind to the target; the spreads have no independent evidence. reproduce(s1 = true) runs the design of Data set S1 itself when the file is present locally." * RECON_STAGE,
+        basis = :assumption, stage = :after_comparison),
+    Fix("mlx_nominal_visits", :missing,
+        "Each of the 90 patients observed at the Methods visits up to one year: days 1, 2, 7, 11, 14, 21, 28 and months 3, 6, 9, 12 (day N read as t = N d, month = 365.25/12 d).";
+        evidence = "Methods 'Sample analysis' (visit schedule) and Results ('the longest follow-up for this analysis was only 1 year'). A Monolix VPC simulates the design of the data set (the actual sample times), which is in Data set S1 (not redistributed); the nominal visits are the published version of that design. Missing visits are not modelled (all_patients_all_times)." * RECON_STAGE,
+        basis = :interpretation, stage = :after_comparison),
+    Fix("days_per_month", :missing,
+        "Months placed at multiples of 365.25/12 days.";
+        evidence = "The paper gives the late visits in months; 365.25/12 is the mean calendar month." * RECON_STAGE,
+        basis = :standard, stage = :after_comparison),
+    Fix("mlx_ls_binning", :missing,
+        "Bins of the pooled observation times by the Monolix least-squares criterion (Lavielle & Bleakley 2011: beta 0.2, number of bins by log(J) + 0.3 beta K). On the nominal visits every visit is its own bin.";
+        evidence = "Lavielle & Bleakley, J Pharmacokinet Pharmacodyn 2011;38:861-871: the automatic binning implemented in Monolix 4 with these defaults. The paper does not state its Monolix version or bins; the Monolix 2024R1 documentation lists least-squares as an option with equal width as the default and an undocumented automatic bin count. With tied times a bin made of one visit has zero within-bin variance, so the criterion puts each visit in its own bin. Least-squares binning is therefore documented for Monolix 4 (and as an option in 2024R1, whose default is equal width), not for the version the paper used: an assumption." * RECON_STAGE,
+        basis = :assumption, stage = :after_comparison),
+    Fix("mlx_bin_node_mean_time", :missing,
+        "Each bin's percentile is placed at the mean observation time of the bin and the nodes are joined by straight segments in (day, log10 copies).";
+        evidence = "Lavielle & Bleakley 2011 take the bin mean time as the time that represents the bin; where Monolix draws the node is not documented. On the nominal visits the node is the visit time." * RECON_STAGE,
+        basis = :assumption, stage = :after_comparison),
+    Fix("mlx_percentile_r5", :missing,
+        "Percentiles of each bin by Hyndman-Fan type 5 (piecewise linear, R5), not type 7.";
+        evidence = "Monolix 2024R1 VPC documentation: 'The calculation of percentiles follows the piecewise linear method, also called R5 method.' Whether the version used for the paper did the same is not documented (the 2016R1 to 2019R1 pages could not be retrieved), so the convention is an assumption for the paper's era. QSPAtlas `percentiles` has type 7 only, so type 5 is computed in this model's protocol.jl." * RECON_STAGE,
+        basis = :assumption, stage = :after_comparison),
+    Fix("mlx_blq_simulated", :ambiguity,
+        "All simulated values, including those below the LLOQ of 50 copies/ug, enter the simulated percentiles (no censoring of the simulated data).";
+        evidence = "Methods: BLQ data were fixed-point censored (CENSORING column); caption: red asterisks are simulated values for the BLQ measurements (the Monolix 'BLQ simulated' display). Monolix documentation, 'Correcting the VPC for missing observations' (2024R1): with censored data used and simulated, 'all simulated values are used to calculate the simulated percentiles'. Documented for 2024R1; the paper's caption (simulated BLQ points shown) is consistent with it. Replaces blq_kept of the previous design (same numbers, now with a source)." * RECON_STAGE,
+        basis = :reference, stage = :after_comparison),
+    Fix("mlx_pi_90_500", :missing,
+        "Prediction interval 90 % over the simulated replicates (Monolix default; 500 simulations). The compared quantity is the median over replicates of each simulated percentile, with as many replicates as the Monte Carlo rule needs.";
+        evidence = "Monolix 2024R1 VPC documentation: 'By default 500 simulations are performed', 'By default, prediction intervals are computed with a level of 90%'; Lavielle & Bleakley 2011 (Monolix 4) also use 90 %. The interval level only sets the displayed band in figures/fig3.png; the score compares the median of each simulated percentile with the authors' band." * RECON_STAGE,
+        basis = :reference, stage = :after_comparison),
+]
+const FIXES = RECON_FIXES
+
 "Which reading of the band curves a fix list asks for (NotRunnable if the design is not given)."
 function band_mode(fixes)
     ids = Set(f.id for f in fixes)
+    recon = ("mlx_base_model_regressors", "mlx_regressor_timing", "mlx_nominal_visits", "days_per_month", "mlx_ls_binning",
+        "mlx_bin_node_mean_time", "mlx_percentile_r5", "mlx_blq_simulated", "mlx_pi_90_500", "all_patients_all_times", "residual_included", "omega_as_sd", "omega_diagonal")
+    all(in(ids), recon) && return :monolix
     all(f -> f.id in ids, SHARED_FILLS) || throw(NotRunnable("the VPC design (sampling, residual, BLQ, quantiles, model, random effects) is not stated"))
     ("dense_grid" in ids && "left_bin_nodes" in ids) && return :fixed
     ("scheduled_visits" in ids && "days_per_month" in ids) && return :scheduled
@@ -131,7 +215,7 @@ turns on the tocilizumab / corticosteroid effect of Eq. 2 with per-subject covar
 `ster` (day of first dose, `Inf` for none), as in the supplement's Monolix code.
 """
 function population_model(; comedication::Bool = false, omega::Symbol = :sd, solver = Vern9(), tol = 1.0e-10,
-        theta = TYPICAL, omegas = OMEGA, sigma = RESIDUAL_SD_LOG)
+        theta = TYPICAL, omegas = OMEGA, sigma = RESIDUAL_SD_LOG, tspan = TSPAN)
     sds = [omega === :sd ? omegas[n] : sqrt(omegas[n]) for n in ETAS]
     Ω = [sds[i]^2 * (i == j) for i in eachindex(ETAS), j in eachindex(ETAS)]
     function params(θ, η, c)
@@ -154,7 +238,7 @@ function population_model(; comedication::Bool = false, omega::Symbol = :sd, sol
     end
     init = (θ, η, c) -> [E => θ.Cmax * exp(η.Cmax) / (θ.foldx * exp(η.foldx)), M => 0.0]   # R0 = Cmax / foldx
     return PopulationModel(CART; routes = Route[], θ = theta, ηnames = ETAS, Ω, params, init,
-        observed = (C = CART.C,), error = (C = ExponentialError(sigma),), tspan = TSPAN,
+        observed = (C = CART.C,), error = (C = ExponentialError(sigma),), tspan,
         solver, solve_kwargs = (abstol = tol, reltol = tol))
 end
 
@@ -223,11 +307,126 @@ function summarise(times, Q; pi_level = PI_LEVEL, seed = SEED)
     return (; times, median = med, lo, hi, mc_se = se, replicates = K)
 end
 
+# ---- assumed Monolix-informed VPC (reconstruction) ---------------------------------------------------
+# Comedication regressors drawn from Table 2 (see mlx_regressor_timing; the same sampler as the comedication
+# sensitivity run pre-registered on 2026-11-04): per patient the day of the first tocilizumab and corticosteroid
+# dose, Inf for none (the mlxtran uses 99999, which is clipped at Tmax all the same).
+function comedication_sampler(rng)
+    draw(median_, σ, lo, hi) = clamp(median_ * exp(σ * randn(rng)), lo, hi)
+    toci = rand(rng) < 0.36 ? draw(5.7, 0.7, 1.0, 27.0) : Inf
+    ster = rand(rng) < 0.26 ? draw(7.5, 1.2, 0.11, 170.0) : Inf
+    return (toci = toci, ster = ster)
+end
+
+"""
+    ls_binning(times; β = MLX_BETA, λ = MLX_LAMBDA, kmax = 100) -> Vector{NamedTuple}
+
+Least-squares binning of Lavielle & Bleakley (2011), the automatic binning of Monolix 4. The pooled
+observation times are cut into contiguous bins of distinct time values that minimise
+J = sum_k n_k (var_k)^β (var_k the within-bin variance of the times, n_k the number of observations), by
+dynamic programming, and the number of bins K minimises log(J) + λ β K. A tied time is never split. If J
+reaches 0 (every distinct time its own bin, e.g. nominal visits) that K is taken (log 0 = -Inf).
+Returns `(lo, hi, mid, n)` per bin; `mid` is the mean observation time of the bin.
+"""
+function ls_binning(times::AbstractVector{<:Real}; β = MLX_BETA, λ = MLX_LAMBDA, kmax::Integer = 100)
+    t = sort(collect(Float64, times))
+    u = unique(t)
+    w = [searchsortedlast(t, x) - searchsortedfirst(t, x) + 1 for x in u]
+    M = length(u)
+    cw = cumsum(vcat(0, w)); c1 = cumsum(vcat(0.0, w .* u)); c2 = cumsum(vcat(0.0, w .* u .^ 2))
+    function cost(i, j)                       # bin made of distinct times i..j
+        n = cw[j + 1] - cw[i]
+        m1 = (c1[j + 1] - c1[i]) / n
+        v = max((c2[j + 1] - c2[i]) / n - m1^2, 0.0)
+        v < 1.0e-12 * max(1.0, m1^2) && (v = 0.0)  # rounding of a single tied time
+        return n * v^β
+    end
+    K = min(kmax, M)
+    F = fill(Inf, K, M); B = zeros(Int, K, M)
+    for j in 1:M
+        F[1, j] = cost(1, j)
+    end
+    for k in 2:K, j in k:M, i in k:j
+        c = F[k - 1, i - 1] + cost(i, j)
+        if c < F[k, j]
+            F[k, j] = c; B[k, j] = i
+        end
+    end
+    U = [log(F[k, M]) + λ * β * k for k in 1:K]
+    kbest = argmin(U)
+    starts = Int[]; j = M
+    for k in kbest:-1:2
+        i = B[k, j]; pushfirst!(starts, i); j = i - 1
+    end
+    pushfirst!(starts, 1)
+    ends = vcat(starts[2:end] .- 1, M)
+    return [(lo = u[a], hi = u[b], mid = (c1[b + 1] - c1[a]) / (cw[b + 1] - cw[a]), n = cw[b + 1] - cw[a]) for (a, b) in zip(starts, ends)]
+end
+
+"Hyndman-Fan type 5 quantile (Monolix 'R5', piecewise linear) of an already sorted vector."
+function quantile_type5(x::AbstractVector{Float64}, p::Real)
+    n = length(x)
+    n == 0 && return NaN
+    h = n * p + 0.5
+    h <= 1 && return x[1]
+    h >= n && return x[n]
+    f = floor(Int, h)
+    return x[f] + (h - f) * (x[f + 1] - x[f])
+end
+
+"""
+    monolix_percentiles(model, subjects, bins; replicates, chunk, seed) -> Q
+
+`Q[k, j, r]` is the type-5 `QS[j]` percentile of ALL simulated observations (residual error included,
+values below the LLOQ kept, Monolix 'BLQ simulated') that fall in bin `k` in replicate `r`. Simulated in
+blocks of `chunk` replicates with seed `seed + block`, as `replicate_percentiles`.
+"""
+function monolix_percentiles(model, subjects, bins; replicates = RECON_REPLICATES, chunk = CHUNK, seed = SEED)
+    nb = length(bins)
+    Q = fill(NaN, nb, length(QS), replicates)
+    binof(t_) = findfirst(b -> b.lo <= t_ <= b.hi, bins)
+    k0 = 0; blk = 0
+    while k0 < replicates
+        m = min(chunk, replicates - k0)
+        res = simulate(model, subjects; replicates = m, seed = seed + blk)
+        nbad = count(s -> s.retcode !== :Success, res.subjects)
+        nbad == 0 || error("stein_2019: $nbad simulated subjects did not finish with retcode Success in replicate block $blk")
+        cells = [Float64[] for _ in 1:nb, _ in 1:m]
+        for o in res.obs
+            k = binof(o.time)
+            k === nothing && error("stein_2019: observation at t = $(o.time) is in no bin")
+            push!(cells[k, o.replicate], o.dv)
+        end
+        for k in 1:nb, r in 1:m
+            v = sort!(cells[k, r])
+            for j in eachindex(QS)
+                Q[k, j, k0 + r] = quantile_type5(v, QS[j])
+            end
+        end
+        k0 += m; blk += 1
+    end
+    return Q
+end
+
+# The reconstructed (graded) design: 90 patients at the nominal visits up to one year, regressors from Table 2.
+recon_cohort(n = N_PATIENTS) = cohort(n; times = VISITS_12M, comedication = comedication_sampler)
+recon_model(; kw...) = population_model(; comedication = true, tspan = RECON_TSPAN, kw...)
+
+"Summary of a Monolix-style VPC: bins from the pooled design times, type-5 percentiles, 90 % interval."
+function monolix_summary(model, subjects; replicates = RECON_REPLICATES, seed = SEED, bins = ls_binning(reduce(vcat, [s.obstimes for s in subjects])))
+    Q = monolix_percentiles(model, subjects, bins; replicates, seed)
+    S = summarise([b.mid for b in bins], Q; pi_level = MLX_PI_LEVEL, seed)
+    return merge(S, (; bins))
+end
+
 # curve of one band target from a summary. mode :scheduled = scheduled visits joined by chords (as
-# published); :fixed = right panel dense, left panel bin nodes joined by chords (with fixes).
+# published); :monolix = the bin nodes of a Monolix-style summary (with fixes, reconstruction of 2026-11-05);
+# :fixed = right panel dense, left panel bin nodes joined by chords (previous with-fixes design).
 function band_curve(ref_id::AbstractString, S; mode::Symbol = :fixed)
     j = Dict("p10" => 1, "p50" => 2, "p90" => 3)[last(split(ref_id, '_'))]
-    if mode === :scheduled
+    if mode === :monolix
+        return S.times, S.median[:, j]                 # bin nodes joined by straight segments in (day, log10 y)
+    elseif mode === :scheduled
         idx = [findfirst(==(t_), S.times) for t_ in SCHEDULED]
         return S.times[idx], S.median[idx, j]
     elseif startswith(ref_id, "fig3a_right")

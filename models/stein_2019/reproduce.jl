@@ -67,6 +67,54 @@ function mc_report(S, refs; mode = :fixed)
     return out
 end
 
+# Monte Carlo SE of the compared median for a Monolix-style summary (nodes = bin mean times): the largest
+# value over the nodes that the scored reference x of each band are interpolated from.
+function mc_report_nodes(S, refs)
+    out = Dict{String, NamedTuple}()
+    for ref in refs
+        j = Dict("p10" => 1, "p50" => 2, "p90" => 3)[last(split(ref.id, '_'))]
+        idx = sort(unique(vcat([[searchsortedlast(S.times, x), searchsortedfirst(S.times, x)] for x in ref.x]...)))
+        idx = filter(i -> 1 <= i <= length(S.times), idx)
+        dec = [S.mc_se[i, j] / (S.median[i, j] * log(10)) for i in idx]
+        axis_decades = log10(ref.yaxis.hi / ref.yaxis.lo)
+        out[ref.id] = (max_decades = maximum(dec), max_box = maximum(dec) / axis_decades, nodes = S.times[idx])
+    end
+    return out
+end
+
+# Local check (skipped when the file is absent, e.g. in CI): the same Monolix-default VPC on the design of
+# Data set S1 (the paper's supplement): each patient's own sample times and comedication regressors
+# (TOCI1T, STERSTT; 9999 = none), least-squares bins of the 836 pooled times. The simulated values of S1
+# are ignored. Not graded: the design is not redistributed with the repository.
+function s1_design(csv = S1_CSV)
+    isfile(csv) || return nothing
+    rows = [split(replace(l, '"' => ""), ',') for l in readlines(csv)[2:end] if !isempty(strip(l))]
+    d = Dict{String, Any}()
+    for r in rows
+        toci = parse(Float64, r[4]); ster = parse(Float64, r[5])
+        e = get!(d, r[1], (times = Float64[], toci = toci >= 9999 ? Inf : toci, ster = ster >= 9999 ? Inf : ster))
+        push!(e.times, parse(Float64, r[2]))
+    end
+    return d
+end
+
+function s1_subjects(d; comedication = true)
+    ids = sort(collect(keys(d)); by = x -> parse(Int, x))
+    return [Subject(id; regimen = Regimen(Dose[]), obstimes = d[id].times,
+        covariates = comedication ? (toci = d[id].toci, ster = d[id].ster) : (toci = Inf, ster = Inf)) for id in ids]
+end
+
+function s1_runs(refs; replicates = 2000)   # 500 gave a max MC SE of 0.0054 box on this design (8 pooled bins), 2000 gives 0.0025
+    d = s1_design()
+    d === nothing && return nothing
+    out = Pair{String, Any}[]
+    for (name, comed) in (("S1 design, comedication regressors (full reconstruction)", true), ("S1 design, no comedication", false))
+        R = monolix_summary(recon_model(; comedication = comed), s1_subjects(d; comedication = comed); replicates)
+        push!(out, name => (R = R, cmp = compare_summary(R, refs; mode = :monolix), mc = mc_report_nodes(R, refs)))
+    end
+    return out
+end
+
 # Consistency of the chunked percentile code with QSPAtlas `vpc` (Part 4) on a small case: same cohort,
 # same seed, one chunk. Returns the largest absolute difference of the median (should be 0).
 function check_vpc_consistency(; replicates = 20, times = [2.0, 8.0, 12.0, 28.0, 100.0])
@@ -88,16 +136,8 @@ function compare_summary(S, refs; left = :chord, mode = :fixed, tolerance = TOLE
 end
 
 # ---- sensitivity runs (not graded; reported in report.md) ---------------------------------------
-# Comedication design is ASSUMED: each patient gets tocilizumab with probability 0.36 and corticosteroids
-# with probability 0.26 (Table 2), independently, first-dose day log-normal with the Table 2 median
-# (5.7 d / 7.5 d) truncated to the Table 2 range (1-27 d / 0.11-170 d). The paper gives no joint design.
-function comedication_sampler(rng)
-    draw(median_, σ, lo, hi) = clamp(median_ * exp(σ * randn(rng)), lo, hi)
-    toci = rand(rng) < 0.36 ? draw(5.7, 0.7, 1.0, 27.0) : Inf
-    ster = rand(rng) < 0.26 ? draw(7.5, 1.2, 0.11, 170.0) : Inf
-    return (toci = toci, ster = ster)
-end
-
+# Comedication design is ASSUMED: `comedication_sampler` (protocol.jl), Table 2 proportions, medians and
+# ranges; the paper gives no joint design.
 function sensitivity_runs(refs; replicates = REPLICATES)
     runs = Pair{String, Any}[]
     push!(runs, "omega read as variance (sd = sqrt)" => simulate_design(; replicates, model = population_model(omega = :variance)))
@@ -109,19 +149,18 @@ function sensitivity_runs(refs; replicates = REPLICATES)
 end
 
 # ---- figures ------------------------------------------------------------------------------
-# Figure 3a in its layout: simulated percentile intervals (blue 10th/90th, pink 50th) with the median
-# of each simulated percentile; one simulated cohort at the nominal visit days as dots, simulated BLQ as
-# red asterisks. The observed data and the empirical percentile lines of the paper are not shown.
+# Figure 3a in its layout: the reconstructed (graded) VPC, 90 % intervals of the simulated percentiles
+# (blue 10th/90th, pink 50th) at the bin nodes with the median of each simulated percentile; one simulated
+# cohort of the reconstructed design as dots, simulated BLQ as red asterisks. The observed data and the empirical percentile lines of the paper are not shown.
 function plot_fig3(path, S)
     M = CairoMakie
-    model = population_model()
-    nominal = [1.0, 2.0, 7.0, 11.0, 14.0, 21.0, 28.0, 91.0, 182.0, 273.0, 365.0]
-    one = simulate(model, cohort(N_PATIENTS; times = nominal); seed = 7)
+    one = simulate(recon_model(), recon_cohort(); seed = 7)
     fig = M.Figure(size = (1100, 420))
     for (j, (xlim, ylim, xl)) in enumerate((((0, 380), (20, 4.0e5), "Days"), ((0, 30), (20, 4.0e5), "Days")))
         ax = M.Axis(fig[1, j]; xlabel = xl, ylabel = j == 1 ? "Tisagenlecleucel transgene (copies/ug)" : "", yscale = log10, limits = (xlim, ylim),
             title = j == 1 ? "Simulated VPC bands (this reproduction)" : "zoom, days 0-30")
-        sel = findall(t_ -> t_ <= xlim[2], S.times)
+        nxt = findfirst(>(xlim[2]), S.times)          # bin nodes in the panel plus the next one (the segment leaving it)
+        sel = nxt === nothing ? collect(eachindex(S.times)) : collect(1:nxt)
         for (k, col) in ((1, :steelblue), (3, :steelblue), (2, :hotpink))
             M.band!(ax, S.times[sel], S.lo[sel, k], S.hi[sel, k]; color = (col, 0.35))
             M.lines!(ax, S.times[sel], S.median[sel, k]; color = col, linewidth = 2)
@@ -169,15 +208,22 @@ function s1_diagnostic(S, path; csv = S1_CSV)
     return path
 end
 
-function reproduce(; plots = true, figdir = joinpath(@__DIR__, "figures"), replicates = REPLICATES, sensitivity = false)
+function reproduce(; plots = true, figdir = joinpath(@__DIR__, "figures"), replicates = REPLICATES, recon_replicates = RECON_REPLICATES,
+        sensitivity = false, s1 = false)
     refs = sort(collect(values(load_references(joinpath(@__DIR__, "reference")))); by = r -> r.id)
     S = simulate_design(; replicates)
     published = run_curves(ref -> band_curve(ref.id, S; mode = band_mode(PUBLISHED_FILLS)), refs, "as published";
         fixes = PUBLISHED_FILLS, tolerance = TOLERANCE, tolerances = TOLERANCES)
-    fixed = run_curves(ref -> band_curve(ref.id, S; mode = band_mode(FIXES)), refs, "with fixes"; fixes = FIXES, tolerance = TOLERANCE, tolerances = TOLERANCES)
+    # with fixes: the Monolix-default VPC reconstruction (2026-11-05), its own simulation
+    R = monolix_summary(recon_model(), recon_cohort(); replicates = recon_replicates)
+    fixed = run_curves(ref -> band_curve(ref.id, R; mode = band_mode(FIXES)), refs, "with fixes"; fixes = FIXES, tolerance = TOLERANCE, tolerances = TOLERANCES)
     rep = Reproduction(; id = ID, citation = CITATION, doi = DOI, pmcid = PMCID, published, fixed)
     write_score(joinpath(@__DIR__, "score.toml"), rep)
-    global LAST = (; S, refs, mc = mc_report(S, refs), mc_sched = mc_report(S, refs; mode = :scheduled))
+    # previous with-fixes design (dense grid, left nodes from the target), from the same simulation as the
+    # as-published run: reported only
+    global LAST = (; S, R, refs, mc = mc_report(S, refs), mc_sched = mc_report(S, refs; mode = :scheduled), mc_recon = mc_report_nodes(R, refs),
+        previous = compare_summary(S, refs; mode = band_mode(PREVIOUS_FIXES)))
+    s1 && (global S1RUNS = s1_runs(refs))
     if sensitivity
         global SENS = [name => (compare_summary(S2, refs; mode = :scheduled), compare_summary(S2, refs), compare_summary(S2, refs; left = :dense)) for (name, S2) in sensitivity_runs(refs; replicates)]
     end
@@ -185,7 +231,7 @@ function reproduce(; plots = true, figdir = joinpath(@__DIR__, "figures"), repli
         mkpath(figdir)
         plot_reproduction(rep, joinpath(figdir, "comparison.png"); ncols = 3, run = :published)
         plot_reproduction(rep, joinpath(figdir, "comparison_fixed.png"); ncols = 3, run = :fixed)
-        plot_fig3(joinpath(figdir, "fig3.png"), S)
+        plot_fig3(joinpath(figdir, "fig3.png"), R)
         s1_diagnostic(S, joinpath(figdir, "digitise_check_s1_diagnostic.png"))
     end
     return rep
