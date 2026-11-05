@@ -1,0 +1,11 @@
+"model","rx_case","atlas_case","var","n","max_abs","at_time","max_rel","max_atlas"
+"ouerdani_2015","mouse_fig4","mouse_fig4","P",301,3.749e-08,10.25,2.503e-10,175.338
+"ouerdani_2015","mouse_fig4","mouse_fig4","K",301,3.114e-09,16,2.519e-11,543
+"ouerdani_2015","mouse_auc220","mouse_auc220","P",301,4.257e-08,15.5,2.066e-10,250.687
+"ouerdani_2015","mouse_auc220","mouse_auc220","K",301,5.31e-09,15.5,2.208e-11,543
+"ouerdani_2015","mouse_auc657","mouse_auc657","P",301,9.086e-08,12.75,5.235e-10,197.764
+"ouerdani_2015","mouse_auc657","mouse_auc657","K",301,3.86e-09,17,2.514e-11,543
+"ouerdani_2015","patient_fig4","patient_fig4","P",501,1.212e-08,165,2.227e-10,66.8
+"ouerdani_2015","patient_fig4","patient_fig4","K",501,4.457e-09,450,6.835e-11,329
+"ouerdani_2015","mouse_control_auc0","mouse_control_auc0","P",301,216.1,14.25,1.175,1318.4
+"ouerdani_2015","mouse_control_auc0","mouse_control_auc0","K",301,198.5,75,0.1356,1463.84

@@ -18,43 +18,63 @@ matched = true
 ran = true
 
     [[fixed.curves]]
+    coverage = 0.8239
     figure = "Figure 4 left, preclinical, carrying capacity K (dashed)"
     id = "fig4_left_K"
     max = 0.00251
     n_points = 70
     p95 = 0.002414
     passed = true
+    rev_n = 823
+    rev_p95 = 0.00183
+    rev_rms = 0.0008697
     rms = 0.001045
+    sim_coverage = 1.0
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
+    coverage = 0.9741
     figure = "Figure 4 left, preclinical, tumour size P (solid)"
     id = "fig4_left_P"
     max = 0.003139
     n_points = 90
     p95 = 0.00156
     passed = true
+    rev_n = 973
+    rev_p95 = 0.001696
+    rev_rms = 0.0008489
     rms = 0.0008654
+    sim_coverage = 1.0
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
+    coverage = 0.7939
     figure = "Figure 4 right, clinical, carrying capacity K (dashed)"
     id = "fig4_right_K"
     max = 0.01628
     n_points = 70
     p95 = 0.01598
     passed = true
+    rev_n = 793
+    rev_p95 = 0.01558
+    rev_rms = 0.01174
     rms = 0.01117
+    sim_coverage = 1.0
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
+    coverage = 0.9699
     figure = "Figure 4 right, clinical, tumour size P (solid)"
     id = "fig4_right_P"
     max = 0.0148
     n_points = 90
     p95 = 0.01384
     passed = true
+    rev_n = 969
+    rev_p95 = 0.01387
+    rev_rms = 0.008972
     rms = 0.008824
+    sim_coverage = 1.0
     tol_p95 = 0.03
     tol_rms = 0.015
 
@@ -106,43 +126,63 @@ matched = false
 ran = true
 
     [[published.curves]]
+    coverage = 0.8239
     figure = "Figure 4 left, preclinical, carrying capacity K (dashed)"
     id = "fig4_left_K"
     max = 0.1001
     n_points = 70
     p95 = 0.09732
     passed = false
+    rev_n = 823
+    rev_p95 = 0.09747
+    rev_rms = 0.08069
     rms = 0.07948
+    sim_coverage = 1.0
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
+    coverage = 0.9741
     figure = "Figure 4 left, preclinical, tumour size P (solid)"
     id = "fig4_left_P"
     max = 0.09985
     n_points = 90
     p95 = 0.09855
     passed = false
+    rev_n = 973
+    rev_p95 = 0.1143
+    rev_rms = 0.0859
     rms = 0.08097
+    sim_coverage = 1.0
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
+    coverage = 0.7939
     figure = "Figure 4 right, clinical, carrying capacity K (dashed)"
     id = "fig4_right_K"
     max = 0.04315
     n_points = 70
     p95 = 0.04239
     passed = false
+    rev_n = 793
+    rev_p95 = 0.0425
+    rev_rms = 0.03382
     rms = 0.03306
+    sim_coverage = 1.0
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
+    coverage = 0.9699
     figure = "Figure 4 right, clinical, tumour size P (solid)"
     id = "fig4_right_P"
     max = 0.1905
     n_points = 90
     p95 = 0.1111
     passed = false
+    rev_n = 969
+    rev_p95 = 0.1562
+    rev_rms = 0.07241
     rms = 0.06403
+    sim_coverage = 1.0
     tol_p95 = 0.03
     tol_rms = 0.015
 

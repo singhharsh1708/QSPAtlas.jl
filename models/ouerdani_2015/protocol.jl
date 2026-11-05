@@ -3,6 +3,7 @@
 # were written before any simulation was compared with them (no simulation had been run).
 using QSPAtlas
 using ModelingToolkit, OrdinaryDiffEq
+using SciMLBase: successful_retcode
 
 # Default tolerance (RMS 0.015, P95 0.03 of the axis box), no per-curve change.
 const TOLERANCE = Tolerance()
@@ -99,8 +100,11 @@ function simulate_curve(ref; fixes = Fix[], kw...)
     tend = prob.tspan[2]
     ts = collect(range(0.0, tend; length = 1000))
     sol = solve(prob, Tsit5(); abstol = 1e-10, reltol = 1e-10, saveat = ts)
+    x = mouse ? ts : ts ./ DAYS_PER_MONTH
+    # a failed solve gives NaN values (scored as a gap), never a partial trajectory
+    successful_retcode(sol) || return x, fill(NaN, length(ts))
     state = endswith(ref.id, "_P") ? sol[TUMOUR.P] : sol[TUMOUR.K]
-    return (mouse ? ts : ts ./ DAYS_PER_MONTH), state
+    return x, state
 end
 
 function benchmark_setups()

@@ -1,0 +1,8 @@
+model,run,key,variant,retcode,ok,finite,npoints,seconds
+"stein_2019","mc","cohort 100 replicates x 90 patients","own","Success (all 9000 trajectories)",true,true,2538000,25.8746335
+"stein_2019","mc","cohort 100 replicates x 90 patients","tol/100","Success (all 9000 trajectories)",true,true,2538000,25.85936792
+"stein_2019","mc","cohort 100 replicates x 90 patients","altA Rodas5P","Success (all 9000 trajectories)",true,true,2538000,29.76230771
+"stein_2019","mc","cohort 100 replicates x 90 patients","altB Tsit5","Success (all 9000 trajectories)",true,true,2538000,27.30883633
+"stein_2019","mc","cohort 100 replicates x 90 patients","dense x4","Success (all 9000 trajectories)",true,true,10071000,28.28172058
+"stein_2019","mc","cohort 200 replicates x 90 patients","reps x2","Success (all 18000 trajectories)",true,true,5076000,49.86343508
+"stein_2019","mc","cohort 100 replicates x 90 patients","seed+1000","Success (all 9000 trajectories)",true,true,2538000,25.12683571

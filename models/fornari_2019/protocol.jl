@@ -9,7 +9,7 @@
 # Not graded (listed for completeness): Fig 3 monocytes, reticulocytes, red blood cells and all observation symbols/percentile bands,
 #   Fig 4 blue Schmitt-model lines, percentile bands and the bar chart (c), Supplement Figures S1, S2, S4-S7.
 
-using SciMLBase: solve
+using SciMLBase: solve, successful_retcode
 using OrdinaryDiffEq: Rodas5P
 
 const TOLERANCE = Tolerance()   # default: RMS 0.015, P95 0.03 of the axis box; no per-curve overrides
@@ -153,7 +153,7 @@ function solved(key, build)
     get!(_CACHE, key) do
         s = build()
         sol = solve(s.prob, Rodas5P(); abstol = 1e-9, reltol = 1e-8, saveat = s.saveat)
-        (; s..., sol)
+        (; s..., sol, ok = successful_retcode(sol))
     end
 end
 
@@ -178,6 +178,8 @@ const TARGET_MAP = Dict(
 function series(case::Symbol, v::Symbol, fixes)
     s = case_solution(case, fixes)
     x = s.sol.t ./ 24
+    # a failed solve gives NaN values (scored as a gap), never a partial trajectory
+    s.ok || return x, fill(NaN, length(x))
     y = getproperty(s.sys, v)
     return x, [u for u in s.sol[y]]
 end
@@ -194,7 +196,7 @@ function benchmark_setups()
     r = rat_problem(FIXES)
     h = human_problem(FIXES; slopes = :table2)
     return [
-        BenchmarkSetup(; name = "fornari_2019 rat, carboplatin 40 mg/kg x8 q14d (Fig 3)", prob = r.prob, callback = r.callback, saveat = r.saveat),
-        BenchmarkSetup(; name = "fornari_2019 human, two 21-day cycles, Table 2 slopes (Fig 4b)", prob = h.prob, callback = h.callback, saveat = h.saveat),
+        BenchmarkSetup(; name = "fornari_2019 rat, carboplatin 40 mg/kg x8 q14d (Fig 3)", prob = r.prob, saveat = r.saveat),
+        BenchmarkSetup(; name = "fornari_2019 human, two 21-day cycles, Table 2 slopes (Fig 4b)", prob = h.prob, saveat = h.saveat),
     ]
 end

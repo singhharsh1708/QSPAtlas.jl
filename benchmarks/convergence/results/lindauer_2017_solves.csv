@@ -1,0 +1,661 @@
+model,run,key,variant,retcode,ok,finite,npoints,seconds
+"lindauer_2017","published","0.5:gamma:0.2","own","Success",true,true,18,5.049685125
+"lindauer_2017","published","0.5:Tmulti:0.2","own","Success",true,true,18,0.066062708
+"lindauer_2017","published","0.5:N_PD1_TC:0.2","own","Success",true,true,18,0.051806833
+"lindauer_2017","published","0.5:V_blood:0.2","own","Success",true,true,18,0.060920792
+"lindauer_2017","published","0.5:N_Tcell:0.2","own","Success",true,true,18,0.046387083
+"lindauer_2017","published","0.5:EMAXTP:0.2","own","Success",true,true,18,0.0530565
+"lindauer_2017","published","0.5:V1:0.2","own","Success",true,true,18,0.05578775
+"lindauer_2017","published","0.5:FR:0.2","own","Success",true,true,18,0.027541709
+"lindauer_2017","published","0.5:KdegPD1:0.2","own","Success",true,true,18,0.041914042
+"lindauer_2017","published","0.5:CL:0.2","own","Success",true,true,18,0.060473083
+"lindauer_2017","published","0.5:PLQ:0.2","own","Success",true,true,18,0.113510833
+"lindauer_2017","published","0.5:L:0.2","own","Success",true,true,18,0.121748292
+"lindauer_2017","published","0.5:SLtg:0.2","own","Success",true,true,18,0.010899292
+"lindauer_2017","published","0.5:L0:0.2","own","Success",true,true,18,0.066449375
+"lindauer_2017","published","0.5:CLup:0.2","own","Success",true,true,18,0.04295925
+"lindauer_2017","published","0.5:EC50TP:0.2","own","Success",true,true,18,0.047362666
+"lindauer_2017","published","0.5:gamma:5.0","own","Unstable",false,true,2,0.246244917
+"lindauer_2017","published","0.5:Tmulti:5.0","own","Success",true,true,18,0.036686167
+"lindauer_2017","published","0.5:N_PD1_TC:5.0","own","Success",true,true,18,0.030673166
+"lindauer_2017","published","0.5:V_blood:5.0","own","Success",true,true,18,0.051757208
+"lindauer_2017","published","0.5:N_Tcell:5.0","own","Success",true,true,18,0.042754084
+"lindauer_2017","published","0.5:EMAXTP:5.0","own","Success",true,true,18,0.060434917
+"lindauer_2017","published","0.5:V1:5.0","own","Success",true,true,18,0.062951917
+"lindauer_2017","published","0.5:FR:5.0","own","Success",true,true,18,0.041224416
+"lindauer_2017","published","0.5:KdegPD1:5.0","own","Success",true,true,18,0.067123459
+"lindauer_2017","published","0.5:CL:5.0","own","Success",true,true,18,0.074835
+"lindauer_2017","published","0.5:PLQ:5.0","own","Success",true,true,18,0.033429125
+"lindauer_2017","published","0.5:L:5.0","own","Success",true,true,18,0.051332708
+"lindauer_2017","published","0.5:SLtg:5.0","own","Success",true,true,18,1.997390666
+"lindauer_2017","published","0.5:L0:5.0","own","Success",true,true,18,0.0449975
+"lindauer_2017","published","0.5:CLup:5.0","own","Success",true,true,18,0.067941916
+"lindauer_2017","published","0.5:EC50TP:5.0","own","Success",true,true,18,0.02240675
+"lindauer_2017","published","5.0:gamma:0.2","own","Success",true,true,18,0.012451334
+"lindauer_2017","published","5.0:FR:0.2","own","Success",true,true,18,0.081038708
+"lindauer_2017","published","5.0:SLtg:0.2","own","Success",true,true,18,0.019924083
+"lindauer_2017","published","5.0:L0:0.2","own","Success",true,true,18,0.061785167
+"lindauer_2017","published","5.0:Tmulti:0.2","own","Success",true,true,18,0.070204292
+"lindauer_2017","published","5.0:N_PD1_TC:0.2","own","Success",true,true,18,0.066894708
+"lindauer_2017","published","5.0:V_blood:0.2","own","Success",true,true,18,0.032914208
+"lindauer_2017","published","5.0:N_Tcell:0.2","own","Success",true,true,18,0.156642084
+"lindauer_2017","published","5.0:EMAXTP:0.2","own","Success",true,true,18,0.091824958
+"lindauer_2017","published","5.0:V1:0.2","own","Success",true,true,18,0.078082583
+"lindauer_2017","published","5.0:KdegPD1:0.2","own","Success",true,true,18,0.042564042
+"lindauer_2017","published","5.0:CL:0.2","own","Success",true,true,18,0.057085833
+"lindauer_2017","published","5.0:PLQ:0.2","own","Success",true,true,18,0.078490417
+"lindauer_2017","published","5.0:L:0.2","own","Success",true,true,18,0.124807542
+"lindauer_2017","published","5.0:CLup:0.2","own","Success",true,true,18,0.072570375
+"lindauer_2017","published","5.0:V2:0.2","own","Success",true,true,18,0.067648458
+"lindauer_2017","published","5.0:gamma:5.0","own","Unstable",false,true,2,0.021874167
+"lindauer_2017","published","5.0:FR:5.0","own","Success",true,true,18,0.071947292
+"lindauer_2017","published","5.0:SLtg:5.0","own","MaxIters",false,true,8,6.463381833
+"lindauer_2017","published","5.0:L0:5.0","own","Success",true,true,18,0.048831875
+"lindauer_2017","published","5.0:Tmulti:5.0","own","Success",true,true,18,0.036052875
+"lindauer_2017","published","5.0:N_PD1_TC:5.0","own","Success",true,true,18,0.057681958
+"lindauer_2017","published","5.0:V_blood:5.0","own","Success",true,true,18,0.048604917
+"lindauer_2017","published","5.0:N_Tcell:5.0","own","Success",true,true,18,0.087587917
+"lindauer_2017","published","5.0:EMAXTP:5.0","own","Success",true,true,18,0.050086417
+"lindauer_2017","published","5.0:V1:5.0","own","Success",true,true,18,0.061473834
+"lindauer_2017","published","5.0:KdegPD1:5.0","own","Success",true,true,18,0.028819292
+"lindauer_2017","published","5.0:CL:5.0","own","Success",true,true,18,0.073439375
+"lindauer_2017","published","5.0:PLQ:5.0","own","Success",true,true,18,0.058926791
+"lindauer_2017","published","5.0:L:5.0","own","Success",true,true,18,0.044263917
+"lindauer_2017","published","5.0:CLup:5.0","own","Success",true,true,18,0.055313
+"lindauer_2017","published","5.0:V2:5.0","own","Success",true,true,18,0.04530525
+"lindauer_2017","published","5.0:base:1.0","own","Success",true,true,18,0.051469708
+"lindauer_2017","published","0.5:base:1.0","own","Success",true,true,18,0.046657708
+"lindauer_2017","published","0.5:gamma:0.2","tol/100","Success",true,true,18,0.072558125
+"lindauer_2017","published","0.5:Tmulti:0.2","tol/100","Success",true,true,18,0.179895792
+"lindauer_2017","published","0.5:N_PD1_TC:0.2","tol/100","Success",true,true,18,0.149688208
+"lindauer_2017","published","0.5:V_blood:0.2","tol/100","Success",true,true,18,0.172237625
+"lindauer_2017","published","0.5:N_Tcell:0.2","tol/100","Success",true,true,18,0.169926334
+"lindauer_2017","published","0.5:EMAXTP:0.2","tol/100","Success",true,true,18,0.241028334
+"lindauer_2017","published","0.5:V1:0.2","tol/100","Success",true,true,18,0.203831667
+"lindauer_2017","published","0.5:FR:0.2","tol/100","Success",true,true,18,0.129395333
+"lindauer_2017","published","0.5:KdegPD1:0.2","tol/100","Success",true,true,18,0.227554958
+"lindauer_2017","published","0.5:CL:0.2","tol/100","Success",true,true,18,0.130291833
+"lindauer_2017","published","0.5:PLQ:0.2","tol/100","Success",true,true,18,0.236697917
+"lindauer_2017","published","0.5:L:0.2","tol/100","Success",true,true,18,0.281926125
+"lindauer_2017","published","0.5:SLtg:0.2","tol/100","Success",true,true,18,0.078717792
+"lindauer_2017","published","0.5:L0:0.2","tol/100","Success",true,true,18,0.236584583
+"lindauer_2017","published","0.5:CLup:0.2","tol/100","Success",true,true,18,0.134213416
+"lindauer_2017","published","0.5:EC50TP:0.2","tol/100","Success",true,true,18,0.177598458
+"lindauer_2017","published","0.5:gamma:5.0","tol/100","Unstable",false,true,2,0.023817375
+"lindauer_2017","published","0.5:Tmulti:5.0","tol/100","Success",true,true,18,0.163860167
+"lindauer_2017","published","0.5:N_PD1_TC:5.0","tol/100","Success",true,true,18,0.226847666
+"lindauer_2017","published","0.5:V_blood:5.0","tol/100","Success",true,true,18,0.138740958
+"lindauer_2017","published","0.5:N_Tcell:5.0","tol/100","Success",true,true,18,0.147638208
+"lindauer_2017","published","0.5:EMAXTP:5.0","tol/100","Success",true,true,18,0.266799541
+"lindauer_2017","published","0.5:V1:5.0","tol/100","Success",true,true,18,0.141116292
+"lindauer_2017","published","0.5:FR:5.0","tol/100","Success",true,true,18,0.205881333
+"lindauer_2017","published","0.5:KdegPD1:5.0","tol/100","Success",true,true,18,0.17820075
+"lindauer_2017","published","0.5:CL:5.0","tol/100","Success",true,true,18,0.229164708
+"lindauer_2017","published","0.5:PLQ:5.0","tol/100","Success",true,true,18,0.233407375
+"lindauer_2017","published","0.5:L:5.0","tol/100","Success",true,true,18,0.272533
+"lindauer_2017","published","0.5:SLtg:5.0","tol/100","Success",true,true,18,7.285072541
+"lindauer_2017","published","0.5:L0:5.0","tol/100","Success",true,true,18,0.26656975
+"lindauer_2017","published","0.5:CLup:5.0","tol/100","Success",true,true,18,0.215618375
+"lindauer_2017","published","0.5:EC50TP:5.0","tol/100","Success",true,true,18,0.489991958
+"lindauer_2017","published","5.0:gamma:0.2","tol/100","Success",true,true,18,0.1300895
+"lindauer_2017","published","5.0:FR:0.2","tol/100","Success",true,true,18,0.317739875
+"lindauer_2017","published","5.0:SLtg:0.2","tol/100","Success",true,true,18,0.1592445
+"lindauer_2017","published","5.0:L0:0.2","tol/100","Success",true,true,18,0.249173792
+"lindauer_2017","published","5.0:Tmulti:0.2","tol/100","Success",true,true,18,0.379171
+"lindauer_2017","published","5.0:N_PD1_TC:0.2","tol/100","Success",true,true,18,0.358176667
+"lindauer_2017","published","5.0:V_blood:0.2","tol/100","Success",true,true,18,0.373915583
+"lindauer_2017","published","5.0:N_Tcell:0.2","tol/100","Success",true,true,18,0.38354925
+"lindauer_2017","published","5.0:EMAXTP:0.2","tol/100","Success",true,true,18,0.22881225
+"lindauer_2017","published","5.0:V1:0.2","tol/100","Success",true,true,18,0.305349584
+"lindauer_2017","published","5.0:KdegPD1:0.2","tol/100","Success",true,true,18,0.4097805
+"lindauer_2017","published","5.0:CL:0.2","tol/100","Success",true,true,18,0.240728458
+"lindauer_2017","published","5.0:PLQ:0.2","tol/100","Success",true,true,18,0.485492041
+"lindauer_2017","published","5.0:L:0.2","tol/100","Success",true,true,18,0.456087417
+"lindauer_2017","published","5.0:CLup:0.2","tol/100","Success",true,true,18,0.244422375
+"lindauer_2017","published","5.0:V2:0.2","tol/100","Success",true,true,18,0.29410125
+"lindauer_2017","published","5.0:gamma:5.0","tol/100","Unstable",false,true,2,0.067748666
+"lindauer_2017","published","5.0:FR:5.0","tol/100","Success",true,true,18,0.171239333
+"lindauer_2017","published","5.0:SLtg:5.0","tol/100","MaxIters",false,true,8,7.878896208
+"lindauer_2017","published","5.0:L0:5.0","tol/100","Success",true,true,18,0.245011584
+"lindauer_2017","published","5.0:Tmulti:5.0","tol/100","Success",true,true,18,0.276490583
+"lindauer_2017","published","5.0:N_PD1_TC:5.0","tol/100","Success",true,true,18,0.202619958
+"lindauer_2017","published","5.0:V_blood:5.0","tol/100","Success",true,true,18,0.25041325
+"lindauer_2017","published","5.0:N_Tcell:5.0","tol/100","Success",true,true,18,0.188048875
+"lindauer_2017","published","5.0:EMAXTP:5.0","tol/100","Success",true,true,18,0.328983167
+"lindauer_2017","published","5.0:V1:5.0","tol/100","Success",true,true,18,0.256929459
+"lindauer_2017","published","5.0:KdegPD1:5.0","tol/100","Success",true,true,18,0.270028084
+"lindauer_2017","published","5.0:CL:5.0","tol/100","Success",true,true,18,0.378075708
+"lindauer_2017","published","5.0:PLQ:5.0","tol/100","Success",true,true,18,0.315794
+"lindauer_2017","published","5.0:L:5.0","tol/100","Success",true,true,18,0.192351958
+"lindauer_2017","published","5.0:CLup:5.0","tol/100","Success",true,true,18,0.283070709
+"lindauer_2017","published","5.0:V2:5.0","tol/100","Success",true,true,18,0.314997292
+"lindauer_2017","published","5.0:base:1.0","tol/100","Success",true,true,18,0.298035833
+"lindauer_2017","published","0.5:base:1.0","tol/100","Success",true,true,18,0.257984917
+"lindauer_2017","published","0.5:gamma:0.2","altA FBDF","Success",true,true,18,3.16197225
+"lindauer_2017","published","0.5:Tmulti:0.2","altA FBDF","Success",true,true,18,0.033112708
+"lindauer_2017","published","0.5:N_PD1_TC:0.2","altA FBDF","Success",true,true,18,0.044106667
+"lindauer_2017","published","0.5:V_blood:0.2","altA FBDF","Success",true,true,18,0.03959575
+"lindauer_2017","published","0.5:N_Tcell:0.2","altA FBDF","Success",true,true,18,0.011809917
+"lindauer_2017","published","0.5:EMAXTP:0.2","altA FBDF","Success",true,true,18,0.018770708
+"lindauer_2017","published","0.5:V1:0.2","altA FBDF","Success",true,true,18,0.025312166
+"lindauer_2017","published","0.5:FR:0.2","altA FBDF","Success",true,true,18,0.024287
+"lindauer_2017","published","0.5:KdegPD1:0.2","altA FBDF","Success",true,true,18,0.022960958
+"lindauer_2017","published","0.5:CL:0.2","altA FBDF","Success",true,true,18,0.009858584
+"lindauer_2017","published","0.5:PLQ:0.2","altA FBDF","Success",true,true,18,0.01884375
+"lindauer_2017","published","0.5:L:0.2","altA FBDF","Success",true,true,18,0.048725209
+"lindauer_2017","published","0.5:SLtg:0.2","altA FBDF","Success",true,true,18,0.028703
+"lindauer_2017","published","0.5:L0:0.2","altA FBDF","Success",true,true,18,0.011361334
+"lindauer_2017","published","0.5:CLup:0.2","altA FBDF","Success",true,true,18,0.032755584
+"lindauer_2017","published","0.5:EC50TP:0.2","altA FBDF","Success",true,true,18,0.008909709
+"lindauer_2017","published","0.5:gamma:5.0","altA FBDF","Unstable",false,true,2,0.003890958
+"lindauer_2017","published","0.5:Tmulti:5.0","altA FBDF","Success",true,true,18,0.021142375
+"lindauer_2017","published","0.5:N_PD1_TC:5.0","altA FBDF","Success",true,true,18,0.048527709
+"lindauer_2017","published","0.5:V_blood:5.0","altA FBDF","Success",true,true,18,0.018171791
+"lindauer_2017","published","0.5:N_Tcell:5.0","altA FBDF","Success",true,true,18,0.042216167
+"lindauer_2017","published","0.5:EMAXTP:5.0","altA FBDF","Success",true,true,18,0.058917875
+"lindauer_2017","published","0.5:V1:5.0","altA FBDF","Success",true,true,18,0.009086459
+"lindauer_2017","published","0.5:FR:5.0","altA FBDF","Success",true,true,18,0.036329166
+"lindauer_2017","published","0.5:KdegPD1:5.0","altA FBDF","Success",true,true,18,0.032252584
+"lindauer_2017","published","0.5:CL:5.0","altA FBDF","Success",true,true,18,0.015859625
+"lindauer_2017","published","0.5:PLQ:5.0","altA FBDF","Success",true,true,18,0.03432975
+"lindauer_2017","published","0.5:L:5.0","altA FBDF","Success",true,true,18,0.052147042
+"lindauer_2017","published","0.5:SLtg:5.0","altA FBDF","Success",true,true,18,0.080521
+"lindauer_2017","published","0.5:L0:5.0","altA FBDF","Success",true,true,18,0.008915125
+"lindauer_2017","published","0.5:CLup:5.0","altA FBDF","Success",true,true,18,0.031059958
+"lindauer_2017","published","0.5:EC50TP:5.0","altA FBDF","Success",true,true,18,0.010255958
+"lindauer_2017","published","5.0:gamma:0.2","altA FBDF","Success",true,true,18,0.010369208
+"lindauer_2017","published","5.0:FR:0.2","altA FBDF","Success",true,true,18,0.01466525
+"lindauer_2017","published","5.0:SLtg:0.2","altA FBDF","Success",true,true,18,0.031151542
+"lindauer_2017","published","5.0:L0:0.2","altA FBDF","Success",true,true,18,0.031490458
+"lindauer_2017","published","5.0:Tmulti:0.2","altA FBDF","Success",true,true,18,0.01381525
+"lindauer_2017","published","5.0:N_PD1_TC:0.2","altA FBDF","Success",true,true,18,0.023974334
+"lindauer_2017","published","5.0:V_blood:0.2","altA FBDF","Success",true,true,18,0.062441041
+"lindauer_2017","published","5.0:N_Tcell:0.2","altA FBDF","Success",true,true,18,0.044823875
+"lindauer_2017","published","5.0:EMAXTP:0.2","altA FBDF","Success",true,true,18,0.00994825
+"lindauer_2017","published","5.0:V1:0.2","altA FBDF","Success",true,true,18,0.02933
+"lindauer_2017","published","5.0:KdegPD1:0.2","altA FBDF","Success",true,true,18,0.01929075
+"lindauer_2017","published","5.0:CL:0.2","altA FBDF","Success",true,true,18,0.012940625
+"lindauer_2017","published","5.0:PLQ:0.2","altA FBDF","Success",true,true,18,0.008143625
+"lindauer_2017","published","5.0:L:0.2","altA FBDF","Success",true,true,18,0.019890875
+"lindauer_2017","published","5.0:CLup:0.2","altA FBDF","Success",true,true,18,0.010312417
+"lindauer_2017","published","5.0:V2:0.2","altA FBDF","Success",true,true,18,0.038565917
+"lindauer_2017","published","5.0:gamma:5.0","altA FBDF","Unstable",false,true,2,0.004319
+"lindauer_2017","published","5.0:FR:5.0","altA FBDF","Success",true,true,18,0.029563667
+"lindauer_2017","published","5.0:SLtg:5.0","altA FBDF","Success",true,true,18,2.304185417
+"lindauer_2017","published","5.0:L0:5.0","altA FBDF","Success",true,true,18,0.012848
+"lindauer_2017","published","5.0:Tmulti:5.0","altA FBDF","Success",true,true,18,0.009962
+"lindauer_2017","published","5.0:N_PD1_TC:5.0","altA FBDF","Success",true,true,18,0.010492
+"lindauer_2017","published","5.0:V_blood:5.0","altA FBDF","Success",true,true,18,0.012372208
+"lindauer_2017","published","5.0:N_Tcell:5.0","altA FBDF","Success",true,true,18,0.012107541
+"lindauer_2017","published","5.0:EMAXTP:5.0","altA FBDF","Success",true,true,18,0.050093375
+"lindauer_2017","published","5.0:V1:5.0","altA FBDF","Success",true,true,18,0.022247
+"lindauer_2017","published","5.0:KdegPD1:5.0","altA FBDF","Success",true,true,18,0.024577791
+"lindauer_2017","published","5.0:CL:5.0","altA FBDF","Success",true,true,18,0.029859625
+"lindauer_2017","published","5.0:PLQ:5.0","altA FBDF","Success",true,true,18,0.016969458
+"lindauer_2017","published","5.0:L:5.0","altA FBDF","Success",true,true,18,0.019710875
+"lindauer_2017","published","5.0:CLup:5.0","altA FBDF","Success",true,true,18,0.011391666
+"lindauer_2017","published","5.0:V2:5.0","altA FBDF","Success",true,true,18,0.013850792
+"lindauer_2017","published","5.0:base:1.0","altA FBDF","Success",true,true,18,0.01751025
+"lindauer_2017","published","0.5:base:1.0","altA FBDF","Success",true,true,18,0.035249667
+"lindauer_2017","published","0.5:gamma:0.2","altB Rosenbrock23","Success",true,true,18,2.2878515
+"lindauer_2017","published","0.5:Tmulti:0.2","altB Rosenbrock23","Success",true,true,18,0.828202875
+"lindauer_2017","published","0.5:N_PD1_TC:0.2","altB Rosenbrock23","Success",true,true,18,1.014722
+"lindauer_2017","published","0.5:V_blood:0.2","altB Rosenbrock23","Success",true,true,18,0.8774655
+"lindauer_2017","published","0.5:N_Tcell:0.2","altB Rosenbrock23","Success",true,true,18,0.810860042
+"lindauer_2017","published","0.5:EMAXTP:0.2","altB Rosenbrock23","Success",true,true,18,0.955151333
+"lindauer_2017","published","0.5:V1:0.2","altB Rosenbrock23","Success",true,true,18,1.033959708
+"lindauer_2017","published","0.5:FR:0.2","altB Rosenbrock23","Success",true,true,18,0.990369542
+"lindauer_2017","published","0.5:KdegPD1:0.2","altB Rosenbrock23","Success",true,true,18,1.1550295
+"lindauer_2017","published","0.5:CL:0.2","altB Rosenbrock23","Success",true,true,18,1.244174375
+"lindauer_2017","published","0.5:PLQ:0.2","altB Rosenbrock23","Success",true,true,18,1.567344917
+"lindauer_2017","published","0.5:L:0.2","altB Rosenbrock23","Success",true,true,18,1.483782208
+"lindauer_2017","published","0.5:SLtg:0.2","altB Rosenbrock23","Success",true,true,18,0.315191458
+"lindauer_2017","published","0.5:L0:0.2","altB Rosenbrock23","Success",true,true,18,0.848754125
+"lindauer_2017","published","0.5:CLup:0.2","altB Rosenbrock23","Success",true,true,18,0.943028459
+"lindauer_2017","published","0.5:EC50TP:0.2","altB Rosenbrock23","Success",true,true,18,0.881209834
+"lindauer_2017","published","0.5:gamma:5.0","altB Rosenbrock23","Unstable",false,true,2,0.22157575
+"lindauer_2017","published","0.5:Tmulti:5.0","altB Rosenbrock23","Success",true,true,18,0.952191292
+"lindauer_2017","published","0.5:N_PD1_TC:5.0","altB Rosenbrock23","Success",true,true,18,0.790461666
+"lindauer_2017","published","0.5:V_blood:5.0","altB Rosenbrock23","Success",true,true,18,0.790506834
+"lindauer_2017","published","0.5:N_Tcell:5.0","altB Rosenbrock23","Success",true,true,18,0.769128542
+"lindauer_2017","published","0.5:EMAXTP:5.0","altB Rosenbrock23","Success",true,true,18,0.865149833
+"lindauer_2017","published","0.5:V1:5.0","altB Rosenbrock23","Success",true,true,18,0.881649042
+"lindauer_2017","published","0.5:FR:5.0","altB Rosenbrock23","Success",true,true,18,0.421949792
+"lindauer_2017","published","0.5:KdegPD1:5.0","altB Rosenbrock23","Success",true,true,18,0.710863625
+"lindauer_2017","published","0.5:CL:5.0","altB Rosenbrock23","Success",true,true,18,0.955922083
+"lindauer_2017","published","0.5:PLQ:5.0","altB Rosenbrock23","Success",true,true,18,0.843110959
+"lindauer_2017","published","0.5:L:5.0","altB Rosenbrock23","Success",true,true,18,0.583401666
+"lindauer_2017","published","0.5:SLtg:5.0","altB Rosenbrock23","Success",true,true,18,5.166349208
+"lindauer_2017","published","0.5:L0:5.0","altB Rosenbrock23","Success",true,true,18,0.75055025
+"lindauer_2017","published","0.5:CLup:5.0","altB Rosenbrock23","Success",true,true,18,0.743912541
+"lindauer_2017","published","0.5:EC50TP:5.0","altB Rosenbrock23","Success",true,true,18,0.868644084
+"lindauer_2017","published","5.0:gamma:0.2","altB Rosenbrock23","Success",true,true,18,0.327502417
+"lindauer_2017","published","5.0:FR:0.2","altB Rosenbrock23","Success",true,true,18,1.486979709
+"lindauer_2017","published","5.0:SLtg:0.2","altB Rosenbrock23","Success",true,true,18,0.297792667
+"lindauer_2017","published","5.0:L0:0.2","altB Rosenbrock23","Success",true,true,18,1.4374675
+"lindauer_2017","published","5.0:Tmulti:0.2","altB Rosenbrock23","Success",true,true,18,1.509218584
+"lindauer_2017","published","5.0:N_PD1_TC:0.2","altB Rosenbrock23","Success",true,true,18,1.578501958
+"lindauer_2017","published","5.0:V_blood:0.2","altB Rosenbrock23","Success",true,true,18,1.483777125
+"lindauer_2017","published","5.0:N_Tcell:0.2","altB Rosenbrock23","Success",true,true,18,1.566467458
+"lindauer_2017","published","5.0:EMAXTP:0.2","altB Rosenbrock23","Success",true,true,18,1.425172375
+"lindauer_2017","published","5.0:V1:0.2","altB Rosenbrock23","Success",true,true,18,1.249803125
+"lindauer_2017","published","5.0:KdegPD1:0.2","altB Rosenbrock23","Success",true,true,18,1.390361958
+"lindauer_2017","published","5.0:CL:0.2","altB Rosenbrock23","Success",true,true,18,1.513481875
+"lindauer_2017","published","5.0:PLQ:0.2","altB Rosenbrock23","Success",true,true,18,1.354841
+"lindauer_2017","published","5.0:L:0.2","altB Rosenbrock23","Success",true,true,18,1.452227667
+"lindauer_2017","published","5.0:CLup:0.2","altB Rosenbrock23","Success",true,true,18,1.409503292
+"lindauer_2017","published","5.0:V2:0.2","altB Rosenbrock23","Success",true,true,18,1.156621166
+"lindauer_2017","published","5.0:gamma:5.0","altB Rosenbrock23","Unstable",false,true,2,0.212623708
+"lindauer_2017","published","5.0:FR:5.0","altB Rosenbrock23","Success",true,true,18,0.48968125
+"lindauer_2017","published","5.0:SLtg:5.0","altB Rosenbrock23","MaxIters",false,true,8,3.950415083
+"lindauer_2017","published","5.0:L0:5.0","altB Rosenbrock23","Success",true,true,18,0.960077458
+"lindauer_2017","published","5.0:Tmulti:5.0","altB Rosenbrock23","Success",true,true,18,0.956646542
+"lindauer_2017","published","5.0:N_PD1_TC:5.0","altB Rosenbrock23","Success",true,true,18,1.022457959
+"lindauer_2017","published","5.0:V_blood:5.0","altB Rosenbrock23","Success",true,true,18,0.954313417
+"lindauer_2017","published","5.0:N_Tcell:5.0","altB Rosenbrock23","Success",true,true,18,0.9879735
+"lindauer_2017","published","5.0:EMAXTP:5.0","altB Rosenbrock23","Success",true,true,18,1.189404708
+"lindauer_2017","published","5.0:V1:5.0","altB Rosenbrock23","Success",true,true,18,1.272609708
+"lindauer_2017","published","5.0:KdegPD1:5.0","altB Rosenbrock23","Success",true,true,18,1.142540541
+"lindauer_2017","published","5.0:CL:5.0","altB Rosenbrock23","Success",true,true,18,0.938902
+"lindauer_2017","published","5.0:PLQ:5.0","altB Rosenbrock23","Success",true,true,18,1.028188541
+"lindauer_2017","published","5.0:L:5.0","altB Rosenbrock23","Success",true,true,18,1.115797917
+"lindauer_2017","published","5.0:CLup:5.0","altB Rosenbrock23","Success",true,true,18,1.074775416
+"lindauer_2017","published","5.0:V2:5.0","altB Rosenbrock23","Success",true,true,18,1.1092505
+"lindauer_2017","published","5.0:base:1.0","altB Rosenbrock23","Success",true,true,18,1.176888791
+"lindauer_2017","published","0.5:base:1.0","altB Rosenbrock23","Success",true,true,18,0.611267791
+"lindauer_2017","published","0.5:gamma:0.2","dense x4","Success",true,true,1478,3.104378292
+"lindauer_2017","published","0.5:Tmulti:0.2","dense x4","Success",true,true,1478,0.043200625
+"lindauer_2017","published","0.5:N_PD1_TC:0.2","dense x4","Success",true,true,1478,0.151811709
+"lindauer_2017","published","0.5:V_blood:0.2","dense x4","Success",true,true,1478,0.03754475
+"lindauer_2017","published","0.5:N_Tcell:0.2","dense x4","Success",true,true,1478,0.083554541
+"lindauer_2017","published","0.5:EMAXTP:0.2","dense x4","Success",true,true,1478,0.093994625
+"lindauer_2017","published","0.5:V1:0.2","dense x4","Success",true,true,1478,0.068582417
+"lindauer_2017","published","0.5:FR:0.2","dense x4","Success",true,true,1478,0.0429605
+"lindauer_2017","published","0.5:KdegPD1:0.2","dense x4","Success",true,true,1478,0.086249125
+"lindauer_2017","published","0.5:CL:0.2","dense x4","Success",true,true,1478,0.03469425
+"lindauer_2017","published","0.5:PLQ:0.2","dense x4","Success",true,true,1478,0.113018167
+"lindauer_2017","published","0.5:L:0.2","dense x4","Success",true,true,1478,0.079127833
+"lindauer_2017","published","0.5:SLtg:0.2","dense x4","Success",true,true,1478,0.061252708
+"lindauer_2017","published","0.5:L0:0.2","dense x4","Success",true,true,1478,0.057778042
+"lindauer_2017","published","0.5:CLup:0.2","dense x4","Success",true,true,1478,0.043171334
+"lindauer_2017","published","0.5:EC50TP:0.2","dense x4","Success",true,true,1478,0.050945208
+"lindauer_2017","published","0.5:gamma:5.0","dense x4","Unstable",false,true,2,0.018042125
+"lindauer_2017","published","0.5:Tmulti:5.0","dense x4","Success",true,true,1478,0.047413083
+"lindauer_2017","published","0.5:N_PD1_TC:5.0","dense x4","Success",true,true,1478,0.041542875
+"lindauer_2017","published","0.5:V_blood:5.0","dense x4","Success",true,true,1478,0.031542708
+"lindauer_2017","published","0.5:N_Tcell:5.0","dense x4","Success",true,true,1478,0.07920725
+"lindauer_2017","published","0.5:EMAXTP:5.0","dense x4","Success",true,true,1478,0.067664459
+"lindauer_2017","published","0.5:V1:5.0","dense x4","Success",true,true,1478,0.026543542
+"lindauer_2017","published","0.5:FR:5.0","dense x4","Success",true,true,1478,0.079504083
+"lindauer_2017","published","0.5:KdegPD1:5.0","dense x4","Success",true,true,1478,0.036042625
+"lindauer_2017","published","0.5:CL:5.0","dense x4","Success",true,true,1478,0.069500583
+"lindauer_2017","published","0.5:PLQ:5.0","dense x4","Success",true,true,1478,0.060855958
+"lindauer_2017","published","0.5:L:5.0","dense x4","Success",true,true,1478,0.055257125
+"lindauer_2017","published","0.5:SLtg:5.0","dense x4","Success",true,true,1478,2.146778958
+"lindauer_2017","published","0.5:L0:5.0","dense x4","Success",true,true,1478,0.02605875
+"lindauer_2017","published","0.5:CLup:5.0","dense x4","Success",true,true,1478,0.023488333
+"lindauer_2017","published","0.5:EC50TP:5.0","dense x4","Success",true,true,1478,0.070942625
+"lindauer_2017","published","5.0:gamma:0.2","dense x4","Success",true,true,1478,0.050204375
+"lindauer_2017","published","5.0:FR:0.2","dense x4","Success",true,true,1478,0.033284708
+"lindauer_2017","published","5.0:SLtg:0.2","dense x4","Success",true,true,1478,0.027972459
+"lindauer_2017","published","5.0:L0:0.2","dense x4","Success",true,true,1478,0.081692458
+"lindauer_2017","published","5.0:Tmulti:0.2","dense x4","Success",true,true,1478,0.046069959
+"lindauer_2017","published","5.0:N_PD1_TC:0.2","dense x4","Success",true,true,1478,0.042693417
+"lindauer_2017","published","5.0:V_blood:0.2","dense x4","Success",true,true,1478,0.051656458
+"lindauer_2017","published","5.0:N_Tcell:0.2","dense x4","Success",true,true,1478,0.032802958
+"lindauer_2017","published","5.0:EMAXTP:0.2","dense x4","Success",true,true,1478,0.03357825
+"lindauer_2017","published","5.0:V1:0.2","dense x4","Success",true,true,1478,0.104387292
+"lindauer_2017","published","5.0:KdegPD1:0.2","dense x4","Success",true,true,1478,0.032583375
+"lindauer_2017","published","5.0:CL:0.2","dense x4","Success",true,true,1478,0.085544292
+"lindauer_2017","published","5.0:PLQ:0.2","dense x4","Success",true,true,1478,0.063331041
+"lindauer_2017","published","5.0:L:0.2","dense x4","Success",true,true,1478,0.087354834
+"lindauer_2017","published","5.0:CLup:0.2","dense x4","Success",true,true,1478,0.040482208
+"lindauer_2017","published","5.0:V2:0.2","dense x4","Success",true,true,1478,0.035792667
+"lindauer_2017","published","5.0:gamma:5.0","dense x4","Unstable",false,true,2,0.009136875
+"lindauer_2017","published","5.0:FR:5.0","dense x4","Success",true,true,1478,0.026360333
+"lindauer_2017","published","5.0:SLtg:5.0","dense x4","MaxIters",false,true,647,6.539747583
+"lindauer_2017","published","5.0:L0:5.0","dense x4","Success",true,true,1478,0.031254416
+"lindauer_2017","published","5.0:Tmulti:5.0","dense x4","Success",true,true,1478,0.042875917
+"lindauer_2017","published","5.0:N_PD1_TC:5.0","dense x4","Success",true,true,1478,0.067212
+"lindauer_2017","published","5.0:V_blood:5.0","dense x4","Success",true,true,1478,0.042108167
+"lindauer_2017","published","5.0:N_Tcell:5.0","dense x4","Success",true,true,1478,0.079989292
+"lindauer_2017","published","5.0:EMAXTP:5.0","dense x4","Success",true,true,1478,0.078272875
+"lindauer_2017","published","5.0:V1:5.0","dense x4","Success",true,true,1478,0.032773834
+"lindauer_2017","published","5.0:KdegPD1:5.0","dense x4","Success",true,true,1478,0.050518416
+"lindauer_2017","published","5.0:CL:5.0","dense x4","Success",true,true,1478,0.094875667
+"lindauer_2017","published","5.0:PLQ:5.0","dense x4","Success",true,true,1478,0.067527917
+"lindauer_2017","published","5.0:L:5.0","dense x4","Success",true,true,1478,0.050939709
+"lindauer_2017","published","5.0:CLup:5.0","dense x4","Success",true,true,1478,0.040210958
+"lindauer_2017","published","5.0:V2:5.0","dense x4","Success",true,true,1478,0.061980042
+"lindauer_2017","published","5.0:base:1.0","dense x4","Success",true,true,1478,0.052359041
+"lindauer_2017","published","0.5:base:1.0","dense x4","Success",true,true,1478,0.03735425
+"lindauer_2017","fixed","0.5:gamma:0.2","own","Success",true,true,18,0.035398208
+"lindauer_2017","fixed","0.5:Tmulti:0.2","own","Success",true,true,18,0.056268083
+"lindauer_2017","fixed","0.5:N_PD1_TC:0.2","own","Success",true,true,18,0.029096458
+"lindauer_2017","fixed","0.5:V_blood:0.2","own","Success",true,true,18,0.049542958
+"lindauer_2017","fixed","0.5:N_Tcell:0.2","own","Success",true,true,18,0.062804084
+"lindauer_2017","fixed","0.5:EMAXTP:0.2","own","Success",true,true,18,0.04223625
+"lindauer_2017","fixed","0.5:V1:0.2","own","Success",true,true,18,0.021212208
+"lindauer_2017","fixed","0.5:FR:0.2","own","Success",true,true,18,0.020367458
+"lindauer_2017","fixed","0.5:KdegPD1:0.2","own","Success",true,true,18,0.03638125
+"lindauer_2017","fixed","0.5:CL:0.2","own","Success",true,true,18,0.032621541
+"lindauer_2017","fixed","0.5:PLQ:0.2","own","Success",true,true,18,0.011895083
+"lindauer_2017","fixed","0.5:L:0.2","own","Success",true,true,18,0.040335209
+"lindauer_2017","fixed","0.5:SLtg:0.2","own","Success",true,true,18,0.087981125
+"lindauer_2017","fixed","0.5:L0:0.2","own","Success",true,true,18,0.066342791
+"lindauer_2017","fixed","0.5:CLup:0.2","own","Success",true,true,18,0.057908125
+"lindauer_2017","fixed","0.5:EC50TP:0.2","own","Success",true,true,18,0.040714708
+"lindauer_2017","fixed","0.5:gamma:5.0","own","Success",true,true,18,0.025962208
+"lindauer_2017","fixed","0.5:Tmulti:5.0","own","Success",true,true,18,0.028391209
+"lindauer_2017","fixed","0.5:N_PD1_TC:5.0","own","Success",true,true,18,0.024126375
+"lindauer_2017","fixed","0.5:V_blood:5.0","own","Success",true,true,18,0.015545584
+"lindauer_2017","fixed","0.5:N_Tcell:5.0","own","Success",true,true,18,0.033913167
+"lindauer_2017","fixed","0.5:EMAXTP:5.0","own","Success",true,true,18,0.014340208
+"lindauer_2017","fixed","0.5:V1:5.0","own","Success",true,true,18,0.018926958
+"lindauer_2017","fixed","0.5:FR:5.0","own","Success",true,true,18,0.047881375
+"lindauer_2017","fixed","0.5:KdegPD1:5.0","own","Success",true,true,18,0.03236925
+"lindauer_2017","fixed","0.5:CL:5.0","own","Success",true,true,18,0.027015166
+"lindauer_2017","fixed","0.5:PLQ:5.0","own","Success",true,true,18,0.041478416
+"lindauer_2017","fixed","0.5:L:5.0","own","Success",true,true,18,0.027670584
+"lindauer_2017","fixed","0.5:SLtg:5.0","own","Success",true,true,18,0.019408958
+"lindauer_2017","fixed","0.5:L0:5.0","own","Success",true,true,18,0.048900834
+"lindauer_2017","fixed","0.5:CLup:5.0","own","Success",true,true,18,0.039156834
+"lindauer_2017","fixed","0.5:EC50TP:5.0","own","Success",true,true,18,0.025460125
+"lindauer_2017","fixed","5.0:gamma:0.2","own","Success",true,true,18,0.00940225
+"lindauer_2017","fixed","5.0:FR:0.2","own","Success",true,true,18,0.079435041
+"lindauer_2017","fixed","5.0:SLtg:0.2","own","Success",true,true,18,0.007258125
+"lindauer_2017","fixed","5.0:L0:0.2","own","Success",true,true,18,0.037335334
+"lindauer_2017","fixed","5.0:Tmulti:0.2","own","Success",true,true,18,0.029247125
+"lindauer_2017","fixed","5.0:N_PD1_TC:0.2","own","Success",true,true,18,0.031982625
+"lindauer_2017","fixed","5.0:V_blood:0.2","own","Success",true,true,18,0.051328167
+"lindauer_2017","fixed","5.0:N_Tcell:0.2","own","Success",true,true,18,0.024629583
+"lindauer_2017","fixed","5.0:EMAXTP:0.2","own","Success",true,true,18,0.020899125
+"lindauer_2017","fixed","5.0:V1:0.2","own","Success",true,true,18,0.075137875
+"lindauer_2017","fixed","5.0:KdegPD1:0.2","own","Success",true,true,18,0.038179833
+"lindauer_2017","fixed","5.0:CL:0.2","own","Success",true,true,18,0.020237667
+"lindauer_2017","fixed","5.0:PLQ:0.2","own","Success",true,true,18,0.043163333
+"lindauer_2017","fixed","5.0:L:0.2","own","Success",true,true,18,0.01592075
+"lindauer_2017","fixed","5.0:CLup:0.2","own","Success",true,true,18,0.031900958
+"lindauer_2017","fixed","5.0:V2:0.2","own","Success",true,true,18,0.0571635
+"lindauer_2017","fixed","5.0:gamma:5.0","own","Success",true,true,18,0.032316125
+"lindauer_2017","fixed","5.0:FR:5.0","own","Success",true,true,18,0.091889
+"lindauer_2017","fixed","5.0:SLtg:5.0","own","Success",true,true,18,0.030209375
+"lindauer_2017","fixed","5.0:L0:5.0","own","Success",true,true,18,0.041354333
+"lindauer_2017","fixed","5.0:Tmulti:5.0","own","Success",true,true,18,0.053453416
+"lindauer_2017","fixed","5.0:N_PD1_TC:5.0","own","Success",true,true,18,0.0575745
+"lindauer_2017","fixed","5.0:V_blood:5.0","own","Success",true,true,18,0.028421625
+"lindauer_2017","fixed","5.0:N_Tcell:5.0","own","Success",true,true,18,0.047316041
+"lindauer_2017","fixed","5.0:EMAXTP:5.0","own","Success",true,true,18,0.036834792
+"lindauer_2017","fixed","5.0:V1:5.0","own","Success",true,true,18,0.011686708
+"lindauer_2017","fixed","5.0:KdegPD1:5.0","own","Success",true,true,18,0.070849875
+"lindauer_2017","fixed","5.0:CL:5.0","own","Success",true,true,18,0.042285042
+"lindauer_2017","fixed","5.0:PLQ:5.0","own","Success",true,true,18,0.019855167
+"lindauer_2017","fixed","5.0:L:5.0","own","Success",true,true,18,0.0844775
+"lindauer_2017","fixed","5.0:CLup:5.0","own","Success",true,true,18,0.045958625
+"lindauer_2017","fixed","5.0:V2:5.0","own","Success",true,true,18,0.04238925
+"lindauer_2017","fixed","5.0:base:1.0","own","Success",true,true,18,0.022991125
+"lindauer_2017","fixed","0.5:base:1.0","own","Success",true,true,18,0.020566375
+"lindauer_2017","fixed","0.5:gamma:0.2","tol/100","Success",true,true,18,0.071768709
+"lindauer_2017","fixed","0.5:Tmulti:0.2","tol/100","Success",true,true,18,0.106556833
+"lindauer_2017","fixed","0.5:N_PD1_TC:0.2","tol/100","Success",true,true,18,0.156194834
+"lindauer_2017","fixed","0.5:V_blood:0.2","tol/100","Success",true,true,18,0.10525875
+"lindauer_2017","fixed","0.5:N_Tcell:0.2","tol/100","Success",true,true,18,0.120293916
+"lindauer_2017","fixed","0.5:EMAXTP:0.2","tol/100","Success",true,true,18,0.099615416
+"lindauer_2017","fixed","0.5:V1:0.2","tol/100","Success",true,true,18,0.148570083
+"lindauer_2017","fixed","0.5:FR:0.2","tol/100","Success",true,true,18,0.135787959
+"lindauer_2017","fixed","0.5:KdegPD1:0.2","tol/100","Success",true,true,18,0.137265167
+"lindauer_2017","fixed","0.5:CL:0.2","tol/100","Success",true,true,18,0.094540583
+"lindauer_2017","fixed","0.5:PLQ:0.2","tol/100","Success",true,true,18,0.060543
+"lindauer_2017","fixed","0.5:L:0.2","tol/100","Success",true,true,18,0.106750291
+"lindauer_2017","fixed","0.5:SLtg:0.2","tol/100","Success",true,true,18,0.112537916
+"lindauer_2017","fixed","0.5:L0:0.2","tol/100","Success",true,true,18,0.122524458
+"lindauer_2017","fixed","0.5:CLup:0.2","tol/100","Success",true,true,18,0.112941667
+"lindauer_2017","fixed","0.5:EC50TP:0.2","tol/100","Success",true,true,18,0.11756325
+"lindauer_2017","fixed","0.5:gamma:5.0","tol/100","Success",true,true,18,0.108599
+"lindauer_2017","fixed","0.5:Tmulti:5.0","tol/100","Success",true,true,18,0.120070667
+"lindauer_2017","fixed","0.5:N_PD1_TC:5.0","tol/100","Success",true,true,18,0.126948917
+"lindauer_2017","fixed","0.5:V_blood:5.0","tol/100","Success",true,true,18,0.045775417
+"lindauer_2017","fixed","0.5:N_Tcell:5.0","tol/100","Success",true,true,18,0.129254333
+"lindauer_2017","fixed","0.5:EMAXTP:5.0","tol/100","Success",true,true,18,0.106751416
+"lindauer_2017","fixed","0.5:V1:5.0","tol/100","Success",true,true,18,0.09844825
+"lindauer_2017","fixed","0.5:FR:5.0","tol/100","Success",true,true,18,0.156214375
+"lindauer_2017","fixed","0.5:KdegPD1:5.0","tol/100","Success",true,true,18,0.130529583
+"lindauer_2017","fixed","0.5:CL:5.0","tol/100","Success",true,true,18,0.16354975
+"lindauer_2017","fixed","0.5:PLQ:5.0","tol/100","Success",true,true,18,0.143688125
+"lindauer_2017","fixed","0.5:L:5.0","tol/100","Success",true,true,18,0.193065542
+"lindauer_2017","fixed","0.5:SLtg:5.0","tol/100","Success",true,true,18,0.098184208
+"lindauer_2017","fixed","0.5:L0:5.0","tol/100","Success",true,true,18,0.123716917
+"lindauer_2017","fixed","0.5:CLup:5.0","tol/100","Success",true,true,18,0.118401375
+"lindauer_2017","fixed","0.5:EC50TP:5.0","tol/100","Success",true,true,18,0.127562167
+"lindauer_2017","fixed","5.0:gamma:0.2","tol/100","Success",true,true,18,0.094060875
+"lindauer_2017","fixed","5.0:FR:0.2","tol/100","Success",true,true,18,0.141250291
+"lindauer_2017","fixed","5.0:SLtg:0.2","tol/100","Success",true,true,18,0.026910167
+"lindauer_2017","fixed","5.0:L0:0.2","tol/100","Success",true,true,18,0.166169167
+"lindauer_2017","fixed","5.0:Tmulti:0.2","tol/100","Success",true,true,18,0.136729791
+"lindauer_2017","fixed","5.0:N_PD1_TC:0.2","tol/100","Success",true,true,18,0.095500667
+"lindauer_2017","fixed","5.0:V_blood:0.2","tol/100","Success",true,true,18,0.165273791
+"lindauer_2017","fixed","5.0:N_Tcell:0.2","tol/100","Success",true,true,18,0.131795666
+"lindauer_2017","fixed","5.0:EMAXTP:0.2","tol/100","Success",true,true,18,0.088075125
+"lindauer_2017","fixed","5.0:V1:0.2","tol/100","Success",true,true,18,0.262707458
+"lindauer_2017","fixed","5.0:KdegPD1:0.2","tol/100","Success",true,true,18,0.139776291
+"lindauer_2017","fixed","5.0:CL:0.2","tol/100","Success",true,true,18,0.134107417
+"lindauer_2017","fixed","5.0:PLQ:0.2","tol/100","Success",true,true,18,0.124476166
+"lindauer_2017","fixed","5.0:L:0.2","tol/100","Success",true,true,18,0.14122775
+"lindauer_2017","fixed","5.0:CLup:0.2","tol/100","Success",true,true,18,0.149445709
+"lindauer_2017","fixed","5.0:V2:0.2","tol/100","Success",true,true,18,0.156020833
+"lindauer_2017","fixed","5.0:gamma:5.0","tol/100","Success",true,true,18,0.184012625
+"lindauer_2017","fixed","5.0:FR:5.0","tol/100","Success",true,true,18,0.219095958
+"lindauer_2017","fixed","5.0:SLtg:5.0","tol/100","Success",true,true,18,0.214915041
+"lindauer_2017","fixed","5.0:L0:5.0","tol/100","Success",true,true,18,0.068902583
+"lindauer_2017","fixed","5.0:Tmulti:5.0","tol/100","Success",true,true,18,0.180876833
+"lindauer_2017","fixed","5.0:N_PD1_TC:5.0","tol/100","Success",true,true,18,0.206005667
+"lindauer_2017","fixed","5.0:V_blood:5.0","tol/100","Success",true,true,18,0.233238167
+"lindauer_2017","fixed","5.0:N_Tcell:5.0","tol/100","Success",true,true,18,0.248837667
+"lindauer_2017","fixed","5.0:EMAXTP:5.0","tol/100","Success",true,true,18,0.160246417
+"lindauer_2017","fixed","5.0:V1:5.0","tol/100","Success",true,true,18,0.084710667
+"lindauer_2017","fixed","5.0:KdegPD1:5.0","tol/100","Success",true,true,18,0.309607625
+"lindauer_2017","fixed","5.0:CL:5.0","tol/100","Success",true,true,18,0.374085292
+"lindauer_2017","fixed","5.0:PLQ:5.0","tol/100","Success",true,true,18,0.140719792
+"lindauer_2017","fixed","5.0:L:5.0","tol/100","Success",true,true,18,0.186575709
+"lindauer_2017","fixed","5.0:CLup:5.0","tol/100","Success",true,true,18,0.156928167
+"lindauer_2017","fixed","5.0:V2:5.0","tol/100","Success",true,true,18,0.182779833
+"lindauer_2017","fixed","5.0:base:1.0","tol/100","Success",true,true,18,0.179647208
+"lindauer_2017","fixed","0.5:base:1.0","tol/100","Success",true,true,18,0.117226333
+"lindauer_2017","fixed","0.5:gamma:0.2","altA FBDF","Success",true,true,18,0.025553
+"lindauer_2017","fixed","0.5:Tmulti:0.2","altA FBDF","Success",true,true,18,0.025007417
+"lindauer_2017","fixed","0.5:N_PD1_TC:0.2","altA FBDF","Success",true,true,18,0.021057959
+"lindauer_2017","fixed","0.5:V_blood:0.2","altA FBDF","Success",true,true,18,0.025211375
+"lindauer_2017","fixed","0.5:N_Tcell:0.2","altA FBDF","Success",true,true,18,0.038460375
+"lindauer_2017","fixed","0.5:EMAXTP:0.2","altA FBDF","Success",true,true,18,0.023588417
+"lindauer_2017","fixed","0.5:V1:0.2","altA FBDF","Success",true,true,18,0.023807333
+"lindauer_2017","fixed","0.5:FR:0.2","altA FBDF","Success",true,true,18,0.02912925
+"lindauer_2017","fixed","0.5:KdegPD1:0.2","altA FBDF","Success",true,true,18,0.0204345
+"lindauer_2017","fixed","0.5:CL:0.2","altA FBDF","Success",true,true,18,0.023158458
+"lindauer_2017","fixed","0.5:PLQ:0.2","altA FBDF","Success",true,true,18,0.011525208
+"lindauer_2017","fixed","0.5:L:0.2","altA FBDF","Success",true,true,18,0.021808167
+"lindauer_2017","fixed","0.5:SLtg:0.2","altA FBDF","Success",true,true,18,0.010312875
+"lindauer_2017","fixed","0.5:L0:0.2","altA FBDF","Success",true,true,18,0.010715
+"lindauer_2017","fixed","0.5:CLup:0.2","altA FBDF","Success",true,true,18,0.0114805
+"lindauer_2017","fixed","0.5:EC50TP:0.2","altA FBDF","Success",true,true,18,0.0493265
+"lindauer_2017","fixed","0.5:gamma:5.0","altA FBDF","Success",true,true,18,0.025013125
+"lindauer_2017","fixed","0.5:Tmulti:5.0","altA FBDF","Success",true,true,18,0.035769291
+"lindauer_2017","fixed","0.5:N_PD1_TC:5.0","altA FBDF","Success",true,true,18,0.0102135
+"lindauer_2017","fixed","0.5:V_blood:5.0","altA FBDF","Success",true,true,18,0.035221292
+"lindauer_2017","fixed","0.5:N_Tcell:5.0","altA FBDF","Success",true,true,18,0.0372365
+"lindauer_2017","fixed","0.5:EMAXTP:5.0","altA FBDF","Success",true,true,18,0.01799525
+"lindauer_2017","fixed","0.5:V1:5.0","altA FBDF","Success",true,true,18,0.008252459
+"lindauer_2017","fixed","0.5:FR:5.0","altA FBDF","Success",true,true,18,0.018701958
+"lindauer_2017","fixed","0.5:KdegPD1:5.0","altA FBDF","Success",true,true,18,0.024323625
+"lindauer_2017","fixed","0.5:CL:5.0","altA FBDF","Success",true,true,18,0.022809208
+"lindauer_2017","fixed","0.5:PLQ:5.0","altA FBDF","Success",true,true,18,0.0422135
+"lindauer_2017","fixed","0.5:L:5.0","altA FBDF","Success",true,true,18,0.010617667
+"lindauer_2017","fixed","0.5:SLtg:5.0","altA FBDF","Success",true,true,18,0.033901042
+"lindauer_2017","fixed","0.5:L0:5.0","altA FBDF","Success",true,true,18,0.043438333
+"lindauer_2017","fixed","0.5:CLup:5.0","altA FBDF","Success",true,true,18,0.061299625
+"lindauer_2017","fixed","0.5:EC50TP:5.0","altA FBDF","Success",true,true,18,0.051393708
+"lindauer_2017","fixed","5.0:gamma:0.2","altA FBDF","Success",true,true,18,0.008700208
+"lindauer_2017","fixed","5.0:FR:0.2","altA FBDF","Success",true,true,18,0.025519792
+"lindauer_2017","fixed","5.0:SLtg:0.2","altA FBDF","Success",true,true,18,0.044612125
+"lindauer_2017","fixed","5.0:L0:0.2","altA FBDF","Success",true,true,18,0.057022709
+"lindauer_2017","fixed","5.0:Tmulti:0.2","altA FBDF","Success",true,true,18,0.022028084
+"lindauer_2017","fixed","5.0:N_PD1_TC:0.2","altA FBDF","Success",true,true,18,0.014404
+"lindauer_2017","fixed","5.0:V_blood:0.2","altA FBDF","Success",true,true,18,0.049246333
+"lindauer_2017","fixed","5.0:N_Tcell:0.2","altA FBDF","Success",true,true,18,0.039203042
+"lindauer_2017","fixed","5.0:EMAXTP:0.2","altA FBDF","Success",true,true,18,0.048200792
+"lindauer_2017","fixed","5.0:V1:0.2","altA FBDF","Success",true,true,18,0.032853083
+"lindauer_2017","fixed","5.0:KdegPD1:0.2","altA FBDF","Success",true,true,18,0.025344375
+"lindauer_2017","fixed","5.0:CL:0.2","altA FBDF","Success",true,true,18,0.007214125
+"lindauer_2017","fixed","5.0:PLQ:0.2","altA FBDF","Success",true,true,18,0.026959041
+"lindauer_2017","fixed","5.0:L:0.2","altA FBDF","Success",true,true,18,0.028473083
+"lindauer_2017","fixed","5.0:CLup:0.2","altA FBDF","Success",true,true,18,0.039644708
+"lindauer_2017","fixed","5.0:V2:0.2","altA FBDF","Success",true,true,18,0.027120583
+"lindauer_2017","fixed","5.0:gamma:5.0","altA FBDF","Success",true,true,18,0.036410834
+"lindauer_2017","fixed","5.0:FR:5.0","altA FBDF","Success",true,true,18,0.012238458
+"lindauer_2017","fixed","5.0:SLtg:5.0","altA FBDF","Success",true,true,18,0.0180865
+"lindauer_2017","fixed","5.0:L0:5.0","altA FBDF","Success",true,true,18,0.026106583
+"lindauer_2017","fixed","5.0:Tmulti:5.0","altA FBDF","Success",true,true,18,0.025508917
+"lindauer_2017","fixed","5.0:N_PD1_TC:5.0","altA FBDF","Success",true,true,18,0.044833416
+"lindauer_2017","fixed","5.0:V_blood:5.0","altA FBDF","Success",true,true,18,0.030827667
+"lindauer_2017","fixed","5.0:N_Tcell:5.0","altA FBDF","Success",true,true,18,0.042488542
+"lindauer_2017","fixed","5.0:EMAXTP:5.0","altA FBDF","Success",true,true,18,0.0430985
+"lindauer_2017","fixed","5.0:V1:5.0","altA FBDF","Success",true,true,18,0.019085792
+"lindauer_2017","fixed","5.0:KdegPD1:5.0","altA FBDF","Success",true,true,18,0.036560834
+"lindauer_2017","fixed","5.0:CL:5.0","altA FBDF","Success",true,true,18,0.035712417
+"lindauer_2017","fixed","5.0:PLQ:5.0","altA FBDF","Success",true,true,18,0.034401625
+"lindauer_2017","fixed","5.0:L:5.0","altA FBDF","Success",true,true,18,0.014352625
+"lindauer_2017","fixed","5.0:CLup:5.0","altA FBDF","Success",true,true,18,0.06279725
+"lindauer_2017","fixed","5.0:V2:5.0","altA FBDF","Success",true,true,18,0.009818334
+"lindauer_2017","fixed","5.0:base:1.0","altA FBDF","Success",true,true,18,0.054485583
+"lindauer_2017","fixed","0.5:base:1.0","altA FBDF","Success",true,true,18,0.02424325
+"lindauer_2017","fixed","0.5:gamma:0.2","altB Rosenbrock23","Success",true,true,18,0.25621125
+"lindauer_2017","fixed","0.5:Tmulti:0.2","altB Rosenbrock23","Success",true,true,18,0.345300875
+"lindauer_2017","fixed","0.5:N_PD1_TC:0.2","altB Rosenbrock23","Success",true,true,18,0.332082541
+"lindauer_2017","fixed","0.5:V_blood:0.2","altB Rosenbrock23","Success",true,true,18,0.435387917
+"lindauer_2017","fixed","0.5:N_Tcell:0.2","altB Rosenbrock23","Success",true,true,18,0.416128416
+"lindauer_2017","fixed","0.5:EMAXTP:0.2","altB Rosenbrock23","Success",true,true,18,0.404059042
+"lindauer_2017","fixed","0.5:V1:0.2","altB Rosenbrock23","Success",true,true,18,0.460495667
+"lindauer_2017","fixed","0.5:FR:0.2","altB Rosenbrock23","Success",true,true,18,0.374933375
+"lindauer_2017","fixed","0.5:KdegPD1:0.2","altB Rosenbrock23","Success",true,true,18,0.459306042
+"lindauer_2017","fixed","0.5:CL:0.2","altB Rosenbrock23","Success",true,true,18,0.353625792
+"lindauer_2017","fixed","0.5:PLQ:0.2","altB Rosenbrock23","Success",true,true,18,0.256478292
+"lindauer_2017","fixed","0.5:L:0.2","altB Rosenbrock23","Success",true,true,18,0.380052458
+"lindauer_2017","fixed","0.5:SLtg:0.2","altB Rosenbrock23","Success",true,true,18,0.218993042
+"lindauer_2017","fixed","0.5:L0:0.2","altB Rosenbrock23","Success",true,true,18,0.397319417
+"lindauer_2017","fixed","0.5:CLup:0.2","altB Rosenbrock23","Success",true,true,18,0.367015583
+"lindauer_2017","fixed","0.5:EC50TP:0.2","altB Rosenbrock23","Success",true,true,18,0.444531042
+"lindauer_2017","fixed","0.5:gamma:5.0","altB Rosenbrock23","Success",true,true,18,0.323679
+"lindauer_2017","fixed","0.5:Tmulti:5.0","altB Rosenbrock23","Success",true,true,18,0.337036958
+"lindauer_2017","fixed","0.5:N_PD1_TC:5.0","altB Rosenbrock23","Success",true,true,18,0.2126515
+"lindauer_2017","fixed","0.5:V_blood:5.0","altB Rosenbrock23","Success",true,true,18,0.377942
+"lindauer_2017","fixed","0.5:N_Tcell:5.0","altB Rosenbrock23","Success",true,true,18,0.390239958
+"lindauer_2017","fixed","0.5:EMAXTP:5.0","altB Rosenbrock23","Success",true,true,18,0.165202833
+"lindauer_2017","fixed","0.5:V1:5.0","altB Rosenbrock23","Success",true,true,18,0.221851583
+"lindauer_2017","fixed","0.5:FR:5.0","altB Rosenbrock23","Success",true,true,18,0.298326334
+"lindauer_2017","fixed","0.5:KdegPD1:5.0","altB Rosenbrock23","Success",true,true,18,0.32495925
+"lindauer_2017","fixed","0.5:CL:5.0","altB Rosenbrock23","Success",true,true,18,0.398891875
+"lindauer_2017","fixed","0.5:PLQ:5.0","altB Rosenbrock23","Success",true,true,18,0.707010041
+"lindauer_2017","fixed","0.5:L:5.0","altB Rosenbrock23","Success",true,true,18,0.679535042
+"lindauer_2017","fixed","0.5:SLtg:5.0","altB Rosenbrock23","Success",true,true,18,0.35055175
+"lindauer_2017","fixed","0.5:L0:5.0","altB Rosenbrock23","Success",true,true,18,0.527244667
+"lindauer_2017","fixed","0.5:CLup:5.0","altB Rosenbrock23","Success",true,true,18,0.695832625
+"lindauer_2017","fixed","0.5:EC50TP:5.0","altB Rosenbrock23","Success",true,true,18,0.465770583
+"lindauer_2017","fixed","5.0:gamma:0.2","altB Rosenbrock23","Success",true,true,18,0.470136875
+"lindauer_2017","fixed","5.0:FR:0.2","altB Rosenbrock23","Success",true,true,18,0.917001458
+"lindauer_2017","fixed","5.0:SLtg:0.2","altB Rosenbrock23","Success",true,true,18,0.312252709
+"lindauer_2017","fixed","5.0:L0:0.2","altB Rosenbrock23","Success",true,true,18,0.904706375
+"lindauer_2017","fixed","5.0:Tmulti:0.2","altB Rosenbrock23","Success",true,true,18,0.955610584
+"lindauer_2017","fixed","5.0:N_PD1_TC:0.2","altB Rosenbrock23","Success",true,true,18,0.721015333
+"lindauer_2017","fixed","5.0:V_blood:0.2","altB Rosenbrock23","Success",true,true,18,0.852417209
+"lindauer_2017","fixed","5.0:N_Tcell:0.2","altB Rosenbrock23","Success",true,true,18,0.607236708
+"lindauer_2017","fixed","5.0:EMAXTP:0.2","altB Rosenbrock23","Success",true,true,18,0.73293225
+"lindauer_2017","fixed","5.0:V1:0.2","altB Rosenbrock23","Success",true,true,18,1.624851917
+"lindauer_2017","fixed","5.0:KdegPD1:0.2","altB Rosenbrock23","Success",true,true,18,0.787065917
+"lindauer_2017","fixed","5.0:CL:0.2","altB Rosenbrock23","Success",true,true,18,0.626433833
+"lindauer_2017","fixed","5.0:PLQ:0.2","altB Rosenbrock23","Success",true,true,18,0.728733584
+"lindauer_2017","fixed","5.0:L:0.2","altB Rosenbrock23","Success",true,true,18,0.862974625
+"lindauer_2017","fixed","5.0:CLup:0.2","altB Rosenbrock23","Success",true,true,18,0.8643875
+"lindauer_2017","fixed","5.0:V2:0.2","altB Rosenbrock23","Success",true,true,18,0.905562792
+"lindauer_2017","fixed","5.0:gamma:5.0","altB Rosenbrock23","Success",true,true,18,0.932843625
+"lindauer_2017","fixed","5.0:FR:5.0","altB Rosenbrock23","Success",true,true,18,0.800725333
+"lindauer_2017","fixed","5.0:SLtg:5.0","altB Rosenbrock23","Success",true,true,18,0.661690958
+"lindauer_2017","fixed","5.0:L0:5.0","altB Rosenbrock23","Success",true,true,18,0.346794333
+"lindauer_2017","fixed","5.0:Tmulti:5.0","altB Rosenbrock23","Success",true,true,18,0.854848333
+"lindauer_2017","fixed","5.0:N_PD1_TC:5.0","altB Rosenbrock23","Success",true,true,18,0.805065291
+"lindauer_2017","fixed","5.0:V_blood:5.0","altB Rosenbrock23","Success",true,true,18,0.821666375
+"lindauer_2017","fixed","5.0:N_Tcell:5.0","altB Rosenbrock23","Success",true,true,18,0.659172042
+"lindauer_2017","fixed","5.0:EMAXTP:5.0","altB Rosenbrock23","Success",true,true,18,0.80346525
+"lindauer_2017","fixed","5.0:V1:5.0","altB Rosenbrock23","Success",true,true,18,0.403924417
+"lindauer_2017","fixed","5.0:KdegPD1:5.0","altB Rosenbrock23","Success",true,true,18,0.952818334
+"lindauer_2017","fixed","5.0:CL:5.0","altB Rosenbrock23","Success",true,true,18,0.922815292
+"lindauer_2017","fixed","5.0:PLQ:5.0","altB Rosenbrock23","Success",true,true,18,0.545940375
+"lindauer_2017","fixed","5.0:L:5.0","altB Rosenbrock23","Success",true,true,18,0.565856417
+"lindauer_2017","fixed","5.0:CLup:5.0","altB Rosenbrock23","Success",true,true,18,0.640413
+"lindauer_2017","fixed","5.0:V2:5.0","altB Rosenbrock23","Success",true,true,18,0.534307583
+"lindauer_2017","fixed","5.0:base:1.0","altB Rosenbrock23","Success",true,true,18,0.83153625
+"lindauer_2017","fixed","0.5:base:1.0","altB Rosenbrock23","Success",true,true,18,0.486294708
+"lindauer_2017","fixed","0.5:gamma:0.2","dense x4","Success",true,true,1478,0.018509916
+"lindauer_2017","fixed","0.5:Tmulti:0.2","dense x4","Success",true,true,1478,0.028464916
+"lindauer_2017","fixed","0.5:N_PD1_TC:0.2","dense x4","Success",true,true,1478,0.029786542
+"lindauer_2017","fixed","0.5:V_blood:0.2","dense x4","Success",true,true,1478,0.022851333
+"lindauer_2017","fixed","0.5:N_Tcell:0.2","dense x4","Success",true,true,1478,0.026786167
+"lindauer_2017","fixed","0.5:EMAXTP:0.2","dense x4","Success",true,true,1478,0.048029083
+"lindauer_2017","fixed","0.5:V1:0.2","dense x4","Success",true,true,1478,0.015970542
+"lindauer_2017","fixed","0.5:FR:0.2","dense x4","Success",true,true,1478,0.049906083
+"lindauer_2017","fixed","0.5:KdegPD1:0.2","dense x4","Success",true,true,1478,0.016927375
+"lindauer_2017","fixed","0.5:CL:0.2","dense x4","Success",true,true,1478,0.017683875
+"lindauer_2017","fixed","0.5:PLQ:0.2","dense x4","Success",true,true,1478,0.025112167
+"lindauer_2017","fixed","0.5:L:0.2","dense x4","Success",true,true,1478,0.015213417
+"lindauer_2017","fixed","0.5:SLtg:0.2","dense x4","Success",true,true,1478,0.060583042
+"lindauer_2017","fixed","0.5:L0:0.2","dense x4","Success",true,true,1478,0.059187542
+"lindauer_2017","fixed","0.5:CLup:0.2","dense x4","Success",true,true,1478,0.029725792
+"lindauer_2017","fixed","0.5:EC50TP:0.2","dense x4","Success",true,true,1478,0.024248958
+"lindauer_2017","fixed","0.5:gamma:5.0","dense x4","Success",true,true,1478,0.011996625
+"lindauer_2017","fixed","0.5:Tmulti:5.0","dense x4","Success",true,true,1478,0.019037792
+"lindauer_2017","fixed","0.5:N_PD1_TC:5.0","dense x4","Success",true,true,1478,0.011881708
+"lindauer_2017","fixed","0.5:V_blood:5.0","dense x4","Success",true,true,1478,0.077022708
+"lindauer_2017","fixed","0.5:N_Tcell:5.0","dense x4","Success",true,true,1478,0.012331708
+"lindauer_2017","fixed","0.5:EMAXTP:5.0","dense x4","Success",true,true,1478,0.035305959
+"lindauer_2017","fixed","0.5:V1:5.0","dense x4","Success",true,true,1478,0.059001333
+"lindauer_2017","fixed","0.5:FR:5.0","dense x4","Success",true,true,1478,0.10127275
+"lindauer_2017","fixed","0.5:KdegPD1:5.0","dense x4","Success",true,true,1478,0.072264708
+"lindauer_2017","fixed","0.5:CL:5.0","dense x4","Success",true,true,1478,0.060767375
+"lindauer_2017","fixed","0.5:PLQ:5.0","dense x4","Success",true,true,1478,0.051457125
+"lindauer_2017","fixed","0.5:L:5.0","dense x4","Success",true,true,1478,0.052918
+"lindauer_2017","fixed","0.5:SLtg:5.0","dense x4","Success",true,true,1478,0.016050291
+"lindauer_2017","fixed","0.5:L0:5.0","dense x4","Success",true,true,1478,0.021364
+"lindauer_2017","fixed","0.5:CLup:5.0","dense x4","Success",true,true,1478,0.037616667
+"lindauer_2017","fixed","0.5:EC50TP:5.0","dense x4","Success",true,true,1478,0.029920541
+"lindauer_2017","fixed","5.0:gamma:0.2","dense x4","Success",true,true,1478,0.009101167
+"lindauer_2017","fixed","5.0:FR:0.2","dense x4","Success",true,true,1478,0.040529333
+"lindauer_2017","fixed","5.0:SLtg:0.2","dense x4","Success",true,true,1478,0.007402958
+"lindauer_2017","fixed","5.0:L0:0.2","dense x4","Success",true,true,1478,0.087833083
+"lindauer_2017","fixed","5.0:Tmulti:0.2","dense x4","Success",true,true,1478,0.05598225
+"lindauer_2017","fixed","5.0:N_PD1_TC:0.2","dense x4","Success",true,true,1478,0.026933333
+"lindauer_2017","fixed","5.0:V_blood:0.2","dense x4","Success",true,true,1478,0.053417916
+"lindauer_2017","fixed","5.0:N_Tcell:0.2","dense x4","Success",true,true,1478,0.036874042
+"lindauer_2017","fixed","5.0:EMAXTP:0.2","dense x4","Success",true,true,1478,0.020791333
+"lindauer_2017","fixed","5.0:V1:0.2","dense x4","Success",true,true,1478,0.06487775
+"lindauer_2017","fixed","5.0:KdegPD1:0.2","dense x4","Success",true,true,1478,0.024527
+"lindauer_2017","fixed","5.0:CL:0.2","dense x4","Success",true,true,1478,0.031744333
+"lindauer_2017","fixed","5.0:PLQ:0.2","dense x4","Success",true,true,1478,0.035112875
+"lindauer_2017","fixed","5.0:L:0.2","dense x4","Success",true,true,1478,0.049353625
+"lindauer_2017","fixed","5.0:CLup:0.2","dense x4","Success",true,true,1478,0.03089175
+"lindauer_2017","fixed","5.0:V2:0.2","dense x4","Success",true,true,1478,0.037449708
+"lindauer_2017","fixed","5.0:gamma:5.0","dense x4","Success",true,true,1478,0.042205166
+"lindauer_2017","fixed","5.0:FR:5.0","dense x4","Success",true,true,1478,0.087175291
+"lindauer_2017","fixed","5.0:SLtg:5.0","dense x4","Success",true,true,1478,0.105329042
+"lindauer_2017","fixed","5.0:L0:5.0","dense x4","Success",true,true,1478,0.012990583
+"lindauer_2017","fixed","5.0:Tmulti:5.0","dense x4","Success",true,true,1478,0.057650375
+"lindauer_2017","fixed","5.0:N_PD1_TC:5.0","dense x4","Success",true,true,1478,0.027689833
+"lindauer_2017","fixed","5.0:V_blood:5.0","dense x4","Success",true,true,1478,0.029146042
+"lindauer_2017","fixed","5.0:N_Tcell:5.0","dense x4","Success",true,true,1478,0.042649833
+"lindauer_2017","fixed","5.0:EMAXTP:5.0","dense x4","Success",true,true,1478,0.037258583
+"lindauer_2017","fixed","5.0:V1:5.0","dense x4","Success",true,true,1478,0.032286417
+"lindauer_2017","fixed","5.0:KdegPD1:5.0","dense x4","Success",true,true,1478,0.09693175
+"lindauer_2017","fixed","5.0:CL:5.0","dense x4","Success",true,true,1478,0.07889475
+"lindauer_2017","fixed","5.0:PLQ:5.0","dense x4","Success",true,true,1478,0.037205333
+"lindauer_2017","fixed","5.0:L:5.0","dense x4","Success",true,true,1478,0.044676
+"lindauer_2017","fixed","5.0:CLup:5.0","dense x4","Success",true,true,1478,0.029404167
+"lindauer_2017","fixed","5.0:V2:5.0","dense x4","Success",true,true,1478,0.035823916
+"lindauer_2017","fixed","5.0:base:1.0","dense x4","Success",true,true,1478,0.02848025
+"lindauer_2017","fixed","0.5:base:1.0","dense x4","Success",true,true,1478,0.030791875

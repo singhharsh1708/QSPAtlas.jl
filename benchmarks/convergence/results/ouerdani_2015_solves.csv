@@ -1,0 +1,41 @@
+model,run,key,variant,retcode,ok,finite,npoints,seconds
+"ouerdani_2015","published","fig4_left_K","own","Success",true,true,1000,1.778126
+"ouerdani_2015","published","fig4_left_P","own","Success",true,true,1000,0.001677459
+"ouerdani_2015","published","fig4_right_K","own","Success",true,true,1000,0.000257167
+"ouerdani_2015","published","fig4_right_P","own","Success",true,true,1000,0.000484542
+"ouerdani_2015","published","fig4_left_K","tol/100","Success",true,true,1000,0.000340666
+"ouerdani_2015","published","fig4_left_P","tol/100","Success",true,true,1000,0.000350541
+"ouerdani_2015","published","fig4_right_K","tol/100","Success",true,true,1000,0.000511167
+"ouerdani_2015","published","fig4_right_P","tol/100","Success",true,true,1000,0.000321334
+"ouerdani_2015","published","fig4_left_K","altA Rodas5P","Success",true,true,1000,3.636214333
+"ouerdani_2015","published","fig4_left_P","altA Rodas5P","Success",true,true,1000,0.001114917
+"ouerdani_2015","published","fig4_right_K","altA Rodas5P","Success",true,true,1000,0.000504042
+"ouerdani_2015","published","fig4_right_P","altA Rodas5P","Success",true,true,1000,0.000465833
+"ouerdani_2015","published","fig4_left_K","altB Vern9","Success",true,true,1000,4.196582208
+"ouerdani_2015","published","fig4_left_P","altB Vern9","Success",true,true,1000,0.000573125
+"ouerdani_2015","published","fig4_right_K","altB Vern9","Success",true,true,1000,0.000362792
+"ouerdani_2015","published","fig4_right_P","altB Vern9","Success",true,true,1000,0.000327792
+"ouerdani_2015","published","fig4_left_K","dense x4","Success",true,true,3997,0.000574791
+"ouerdani_2015","published","fig4_left_P","dense x4","Success",true,true,3997,0.000855541
+"ouerdani_2015","published","fig4_right_K","dense x4","Success",true,true,3997,0.000456792
+"ouerdani_2015","published","fig4_right_P","dense x4","Success",true,true,3997,0.00043
+"ouerdani_2015","fixed","fig4_left_K","own","Success",true,true,1000,0.0001825
+"ouerdani_2015","fixed","fig4_left_P","own","Success",true,true,1000,0.000175042
+"ouerdani_2015","fixed","fig4_right_K","own","Success",true,true,1000,0.00043475
+"ouerdani_2015","fixed","fig4_right_P","own","Success",true,true,1000,0.000427459
+"ouerdani_2015","fixed","fig4_left_K","tol/100","Success",true,true,1000,0.000360208
+"ouerdani_2015","fixed","fig4_left_P","tol/100","Success",true,true,1000,0.000286291
+"ouerdani_2015","fixed","fig4_right_K","tol/100","Success",true,true,1000,0.000309417
+"ouerdani_2015","fixed","fig4_right_P","tol/100","Success",true,true,1000,0.000316583
+"ouerdani_2015","fixed","fig4_left_K","altA Rodas5P","Success",true,true,1000,0.000752667
+"ouerdani_2015","fixed","fig4_left_P","altA Rodas5P","Success",true,true,1000,0.000434959
+"ouerdani_2015","fixed","fig4_right_K","altA Rodas5P","Success",true,true,1000,0.000407916
+"ouerdani_2015","fixed","fig4_right_P","altA Rodas5P","Success",true,true,1000,0.000890667
+"ouerdani_2015","fixed","fig4_left_K","altB Vern9","Success",true,true,1000,0.000590166
+"ouerdani_2015","fixed","fig4_left_P","altB Vern9","Success",true,true,1000,0.000334208
+"ouerdani_2015","fixed","fig4_right_K","altB Vern9","Success",true,true,1000,0.000561875
+"ouerdani_2015","fixed","fig4_right_P","altB Vern9","Success",true,true,1000,0.000547875
+"ouerdani_2015","fixed","fig4_left_K","dense x4","Success",true,true,3997,0.000440459
+"ouerdani_2015","fixed","fig4_left_P","dense x4","Success",true,true,3997,0.000405
+"ouerdani_2015","fixed","fig4_right_K","dense x4","Success",true,true,3997,0.000540166
+"ouerdani_2015","fixed","fig4_right_P","dense x4","Success",true,true,3997,0.000511125

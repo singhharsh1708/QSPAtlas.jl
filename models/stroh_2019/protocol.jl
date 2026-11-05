@@ -132,7 +132,7 @@ const _SYS = Ref{Any}(nothing)
 get_system() = (_SYS[] === nothing && (_SYS[] = build_system()); _SYS[])
 
 "ODE problem plus dosing callback for one spec. Returns (prob, callback, saveat)."
-function make_problem(sp::SimSpec; fixes = Fix[], npts = 1500)
+function make_problem(sp::SimSpec; fixes = Fix[], npts = 6000)
     sys = get_system()
     pars, dosed, bw = molecule_setup(sp; fixes)
     any(f -> f.id == "molecular_weight_150kDa", fixes) || throw(NotRunnable("the molecular weight for the mg/kg to nM conversion is not stated"))

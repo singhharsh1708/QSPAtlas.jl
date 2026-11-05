@@ -1,0 +1,301 @@
+model,run,curve,variant,status,retcode,finite,rms,p95,maxd,passed,own_passed,tol_rms,tol_p95,own_margin,shift_box,shift_rel,n_points
+"hutchinson_2016","published","fig2_a_T","own","ok","Success",true,0.27869028,0.5256344721,0.6170610703,false,false,0.015,0.03,18.579352,NaN,NaN,661
+"hutchinson_2016","published","fig2_b_V","own","ok","Success",true,0.2921130218,0.5184814349,0.6055088526,false,false,0.015,0.03,19.47420145,NaN,NaN,661
+"hutchinson_2016","published","fig2_c_T_d04","own","ok","Success",true,0.4219194267,0.610840386,0.6521238639,false,false,0.015,0.03,28.12796178,NaN,NaN,661
+"hutchinson_2016","published","fig2_c_T_d06","own","ok","Success",true,0.3614718294,0.4701921664,0.493439744,false,false,0.015,0.03,24.09812196,NaN,NaN,661
+"hutchinson_2016","published","fig2_c_T_d08","own","ok","Success",true,0.30298788,0.3538709583,0.3569908919,false,false,0.015,0.03,20.199192,NaN,NaN,661
+"hutchinson_2016","published","fig2_c_T_d10","own","ok","Success",true,0.2633631444,0.2752819366,0.2770975826,false,false,0.015,0.03,17.55754296,NaN,NaN,661
+"hutchinson_2016","published","fig2_c_T_d12","own","ok","Success",true,0.1987514371,0.2375302135,0.2400717126,false,false,0.015,0.03,13.25009581,NaN,NaN,661
+"hutchinson_2016","published","fig2_d_V_d04","own","ok","Success",true,0.4257723807,0.5966909214,0.6422485926,false,false,0.015,0.03,28.38482538,NaN,NaN,661
+"hutchinson_2016","published","fig2_d_V_d06","own","ok","Success",true,0.3342575986,0.3906366663,0.4115739919,false,false,0.015,0.03,22.28383991,NaN,NaN,661
+"hutchinson_2016","published","fig2_d_V_d08","own","ok","Success",true,0.2626751898,0.3150755717,0.3299394153,false,false,0.015,0.03,17.51167932,NaN,NaN,661
+"hutchinson_2016","published","fig2_d_V_d10","own","ok","Success",true,0.2065707072,0.2794680026,0.3035327905,false,false,0.015,0.03,13.77138048,NaN,NaN,661
+"hutchinson_2016","published","fig2_d_V_d12","own","ok","Success",true,0.1813766857,0.3057245585,0.3504201674,false,false,0.015,0.03,12.09177904,NaN,NaN,661
+"hutchinson_2016","published","fig2_e_T_N11","own","ok","Success",true,0.3537905607,0.4785486673,0.495853881,false,false,0.015,0.03,23.58603738,NaN,NaN,661
+"hutchinson_2016","published","fig2_e_T_N2","own","ok","Success",true,0.2695303108,0.3016574471,0.3088351557,false,false,0.015,0.03,17.96868738,NaN,NaN,661
+"hutchinson_2016","published","fig2_e_T_N21","own","ok","Success",true,0.273754418,0.4769418243,0.519087556,false,false,0.015,0.03,18.25029453,NaN,NaN,661
+"hutchinson_2016","published","fig2_e_T_N3","own","ok","Success",true,0.3006352546,0.3633262515,0.3715539385,false,false,0.015,0.03,20.04235031,NaN,NaN,661
+"hutchinson_2016","published","fig2_e_T_N6","own","ok","Success",true,0.314329246,0.4139346659,0.4305102478,false,false,0.015,0.03,20.95528307,NaN,NaN,661
+"hutchinson_2016","published","fig2_f_V_N11","own","ok","Success",true,0.7033798987,0.7527106652,0.7532010944,false,false,0.015,0.03,46.89199324,NaN,NaN,661
+"hutchinson_2016","published","fig2_f_V_N2","own","ok","Success",true,0.5835264737,0.596610225,0.597389906,false,false,0.015,0.03,38.90176492,NaN,NaN,661
+"hutchinson_2016","published","fig2_f_V_N21","own","ok","Success",true,0.6986727422,0.9281792354,1,false,false,0.015,0.03,46.57818282,NaN,NaN,661
+"hutchinson_2016","published","fig2_f_V_N3","own","ok","Success",true,0.613558045,0.6581702839,0.6586352759,false,false,0.015,0.03,40.90386967,NaN,NaN,661
+"hutchinson_2016","published","fig2_f_V_N6","own","ok","Success",true,0.6407180115,0.7062352722,0.7066314756,false,false,0.015,0.03,42.7145341,NaN,NaN,661
+"hutchinson_2016","published","fig6_a_T","own","ok","Success",true,0.1677827333,0.2620919715,0.2691775061,false,false,0.015,0.03,11.18551555,NaN,NaN,661
+"hutchinson_2016","published","fig6_a_V","own","ok","Success",true,0.1813955729,0.2447052505,0.2539357181,false,false,0.015,0.03,12.09303819,NaN,NaN,661
+"hutchinson_2016","published","fig6_b_T","own","ok","Success",true,0.189849139,0.2630819733,0.2810085682,false,false,0.015,0.03,12.65660927,NaN,NaN,661
+"hutchinson_2016","published","fig6_b_V","own","ok","Success",true,0.1939438329,0.2301715769,0.2377873713,false,false,0.015,0.03,12.92958886,NaN,NaN,661
+"hutchinson_2016","published","fig6_c_T","own","ok","Success",true,0.08272297298,0.1312213404,0.1366711116,false,false,0.015,0.03,5.514864865,NaN,NaN,661
+"hutchinson_2016","published","fig6_c_V","own","ok","Success",true,0.1402471373,0.1917189001,0.2031272978,false,false,0.015,0.03,9.349809151,NaN,NaN,661
+"hutchinson_2016","published","fig6_d_T","own","ok","Success",true,0.2313752455,0.2750484676,0.2760410522,false,false,0.015,0.03,15.42501637,NaN,NaN,661
+"hutchinson_2016","published","fig6_d_V","own","ok","Success",true,0.2214937881,0.2595339795,0.2746277995,false,false,0.015,0.03,14.76625254,NaN,NaN,661
+"hutchinson_2016","published","fig2_a_T","tol/100","ok","Success",true,0.27869028,0.5256344722,0.6170610703,false,false,0.015,0.03,18.579352,4.64576988e-11,2.729382212e-10,661
+"hutchinson_2016","published","fig2_b_V","tol/100","ok","Success",true,0.2921130218,0.5184814349,0.6055088526,false,false,0.015,0.03,19.47420145,2.503541818e-11,5.772285697e-11,661
+"hutchinson_2016","published","fig2_c_T_d04","tol/100","ok","Success",true,0.4219194267,0.6108403861,0.6521238639,false,false,0.015,0.03,28.12796178,8.631701603e-11,2.93073276e-10,661
+"hutchinson_2016","published","fig2_c_T_d06","tol/100","ok","Success",true,0.3614718294,0.4701921664,0.493439744,false,false,0.015,0.03,24.09812196,8.651128425e-11,2.965077397e-10,661
+"hutchinson_2016","published","fig2_c_T_d08","tol/100","ok","Success",true,0.30298788,0.3538709583,0.3569908919,false,false,0.015,0.03,20.199192,7.683091663e-11,2.67201413e-10,661
+"hutchinson_2016","published","fig2_c_T_d10","tol/100","ok","Success",true,0.2633631444,0.2752819366,0.2770975826,false,false,0.015,0.03,17.55754296,6.322786045e-11,2.195368991e-10,661
+"hutchinson_2016","published","fig2_c_T_d12","tol/100","ok","Success",true,0.1987514371,0.2375302135,0.2400717126,false,false,0.015,0.03,13.25009581,4.695028394e-11,1.646217988e-10,661
+"hutchinson_2016","published","fig2_d_V_d04","tol/100","ok","Success",true,0.4257723807,0.5966909214,0.6422485926,false,false,0.015,0.03,28.38482538,2.872935223e-11,6.239296468e-11,661
+"hutchinson_2016","published","fig2_d_V_d06","tol/100","ok","Success",true,0.3342575986,0.3906366663,0.4115739919,false,false,0.015,0.03,22.28383991,1.670480421e-11,5.69510715e-11,661
+"hutchinson_2016","published","fig2_d_V_d08","tol/100","ok","Success",true,0.2626751898,0.3150755717,0.3299394153,false,false,0.015,0.03,17.51167932,1.057353857e-11,5.6796217e-11,661
+"hutchinson_2016","published","fig2_d_V_d10","tol/100","ok","Success",true,0.2065707072,0.2794680026,0.3035327905,false,false,0.015,0.03,13.77138048,6.493909577e-12,5.231295302e-11,661
+"hutchinson_2016","published","fig2_d_V_d12","tol/100","ok","Success",true,0.1813766857,0.3057245585,0.3504201674,false,false,0.015,0.03,12.09177904,4.446366886e-12,4.542054022e-11,661
+"hutchinson_2016","published","fig2_e_T_N11","tol/100","ok","Success",true,0.353790536,0.4785486401,0.4958538537,false,false,0.015,0.03,23.58603738,2.722987433e-08,7.061203837e-08,661
+"hutchinson_2016","published","fig2_e_T_N2","tol/100","ok","Success",true,0.2695302994,0.3016574343,0.3088351428,false,false,0.015,0.03,17.96868738,1.328384886e-08,7.534361907e-08,661
+"hutchinson_2016","published","fig2_e_T_N21","tol/100","ok","Success",true,0.2737543978,0.4769417914,0.519087523,false,false,0.015,0.03,18.25029453,3.297980089e-08,7.463999086e-08,661
+"hutchinson_2016","published","fig2_e_T_N3","tol/100","ok","Success",true,0.3006352395,0.3633262344,0.3715539214,false,false,0.015,0.03,20.04235031,1.712236292e-08,7.68709533e-08,661
+"hutchinson_2016","published","fig2_e_T_N6","tol/100","ok","Success",true,0.3143292263,0.4139346432,0.4305102252,false,false,0.015,0.03,20.95528307,2.264933449e-08,7.017562913e-08,661
+"hutchinson_2016","published","fig2_f_V_N11","tol/100","ok","Success",true,0.7033798734,0.752710639,0.7532010683,false,false,0.015,0.03,46.89199324,2.622409979e-08,4.570599475e-08,661
+"hutchinson_2016","published","fig2_f_V_N2","tol/100","ok","Success",true,0.5835264591,0.5966102097,0.5973898909,false,false,0.015,0.03,38.90176492,1.601135118e-08,3.621205185e-08,661
+"hutchinson_2016","published","fig2_f_V_N21","tol/100","ok","Success",true,0.6986727273,0.9281792354,1,false,false,0.015,0.03,46.57818282,2.933525728e-08,4.936858558e-08,661
+"hutchinson_2016","published","fig2_f_V_N3","tol/100","ok","Success",true,0.6135580269,0.6581702644,0.6586352565,false,false,0.015,0.03,40.90386967,1.973557922e-08,4.065258552e-08,661
+"hutchinson_2016","published","fig2_f_V_N6","tol/100","ok","Success",true,0.6407179901,0.7062352492,0.7066314527,false,false,0.015,0.03,42.7145341,2.307431508e-08,4.257827057e-08,661
+"hutchinson_2016","published","fig6_a_T","tol/100","ok","Success",true,0.1677827089,0.2620919308,0.2691774557,false,false,0.015,0.03,11.18551555,5.042010565e-08,7.681999161e-08,661
+"hutchinson_2016","published","fig6_a_V","tol/100","ok","Success",true,0.1813955616,0.2447052254,0.2539356928,false,false,0.015,0.03,12.09303819,2.543735944e-08,4.731370136e-08,661
+"hutchinson_2016","published","fig6_b_T","tol/100","ok","Success",true,0.189849128,0.2630819524,0.2810085473,false,false,0.015,0.03,12.65660927,2.904365193e-08,7.428687643e-08,661
+"hutchinson_2016","published","fig6_b_V","tol/100","ok","Success",true,0.193943831,0.2301715691,0.2377873625,false,false,0.015,0.03,12.92958886,8.814672992e-09,2.530752099e-08,661
+"hutchinson_2016","published","fig6_c_T","tol/100","ok","Success",true,0.08272296843,0.1312213255,0.1366711116,false,false,0.015,0.03,5.514864865,3.15874269e-08,7.681999161e-08,661
+"hutchinson_2016","published","fig6_c_V","tol/100","ok","Success",true,0.1402471368,0.1917189001,0.2031272978,false,false,0.015,0.03,9.349809151,2.399978272e-09,1.120052024e-08,661
+"hutchinson_2016","published","fig6_d_T","tol/100","ok","Success",true,0.2313752477,0.2750484708,0.2760410554,false,false,0.015,0.03,15.42501637,2.915210734e-08,7.207736239e-08,661
+"hutchinson_2016","published","fig6_d_V","tol/100","ok","Success",true,0.2214937912,0.2595339828,0.2746278029,false,false,0.015,0.03,14.76625254,4.4373068e-09,2.508103654e-08,661
+"hutchinson_2016","published","fig2_a_T","altA Rodas5P","ok","Success",true,0.27869028,0.5256344722,0.6170610703,false,false,0.015,0.03,18.579352,9.341566409e-11,3.368852201e-10,661
+"hutchinson_2016","published","fig2_b_V","altA Rodas5P","ok","Success",true,0.2921130218,0.5184814349,0.6055088526,false,false,0.015,0.03,19.47420145,8.275535812e-11,1.913401016e-10,661
+"hutchinson_2016","published","fig2_c_T_d04","altA Rodas5P","ok","Success",true,0.4219194268,0.6108403861,0.652123864,false,false,0.015,0.03,28.12796178,1.003036959e-10,3.534587927e-10,661
+"hutchinson_2016","published","fig2_c_T_d06","altA Rodas5P","ok","Success",true,0.3614718294,0.4701921664,0.4934397441,false,false,0.015,0.03,24.09812196,9.037414567e-11,3.244258628e-10,661
+"hutchinson_2016","published","fig2_c_T_d08","altA Rodas5P","ok","Success",true,0.30298788,0.3538709583,0.3569908919,false,false,0.015,0.03,20.199192,8.327372125e-11,2.949881937e-10,661
+"hutchinson_2016","published","fig2_c_T_d10","altA Rodas5P","ok","Success",true,0.2633631444,0.2752819366,0.2770975826,false,false,0.015,0.03,17.55754296,6.270575031e-11,2.182071694e-10,661
+"hutchinson_2016","published","fig2_c_T_d12","altA Rodas5P","ok","Success",true,0.1987514371,0.2375302136,0.2400717126,false,false,0.015,0.03,13.25009581,4.998067585e-11,1.792420353e-10,661
+"hutchinson_2016","published","fig2_d_V_d04","altA Rodas5P","ok","Success",true,0.4257723808,0.5966909215,0.6422485927,false,false,0.015,0.03,28.38482538,6.961020649e-11,1.511759969e-10,661
+"hutchinson_2016","published","fig2_d_V_d06","altA Rodas5P","ok","Success",true,0.3342575986,0.3906366663,0.4115739919,false,false,0.015,0.03,22.28383991,3.860053943e-11,1.314285822e-10,661
+"hutchinson_2016","published","fig2_d_V_d08","altA Rodas5P","ok","Success",true,0.2626751899,0.3150755717,0.3299394153,false,false,0.015,0.03,17.51167932,2.213911346e-11,1.188819344e-10,661
+"hutchinson_2016","published","fig2_d_V_d10","altA Rodas5P","ok","Success",true,0.2065707072,0.2794680026,0.3035327905,false,false,0.015,0.03,13.77138048,1.294694213e-11,1.060456784e-10,661
+"hutchinson_2016","published","fig2_d_V_d12","altA Rodas5P","ok","Success",true,0.1813766857,0.3057245585,0.3504201674,false,false,0.015,0.03,12.09177904,8.164552368e-12,9.301270486e-11,661
+"hutchinson_2016","published","fig2_e_T_N11","altA Rodas5P","ok","Success",true,0.3537905329,0.4785486366,0.4958538503,false,false,0.015,0.03,23.58603738,3.067869239e-08,7.431156034e-08,661
+"hutchinson_2016","published","fig2_e_T_N2","altA Rodas5P","ok","Success",true,0.2695302989,0.3016574334,0.3088351419,false,false,0.015,0.03,17.96868738,1.38451326e-08,7.469811848e-08,661
+"hutchinson_2016","published","fig2_e_T_N21","altA Rodas5P","ok","Success",true,0.2737543972,0.4769417904,0.5190875219,false,false,0.015,0.03,18.25029453,3.40131098e-08,7.697857894e-08,661
+"hutchinson_2016","published","fig2_e_T_N3","altA Rodas5P","ok","Success",true,0.3006352385,0.3633262329,0.3715539199,false,false,0.015,0.03,20.04235031,1.8691097e-08,7.621316147e-08,661
+"hutchinson_2016","published","fig2_e_T_N6","altA Rodas5P","ok","Success",true,0.3143292259,0.4139346427,0.4305102246,false,false,0.015,0.03,20.95528307,2.322673787e-08,6.950800625e-08,661
+"hutchinson_2016","published","fig2_f_V_N11","altA Rodas5P","ok","Success",true,0.7033798723,0.7527106377,0.7532010671,false,false,0.015,0.03,46.89199324,2.745244863e-08,4.784688446e-08,661
+"hutchinson_2016","published","fig2_f_V_N2","altA Rodas5P","ok","Success",true,0.5835264589,0.5966102094,0.5973898907,false,false,0.015,0.03,38.90176492,1.640478629e-08,3.710186388e-08,661
+"hutchinson_2016","published","fig2_f_V_N21","altA Rodas5P","ok","Success",true,0.6986727273,0.9281792354,1,false,false,0.015,0.03,46.57818282,2.955830589e-08,4.974395621e-08,661
+"hutchinson_2016","published","fig2_f_V_N3","altA Rodas5P","ok","Success",true,0.6135580265,0.6581702639,0.6586352559,false,false,0.015,0.03,40.90386967,2.03749218e-08,4.196954354e-08,661
+"hutchinson_2016","published","fig2_f_V_N6","altA Rodas5P","ok","Success",true,0.6407179901,0.7062352491,0.7066314526,false,false,0.015,0.03,42.7145341,2.317814676e-08,4.276986774e-08,661
+"hutchinson_2016","published","fig6_a_T","altA Rodas5P","ok","Success",true,0.1677827085,0.26209193,0.2691774547,false,false,0.015,0.03,11.18551555,5.136722203e-08,7.813739468e-08,661
+"hutchinson_2016","published","fig6_a_V","altA Rodas5P","ok","Success",true,0.1813955615,0.2447052253,0.2539356926,false,false,0.015,0.03,12.09303819,2.561783607e-08,4.764938934e-08,661
+"hutchinson_2016","published","fig6_b_T","altA Rodas5P","ok","Success",true,0.1898491232,0.2630819442,0.281008539,false,false,0.015,0.03,12.65660927,2.927182385e-08,7.497038746e-08,661
+"hutchinson_2016","published","fig6_b_V","altA Rodas5P","ok","Success",true,0.1939438285,0.2301715646,0.2377873577,false,false,0.015,0.03,12.92958886,1.358642915e-08,3.900755494e-08,661
+"hutchinson_2016","published","fig6_c_T","altA Rodas5P","ok","Success",true,0.0827229684,0.1312213256,0.1366711116,false,false,0.015,0.03,5.514864865,3.131790527e-08,7.616465421e-08,661
+"hutchinson_2016","published","fig6_c_V","altA Rodas5P","ok","Success",true,0.1402471368,0.1917189001,0.2031272978,false,false,0.015,0.03,9.349809151,3.3220591e-09,1.550380301e-08,661
+"hutchinson_2016","published","fig6_d_T","altA Rodas5P","ok","Success",true,0.2313752434,0.2750484664,0.276041051,false,false,0.015,0.03,15.42501637,2.89457916e-08,7.156725548e-08,661
+"hutchinson_2016","published","fig6_d_V","altA Rodas5P","ok","Success",true,0.2214937882,0.2595339782,0.2746277982,false,false,0.015,0.03,14.76625254,3.57971236e-09,1.073843514e-08,661
+"hutchinson_2016","published","fig2_a_T","altB Vern9","ok","Success",true,0.27869028,0.5256344722,0.6170610703,false,false,0.015,0.03,18.579352,4.600445372e-11,2.690667384e-10,661
+"hutchinson_2016","published","fig2_b_V","altB Vern9","ok","Success",true,0.2921130218,0.5184814349,0.6055088526,false,false,0.015,0.03,19.47420145,2.519590092e-11,5.80929404e-11,661
+"hutchinson_2016","published","fig2_c_T_d04","altB Vern9","ok","Success",true,0.4219194267,0.6108403861,0.6521238639,false,false,0.015,0.03,28.12796178,8.582237004e-11,2.924052157e-10,661
+"hutchinson_2016","published","fig2_c_T_d06","altB Vern9","ok","Success",true,0.3614718294,0.4701921664,0.493439744,false,false,0.015,0.03,24.09812196,8.572428184e-11,2.945941335e-10,661
+"hutchinson_2016","published","fig2_c_T_d08","altB Vern9","ok","Success",true,0.30298788,0.3538709583,0.3569908919,false,false,0.015,0.03,20.199192,7.640846289e-11,2.657322116e-10,661
+"hutchinson_2016","published","fig2_c_T_d10","altB Vern9","ok","Success",true,0.2633631444,0.2752819366,0.2770975826,false,false,0.015,0.03,17.55754296,6.230660432e-11,2.163381622e-10,661
+"hutchinson_2016","published","fig2_c_T_d12","altB Vern9","ok","Success",true,0.1987514371,0.2375302135,0.2400717126,false,false,0.015,0.03,13.25009581,4.661725173e-11,1.634540907e-10,661
+"hutchinson_2016","published","fig2_d_V_d04","altB Vern9","ok","Success",true,0.4257723807,0.5966909214,0.6422485926,false,false,0.015,0.03,28.38482538,2.900951701e-11,6.30013664e-11,661
+"hutchinson_2016","published","fig2_d_V_d06","altB Vern9","ok","Success",true,0.3342575986,0.3906366663,0.4115739919,false,false,0.015,0.03,22.28383991,1.684796747e-11,5.736461552e-11,661
+"hutchinson_2016","published","fig2_d_V_d08","altB Vern9","ok","Success",true,0.2626751898,0.3150755717,0.3299394153,false,false,0.015,0.03,17.51167932,1.067777811e-11,5.715235601e-11,661
+"hutchinson_2016","published","fig2_d_V_d10","altB Vern9","ok","Success",true,0.2065707072,0.2794680026,0.3035327905,false,false,0.015,0.03,13.77138048,6.508904526e-12,5.24949616e-11,661
+"hutchinson_2016","published","fig2_d_V_d12","altB Vern9","ok","Success",true,0.1813766857,0.3057245585,0.3504201674,false,false,0.015,0.03,12.09177904,4.467821946e-12,4.561169249e-11,661
+"hutchinson_2016","published","fig2_e_T_N11","altB Vern9","ok","Success",true,0.3537905372,0.4785486414,0.4958538551,false,false,0.015,0.03,23.58603738,2.589586293e-08,6.752563972e-08,661
+"hutchinson_2016","published","fig2_e_T_N2","altB Vern9","ok","Success",true,0.2695302998,0.3016574348,0.3088351433,false,false,0.015,0.03,17.96868738,1.277084496e-08,7.243395255e-08,661
+"hutchinson_2016","published","fig2_e_T_N21","altB Vern9","ok","Success",true,0.2737543989,0.4769417933,0.5190875249,false,false,0.015,0.03,18.25029453,3.108519994e-08,7.035212398e-08,661
+"hutchinson_2016","published","fig2_e_T_N3","altB Vern9","ok","Success",true,0.3006352402,0.3633262352,0.3715539222,false,false,0.015,0.03,20.04235031,1.633095484e-08,7.388102362e-08,661
+"hutchinson_2016","published","fig2_e_T_N6","altB Vern9","ok","Success",true,0.3143292277,0.4139346448,0.4305102268,false,false,0.015,0.03,20.95528307,2.103444058e-08,6.711802985e-08,661
+"hutchinson_2016","published","fig2_f_V_N11","altB Vern9","ok","Success",true,0.7033798746,0.7527106402,0.7532010695,false,false,0.015,0.03,46.89199324,2.50187724e-08,4.360522912e-08,661
+"hutchinson_2016","published","fig2_f_V_N2","altB Vern9","ok","Success",true,0.5835264596,0.5966102103,0.5973898915,false,false,0.015,0.03,38.90176492,1.536963658e-08,3.476071887e-08,661
+"hutchinson_2016","published","fig2_f_V_N21","altB Vern9","ok","Success",true,0.698672728,0.9281792354,1,false,false,0.015,0.03,46.57818282,2.787264571e-08,4.690714254e-08,661
+"hutchinson_2016","published","fig2_f_V_N3","altB Vern9","ok","Success",true,0.6135580276,0.6581702653,0.6586352573,false,false,0.015,0.03,40.90386967,1.890770903e-08,3.894728653e-08,661
+"hutchinson_2016","published","fig2_f_V_N6","altB Vern9","ok","Success",true,0.6407179912,0.7062352505,0.7066314539,false,false,0.015,0.03,42.7145341,2.179820478e-08,4.022350642e-08,661
+"hutchinson_2016","published","fig6_a_T","altB Vern9","ok","Success",true,0.1677827103,0.2620919332,0.2691774586,false,false,0.015,0.03,11.18551555,4.746030724e-08,7.370043918e-08,661
+"hutchinson_2016","published","fig6_a_V","altB Vern9","ok","Success",true,0.1813955621,0.2447052267,0.2539356941,false,false,0.015,0.03,12.09303819,2.412755873e-08,4.487746113e-08,661
+"hutchinson_2016","published","fig6_b_T","altB Vern9","ok","Success",true,0.1898491291,0.2630819544,0.2810085492,false,false,0.015,0.03,12.65660927,2.790916903e-08,7.138513427e-08,661
+"hutchinson_2016","published","fig6_b_V","altB Vern9","ok","Success",true,0.1939438315,0.2301715701,0.2377873636,false,false,0.015,0.03,12.92958886,7.685969416e-09,2.206693686e-08,661
+"hutchinson_2016","published","fig6_c_T","altB Vern9","ok","Success",true,0.08272296865,0.131221326,0.1366711116,false,false,0.015,0.03,5.514864865,3.037242702e-08,7.386515283e-08,661
+"hutchinson_2016","published","fig6_c_V","altB Vern9","ok","Success",true,0.1402471369,0.1917189001,0.2031272978,false,false,0.015,0.03,9.349809151,1.879322892e-09,8.770660291e-09,661
+"hutchinson_2016","published","fig6_d_T","altB Vern9","ok","Success",true,0.2313752484,0.2750484715,0.2760410561,false,false,0.015,0.03,15.42501637,2.792709419e-08,6.973043004e-08,661
+"hutchinson_2016","published","fig6_d_V","altB Vern9","ok","Success",true,0.2214937917,0.2595339835,0.2746278036,false,false,0.015,0.03,14.76625254,4.451950586e-09,3.040217943e-08,661
+"hutchinson_2016","published","fig2_a_T","dense x4","ok","Success",true,0.2786903659,0.5256344721,0.6170610703,false,false,0.015,0.03,18.579352,0,0,2641
+"hutchinson_2016","published","fig2_b_V","dense x4","ok","Success",true,0.292113092,0.5184814349,0.6055088526,false,false,0.015,0.03,19.47420145,0,0,2641
+"hutchinson_2016","published","fig2_c_T_d04","dense x4","ok","Success",true,0.421919481,0.610840386,0.6521238639,false,false,0.015,0.03,28.12796178,0,0,2641
+"hutchinson_2016","published","fig2_c_T_d06","dense x4","ok","Success",true,0.3614718809,0.4701921664,0.493439744,false,false,0.015,0.03,24.09812196,0,0,2641
+"hutchinson_2016","published","fig2_c_T_d08","dense x4","ok","Success",true,0.3029879385,0.3538709589,0.3569908987,false,false,0.015,0.03,20.199192,0,0,2641
+"hutchinson_2016","published","fig2_c_T_d10","dense x4","ok","Success",true,0.2633631848,0.2752819587,0.2770976005,false,false,0.015,0.03,17.55754296,0,0,2641
+"hutchinson_2016","published","fig2_c_T_d12","dense x4","ok","Success",true,0.1987516287,0.2375303125,0.240071779,false,false,0.015,0.03,13.25009581,0,0,2641
+"hutchinson_2016","published","fig2_d_V_d04","dense x4","ok","Success",true,0.425772404,0.5966909214,0.6422485926,false,false,0.015,0.03,28.38482538,0,0,2641
+"hutchinson_2016","published","fig2_d_V_d06","dense x4","ok","Success",true,0.3342575891,0.3906366663,0.4115739919,false,false,0.015,0.03,22.28383991,0,0,2641
+"hutchinson_2016","published","fig2_d_V_d08","dense x4","ok","Success",true,0.2626751602,0.3150754276,0.3299393556,false,false,0.015,0.03,17.51167932,0,0,2641
+"hutchinson_2016","published","fig2_d_V_d10","dense x4","ok","Success",true,0.2065706861,0.2794679812,0.3035326268,false,false,0.015,0.03,13.77138048,0,0,2641
+"hutchinson_2016","published","fig2_d_V_d12","dense x4","ok","Success",true,0.1813766591,0.3057244963,0.3504201674,false,false,0.015,0.03,12.09177904,0,0,2641
+"hutchinson_2016","published","fig2_e_T_N11","dense x4","ok","Success",true,0.3537905607,0.4785486673,0.495853881,false,false,0.015,0.03,23.58603738,0,0,2641
+"hutchinson_2016","published","fig2_e_T_N2","dense x4","ok","Success",true,0.2695303688,0.3016574471,0.3088351557,false,false,0.015,0.03,17.96868738,0,0,2641
+"hutchinson_2016","published","fig2_e_T_N21","dense x4","ok","Success",true,0.27375453,0.4769418243,0.519087556,false,false,0.015,0.03,18.25029453,0,0,2641
+"hutchinson_2016","published","fig2_e_T_N3","dense x4","ok","Success",true,0.3006353053,0.3633262515,0.3715539385,false,false,0.015,0.03,20.04235031,0,0,2641
+"hutchinson_2016","published","fig2_e_T_N6","dense x4","ok","Success",true,0.3143292815,0.4139346659,0.4305102478,false,false,0.015,0.03,20.95528307,0,0,2641
+"hutchinson_2016","published","fig2_f_V_N11","dense x4","ok","Success",true,0.7033797494,0.7527104792,0.753200879,false,false,0.015,0.03,46.89199324,0,0,2641
+"hutchinson_2016","published","fig2_f_V_N2","dense x4","ok","Success",true,0.5835263385,0.596610051,0.5973898643,false,false,0.015,0.03,38.90176492,0,0,2641
+"hutchinson_2016","published","fig2_f_V_N21","dense x4","ok","Success",true,0.6986725247,0.9281789176,1,false,false,0.015,0.03,46.57818282,0,0,2641
+"hutchinson_2016","published","fig2_f_V_N3","dense x4","ok","Success",true,0.6135578706,0.6581701503,0.6586350842,false,false,0.015,0.03,40.90386967,0,0,2641
+"hutchinson_2016","published","fig2_f_V_N6","dense x4","ok","Success",true,0.6407178433,0.7062350578,0.7066314756,false,false,0.015,0.03,42.7145341,0,0,2641
+"hutchinson_2016","published","fig6_a_T","dense x4","ok","Success",true,0.1677827963,0.2620919715,0.2691775061,false,false,0.015,0.03,11.18551555,0,0,2641
+"hutchinson_2016","published","fig6_a_V","dense x4","ok","Success",true,0.1813955044,0.2447052,0.2539357181,false,false,0.015,0.03,12.09303819,0,0,2641
+"hutchinson_2016","published","fig6_b_T","dense x4","ok","Success",true,0.1898493708,0.2630819733,0.2810085682,false,false,0.015,0.03,12.65660927,0,0,2641
+"hutchinson_2016","published","fig6_b_V","dense x4","ok","Success",true,0.1939437568,0.2301714977,0.2377873713,false,false,0.015,0.03,12.92958886,0,0,2641
+"hutchinson_2016","published","fig6_c_T","dense x4","ok","Success",true,0.08272316032,0.1312213576,0.1366711519,false,false,0.015,0.03,5.514864865,0,0,2641
+"hutchinson_2016","published","fig6_c_V","dense x4","ok","Success",true,0.1402470325,0.1917188066,0.2031272042,false,false,0.015,0.03,9.349809151,0,0,2641
+"hutchinson_2016","published","fig6_d_T","dense x4","ok","Success",true,0.2313754518,0.2750483882,0.2760409681,false,false,0.015,0.03,15.42501637,0,0,2641
+"hutchinson_2016","published","fig6_d_V","dense x4","ok","Success",true,0.2214937759,0.2595340828,0.2746278537,false,false,0.015,0.03,14.76625254,0,0,2641
+"hutchinson_2016","fixed","fig2_a_T","own","ok","Success",true,0.001810995503,0.003272098626,0.004159146158,true,true,0.015,0.03,0.1207330335,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_b_V","own","ok","Success",true,0.001848221464,0.003238283404,0.003425939582,true,true,0.015,0.03,0.1232147643,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_c_T_d04","own","ok","Success",true,0.001472377043,0.002366081846,0.002894967619,true,true,0.015,0.03,0.09815846951,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_c_T_d06","own","ok","Success",true,0.001846632298,0.003071952009,0.005735784762,true,true,0.015,0.03,0.1231088199,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_c_T_d08","own","ok","Success",true,0.002184625084,0.005140456956,0.005791377694,true,true,0.015,0.03,0.1713485652,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_c_T_d10","own","ok","Success",true,0.005971285577,0.004199835328,0.04256430634,true,true,0.015,0.03,0.3980857051,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_c_T_d12","own","ok","Success",true,0.002431855952,0.004261582935,0.005869432484,true,true,0.015,0.03,0.1621237301,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_d_V_d04","own","ok","Success",true,0.001799156385,0.003518510762,0.004213275953,true,true,0.015,0.03,0.119943759,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_d_V_d06","own","ok","Success",true,0.002308416042,0.003817696859,0.006212772468,true,true,0.015,0.03,0.1538944028,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_d_V_d08","own","ok","Success",true,0.002184720657,0.003323887386,0.007143240352,true,true,0.015,0.03,0.1456480438,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_d_V_d10","own","ok","Success",true,0.00228676853,0.00380723326,0.004804686388,true,true,0.015,0.03,0.1524512353,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_d_V_d12","own","ok","Success",true,0.002035969667,0.00332806591,0.004601662539,true,true,0.015,0.03,0.1357313111,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_e_T_N11","own","ok","Success",true,0.00255436756,0.004483404843,0.004599604354,true,true,0.015,0.03,0.1702911707,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_e_T_N2","own","ok","Success",true,0.007199898363,0.01187672689,0.01342192359,true,true,0.015,0.03,0.4799932242,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_e_T_N21","own","ok","Success",true,0.006069025178,0.01161349577,0.01346020401,true,true,0.015,0.03,0.4046016785,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_e_T_N3","own","ok","Success",true,0.004661375618,0.009077037066,0.009760190576,true,true,0.015,0.03,0.3107583746,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_e_T_N6","own","ok","Success",true,0.006418381613,0.009808642278,0.01073393499,true,true,0.015,0.03,0.4278921075,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_f_V_N11","own","ok","Success",true,0.005365544867,0.008739193709,0.009214980354,true,true,0.015,0.03,0.3577029911,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_f_V_N2","own","ok","Success",true,0.00675892056,0.01232019648,0.01373052907,true,true,0.015,0.03,0.450594704,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_f_V_N21","own","ok","Success",true,0.008787268597,0.01917012234,0.02513077599,true,true,0.015,0.03,0.6390040782,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_f_V_N3","own","ok","Success",true,0.004830533428,0.008303505883,0.01540881743,true,true,0.015,0.03,0.3220355619,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_f_V_N6","own","ok","Success",true,0.004076747606,0.007156458164,0.008412733431,true,true,0.015,0.03,0.2717831737,NaN,NaN,661
+"hutchinson_2016","fixed","fig6_a_T","own","ok","Success",true,0.04871811088,0.08784943989,0.0904049308,false,false,0.015,0.03,3.247874058,NaN,NaN,661
+"hutchinson_2016","fixed","fig6_a_V","own","ok","Success",true,0.03741232577,0.07462895628,0.08029550478,false,false,0.015,0.03,2.494155052,NaN,NaN,661
+"hutchinson_2016","fixed","fig6_b_T","own","ok","Success",true,0.1637399774,0.2367543756,0.2544888691,false,false,0.015,0.03,10.91599849,NaN,NaN,661
+"hutchinson_2016","fixed","fig6_b_V","own","ok","Success",true,0.1287520723,0.1861504075,0.1941005422,false,false,0.015,0.03,8.583471485,NaN,NaN,661
+"hutchinson_2016","fixed","fig6_c_T","own","ok","Success",true,0.02583767325,0.04432032454,0.04560449685,false,false,0.015,0.03,1.72251155,NaN,NaN,661
+"hutchinson_2016","fixed","fig6_c_V","own","ok","Success",true,0.02768221736,0.03829956941,0.04739014698,false,false,0.015,0.03,1.845481158,NaN,NaN,661
+"hutchinson_2016","fixed","fig6_d_T","own","ok","Success",true,0.2439756797,0.2900432854,0.2912978586,false,false,0.015,0.03,16.26504531,NaN,NaN,661
+"hutchinson_2016","fixed","fig6_d_V","own","ok","Success",true,0.1876723146,0.2639085666,0.2824107234,false,false,0.015,0.03,12.51148764,NaN,NaN,661
+"hutchinson_2016","fixed","fig2_a_T","tol/100","ok","Success",true,0.001810995506,0.003272098634,0.004159146158,true,true,0.015,0.03,0.1207330335,7.169165261e-11,6.753134417e-11,661
+"hutchinson_2016","fixed","fig2_b_V","tol/100","ok","Success",true,0.001848221462,0.003238283409,0.003425939585,true,true,0.015,0.03,0.1232147643,6.790390472e-11,6.793760813e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d04","tol/100","ok","Success",true,0.001472377041,0.002366081842,0.002894967619,true,true,0.015,0.03,0.09815846951,5.184674912e-11,5.237043199e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d06","tol/100","ok","Success",true,0.001846632301,0.003071952031,0.005735784771,true,true,0.015,0.03,0.1231088199,3.391742442e-11,6.361750699e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d08","tol/100","ok","Success",true,0.002184625086,0.005140456961,0.005791377695,true,true,0.015,0.03,0.1713485652,3.175879004e-11,6.542330572e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d10","tol/100","ok","Success",true,0.005971285581,0.00419983535,0.04256430636,true,true,0.015,0.03,0.3980857051,3.032865625e-11,6.588848455e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d12","tol/100","ok","Success",true,0.002431855955,0.004261582936,0.005869432492,true,true,0.015,0.03,0.1621237301,2.898667417e-11,6.596581317e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d04","tol/100","ok","Success",true,0.001799156384,0.003518510764,0.004213275952,true,true,0.015,0.03,0.119943759,1.394551141e-11,2.155785269e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d06","tol/100","ok","Success",true,0.002308416043,0.003817696856,0.006212772468,true,true,0.015,0.03,0.1538944028,1.439137698e-11,2.613625347e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d08","tol/100","ok","Success",true,0.002184720657,0.00332388739,0.00714324035,true,true,0.015,0.03,0.1456480438,1.299382824e-11,2.912388056e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d10","tol/100","ok","Success",true,0.002286768531,0.003807233268,0.004804686388,true,true,0.015,0.03,0.1524512353,1.035511954e-11,3.602060013e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d12","tol/100","ok","Success",true,0.002035969668,0.003328065912,0.004601662547,true,true,0.015,0.03,0.1357313111,8.547877683e-12,4.189231397e-11,661
+"hutchinson_2016","fixed","fig2_e_T_N11","tol/100","ok","Success",true,0.002554351574,0.004483385628,0.004599585258,true,true,0.015,0.03,0.1702911707,6.13894825e-08,6.971597852e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N2","tol/100","ok","Success",true,0.007199917028,0.01187674974,0.01342194606,true,true,0.015,0.03,0.4799932242,3.013492128e-08,7.433933362e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N21","tol/100","ok","Success",true,0.006069009643,0.01161346619,0.01346017525,true,true,0.015,0.03,0.4046016785,6.559039645e-08,6.994639187e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N3","tol/100","ok","Success",true,0.004661362025,0.009077013294,0.009760167242,true,true,0.015,0.03,0.3107583746,3.930874948e-08,7.583447521e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N6","tol/100","ok","Success",true,0.006418396769,0.009808663931,0.01073396052,true,true,0.015,0.03,0.4278921075,5.143032333e-08,6.928886417e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N11","tol/100","ok","Success",true,0.00536550241,0.008739135802,0.009214922469,true,true,0.015,0.03,0.3577029911,5.919552981e-08,4.484319572e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N2","tol/100","ok","Success",true,0.006758948604,0.01232023355,0.01373056606,true,true,0.015,0.03,0.450594704,3.731182563e-08,3.581059758e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N21","tol/100","ok","Success",true,0.008787242627,0.01917006648,0.02513071361,true,true,0.015,0.03,0.6390040782,6.254545148e-08,4.591893222e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N3","tol/100","ok","Success",true,0.004830508419,0.008303460664,0.01540879862,true,true,0.015,0.03,0.3220355619,4.538529852e-08,3.99883909e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N6","tol/100","ok","Success",true,0.004076773576,0.007156509104,0.00841278336,true,true,0.015,0.03,0.2717831737,5.246273793e-08,4.183568186e-08,661
+"hutchinson_2016","fixed","fig6_a_T","tol/100","ok","Success",true,0.04871809096,0.08784940537,0.09040489589,false,false,0.015,0.03,3.247874058,5.880828413e-08,7.268736228e-08,661
+"hutchinson_2016","fixed","fig6_a_V","tol/100","ok","Success",true,0.03741231145,0.07462892773,0.0802954749,false,false,0.015,0.03,2.494155052,3.059082199e-08,4.289323476e-08,661
+"hutchinson_2016","fixed","fig6_b_T","tol/100","ok","Success",true,0.1637399662,0.2367543545,0.2544888478,false,false,0.015,0.03,10.91599849,3.329745601e-08,6.91113883e-08,661
+"hutchinson_2016","fixed","fig6_b_V","tol/100","ok","Success",true,0.1287520693,0.1861503989,0.1941005328,false,false,0.015,0.03,8.583471485,9.428174796e-09,2.405193566e-08,661
+"hutchinson_2016","fixed","fig6_c_T","tol/100","ok","Success",true,0.02583767254,0.04432032347,0.04560449577,false,false,0.015,0.03,1.72251155,3.863871645e-08,7.126104951e-08,661
+"hutchinson_2016","fixed","fig6_c_V","tol/100","ok","Success",true,0.02768221694,0.03829956837,0.04739014591,false,false,0.015,0.03,1.845481158,1.750363743e-09,5.009356242e-09,661
+"hutchinson_2016","fixed","fig6_d_T","tol/100","ok","Success",true,0.2439756814,0.2900432875,0.2912978609,false,false,0.015,0.03,16.26504531,3.426777512e-08,7.464842334e-08,661
+"hutchinson_2016","fixed","fig6_d_V","tol/100","ok","Success",true,0.1876723173,0.2639085692,0.282410726,false,false,0.015,0.03,12.51148764,5.422342131e-09,2.087018635e-08,661
+"hutchinson_2016","fixed","fig2_a_T","altA Rodas5P","ok","Success",true,0.001810995508,0.003272098628,0.004159146158,true,true,0.015,0.03,0.1207330335,1.35636502e-10,1.35150784e-10,661
+"hutchinson_2016","fixed","fig2_b_V","altA Rodas5P","ok","Success",true,0.00184822146,0.003238283403,0.003425939587,true,true,0.015,0.03,0.1232147643,1.280920925e-10,1.356325869e-10,661
+"hutchinson_2016","fixed","fig2_c_T_d04","altA Rodas5P","ok","Success",true,0.001472377043,0.002366081852,0.002894967608,true,true,0.015,0.03,0.09815846951,5.032196881e-11,7.497486235e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d06","altA Rodas5P","ok","Success",true,0.001846632301,0.003071951993,0.005735784783,true,true,0.015,0.03,0.1231088199,5.696138006e-11,1.127925452e-10,661
+"hutchinson_2016","fixed","fig2_c_T_d08","altA Rodas5P","ok","Success",true,0.002184625068,0.005140456915,0.005791377659,true,true,0.015,0.03,0.1713485652,7.069722585e-11,1.348521753e-10,661
+"hutchinson_2016","fixed","fig2_c_T_d10","altA Rodas5P","ok","Success",true,0.005971285565,0.004199835294,0.04256430631,true,true,0.015,0.03,0.3980857051,7.865708085e-11,1.716475934e-10,661
+"hutchinson_2016","fixed","fig2_c_T_d12","altA Rodas5P","ok","Success",true,0.002431855942,0.004261582884,0.005869432474,true,true,0.015,0.03,0.1621237301,8.313341682e-11,1.897311385e-10,661
+"hutchinson_2016","fixed","fig2_d_V_d04","altA Rodas5P","ok","Success",true,0.001799156383,0.00351851076,0.004213275952,true,true,0.015,0.03,0.119943759,2.832878376e-11,4.094179898e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d06","altA Rodas5P","ok","Success",true,0.002308416038,0.003817696835,0.006212772468,true,true,0.015,0.03,0.1538944028,4.448841295e-11,6.75504657e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d08","altA Rodas5P","ok","Success",true,0.002184720651,0.003323887375,0.007143240349,true,true,0.015,0.03,0.1456480438,4.895533978e-11,1.101428197e-10,661
+"hutchinson_2016","fixed","fig2_d_V_d10","altA Rodas5P","ok","Success",true,0.002286768527,0.003807233247,0.004804686367,true,true,0.015,0.03,0.1524512353,3.989436559e-11,1.383764994e-10,661
+"hutchinson_2016","fixed","fig2_d_V_d12","altA Rodas5P","ok","Success",true,0.002035969664,0.003328065891,0.004601662537,true,true,0.015,0.03,0.1357313111,3.17964613e-11,1.574419115e-10,661
+"hutchinson_2016","fixed","fig2_e_T_N11","altA Rodas5P","ok","Success",true,0.00255435159,0.004483385777,0.004599585402,true,true,0.015,0.03,0.1702911707,6.240602679e-08,6.921655597e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N2","altA Rodas5P","ok","Success",true,0.007199917898,0.01187675155,0.01342194775,true,true,0.015,0.03,0.4799932242,3.26522987e-08,7.39410539e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N21","altA Rodas5P","ok","Success",true,0.006069008448,0.01161346382,0.0134601727,true,true,0.015,0.03,0.4046016785,7.482935505e-08,7.701866902e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N3","altA Rodas5P","ok","Success",true,0.004661361761,0.009077012803,0.009760166729,true,true,0.015,0.03,0.3107583746,4.024912664e-08,7.542544328e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N6","altA Rodas5P","ok","Success",true,0.006418396957,0.009808664269,0.0107339608,true,true,0.015,0.03,0.4278921075,5.237174971e-08,6.879387577e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N11","altA Rodas5P","ok","Success",true,0.005365502378,0.008739135657,0.009214922327,true,true,0.015,0.03,0.3577029911,5.936274527e-08,4.49698687e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N2","altA Rodas5P","ok","Success",true,0.006758949229,0.01232023479,0.01373056727,true,true,0.015,0.03,0.450594704,3.856833475e-08,3.701655152e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N21","altA Rodas5P","ok","Success",true,0.008787241473,0.01917006377,0.02513071011,true,true,0.015,0.03,0.6390040782,6.606766134e-08,4.85048295e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N3","altA Rodas5P","ok","Success",true,0.00483050828,0.008303460328,0.01540879868,true,true,0.015,0.03,0.3220355619,4.57279723e-08,4.029031635e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N6","altA Rodas5P","ok","Success",true,0.004076773674,0.007156509285,0.008412783516,true,true,0.015,0.03,0.2717831737,5.267710979e-08,4.200662974e-08,661
+"hutchinson_2016","fixed","fig6_a_T","altA Rodas5P","ok","Success",true,0.04871808933,0.08784940281,0.09040489319,false,false,0.015,0.03,3.247874058,6.513527362e-08,7.50623543e-08,661
+"hutchinson_2016","fixed","fig6_a_V","altA Rodas5P","ok","Success",true,0.03741231074,0.07462892612,0.08029547314,false,false,0.015,0.03,2.494155052,3.240094204e-08,4.543131319e-08,661
+"hutchinson_2016","fixed","fig6_b_T","altA Rodas5P","ok","Success",true,0.1637399625,0.2367543487,0.2544888419,false,false,0.015,0.03,10.91599849,3.302077423e-08,6.853711424e-08,661
+"hutchinson_2016","fixed","fig6_b_V","altA Rodas5P","ok","Success",true,0.1287520668,0.186150395,0.1941005287,false,false,0.015,0.03,8.583471485,1.349745116e-08,3.443294513e-08,661
+"hutchinson_2016","fixed","fig6_c_T","altA Rodas5P","ok","Success",true,0.02583767114,0.04432032086,0.04560449316,false,false,0.015,0.03,1.72251155,3.829489903e-08,7.062707175e-08,661
+"hutchinson_2016","fixed","fig6_c_V","altA Rodas5P","ok","Success",true,0.02768221638,0.03829956654,0.04739014398,false,false,0.015,0.03,1.845481158,3.287810552e-09,1.473219932e-08,661
+"hutchinson_2016","fixed","fig6_d_T","altA Rodas5P","ok","Success",true,0.2439756783,0.290043284,0.2912978573,false,false,0.015,0.03,16.26504531,3.39893772e-08,7.404196536e-08,661
+"hutchinson_2016","fixed","fig6_d_V","altA Rodas5P","ok","Success",true,0.1876723149,0.2639085657,0.2824107223,false,false,0.015,0.03,12.51148764,4.713527069e-09,1.057520516e-08,661
+"hutchinson_2016","fixed","fig2_a_T","altB Vern9","ok","Success",true,0.001810995506,0.003272098634,0.004159146158,true,true,0.015,0.03,0.1207330335,7.170808392e-11,6.754679564e-11,661
+"hutchinson_2016","fixed","fig2_b_V","altB Vern9","ok","Success",true,0.001848221462,0.003238283409,0.003425939585,true,true,0.015,0.03,0.1232147643,6.79192258e-11,6.795296348e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d04","altB Vern9","ok","Success",true,0.001472377041,0.002366081842,0.002894967619,true,true,0.015,0.03,0.09815846951,5.177536178e-11,5.203657276e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d06","altB Vern9","ok","Success",true,0.001846632301,0.003071952031,0.005735784771,true,true,0.015,0.03,0.1231088199,3.427658157e-11,6.377152034e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d08","altB Vern9","ok","Success",true,0.002184625086,0.005140456961,0.005791377695,true,true,0.015,0.03,0.1713485652,3.187289321e-11,6.595668335e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d10","altB Vern9","ok","Success",true,0.005971285581,0.004199835351,0.04256430636,true,true,0.015,0.03,0.3980857051,3.033398532e-11,6.571218436e-11,661
+"hutchinson_2016","fixed","fig2_c_T_d12","altB Vern9","ok","Success",true,0.002431855955,0.004261582937,0.005869432492,true,true,0.015,0.03,0.1621237301,2.901984208e-11,6.608001149e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d04","altB Vern9","ok","Success",true,0.001799156384,0.003518510764,0.004213275952,true,true,0.015,0.03,0.119943759,1.396771587e-11,2.152857884e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d06","altB Vern9","ok","Success",true,0.002308416043,0.003817696856,0.006212772468,true,true,0.015,0.03,0.1538944028,1.441979869e-11,2.598501661e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d08","altB Vern9","ok","Success",true,0.002184720657,0.00332388739,0.007143240349,true,true,0.015,0.03,0.1456480438,1.296440733e-11,2.905784146e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d10","altB Vern9","ok","Success",true,0.002286768531,0.003807233268,0.004804686388,true,true,0.015,0.03,0.1524512353,1.033986785e-11,3.617339341e-11,661
+"hutchinson_2016","fixed","fig2_d_V_d12","altB Vern9","ok","Success",true,0.002035969668,0.003328065912,0.004601662547,true,true,0.015,0.03,0.1357313111,8.505147975e-12,4.199636039e-11,661
+"hutchinson_2016","fixed","fig2_e_T_N11","altB Vern9","ok","Success",true,0.002554352298,0.004483386473,0.004599586098,true,true,0.015,0.03,0.1702911707,5.84035611e-08,6.665132309e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N2","altB Vern9","ok","Success",true,0.007199916201,0.01187674864,0.01342194499,true,true,0.015,0.03,0.4799932242,2.865897009e-08,7.152407341e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N21","altB Vern9","ok","Success",true,0.006069010522,0.01161346788,0.01346017693,true,true,0.015,0.03,0.4046016785,6.161399879e-08,6.68655351e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N3","altB Vern9","ok","Success",true,0.004661362715,0.00907701451,0.009760168452,true,true,0.015,0.03,0.3107583746,3.722859299e-08,7.294139842e-08,661
+"hutchinson_2016","fixed","fig2_e_T_N6","altB Vern9","ok","Success",true,0.006418395976,0.00980866277,0.0107339592,true,true,0.015,0.03,0.4278921075,4.861532887e-08,6.625298328e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N11","altB Vern9","ok","Success",true,0.005365504346,0.008739138465,0.009214925131,true,true,0.015,0.03,0.3577029911,5.647021761e-08,4.277865283e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N2","altB Vern9","ok","Success",true,0.006758947448,0.01232023197,0.01373056449,true,true,0.015,0.03,0.450594704,3.57187393e-08,3.428160857e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N21","altB Vern9","ok","Success",true,0.008787243971,0.01917006941,0.02513071695,true,true,0.015,0.03,0.6390040782,5.919832946e-08,4.346157889e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N3","altB Vern9","ok","Success",true,0.004830509502,0.008303462672,0.01540879934,true,true,0.015,0.03,0.3220355619,4.336692283e-08,3.82100266e-08,661
+"hutchinson_2016","fixed","fig2_f_V_N6","altB Vern9","ok","Success",true,0.004076772319,0.007156506642,0.008412780956,true,true,0.015,0.03,0.2717831737,4.99122278e-08,3.980181302e-08,661
+"hutchinson_2016","fixed","fig6_a_T","altB Vern9","ok","Success",true,0.04871809217,0.08784940741,0.09040489798,false,false,0.015,0.03,3.247874058,5.532785696e-08,6.984569333e-08,661
+"hutchinson_2016","fixed","fig6_a_V","altB Vern9","ok","Success",true,0.03741231222,0.0746289293,0.08029547656,false,false,0.015,0.03,2.494155052,2.889284056e-08,4.051239274e-08,661
+"hutchinson_2016","fixed","fig6_b_T","altB Vern9","ok","Success",true,0.163739967,0.2367543561,0.2544888494,false,false,0.015,0.03,10.91599849,3.195989712e-08,6.633518361e-08,661
+"hutchinson_2016","fixed","fig6_b_V","altB Vern9","ok","Success",true,0.1287520696,0.1861503996,0.1941005336,false,false,0.015,0.03,8.583471485,8.66543387e-09,2.210612994e-08,661
+"hutchinson_2016","fixed","fig6_c_T","altB Vern9","ok","Success",true,0.02583767278,0.04432032389,0.0456044962,false,false,0.015,0.03,1.72251155,3.709791063e-08,6.841938056e-08,661
+"hutchinson_2016","fixed","fig6_c_V","altB Vern9","ok","Success",true,0.02768221704,0.03829956867,0.04739014624,false,false,0.015,0.03,1.845481158,1.680184436e-09,3.404646667e-09,661
+"hutchinson_2016","fixed","fig6_d_T","altB Vern9","ok","Success",true,0.2439756821,0.2900432883,0.2912978616,false,false,0.015,0.03,16.26504531,3.29574486e-08,7.324723937e-08,661
+"hutchinson_2016","fixed","fig6_d_V","altB Vern9","ok","Success",true,0.1876723178,0.26390857,0.2824107268,false,false,0.015,0.03,12.51148764,5.378064882e-09,2.717323428e-08,661
+"hutchinson_2016","fixed","fig2_a_T","dense x4","ok","Success",true,0.001811096788,0.003272204064,0.00415928889,true,true,0.015,0.03,0.1207330335,0,0,2641
+"hutchinson_2016","fixed","fig2_b_V","dense x4","ok","Success",true,0.001848194762,0.003238479243,0.003426102947,true,true,0.015,0.03,0.1232147643,0,0,2641
+"hutchinson_2016","fixed","fig2_c_T_d04","dense x4","ok","Success",true,0.001472356543,0.00236603133,0.002895075714,true,true,0.015,0.03,0.09815846951,0,0,2641
+"hutchinson_2016","fixed","fig2_c_T_d06","dense x4","ok","Success",true,0.001846637404,0.003071984717,0.005735840047,true,true,0.015,0.03,0.1231088199,0,0,2641
+"hutchinson_2016","fixed","fig2_c_T_d08","dense x4","ok","Success",true,0.002184566154,0.00514026395,0.005791164822,true,true,0.015,0.03,0.1713485652,0,0,2641
+"hutchinson_2016","fixed","fig2_c_T_d10","dense x4","ok","Success",true,0.005971265024,0.004199821211,0.04256421759,true,true,0.015,0.03,0.3980857051,0,0,2641
+"hutchinson_2016","fixed","fig2_c_T_d12","dense x4","ok","Success",true,0.002431780903,0.00426160709,0.00586894028,true,true,0.015,0.03,0.1621237301,0,0,2641
+"hutchinson_2016","fixed","fig2_d_V_d04","dense x4","ok","Success",true,0.001799195973,0.003518652297,0.004213462262,true,true,0.015,0.03,0.119943759,0,0,2641
+"hutchinson_2016","fixed","fig2_d_V_d06","dense x4","ok","Success",true,0.002308436691,0.003817750406,0.00621269353,true,true,0.015,0.03,0.1538944028,0,0,2641
+"hutchinson_2016","fixed","fig2_d_V_d08","dense x4","ok","Success",true,0.002184780981,0.003323931003,0.007143444836,true,true,0.015,0.03,0.1456480438,0,0,2641
+"hutchinson_2016","fixed","fig2_d_V_d10","dense x4","ok","Success",true,0.002286775613,0.003807247192,0.004804703367,true,true,0.015,0.03,0.1524512353,0,0,2641
+"hutchinson_2016","fixed","fig2_d_V_d12","dense x4","ok","Success",true,0.002036001697,0.003328100434,0.004601666003,true,true,0.015,0.03,0.1357313111,0,0,2641
+"hutchinson_2016","fixed","fig2_e_T_N11","dense x4","ok","Success",true,0.002554665308,0.004483937953,0.004600016144,true,true,0.015,0.03,0.1702911707,0,0,2641
+"hutchinson_2016","fixed","fig2_e_T_N2","dense x4","ok","Success",true,0.007199704738,0.01187664623,0.01342165142,true,true,0.015,0.03,0.4799932242,0,0,2641
+"hutchinson_2016","fixed","fig2_e_T_N21","dense x4","ok","Success",true,0.006069692799,0.01161408961,0.01346118451,true,true,0.015,0.03,0.4046016785,0,0,2641
+"hutchinson_2016","fixed","fig2_e_T_N3","dense x4","ok","Success",true,0.004661724428,0.009077466901,0.009760954729,true,true,0.015,0.03,0.3107583746,0,0,2641
+"hutchinson_2016","fixed","fig2_e_T_N6","dense x4","ok","Success",true,0.006417866204,0.009806664241,0.01073325234,true,true,0.015,0.03,0.4278921075,0,0,2641
+"hutchinson_2016","fixed","fig2_f_V_N11","dense x4","ok","Success",true,0.005365021117,0.008738784577,0.009214295795,true,true,0.015,0.03,0.3577029911,0,0,2641
+"hutchinson_2016","fixed","fig2_f_V_N2","dense x4","ok","Success",true,0.006759082954,0.01232023655,0.0137307171,true,true,0.015,0.03,0.450594704,0,0,2641
+"hutchinson_2016","fixed","fig2_f_V_N21","dense x4","ok","Success",true,0.008787105258,0.01916985114,0.02513077511,true,true,0.015,0.03,0.6390040782,0,0,2641
+"hutchinson_2016","fixed","fig2_f_V_N3","dense x4","ok","Success",true,0.00483039077,0.008303202724,0.01540946458,true,true,0.015,0.03,0.3220355619,0,0,2641
+"hutchinson_2016","fixed","fig2_f_V_N6","dense x4","ok","Success",true,0.004077041656,0.007157009048,0.008413118562,true,true,0.015,0.03,0.2717831737,0,0,2641
+"hutchinson_2016","fixed","fig6_a_T","dense x4","ok","Success",true,0.0487184051,0.08784967261,0.09040519397,false,false,0.015,0.03,3.247874058,0,0,2641
+"hutchinson_2016","fixed","fig6_a_V","dense x4","ok","Success",true,0.0374122471,0.07462888449,0.08029539154,false,false,0.015,0.03,2.494155052,0,0,2641
+"hutchinson_2016","fixed","fig6_b_T","dense x4","ok","Success",true,0.1637403682,0.2367543756,0.2544888691,false,false,0.015,0.03,10.91599849,0,0,2641
+"hutchinson_2016","fixed","fig6_b_V","dense x4","ok","Success",true,0.1287521298,0.1861503636,0.1941005422,false,false,0.015,0.03,8.583471485,0,0,2641
+"hutchinson_2016","fixed","fig6_c_T","dense x4","ok","Success",true,0.0258380838,0.04432023396,0.04560438861,false,false,0.015,0.03,1.72251155,0,0,2641
+"hutchinson_2016","fixed","fig6_c_V","dense x4","ok","Success",true,0.02768228203,0.03829980251,0.04739046086,false,false,0.015,0.03,1.845481158,0,0,2641
+"hutchinson_2016","fixed","fig6_d_T","dense x4","ok","Success",true,0.243976267,0.2900432831,0.2912978267,false,false,0.015,0.03,16.26504531,0,0,2641
+"hutchinson_2016","fixed","fig6_d_V","dense x4","ok","Success",true,0.187672406,0.263908669,0.2824108196,false,false,0.015,0.03,12.51148764,0,0,2641

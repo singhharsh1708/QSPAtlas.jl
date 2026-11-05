@@ -10,6 +10,8 @@ write_reference
 Tolerance
 CurveComparison
 compare_curve
+CurveDiagnostics
+curve_diagnostics
 Fix
 CurveResult
 Run
@@ -57,6 +59,8 @@ virtual_population
 percentiles
 vpc
 VPCResult
+mc_check
+failure_rate
 spaghetti
 bands
 plot_vpc

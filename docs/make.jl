@@ -59,12 +59,16 @@ for id in model_ids()
                 run = get(s, label, Dict())
                 isempty(run) && continue
                 println(io, "\n**", run["label"], "**", run["ran"] ? "" : " (did not run: $(run["error"]))", "\n")
-                println(io, "| curve | figure | RMS | P95 | tolerance (RMS / P95) | pass |")
-                println(io, "|---|---|---|---|---|---|")
+                println(io, "| curve | figure | RMS | P95 | tolerance (RMS / P95) | pass | coverage (reference / simulation, points) |")
+                println(io, "|---|---|---|---|---|---|---|")
+                # coverage is report-only (not part of the grade); older score files do not have it
+                cov(c) = haskey(c, "coverage") ?
+                    string(round(Int, 100 * c["coverage"]), " % / ", round(Int, 100 * get(c, "sim_coverage", 0.0)), " %, ", get(c, "n_points", "?")) : "n/a"
                 for c in run["curves"]
                     println(io, "| `", c["id"], "` | ", c["figure"], " | ", c["rms"], " | ", c["p95"], " | ",
-                        c["tol_rms"], " / ", c["tol_p95"], " | ", c["passed"] ? "yes" : "no", " |")
+                        c["tol_rms"], " / ", c["tol_p95"], " | ", c["passed"] ? "yes" : "no", " | ", cov(c), " |")
                 end
+                println(io, "\nCoverage is the span of the digitised reference x values as a share of the axis, then the share of the axis on which the simulation is defined, and the number of reference points. It is reported only and does not change the grade.")
             end
         end
         println(io, "\n---\nSource: [`models/$id/`](https://github.com/singhharsh1708/QSPAtlas.jl/tree/main/models/$id)")
@@ -209,7 +213,7 @@ makedocs(;
     sitename = "QSP Reproducibility Atlas",
     repo = Remotes.GitHub("singhharsh1708", "QSPAtlas.jl"),
     modules = [QSPAtlas],
-    format = Documenter.HTML(; prettyurls = get(ENV, "CI", "false") == "true", size_threshold = 400_000,
+    format = Documenter.HTML(; prettyurls = get(ENV, "CI", "false") == "true", size_threshold = 400_000, size_threshold_warn = 300_000,
         canonical = "https://singhharsh1708.github.io/QSPAtlas.jl/", edit_link = "main",
         assets = ["assets/favicon.ico"]),   # logo.svg in assets/ is picked up for the sidebar
     pages = [

@@ -28,7 +28,7 @@ include("simplots.jl")
 include("benchmark.jl")
 
 export Axis, ReferenceCurve, load_reference, load_references, write_reference
-export Tolerance, CurveComparison, compare_curve, passes
+export Tolerance, CurveComparison, compare_curve, passes, CurveDiagnostics, curve_diagnostics
 export Fix, CurveResult, Run, Reproduction, grade, grade_label, grade_strict, from_target, figure_grades, NotRunnable, run_curves, write_score, read_score
 export models_dir, model_ids
 export bolus_callback, repeated_doses
@@ -36,7 +36,7 @@ export Route, Dose, Regimen, DoseControl, DoseEvent, doses, resolve, dosing_call
 export ErrorModel, AdditiveError, ProportionalError, CombinedError, ExponentialError
 export Subject, PopulationModel, SimResult, simulate, zero_re_prediction, virtual_population
 export Reset, reset_times, SteadyStateOptions, SteadyStateError, steady_state_cycle, with_steady_state
-export percentiles, vpc, VPCResult, spaghetti, bands, plot_vpc
+export percentiles, vpc, VPCResult, mc_check, failure_rate, spaghetti, bands, plot_vpc
 export plot_reproduction
 export benchmark_problem, BenchmarkSetup
 

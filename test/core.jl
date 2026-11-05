@@ -102,3 +102,182 @@ end
     @test !passes(c) && c.d[1] > 0.4
 end
 
+
+# ---- report-only diagnostics: coverage, reverse distance, band centre and edges -------------------
+@testset "coverage of the reference and of the simulation" begin
+    ax = Axis("t", "-", :linear, 0, 10)
+    ay = Axis("y", "-", :linear, 0, 10)
+    mk(xs; xaxis = ax) = ReferenceCurve("c", "f", Float64.(xs), Float64.(xs), xaxis, ay, :curve, Dict{String, String}())
+    g = curve_diagnostics(mk([2.0, 5.0, 8.0]), 0.0:1.0:10.0, 0.0:1.0:10.0)
+    @test g.coverage ≈ 0.6 && g.n_points == 3 && g.sim_coverage ≈ 1.0
+    # a single point covers nothing; points beyond the axis are clamped to the whole axis
+    @test curve_diagnostics(mk([5.0]), [0.0, 10.0], [0.0, 10.0]).coverage == 0.0
+    @test curve_diagnostics(mk([-3.0, 14.0]), [0.0, 10.0], [0.0, 10.0]).coverage == 1.0
+    # log x axis: span in decades (1 to 100 on 0.1 .. 1000 is 2 of 4 decades)
+    lx = Axis("t", "-", :log, 0.1, 1000)
+    @test curve_diagnostics(mk([1.0, 100.0]; xaxis = lx), [1.0, 10.0], [1.0, 10.0]).coverage ≈ 0.5
+    # simulation defined on half of the axis only
+    ref = mk([2.0, 8.0])
+    @test curve_diagnostics(ref, [0.0, 5.0], [0.0, 5.0]).sim_coverage ≈ 0.5
+    # a gap is not bridged: x = 4 and 5 are NaN, so [0, 3] and [6, 10] are defined
+    xs = collect(0.0:1.0:10.0)
+    ys = copy(xs); ys[5] = NaN; ys[6] = NaN
+    @test curve_diagnostics(ref, xs, ys).sim_coverage ≈ 0.7
+    # a lone finite point defines no interval; a simulation outside the axis is clipped to it
+    @test curve_diagnostics(ref, [0.0, 5.0, 10.0], [NaN, 5.0, NaN]).sim_coverage == 0.0
+    @test curve_diagnostics(ref, [-5.0, 20.0], [0.0, 10.0]).sim_coverage == 1.0
+    # overlapping segments are counted once; unsorted x is fine
+    @test curve_diagnostics(ref, [0.0, 6.0, 3.0, 9.0], [1.0, 1.0, 1.0, 1.0]).sim_coverage ≈ 0.9
+    # non-positive values on a log y axis are gaps
+    ly = Axis("y", "-", :log, 1, 10)
+    rl = ReferenceCurve("c", "f", [2.0, 8.0], [2.0, 5.0], ax, ly, :curve, Dict{String, String}())
+    @test curve_diagnostics(rl, [0.0, 5.0, 10.0], [3.0, 0.0, 3.0]).sim_coverage == 0.0
+    @test curve_diagnostics(rl, [0.0, 5.0, 10.0], [-1.0, -1.0, -1.0]).sim_coverage == 0.0
+    @test_throws DimensionMismatch curve_diagnostics(ref, [0.0, 1.0], [0.0])
+end
+
+@testset "reverse distance: the other side of a curve comparison" begin
+    ax = Axis("t", "-", :linear, 0, 10)
+    ay = Axis("y", "-", :linear, 0, 10)
+    flat = ReferenceCurve("flat", "f", [0.0, 2.0, 4.0, 6.0, 8.0, 10.0], fill(5.0, 6), ax, ay, :curve, Dict{String, String}())
+    # a simulation that crosses every reference point but wiggles between them passes the forward
+    # check (every reference point lies on it) and is caught by the reverse distance
+    xs = collect(0.0:0.01:10.0)
+    wiggle = 5 .+ 3 .* sin.(pi .* xs ./ 2)
+    c = compare_curve(flat, xs, wiggle)
+    g = curve_diagnostics(flat, xs, wiggle)
+    @test passes(c) && c.rms < 0.01
+    @test g.rev_rms > 0.1 && g.rev_p95 > g.rev_rms && g.rev_n == length(xs)
+    # the same simulation lying on the reference has reverse distance zero
+    g0 = curve_diagnostics(flat, xs, fill(5.0, length(xs)))
+    @test g0.rev_rms < 1e-12 && g0.rev_p95 < 1e-12
+    # only simulated points inside the reference x range count
+    ref = ReferenceCurve("r", "f", [2.0, 4.0, 6.0], [2.0, 4.0, 6.0], ax, ay, :curve, Dict{String, String}())
+    gi = curve_diagnostics(ref, 0.0:1.0:10.0, 0.0:1.0:10.0)
+    @test gi.rev_n == 5 && gi.rev_rms < 1e-12
+    # a parallel line one unit above is 1/sqrt(2) of 10 away from the line y = x (interior points)
+    gp = curve_diagnostics(ref, [3.0, 4.0, 5.0], [4.0, 5.0, 6.0])
+    @test gp.rev_rms ≈ 1 / sqrt(2) / 10
+    # capped at one axis box, like the forward distance
+    @test curve_diagnostics(ref, [3.0, 4.0], [1e6, 1e6]).rev_rms == 1.0
+    # gaps and unplaceable points are not used; nothing to measure gives NaN and rev_n = 0
+    gg = curve_diagnostics(ref, [3.0, 4.0, 5.0], [3.0, NaN, 5.0])
+    @test gg.rev_n == 2
+    gn = curve_diagnostics(ref, [8.0, 9.0], [8.0, 9.0])
+    @test gn.rev_n == 0 && isnan(gn.rev_rms) && isnan(gn.rev_p95)
+    # a single reference point: distance to that point
+    one = ReferenceCurve("o", "f", [5.0], [5.0], ax, ay, :curve, Dict{String, String}())
+    @test curve_diagnostics(one, [5.0, 5.0], [6.0, 6.0]).rev_rms ≈ 0.1
+    # the vertical metric is still a curve reference and gets a reverse distance
+    vert = ReferenceCurve("v", "f", [2.0, 4.0, 6.0], [2.0, 4.0, 6.0], ax, ay, :curve, Dict("metric" => "vertical"))
+    @test curve_diagnostics(vert, 0.0:1.0:10.0, 0.0:1.0:10.0).rev_n == 5
+    # points and bars references have no reverse distance
+    pts = ReferenceCurve("p", "f", [2.0, 4.0], [2.0, 4.0], ax, ay, :points, Dict{String, String}())
+    gp = curve_diagnostics(pts, 0.0:1.0:10.0, 0.0:1.0:10.0)
+    @test gp.rev_n == 0 && isnan(gp.rev_rms) && isnan(gp.band_centre_dev_rms)
+end
+
+@testset "band centre and simulated edges (report only)" begin
+    ax = Axis("t", "-", :linear, 0, 10)
+    ay = Axis("y", "-", :linear, 0, 10)
+    band(xs, lo, hi; yaxis = ay) = ReferenceCurve("b", "f", Float64.(xs), (Float64.(lo) .+ Float64.(hi)) ./ 2, ax, yaxis, :band, Dict{String, String}(), Float64.(lo), Float64.(hi))
+    ref = band([2.0, 4.0, 6.0], [1.0, 3.0, 5.0], [3.0, 5.0, 7.0])           # y in [x - 1, x + 1], half-width 1
+    xs = collect(0.0:1.0:10.0)
+    g = curve_diagnostics(ref, xs, xs)
+    @test g.band_centre_dev_rms < 1e-12 && g.band_n == 3 && isnan(g.band_edge_rms) && isnan(g.band_edge_max)
+    # inside the band but off the centre: the band score says 0, the centre deviation says 0.9
+    off = xs .+ 0.9
+    c = compare_curve(ref, xs, off)
+    @test c.d == [0.0, 0.0, 0.0] && passes(c)
+    @test curve_diagnostics(ref, xs, off).band_centre_dev_rms ≈ 0.9
+    # outside by 2 half-widths on either side is 2, not capped
+    @test curve_diagnostics(ref, xs, xs .- 2).band_centre_dev_rms ≈ 2.0
+    # a gap leaves the reference x out instead of counting it
+    gy = copy(xs); gy[4:6] .= NaN                                           # x = 3, 4, 5 undefined: x = 4 lies in the gap
+    gg = curve_diagnostics(ref, xs, gy)
+    @test gg.band_n == 2 && gg.band_centre_dev_rms < 1e-12
+    # zero half-width reference points are left out; all zero gives NaN
+    zero_hw = band([2.0, 4.0], [2.0, 3.0], [2.0, 5.0])
+    @test curve_diagnostics(zero_hw, xs, xs .+ 0.5).band_centre_dev_rms ≈ 0.5      # only x = 4
+    @test isnan(curve_diagnostics(band([2.0], [2.0], [2.0]), xs, xs).band_centre_dev_rms)
+    # log axis: the centre is the geometric centre (displayed coordinate); 10 is the centre of [1, 100]
+    ly = Axis("y", "-", :log, 0.01, 100)
+    rl = band([5.0], [1.0], [100.0]; yaxis = ly)
+    @test curve_diagnostics(rl, [0.0, 10.0], [10.0, 10.0]).band_centre_dev_rms < 1e-12
+    @test curve_diagnostics(rl, [0.0, 10.0], [100.0, 100.0]).band_centre_dev_rms ≈ 1.0
+
+    # simulated interval edges: compared with the reference edges at the reference x
+    lo, hi = xs .- 1 .+ 0.2, xs .+ 1 .- 0.5                                  # lower edge 0.2 too high, upper 0.5 too low
+    ge = curve_diagnostics(ref, xs, xs; sim_edges = (lo = lo, hi = hi))
+    @test ge.band_edge_max ≈ 0.05 && ge.band_edge_rms ≈ sqrt((0.02^2 + 0.05^2) / 2)
+    @test curve_diagnostics(ref, xs, xs; sim_edges = (lo = xs .- 1, hi = xs .+ 1)).band_edge_rms < 1e-12
+    # edges are interpolated between simulated points, gaps are not bridged, errors are capped
+    @test curve_diagnostics(ref, [0.0, 10.0], [0.0, 10.0]; sim_edges = (lo = [-1.0, 9.0], hi = [1.0, 11.0])).band_edge_rms < 1e-12
+    @test isnan(curve_diagnostics(ref, xs, xs; sim_edges = (lo = fill(NaN, 11), hi = xs .+ 1)).band_edge_rms)
+    @test curve_diagnostics(ref, xs, xs; sim_edges = (lo = fill(-1e6, 11), hi = fill(1e6, 11))).band_edge_max == 1.0
+    @test_throws DimensionMismatch curve_diagnostics(ref, xs, xs; sim_edges = (lo = [1.0], hi = [2.0]))
+    @test_throws ArgumentError curve_diagnostics(ref, xs, xs; sim_edges = (low = lo, high = hi))
+    # edges are ignored for other kinds
+    cur = ReferenceCurve("c", "f", [2.0], [2.0], ax, ay, :curve, Dict{String, String}())
+    @test isnan(curve_diagnostics(cur, xs, xs; sim_edges = (lo = lo, hi = hi)).band_edge_rms)
+
+    # the interpolation used for the diagnostics is the one of the band score
+    refs = band([1.5, 3.2, 5.0, 7.7, 9.0], [0.0, 2.0, 4.0, 6.0, 7.0], [2.0, 4.0, 6.0, 8.0, 10.0])
+    sx = [0.0, 1.0, 2.0, 4.0, 5.0, 8.0, 10.0]
+    sy = [0.5, 1.5, NaN, 4.0, 5.5, 8.0, 12.0]
+    s = QSPAtlas.sim_at_reference_x(refs, sx, sy)
+    d = [isnan(si) ? 1.0 : min(max(lo_ - si, si - hi_, 0.0), 1.0) for (si, lo_, hi_) in zip(s, refs.ylo ./ 10, refs.yhi ./ 10)]
+    @test compare_curve(refs, sx, sy).d ≈ d
+end
+
+@testset "diagnostics ride along run_curves and write_score without changing a score" begin
+    ax = Axis("t", "-", :linear, 0, 10)
+    ay = Axis("y", "-", :linear, 0, 10)
+    cur = ReferenceCurve("cur", "f", [2.0, 5.0, 8.0], [2.0, 5.0, 8.0], ax, ay, :curve, Dict{String, String}())
+    bnd = ReferenceCurve("bnd", "f", [2.0, 4.0, 6.0], [2.0, 4.0, 6.0], ax, ay, :band, Dict{String, String}(), [1.0, 3.0, 5.0], [3.0, 5.0, 7.0])
+    pts = ReferenceCurve("pts", "f", [2.0, 5.0], [2.0, 5.0], ax, ay, :points, Dict{String, String}())
+    refs = [cur, bnd, pts]
+    xs = collect(0.0:0.5:10.0)
+    sim(ref) = (xs, xs .+ 0.3)
+    plain = run_curves(sim, refs, "as published")
+    with_edges = run_curves(refs, "as published") do ref
+        ref.kind === :band ? (xs, xs .+ 0.3, (lo = xs .- 0.7, hi = xs .+ 1.3)) : (xs, xs .+ 0.3)
+    end
+    # the pass/fail and the distances do not depend on the extras
+    for (a, b) in zip(plain.curves, with_edges.curves)
+        @test a.comparison.passed == b.comparison.passed && a.comparison.d == b.comparison.d
+        @test a.comparison.rms == compare_curve(a.ref, xs, xs .+ 0.3).rms
+    end
+    @test isnan(plain.curves[2].diagnostics.band_edge_rms)
+    @test with_edges.curves[2].diagnostics.band_edge_rms ≈ 0.03       # both edges 0.3 off, in a 10-unit axis
+    @test plain.curves[1].diagnostics.coverage ≈ 0.6 && plain.curves[1].diagnostics.rev_n == 13
+    # a model that returns a 4-argument CurveResult constructor call still works, edges optional
+    c = plain.curves[1]
+    @test QSPAtlas.CurveResult(c.ref, c.x, c.y, c.comparison).diagnostics.coverage == c.diagnostics.coverage
+
+    rep = Reproduction(id = "d", citation = "c", doi = "x", published = with_edges)
+    path = write_score(tempname() * ".toml", rep)
+    s = read_score(path)
+    cs = Dict(c["id"] => c for c in s["published"]["curves"])
+    @test Set(keys(cs)) == Set(["cur", "bnd", "pts"])
+    for (c, r) in zip(with_edges.curves, refs)
+        w = cs[r.id]
+        @test w["passed"] == c.comparison.passed && w["rms"] == round(c.comparison.rms; sigdigits = 4)
+        @test w["p95"] == round(c.comparison.p95; sigdigits = 4) && w["n_points"] == length(r.x)
+        @test w["coverage"] == round(c.diagnostics.coverage; sigdigits = 4) && w["sim_coverage"] == 1.0
+    end
+    @test cs["cur"]["coverage"] ≈ 0.6 && haskey(cs["cur"], "rev_rms") && cs["cur"]["rev_n"] == 13
+    @test !haskey(cs["cur"], "band_centre_dev_rms") && !haskey(cs["cur"], "band_edge_rms")
+    @test haskey(cs["bnd"], "band_centre_dev_rms") && haskey(cs["bnd"], "band_edge_rms") && !haskey(cs["bnd"], "rev_rms")
+    @test cs["bnd"]["band_centre_dev_rms"] ≈ 0.3 atol = 1e-3
+    @test !haskey(cs["pts"], "rev_rms") && !haskey(cs["pts"], "band_centre_dev_rms")
+    # without edges the edge fields are simply absent
+    s2 = read_score(write_score(tempname() * ".toml", Reproduction(id = "d", citation = "c", doi = "x", published = plain)))
+    @test !any(haskey(c, "band_edge_rms") for c in s2["published"]["curves"])
+    # a simulation entirely below a log axis (a complete miss) still has diagnostics
+    ly = Axis("y", "-", :log, 1, 10)
+    rl = ReferenceCurve("l", "f", [2.0, 8.0], [2.0, 5.0], ax, ly, :curve, Dict{String, String}())
+    miss = run_curves(_ -> ([0.0, 10.0], [-1.0, -1.0]), [rl], "as published")
+    @test miss.curves[1].comparison.d == [1.0, 1.0] && miss.curves[1].diagnostics.sim_coverage == 0.0
+    @test miss.curves[1].diagnostics.rev_n == 0
+end

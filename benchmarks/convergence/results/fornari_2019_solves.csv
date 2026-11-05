@@ -1,0 +1,16 @@
+model,run,key,variant,retcode,ok,finite,npoints,seconds
+"fornari_2019","fixed","rat","own","Success",true,true,2417,4.944596
+"fornari_2019","fixed","human_a","own","Success",true,true,854,3.880613209
+"fornari_2019","fixed","human_b","own","Success",true,true,854,0.512339584
+"fornari_2019","fixed","rat","tol/100","Success",true,true,2417,0.089729542
+"fornari_2019","fixed","human_a","tol/100","Success",true,true,854,0.039918625
+"fornari_2019","fixed","human_b","tol/100","Success",true,true,854,0.019580166
+"fornari_2019","fixed","rat","altA Vern9","Success",true,true,2417,3.901263708
+"fornari_2019","fixed","human_a","altA Vern9","Success",true,true,854,4.178284584
+"fornari_2019","fixed","human_b","altA Vern9","Success",true,true,854,0.269896792
+"fornari_2019","fixed","rat","altB FBDF","Success",true,true,2417,3.455402083
+"fornari_2019","fixed","human_a","altB FBDF","Success",true,true,854,2.435839
+"fornari_2019","fixed","human_b","altB FBDF","Success",true,true,854,0.141828
+"fornari_2019","fixed","rat","dense x4","Success",true,true,9617,0.053020042
+"fornari_2019","fixed","human_a","dense x4","Success",true,true,3398,0.015190333
+"fornari_2019","fixed","human_b","dense x4","Success",true,true,3398,0.006010708

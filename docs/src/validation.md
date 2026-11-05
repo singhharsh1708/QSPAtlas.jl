@@ -38,6 +38,30 @@ Differences in convention, documented in [Population simulation](simulation.md):
 - **Observations at a dose time** see the state after the dose (mrgsolve `recsort = 3`).
 - **A reset** cancels lagged doses that have not yet been given and keeps later `addl` doses.
 
+## Third implementation from the authors' own code
+
+For four models the authors published their NONMEM or Monolix code. That code was
+translated to [rxode2](https://nlmixr2.github.io/rxode2/) (R) with nonmem2rx and
+monolix2rx (or by hand where the code is printed in a PDF), run with the parameter values
+and inputs the atlas uses (the code often carries initial estimates, so this checks
+equations, structure, dosing and units, not the values), and compared point by point with
+the atlas. Scripts:
+[`validation/authors_code/`](https://github.com/singhharsh1708/QSPAtlas.jl/tree/main/validation/authors_code).
+
+| model | route | cases | largest relative difference |
+|---|---|---|---|
+| Ouerdani 2015 | nonmem2rx (both control streams) | Figure 4 mouse and patient; mouse AUC 220 and 657 | 5.2e-10 |
+| Hutchinson 2016 | monolix2rx and a hand translation (identical) | Figures 2a, 2c, 2e and 6a | 1.7e-10 (2.5e-10 in the window cases with a tighter atlas solve) |
+| Lindauer 2017 | nonmem2rx, unedited | mouse PK, receptor occupancy and tumour volume at 0, 0.1, 1.4 and 5 mg/kg | 1.2e-8 |
+| Stein 2019 | by hand (code printed in the supplement PDF) | typical curve and three comedication orders | 2.2e-12 |
+
+Differences between the code and the paper that this check exposed (none affects an atlas
+target): in Ouerdani's code a control run (DOSE = 0) switches all drug terms off, while the
+paper's Eq. 2 with beta_alpha = 0 keeps alpha = alpha0 for any exposure; in Hutchinson's code
+the normalisation factor is N = Nmax x dose + 1, not Eq. 5's Nmax; Hutchinson's Figure 6
+chemotherapy is not in the code. Stroh and Fornari published no runnable code (Stroh's
+supplement has the reaction matrices, checked entry by entry; Fornari's code is truncated).
+
 ## Second implementations of the six models
 
 Each model was implemented a second time from its paper and supplement alone, without

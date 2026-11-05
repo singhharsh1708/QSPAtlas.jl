@@ -1,0 +1,151 @@
+model,run,key,variant,retcode,ok,finite,npoints,seconds
+"stroh_2019","published","monkey:M1S1:3.0","own","Success",true,true,1501,5.24212875
+"stroh_2019","published","monkey:M1_0:3.0","own","Success",true,true,1501,0.019489292
+"stroh_2019","published","monkey:M2S2:3.0","own","Success",true,true,1501,0.089460875
+"stroh_2019","published","monkey:mAb00:3.0","own","Success",true,true,1501,0.106214791
+"stroh_2019","published","monkey:M1S2:5.0","own","Success",true,true,1501,0.05977375
+"stroh_2019","published","monkey:M2S1:5.0","own","Success",true,true,1501,0.073675625
+"stroh_2019","published","monkey:mAb00:5.0","own","Success",true,true,1501,0.083803291
+"stroh_2019","published","monkey:M1S2:10.0","own","Success",true,true,1501,0.094760542
+"stroh_2019","published","monkey:M2S1:10.0","own","Success",true,true,1501,0.105630542
+"stroh_2019","published","monkey:mAb00:10.0","own","Success",true,true,1501,0.119028875
+"stroh_2019","published","human:10000x:4.5","own","Success",true,true,1501,0.019669
+"stroh_2019","published","human:1000x:4.5","own","Success",true,true,1501,0.074416542
+"stroh_2019","published","human:100x:4.5","own","Success",true,true,1501,0.070749833
+"stroh_2019","published","human:10x:4.5","own","Success",true,true,1501,0.081933917
+"stroh_2019","published","human:mAb:4.5","own","Success",true,true,1501,0.123689417
+"stroh_2019","published","monkey:M1S1:3.0","tol/100","Success",true,true,1501,0.258303125
+"stroh_2019","published","monkey:M1_0:3.0","tol/100","Success",true,true,1501,0.09655275
+"stroh_2019","published","monkey:M2S2:3.0","tol/100","Success",true,true,1501,0.165249167
+"stroh_2019","published","monkey:mAb00:3.0","tol/100","Success",true,true,1501,0.244257125
+"stroh_2019","published","monkey:M1S2:5.0","tol/100","Success",true,true,1501,0.106122083
+"stroh_2019","published","monkey:M2S1:5.0","tol/100","Success",true,true,1501,0.207238541
+"stroh_2019","published","monkey:mAb00:5.0","tol/100","Success",true,true,1501,0.305344042
+"stroh_2019","published","monkey:M1S2:10.0","tol/100","Success",true,true,1501,0.260243625
+"stroh_2019","published","monkey:M2S1:10.0","tol/100","Success",true,true,1501,0.267669209
+"stroh_2019","published","monkey:mAb00:10.0","tol/100","Success",true,true,1501,0.3554805
+"stroh_2019","published","human:10000x:4.5","tol/100","Success",true,true,1501,0.138216333
+"stroh_2019","published","human:1000x:4.5","tol/100","Success",true,true,1501,0.174267708
+"stroh_2019","published","human:100x:4.5","tol/100","Success",true,true,1501,0.275383875
+"stroh_2019","published","human:10x:4.5","tol/100","Success",true,true,1501,0.260189958
+"stroh_2019","published","human:mAb:4.5","tol/100","Success",true,true,1501,0.379633125
+"stroh_2019","published","monkey:M1S1:3.0","altA FBDF","Success",true,true,1501,2.334712291
+"stroh_2019","published","monkey:M1_0:3.0","altA FBDF","Success",true,true,1501,0.004992916
+"stroh_2019","published","monkey:M2S2:3.0","altA FBDF","Success",true,true,1501,0.018165458
+"stroh_2019","published","monkey:mAb00:3.0","altA FBDF","Success",true,true,1501,0.007641
+"stroh_2019","published","monkey:M1S2:5.0","altA FBDF","Success",true,true,1501,0.020798958
+"stroh_2019","published","monkey:M2S1:5.0","altA FBDF","Success",true,true,1501,0.016891041
+"stroh_2019","published","monkey:mAb00:5.0","altA FBDF","Success",true,true,1501,0.007016792
+"stroh_2019","published","monkey:M1S2:10.0","altA FBDF","Success",true,true,1501,0.017602958
+"stroh_2019","published","monkey:M2S1:10.0","altA FBDF","Success",true,true,1501,0.007283917
+"stroh_2019","published","monkey:mAb00:10.0","altA FBDF","Success",true,true,1501,0.013835709
+"stroh_2019","published","human:10000x:4.5","altA FBDF","Success",true,true,1501,0.005252709
+"stroh_2019","published","human:1000x:4.5","altA FBDF","Success",true,true,1501,0.005178709
+"stroh_2019","published","human:100x:4.5","altA FBDF","Success",true,true,1501,0.019996917
+"stroh_2019","published","human:10x:4.5","altA FBDF","Success",true,true,1501,0.006284917
+"stroh_2019","published","human:mAb:4.5","altA FBDF","Success",true,true,1501,0.017500792
+"stroh_2019","published","monkey:M1S1:3.0","altB Rosenbrock23","Success",true,true,1501,1.874363375
+"stroh_2019","published","monkey:M1_0:3.0","altB Rosenbrock23","Success",true,true,1501,0.181323584
+"stroh_2019","published","monkey:M2S2:3.0","altB Rosenbrock23","Success",true,true,1501,0.419355958
+"stroh_2019","published","monkey:mAb00:3.0","altB Rosenbrock23","Success",true,true,1501,0.617317625
+"stroh_2019","published","monkey:M1S2:5.0","altB Rosenbrock23","Success",true,true,1501,0.312716667
+"stroh_2019","published","monkey:M2S1:5.0","altB Rosenbrock23","Success",true,true,1501,0.47062475
+"stroh_2019","published","monkey:mAb00:5.0","altB Rosenbrock23","Success",true,true,1501,0.671885833
+"stroh_2019","published","monkey:M1S2:10.0","altB Rosenbrock23","Success",true,true,1501,0.544673166
+"stroh_2019","published","monkey:M2S1:10.0","altB Rosenbrock23","Success",true,true,1501,0.498837542
+"stroh_2019","published","monkey:mAb00:10.0","altB Rosenbrock23","Success",true,true,1501,0.863422791
+"stroh_2019","published","human:10000x:4.5","altB Rosenbrock23","Success",true,true,1501,0.193808375
+"stroh_2019","published","human:1000x:4.5","altB Rosenbrock23","Success",true,true,1501,0.423044834
+"stroh_2019","published","human:100x:4.5","altB Rosenbrock23","Success",true,true,1501,0.539015375
+"stroh_2019","published","human:10x:4.5","altB Rosenbrock23","Success",true,true,1501,0.633452291
+"stroh_2019","published","human:mAb:4.5","altB Rosenbrock23","Success",true,true,1501,1.055980583
+"stroh_2019","published","monkey:M1S1:3.0","dense x4","Success",true,true,5998,0.035502792
+"stroh_2019","published","monkey:M1_0:3.0","dense x4","Success",true,true,5998,0.080585
+"stroh_2019","published","monkey:M2S2:3.0","dense x4","Success",true,true,5998,0.055735083
+"stroh_2019","published","monkey:mAb00:3.0","dense x4","Success",true,true,5998,0.101124375
+"stroh_2019","published","monkey:M1S2:5.0","dense x4","Success",true,true,5998,0.09592
+"stroh_2019","published","monkey:M2S1:5.0","dense x4","Success",true,true,5998,0.069777666
+"stroh_2019","published","monkey:mAb00:5.0","dense x4","Success",true,true,5998,0.075663042
+"stroh_2019","published","monkey:M1S2:10.0","dense x4","Success",true,true,5998,0.070257584
+"stroh_2019","published","monkey:M2S1:10.0","dense x4","Success",true,true,5998,0.114908791
+"stroh_2019","published","monkey:mAb00:10.0","dense x4","Success",true,true,5998,0.111275209
+"stroh_2019","published","human:10000x:4.5","dense x4","Success",true,true,5998,0.048803333
+"stroh_2019","published","human:1000x:4.5","dense x4","Success",true,true,5998,0.075091958
+"stroh_2019","published","human:100x:4.5","dense x4","Success",true,true,5998,0.076839833
+"stroh_2019","published","human:10x:4.5","dense x4","Success",true,true,5998,0.063477292
+"stroh_2019","published","human:mAb:4.5","dense x4","Success",true,true,5998,0.120799292
+"stroh_2019","fixed","monkey:M1S1:3.0","own","Success",true,true,1501,0.059291
+"stroh_2019","fixed","monkey:M1_0:3.0","own","Success",true,true,1501,0.018103167
+"stroh_2019","fixed","monkey:M2S2:3.0","own","Success",true,true,1501,0.0816225
+"stroh_2019","fixed","monkey:mAb00:3.0","own","Success",true,true,1501,0.132728583
+"stroh_2019","fixed","monkey:M1S2:5.0","own","Success",true,true,1501,0.070315708
+"stroh_2019","fixed","monkey:M2S1:5.0","own","Success",true,true,1501,0.080826459
+"stroh_2019","fixed","monkey:mAb00:5.0","own","Success",true,true,1501,0.074649666
+"stroh_2019","fixed","monkey:M1S2:10.0","own","Success",true,true,1501,0.096239833
+"stroh_2019","fixed","monkey:M2S1:10.0","own","Success",true,true,1501,0.107769625
+"stroh_2019","fixed","monkey:mAb00:10.0","own","Success",true,true,1501,0.142049709
+"stroh_2019","fixed","human:10000x:4.5","own","Success",true,true,1501,0.077817458
+"stroh_2019","fixed","human:1000x:4.5","own","Success",true,true,1501,0.050631334
+"stroh_2019","fixed","human:100x:4.5","own","Success",true,true,1501,0.036035833
+"stroh_2019","fixed","human:10x:4.5","own","Success",true,true,1501,0.127245625
+"stroh_2019","fixed","human:mAb:4.5","own","Success",true,true,1501,0.111817625
+"stroh_2019","fixed","monkey:M1S1:3.0","tol/100","Success",true,true,1501,0.2368445
+"stroh_2019","fixed","monkey:M1_0:3.0","tol/100","Success",true,true,1501,0.153987792
+"stroh_2019","fixed","monkey:M2S2:3.0","tol/100","Success",true,true,1501,0.343631708
+"stroh_2019","fixed","monkey:mAb00:3.0","tol/100","Success",true,true,1501,0.452669875
+"stroh_2019","fixed","monkey:M1S2:5.0","tol/100","Success",true,true,1501,0.263302208
+"stroh_2019","fixed","monkey:M2S1:5.0","tol/100","Success",true,true,1501,0.268619917
+"stroh_2019","fixed","monkey:mAb00:5.0","tol/100","Success",true,true,1501,0.766107459
+"stroh_2019","fixed","monkey:M1S2:10.0","tol/100","Success",true,true,1501,0.376384541
+"stroh_2019","fixed","monkey:M2S1:10.0","tol/100","Success",true,true,1501,0.31960275
+"stroh_2019","fixed","monkey:mAb00:10.0","tol/100","Success",true,true,1501,0.542555958
+"stroh_2019","fixed","human:10000x:4.5","tol/100","Success",true,true,1501,0.18518
+"stroh_2019","fixed","human:1000x:4.5","tol/100","Success",true,true,1501,0.197929541
+"stroh_2019","fixed","human:100x:4.5","tol/100","Success",true,true,1501,0.386955833
+"stroh_2019","fixed","human:10x:4.5","tol/100","Success",true,true,1501,0.417127292
+"stroh_2019","fixed","human:mAb:4.5","tol/100","Success",true,true,1501,0.512914666
+"stroh_2019","fixed","monkey:M1S1:3.0","altA FBDF","Success",true,true,1501,0.03131825
+"stroh_2019","fixed","monkey:M1_0:3.0","altA FBDF","Success",true,true,1501,0.004959917
+"stroh_2019","fixed","monkey:M2S2:3.0","altA FBDF","Success",true,true,1501,0.007159458
+"stroh_2019","fixed","monkey:mAb00:3.0","altA FBDF","Success",true,true,1501,0.007821625
+"stroh_2019","fixed","monkey:M1S2:5.0","altA FBDF","Success",true,true,1501,0.02528675
+"stroh_2019","fixed","monkey:M2S1:5.0","altA FBDF","Success",true,true,1501,0.026040458
+"stroh_2019","fixed","monkey:mAb00:5.0","altA FBDF","Success",true,true,1501,0.007109042
+"stroh_2019","fixed","monkey:M1S2:10.0","altA FBDF","Success",true,true,1501,0.0201675
+"stroh_2019","fixed","monkey:M2S1:10.0","altA FBDF","Success",true,true,1501,0.036181459
+"stroh_2019","fixed","monkey:mAb00:10.0","altA FBDF","Success",true,true,1501,0.009178041
+"stroh_2019","fixed","human:10000x:4.5","altA FBDF","Success",true,true,1501,0.004361584
+"stroh_2019","fixed","human:1000x:4.5","altA FBDF","Success",true,true,1501,0.006032084
+"stroh_2019","fixed","human:100x:4.5","altA FBDF","Success",true,true,1501,0.008970625
+"stroh_2019","fixed","human:10x:4.5","altA FBDF","Success",true,true,1501,0.007331542
+"stroh_2019","fixed","human:mAb:4.5","altA FBDF","Success",true,true,1501,0.015906375
+"stroh_2019","fixed","monkey:M1S1:3.0","altB Rosenbrock23","Success",true,true,1501,0.377207917
+"stroh_2019","fixed","monkey:M1_0:3.0","altB Rosenbrock23","Success",true,true,1501,0.2906385
+"stroh_2019","fixed","monkey:M2S2:3.0","altB Rosenbrock23","Success",true,true,1501,0.37681325
+"stroh_2019","fixed","monkey:mAb00:3.0","altB Rosenbrock23","Success",true,true,1501,0.770478834
+"stroh_2019","fixed","monkey:M1S2:5.0","altB Rosenbrock23","Success",true,true,1501,0.486860084
+"stroh_2019","fixed","monkey:M2S1:5.0","altB Rosenbrock23","Success",true,true,1501,0.483352792
+"stroh_2019","fixed","monkey:mAb00:5.0","altB Rosenbrock23","Success",true,true,1501,0.798345417
+"stroh_2019","fixed","monkey:M1S2:10.0","altB Rosenbrock23","Success",true,true,1501,0.756055292
+"stroh_2019","fixed","monkey:M2S1:10.0","altB Rosenbrock23","Success",true,true,1501,0.746964125
+"stroh_2019","fixed","monkey:mAb00:10.0","altB Rosenbrock23","Success",true,true,1501,1.120751833
+"stroh_2019","fixed","human:10000x:4.5","altB Rosenbrock23","Success",true,true,1501,0.329610459
+"stroh_2019","fixed","human:1000x:4.5","altB Rosenbrock23","Success",true,true,1501,0.7493215
+"stroh_2019","fixed","human:100x:4.5","altB Rosenbrock23","Success",true,true,1501,0.653168875
+"stroh_2019","fixed","human:10x:4.5","altB Rosenbrock23","Success",true,true,1501,0.892585333
+"stroh_2019","fixed","human:mAb:4.5","altB Rosenbrock23","Success",true,true,1501,1.221755292
+"stroh_2019","fixed","monkey:M1S1:3.0","dense x4","Success",true,true,5998,0.068528292
+"stroh_2019","fixed","monkey:M1_0:3.0","dense x4","Success",true,true,5998,0.042593708
+"stroh_2019","fixed","monkey:M2S2:3.0","dense x4","Success",true,true,5998,0.1063725
+"stroh_2019","fixed","monkey:mAb00:3.0","dense x4","Success",true,true,5998,0.149330084
+"stroh_2019","fixed","monkey:M1S2:5.0","dense x4","Success",true,true,5998,0.071426958
+"stroh_2019","fixed","monkey:M2S1:5.0","dense x4","Success",true,true,5998,0.082129875
+"stroh_2019","fixed","monkey:mAb00:5.0","dense x4","Success",true,true,5998,0.170199541
+"stroh_2019","fixed","monkey:M1S2:10.0","dense x4","Success",true,true,5998,0.084178542
+"stroh_2019","fixed","monkey:M2S1:10.0","dense x4","Success",true,true,5998,0.09473475
+"stroh_2019","fixed","monkey:mAb00:10.0","dense x4","Success",true,true,5998,0.166681
+"stroh_2019","fixed","human:10000x:4.5","dense x4","Success",true,true,5998,0.076073708
+"stroh_2019","fixed","human:1000x:4.5","dense x4","Success",true,true,5998,0.061442584
+"stroh_2019","fixed","human:100x:4.5","dense x4","Success",true,true,5998,0.089118166
+"stroh_2019","fixed","human:10x:4.5","dense x4","Success",true,true,5998,0.099474709
+"stroh_2019","fixed","human:mAb:4.5","dense x4","Success",true,true,5998,0.52272325

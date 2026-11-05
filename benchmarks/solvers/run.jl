@@ -36,21 +36,26 @@ const RELTOLS = 1.0 ./ 10.0 .^ (3:8)
 # fails fast instead of storing millions of dense steps (that exhausted the memory of GitHub
 # runners); Rodas5P then computes the reference.
 function try_reference(b)
+    why = String[]
     for (alg, maxiters) in ((Vern9(), 10^5), (Rodas5P(), 10^7))
+        name = string(nameof(typeof(alg)))
         kw = b.callback === nothing ? (;) : (; callback = b.callback)
         sol = try
             solve(b.prob, alg; abstol = 1e-12, reltol = 1e-12, maxiters, kw...)
-        catch
+        catch e
+            push!(why, string(name, " (maxiters ", maxiters, "): exception: ", first(replace(sprint(showerror, e), r"\s+" => " ", "|" => "/"), 150)))
             nothing
         end
-        sol !== nothing && successful_retcode(sol) && return alg, sol
+        sol === nothing && continue
+        successful_retcode(sol) && return alg, sol, why
+        push!(why, string(name, " (maxiters ", maxiters, "): retcode ", sol.retcode))
     end
-    return nothing, nothing
+    return nothing, nothing, why
 end
 
 function bench_one(id, b)
-    refalg, refsol = try_reference(b)
-    refalg === nothing && return (; id, name = b.name, status = "reference solve failed", rows = [], scale = NaN)
+    refalg, refsol, why = try_reference(b)
+    refalg === nothing && return (; id, name = b.name, status = "reference solve failed: " * join(why, "; "), rows = [], scale = NaN)
     # typical magnitude of the saved solution, so the error target is relative
     scale = sqrt(mean(abs2, reduce(vcat, refsol(range(refsol.t[1], refsol.t[end]; length = 2000)).u)))
     rows = []

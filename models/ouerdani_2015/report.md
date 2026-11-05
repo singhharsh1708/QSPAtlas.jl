@@ -78,7 +78,7 @@ No :code fix: the NONMEM structural models agree with Eq. 1 and the n values in 
 - Supplement code s001/s004 carry initial estimates, not the Table 1 values (can mislead anyone using the code as the final model).
 - Table 1 gives the unit of b as "day-1". That holds only for n = 1 (mice). For patients (n = 0.5) the equation dK/dt = b P^n needs b in mm^0.5 per day; in general the unit is (size)^(1-n) per day. The units of alpha0 and gamma0 are also wrong when beta is not 0 (see above).
 - In the NONMEM code (s001, s004) THETA(10) is used twice: as the scale on ETA(2) in V0 and as the proportional error term in `W=SQRT(THETA(10)*IPRED**2+THETA(11)**2)`, where it acts as a variance, while Table 1 gives the proportional error as an SD in %. No effect on a typical-value simulation.
-
+- In the NONMEM code a control run (DOSE = 0) sets all drug terms to zero, while Eq. 2 with beta_alpha = 0 gives alpha = alpha0 for any exposure, so a control simulated from the equations keeps the cytotoxic term (up to 216 mm^3 difference over 75 days). No target of this atlas is a control run. Found by translating the authors' code (validation/authors_code/).
 
 ## What would raise the grade
 
@@ -118,3 +118,13 @@ Independent review, 2026-11-04. Equations, Table 1 values, the NONMEM cross-chec
 ## Literature check (2026-11-04)
 
 The first author's PhD thesis (A. Ouerdani, Université Grenoble Alpes, 2016, HAL tel-01496174, https://theses.hal.science/tel-01496174v1/document) reproduces Figure 4 at higher resolution. Read from it and re-simulated: the mouse panel starts at P0 of about 150 mm^3 and matches only the 100 mg/kg group (AUC 1140.8), and the patient panel starts near 67 mm; the patient end values match the exposure predicted at 800 mg (802.4) slightly better than the mean 771.6 (a difference of about 0.5 mm). Neither text states P0, the dose group or the days-to-months conversion, so the two fixes stay `:from_target`.
+
+## Digitising error (2026-11-05)
+
+The four Figure 4 references were compared with the same curves taken from the first author's
+thesis (HAL tel-01496174, Figure 4 at 300 ppi): RMS 0.0007 to 0.0011, so the digitising error
+here is about a tenth of the tolerance. The patient-panel residuals of the simulation (RMS 0.0088
+for P and 0.0112 for K) are about ten times that, so they come from the model inputs, not from the
+digitising; the unstated patient exposure is the likely cause (802.4, the exposure predicted at
+800 mg, fits K about six times more closely than the stated mean 771.6, see Sensitivity). Details:
+`tools/digitise/error_study/`.

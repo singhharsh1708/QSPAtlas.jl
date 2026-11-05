@@ -1,0 +1,6 @@
+model,variant,max_rel_error_vs_closed_form,at_time,failed_trajectories
+"stein_2019","own",6.578477939e-10,10.25,0
+"stein_2019","tol/100",7.459922339e-12,10.75,0
+"stein_2019","altA Rodas5P",9.972420067e-10,10.25,0
+"stein_2019","altB Tsit5",8.32853458e-09,4,0
+"stein_2019","dense x4",1.020312197e-09,7.5,0

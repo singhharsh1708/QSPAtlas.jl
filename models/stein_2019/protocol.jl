@@ -194,6 +194,8 @@ function replicate_percentiles(model, subjects; replicates = REPLICATES, chunk =
     while k0 < replicates
         m = min(chunk, replicates - k0)
         res = simulate(model, subjects; replicates = m, seed = seed + b)
+        nbad = count(s -> s.retcode !== :Success, res.subjects)
+        nbad == 0 || error("stein_2019: $nbad of $(length(res.subjects)) simulated subjects did not finish with retcode Success in replicate block $b")
         rows = percentiles(res, :C; q, bins = :obstimes, value = :dv, by_replicate = true, blq)
         for r in rows
             i = searchsortedfirst(times, r.t_mid)

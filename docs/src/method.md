@@ -75,19 +75,48 @@ horizontal digitising error.
 A curve passes when the root mean square error is at most **0.015** and the 95th
 percentile is at most **0.03** of the axis box. The plot panels digitised so far are 85
 to 294 px wide or high, so one pixel is 0.3 to 1.2 % of an axis, and the tolerance
-corresponds to roughly 1.3 to 3.5 px on the vertical axis. Careful tracing of the
-cleanest curves scores about 0.001 to 0.002. The tolerance is a judgement, not yet a
-measured digitising error distribution; a measured error study is planned, and the
-[sensitivity of every grade to the tolerance](sensitivity.md) is published. On a log
-axis spanning many decades the same tolerance allows a larger relative error (on a
-six-decade axis, rms 0.015 corresponds to a uniform factor of about 1.23). The 95th
-percentile instead of the maximum means one badly traced point cannot fail a curve on
-its own; the maximum is still reported. A model may set a different tolerance for a
-curve, with the reason stated before comparing.
+corresponds to roughly 1.3 to 3.5 px on the vertical axis.
+
+**How the tolerance was measured.** A digitising error study
+([`tools/digitise/error_study/`](https://github.com/singhharsh1708/QSPAtlas.jl/tree/main/tools/digitise/error_study))
+drew about 7,650 known curves at the real panel sizes of the atlas figures, saved them as
+JPEG at the quality of the PMC files (92), traced them with the atlas tools and rules, and
+scored them against the known curves with the atlas metric. For traces that pass an
+overlay check, the 99th percentile of the error ranges from 0.0013 to 0.0077 (RMS) and
+from 0.0029 to 0.0157 (P95) across panel types; the worst type is a small log-scale panel
+(180 x 149 px). The atlas references were also compared with the same curves taken from
+the first authors' theses (vector or higher-resolution figures) for 34 curves: worst RMS
+0.0080, worst P95 0.0107. The rule "twice the worst panel type's 99th percentile, at two
+significant figures" gives RMS 0.015 and P95 0.031; the atlas keeps 0.015 and 0.03. The
+factor of two covers the gap between real and synthetic errors (real errors were 0.9 to
+1.4 times the synthetic medians) and error sources neither part measures (publisher
+resampling, calibration slips). No committed result changes under the measured rule.
+
+About 4 % of synthetic traces failed grossly (the tracer jumped to another curve or mixed
+two lines). Only a visual overlay of the traced points on the figure catches this, so
+every reference trace is checked that way before it is frozen. On a log axis spanning many
+decades the same tolerance allows a larger relative error (on a six-decade axis, RMS 0.015
+corresponds to a uniform factor of about 1.23); the [sensitivity of every grade to the
+tolerance](sensitivity.md) is published. The 95th percentile instead of the maximum limits
+the effect of a single badly traced point, but does not remove it: one point 0.12 of the
+axis away fails the RMS criterion on its own for a 60-point curve. The maximum is
+reported. A model may set a different tolerance for a curve, with the reason stated before
+comparing.
 
 The nearest-distance metric scores only the regions where the figure has digitised
-points: a simulated feature with no reference points nearby costs nothing. Per-curve
-coverage of the x range is part of the planned metric upgrades.
+points: a simulated feature with no reference points nearby costs nothing. Every curve
+therefore reports diagnostics alongside its pass or fail (`score.toml` and the model
+pages): `coverage`, the share of the axis x range spanned by the digitised reference;
+`sim_coverage`, the share where the simulation can be placed on the axes; a reverse
+distance (`rev_rms`, `rev_p95`) from the simulated curve back to the reference; and for
+bands, the deviation from the band centre in band half-widths and, where a model supplies
+its own simulated interval edges, the error of those edges. Some passes rest on little of
+the axis (Lindauer's base case is two points; Stroh `fig4c_mAb` covers 11 % of its axis).
+
+These diagnostics are **report-only for the first six models**: they were added after
+those models were graded, and turning them into pass criteria now would change grades
+after the results were known. For models added from now on, a minimum coverage and a
+reverse-distance criterion will be fixed before any comparison.
 
 ## Population figures
 

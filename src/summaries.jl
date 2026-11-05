@@ -82,10 +82,39 @@ function check_quantiles(q)
     return qs
 end
 
+# failure-rate gate: fraction of the values of a cell that were not finite (NaN when the cell has none)
+rate_of(nfailed, nfinite) = nfailed + nfinite == 0 ? NaN : nfailed / (nfailed + nfinite)
+
+# max_failure_rate = 0 means report only: nothing is marked
+is_unreliable(rate, max_failure_rate) = max_failure_rate > 0 && rate > max_failure_rate     # NaN > x is false
+
+function check_max_failure_rate(x)
+    (x isa Real && 0 <= x <= 1) || throw(ArgumentError("max_failure_rate must be in [0, 1] (0 = report only), got $(repr(x))"))
+    return Float64(x)
+end
+
+"""
+    failure_rate(rows) -> Float64
+    failure_rate(v::VPCResult) -> Float64
+
+Overall fraction of failed (non-finite) values: the sum of `n_failed` over the bins divided by
+the sum of `n_failed + n_finite`, each bin counted once (not once per quantile). For
+[`percentiles`](@ref) rows pass the vector it returned; `NaN` if there are no values at all.
+The rate per bin is `failure_rate` in each row. A failed solve leaves `NaN` for every
+observation it did not reach, so this is the fraction of failed subject trajectories, weighted by
+how many observations each one contributes.
+"""
+function failure_rate(rows::AbstractVector)
+    isempty(rows) && return NaN
+    first_q = rows[1].q
+    once = [r for r in rows if r.q == first_q]
+    return rate_of(sum(r.n_failed for r in once), sum(r.n_finite for r in once))
+end
+
 # Quantile rows for items = iterable of (replicate, time, value). Replicates are pooled
 # (replicate 0) unless by_replicate. Rows are ordered replicate, bin, q; the replicate field is
 # present only when by_replicate.
-function summarize_items(items, binning::Binning, qs, by_replicate, min_n, blq)
+function summarize_items(items, binning::Binning, qs, by_replicate, min_n, blq; max_failure_rate::Real = 0.0)
     vals = Dict{Tuple{Int, Int}, Vector{Float64}}()
     failed = Dict{Tuple{Int, Int}, Int}()
     reps = Set{Int}()
@@ -106,8 +135,11 @@ function summarize_items(items, binning::Binning, qs, by_replicate, min_n, blq)
         v = get(vals, (rep, i), Float64[])
         qv, n, nblq = cell_quantiles(v, qs, min_n, blq)
         nf = get(failed, (rep, i), 0)
+        nfin = length(v)
+        rate = rate_of(nf, nfin)
         for (qi, qq) in enumerate(qs)
-            row = (bin = i, bin_lo = binning.lo[i], bin_hi = binning.hi[i], t_mid = t_mid(binning, i), q = qq, value = qv[qi], n, n_failed = nf, n_blq = nblq)
+            row = (bin = i, bin_lo = binning.lo[i], bin_hi = binning.hi[i], t_mid = t_mid(binning, i), q = qq, value = qv[qi], n, n_failed = nf, n_blq = nblq,
+                n_finite = nfin, failure_rate = rate, unreliable = is_unreliable(rate, max_failure_rate))
             push!(out, by_replicate ? merge((; replicate = rep), row) : row)
         end
     end
@@ -139,13 +171,13 @@ end
 
 """
     percentiles(r::SimResult, endpoint; q = (0.1, 0.5, 0.9), bins = :obstimes, value = :dv,
-                by_replicate = false, min_n = 1, blq = nothing) -> Vector{NamedTuple}
+                by_replicate = false, min_n = 1, blq = nothing, max_failure_rate = 0.0) -> Vector{NamedTuple}
 
 Quantiles of one endpoint of a simulation, over subjects, per time bin.
 
 Rows (one per bin and q, ordered by bin then q; by replicate first when `by_replicate`):
-`(bin, bin_lo, bin_hi, t_mid, q, value, n, n_failed, n_blq)`, plus `replicate` first when
-`by_replicate = true`. By default the replicates are pooled, so `n` counts subjects times
+`(bin, bin_lo, bin_hi, t_mid, q, value, n, n_failed, n_blq, n_finite, failure_rate, unreliable)`,
+plus `replicate` first when `by_replicate = true`. By default the replicates are pooled, so `n` counts subjects times
 replicates.
 
   - `value`: `:dv` (with residual error) or `:ipred`.
@@ -162,15 +194,30 @@ replicates.
   - `blq = (lloq = x, handling = :censor_to_lloq | :drop | :keep)`: values below `lloq` are
     set to `lloq` (default), removed (this biases quantiles upwards), or kept; `n_blq` counts
     the values below `lloq` in every case, `n` the values that were used.
+  - Failure gate: `n_finite` is the number of finite values of the bin (before any BLQ
+    handling), `failure_rate = n_failed / (n_failed + n_finite)` (`NaN` for a bin without
+    values); [`failure_rate`](@ref) gives the overall rate. `max_failure_rate = 0` (the default)
+    only reports. With `max_failure_rate > 0`, bins whose rate is above it get `unreliable = true`
+    (and one warning); their `value` is not changed or removed, so a model decides what to do.
 """
 function percentiles(r::SimResult, endpoint::Symbol; q = (0.1, 0.5, 0.9), bins = :obstimes, value::Symbol = :dv,
-        by_replicate::Bool = false, min_n::Integer = 1, blq = nothing)
+        by_replicate::Bool = false, min_n::Integer = 1, blq = nothing, max_failure_rate::Real = 0.0)
     check_value(value)
     qs = check_quantiles(q)
+    mfr = check_max_failure_rate(max_failure_rate)
     items, rows = endpoint_items(r, endpoint, value)
-    out = summarize_items(items, make_binning(bins, [o.time for o in rows]), qs, by_replicate, max(min_n, 1), check_blq(blq))
+    out = summarize_items(items, make_binning(bins, [o.time for o in rows]), qs, by_replicate, max(min_n, 1), check_blq(blq); max_failure_rate = mfr)
     warn_nonfinite(out, "percentiles")
+    warn_unreliable(out, mfr, "percentiles")
     return out
+end
+
+function warn_unreliable(rows, max_failure_rate, what)
+    max_failure_rate > 0 || return nothing
+    firstq = isempty(rows) ? nothing : rows[1].q
+    nbad = count(r -> r.unreliable && r.q == firstq, rows)
+    nbad == 0 || @warn "$what: $nbad bin(s) have a failure rate above max_failure_rate = $max_failure_rate and are marked unreliable"
+    return nothing
 end
 
 # ---- VPC -------------------------------------------------------------------------------
@@ -181,18 +228,22 @@ end
 Result of [`vpc`](@ref).
 
   - `rows`: one per (bin, q), ordered by bin then q:
-    `(bin, bin_lo, bin_hi, t_mid, q, median, lo, hi, mc_se, n, n_rep, n_failed, n_blq)`. `median`
+    `(bin, bin_lo, bin_hi, t_mid, q, median, lo, hi, mc_se, n, n_rep, n_failed, n_blq, failure_rate, unreliable)`. `median`
     is the median over replicates of the replicate's q-quantile in the bin, `lo` and `hi`
     the `pi_level` interval of those quantiles across replicates (the prediction
     interval of the quantile, not a confidence interval of any data), `mc_se` the Monte
     Carlo standard error of `median`. `n` is the median number of usable values per
     replicate, `n_rep` the number of replicates with a defined quantile, `n_failed` the
     total number of excluded non-finite values and `n_blq` the total number of values below
-    `lloq` over all replicates.
+    `lloq` over all replicates. `failure_rate` is the fraction of the simulated values of the bin
+    (over all replicates) that were not finite, and `unreliable` is true when it is above
+    `max_failure_rate` (never when that is 0, the report-only default).
   - `observed`: `nothing`, or rows `(bin, bin_lo, bin_hi, t_mid, q, value, n, n_failed, n_blq)`
     of the observed quantiles (diagnostic only).
   - `endpoint`, `q`, `pi_level`, `replicates`, `seed`, `value`, `blq`, `n_failed` (all
-    excluded simulated values), `n_unbinned` (observed values in no bin).
+    excluded simulated values), `n_unbinned` (observed values in no bin), `failure_rate` (overall
+    fraction of non-finite simulated values, also `failure_rate(v)`), `max_failure_rate`.
+    [`mc_check`](@ref) tests the Monte Carlo precision per row.
 
 Iterating, `length` and indexing act on `rows`.
 """
@@ -208,7 +259,14 @@ struct VPCResult
     blq::Union{Nothing, NamedTuple}
     n_failed::Int
     n_unbinned::Int
+    failure_rate::Float64
+    max_failure_rate::Float64
 end
+
+VPCResult(rows, observed, endpoint, q, pi_level, replicates, seed, value, blq, n_failed, n_unbinned) =
+    VPCResult(rows, observed, endpoint, q, pi_level, replicates, seed, value, blq, n_failed, n_unbinned, NaN, 0.0)
+
+failure_rate(v::VPCResult) = v.failure_rate
 
 Base.length(v::VPCResult) = length(v.rows)
 Base.iterate(v::VPCResult, st...) = iterate(v.rows, st...)
@@ -219,7 +277,7 @@ function Base.show(io::IO, v::VPCResult)
 end
 
 """
-    mc_se_median(x, rng; B = 500) -> Float64
+    mc_se_median(x, rng; B = 500, warn = true) -> Float64
 
 Monte Carlo standard error of the median of `x`, the per-replicate quantiles of one bin
 (treated as independent draws), by the bootstrap over replicates: `B` resamples of `x` with
@@ -230,10 +288,26 @@ replicate quantiles at exactly `lloq`; a rank interval then has width zero and s
 reproducible. `NaN` for fewer than 10 values. A bootstrap SE of a median is itself noisy
 (about 10-20 % at K = 100-400) and slightly rough for discrete values; treat it as a noise
 level, not an exact number. It is exactly 0 only when all values are equal (no spread at all).
+
+Degenerate case: with heavily tied values (say 98 % of the replicate quantiles at `lloq`) every
+resample can have the same median although `x` is not constant, and the standard deviation of the
+medians would be 0, "no error", which is false. When `x` is not constant, fewer than 3 distinct
+resampled medians occur and fewer than 1 % of the resamples (at least one) differ from the commonest
+median, the result is `NaN` and, with `warn = true`, a warning says so. Use more replicates (or fewer
+ties) to get a number. Two distinct medians that both occur often (a balanced 0/1 sample of odd
+size) are a usable estimate and are not flagged. [`vpc`](@ref) calls this with `warn = false` and reports
+the number of such cells in one warning.
 """
-function mc_se_median(x::AbstractVector{<:Real}, rng::AbstractRNG; B::Integer = 500)
+function mc_se_median(x::AbstractVector{<:Real}, rng::AbstractRNG; B::Integer = 500, warn::Bool = true)
+    se, degenerate = mc_se_median_checked(x, rng; B)
+    degenerate && warn && @warn "mc_se_median: the bootstrap medians of $(length(x)) values that are not all equal (heavily tied) hardly vary; the standard error is not estimable and is reported as NaN, not 0"
+    return se
+end
+
+# (se, degenerate): degenerate is true when the bootstrap cannot say anything (see mc_se_median)
+function mc_se_median_checked(x::AbstractVector{<:Real}, rng::AbstractRNG; B::Integer = 500)
     K = length(x)
-    K < 10 && return NaN
+    K < 10 && return (NaN, false)
     buf = Vector{Float64}(undef, K)
     meds = Vector{Float64}(undef, B)
     for b in 1:B
@@ -242,13 +316,44 @@ function mc_se_median(x::AbstractVector{<:Real}, rng::AbstractRNG; B::Integer = 
         end
         meds[b] = median!(buf)
     end
-    return std(meds)
+    # degenerate: the resampled medians (almost) never move although x is not constant
+    if length(unique(x)) > 1
+        vals = unique(meds)
+        if length(vals) < 3
+            offmode = B - maximum(count(==(v), meds) for v in vals)
+            offmode < max(1, B ÷ 100) && return (NaN, true)
+        end
+    end
+    return (std(meds), false)
+end
+
+"""
+    mc_check(v::VPCResult, tolerance; fraction = 0.2) -> Vector{NamedTuple}
+
+Is the Monte Carlo precision of a [`vpc`](@ref) good enough for a comparison against `tolerance`?
+One row per (bin, q) of `v`: `(bin, t_mid, q, mc_se, limit, ok)` with `limit = fraction * tolerance`
+and `ok = mc_se < limit` (false when `mc_se` is `NaN`, i.e. fewer than 10 replicates or too
+many ties). `tolerance` is in the units of the value (for example the allowed deviation of the
+median in concentration units); pass a function `row -> tolerance` to give each bin or quantile its
+own, for instance when the tolerance is a fraction of the value. A model asserts precision with
+`all(c.ok for c in mc_check(v, tol))` and raises `replicates` if it fails. Nothing in the atlas
+uses this for grading yet.
+"""
+function mc_check(v::VPCResult, tolerance; fraction::Real = 0.2)
+    (0 < fraction <= 1) || throw(ArgumentError("fraction must be in (0, 1], got $fraction"))
+    tolf = tolerance isa Function ? tolerance : (_ -> tolerance)
+    return map(v.rows) do r
+        tol = tolf(r)
+        (tol isa Real && tol > 0) || throw(ArgumentError("tolerance must be a positive number, got $(repr(tol))"))
+        limit = fraction * tol
+        (bin = r.bin, t_mid = r.t_mid, q = r.q, mc_se = r.mc_se, limit = limit, ok = r.mc_se < limit)
+    end
 end
 
 """
     vpc(model, subjects; endpoint, q = (0.1, 0.5, 0.9), bins = :obstimes, replicates = 200,
         pi_level = 0.95, seed = 0, value = :dv, blq = nothing, observed = nothing, min_n = 1,
-        simulate_kwargs...) -> VPCResult
+        max_failure_rate = 0.0, simulate_kwargs...) -> VPCResult
     vpc(r::SimResult; endpoint, ...)
 
 Simulation-based visual predictive check. The cohort `subjects` is simulated `replicates`
@@ -274,15 +379,20 @@ observed quantiles per bin (pooled over subjects, same `bins`, `min_n`, `blq`), 
 `bins = :obstimes`, observed times must equal simulated times exactly to be binned; the rest
 is counted in `n_unbinned`.
 
-Failed or NaN simulated values are excluded and counted (`n_failed`, one warning).
+Failed or NaN simulated values are excluded and counted (`n_failed`, one warning). Each row gives
+the `failure_rate` of its bin; `max_failure_rate > 0` marks bins above it `unreliable` (values
+unchanged; the default 0 only reports). `mc_se` is `NaN` (with one warning) when the bootstrap
+cannot estimate it from heavily tied replicate quantiles, see [`mc_se_median`](@ref QSPAtlas.mc_se_median);
+[`mc_check`](@ref) tests `mc_se` against a tolerance.
 """
 function vpc(model::PopulationModel, subjects::AbstractVector{<:Subject}; endpoint::Symbol, q = (0.1, 0.5, 0.9), bins = :obstimes,
         replicates::Integer = 200, pi_level::Real = 0.95, seed::Integer = 0, value::Symbol = :dv, blq = nothing,
-        observed = nothing, min_n::Integer = 1, simulate_kwargs...)
+        observed = nothing, min_n::Integer = 1, max_failure_rate::Real = 0.0, simulate_kwargs...)
+    check_max_failure_rate(max_failure_rate)
     replicates >= 1 || throw(ArgumentError("replicates must be >= 1"))
     check_vpc_options(; q, bins, pi_level, value, blq)          # fail before the expensive simulation
     res = simulate(model, subjects; replicates, seed, simulate_kwargs...)
-    return vpc(res; endpoint, q, bins, pi_level, seed, value, blq, observed, min_n)
+    return vpc(res; endpoint, q, bins, pi_level, seed, value, blq, observed, min_n, max_failure_rate)
 end
 
 function check_vpc_options(; q, bins, pi_level, value, blq)
@@ -295,8 +405,9 @@ function check_vpc_options(; q, bins, pi_level, value, blq)
 end
 
 function vpc(r::SimResult; endpoint::Symbol, q = (0.1, 0.5, 0.9), bins = :obstimes, pi_level::Real = 0.95,
-        seed = nothing, value::Symbol = :dv, blq = nothing, observed = nothing, min_n::Integer = 1)
+        seed = nothing, value::Symbol = :dv, blq = nothing, observed = nothing, min_n::Integer = 1, max_failure_rate::Real = 0.0)
     check_vpc_options(; q, bins, pi_level, value, blq)
+    mfr = check_max_failure_rate(max_failure_rate)
     qs = check_quantiles(q)
     blq = check_blq(blq)
     min_n = max(min_n, 1)
@@ -310,16 +421,25 @@ function vpc(r::SimResult; endpoint::Symbol, q = (0.1, 0.5, 0.9), bins = :obstim
     end
     plo, phi = (1 - pi_level) / 2, (1 + pi_level) / 2
     out = NamedTuple[]
+    ndegenerate = 0
     for i in eachindex(binning.lo), qq in qs
         cell = cells[(i, qq)]
         vals = Float64[c.value for c in cell if isfinite(c.value)]
         md, lo, hi = isempty(vals) ? (NaN, NaN, NaN) : (median(vals), quantile(vals, plo), quantile(vals, phi))
+        se, degenerate = mc_se_median_checked(vals, stream_rng(seed === nothing ? 0 : seed, i, string(qq), :mcse))
+        ndegenerate += degenerate
+        nf, nfin = sum(c.n_failed for c in cell), sum(c.n_finite for c in cell)
+        rate = rate_of(nf, nfin)
         push!(out, (bin = i, bin_lo = binning.lo[i], bin_hi = binning.hi[i], t_mid = t_mid(binning, i), q = qq,
-            median = md, lo, hi, mc_se = mc_se_median(vals, stream_rng(seed === nothing ? 0 : seed, i, string(qq), :mcse)), n = round(Int, median([c.n for c in cell])),
-            n_rep = length(vals), n_failed = sum(c.n_failed for c in cell), n_blq = sum(c.n_blq for c in cell)))
+            median = md, lo, hi, mc_se = se, n = round(Int, median([c.n for c in cell])),
+            n_rep = length(vals), n_failed = nf, n_blq = sum(c.n_blq for c in cell),
+            failure_rate = rate, unreliable = is_unreliable(rate, mfr)))
     end
+    ndegenerate > 0 && @warn "vpc: mc_se is NaN in $ndegenerate (bin, q) cell(s) where the replicate quantiles are heavily tied (the bootstrap medians hardly vary); it is not estimable there, not 0"
     nfail = sum(row.n_failed for row in out if row.q == qs[1]; init = 0)
+    overall = failure_rate([(; q = row.q, n_failed = row.n_failed, n_finite = sum(c.n_finite for c in cells[(row.bin, row.q)])) for row in out])
     nfail > 0 && @warn "vpc: $nfail non-finite simulated values (failed solves or NaN) were excluded; they are counted in n_failed"
+    warn_unreliable(out, mfr, "vpc")
     obs_rows, unbinned = nothing, 0
     if observed !== nothing
         oitems = [(0, Float64(o.time), Float64(o.dv)) for o in observed]
@@ -327,5 +447,5 @@ function vpc(r::SimResult; endpoint::Symbol, q = (0.1, 0.5, 0.9), bins = :obstim
         obs_rows = summarize_items(oitems, binning, qs, false, min_n, blq)
     end
     nrep = length(unique(s.replicate for s in r.subjects))
-    return VPCResult(out, obs_rows, endpoint, qs, Float64(pi_level), nrep, seed === nothing ? nothing : Int(seed), value, blq, nfail, unbinned)
+    return VPCResult(out, obs_rows, endpoint, qs, Float64(pi_level), nrep, seed === nothing ? nothing : Int(seed), value, blq, nfail, unbinned, overall, mfr)
 end

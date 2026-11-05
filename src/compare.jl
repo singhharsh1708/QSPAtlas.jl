@@ -6,10 +6,10 @@ both axes are scaled to `[0, 1]` (log axes in decades). `rms` bounds the root me
 square distance over all reference points and `p95` bounds the 95th percentile, so
 one badly traced point cannot fail a curve on its own. The maximum is still reported.
 
-The defaults allow for digitising error: the plot panels digitised so far are 85 to
-294 px wide or high, so one pixel is 0.3 to 1.2 % of an axis, and the tolerance is
-roughly 1.3 to 3.5 px vertically. It is a judgement, not yet a measured error
-distribution (see docs/src/method.md and the sensitivity tables). Tolerances are frozen in each
+The defaults rest on a measured digitising error study (tools/digitise/error_study/):
+twice the worst panel type's 99th percentile of digitising-only error gives RMS 0.015
+and P95 0.031 (the atlas keeps 0.03). Panels are 85 to 294 px, so the tolerance is
+roughly 1.3 to 3.5 px vertically. See docs/src/method.md and the sensitivity tables. Tolerances are frozen in each
 model's `protocol.jl` before its simulations are compared.
 """
 Base.@kwdef struct Tolerance
@@ -177,4 +177,168 @@ end
 
 function Base.show(io::IO, c::CurveComparison)
     print(io, c.passed ? "PASS " : "FAIL ", c.id, @sprintf(" rms=%.4f p95=%.4f max=%.4f (tol rms %.3f, p95 %.3f)", c.rms, c.p95, c.max, c.tolerance.rms, c.tolerance.p95))
+end
+
+# ---- report-only diagnostics ---------------------------------------------------------------
+# Checks reported next to the pass/fail of `compare_curve`. They never enter the pass rule or the
+# grade; they are stored in score.toml so that a later, separate decision can use them.
+
+"""
+    CurveDiagnostics
+
+Report-only checks of one scored curve (none of them changes `passed` or any grade). All
+distances are in axis-box units, like [`CurveComparison`](@ref). `NaN` (and `0` for the counts)
+means "does not apply" or "nothing to measure".
+
+- `coverage`: span of the digitised reference x values divided by the axis x range (both in
+  the displayed coordinate, so decades on a log axis), clamped to `[0, 1]`. A reference that
+  covers 40 % of the axis only constrains the simulation there. `n_points` is the number of
+  reference points.
+- `sim_coverage`: fraction of the axis x range on which the simulated curve is defined, i.e. the
+  union of the segments between neighbouring simulated points that are both finite and placeable
+  on the axes (a gap of non-finite points is not bridged), clipped to the axis.
+- `rev_rms`, `rev_p95`, `rev_n` (`kind = :curve` only): the reverse distance. For every simulated
+  point that is placeable and whose x lies inside the reference's x range, the shortest distance
+  to the reference polyline (reference points in file order), capped at 1 like the forward error.
+  This is the other side of the two-sided check: a simulation that wanders away from the
+  reference where the reference has no points shows up here but not in the forward distance. It
+  is measured at simulated points, so a sparse reference polyline can inflate it on strongly curved
+  sections. `rev_n` is the number of simulated points used.
+- `band_centre_dev_rms`, `band_n` (`kind = :band` only): root mean square over the reference x,
+  where the simulation is defined, of `|s - centre| / half_width`: how far the simulated value `s`
+  (interpolated as for the band score) is from the band centre, in units of the band half-width,
+  in the displayed coordinate. 1 is the band edge; the band score is 0 anywhere up to 1, so this
+  separates "inside but off-centre" from "on the centre line". Reference x with a zero half-width
+  are left out. `band_n` counts the reference x where the simulation is defined.
+- `band_edge_rms`, `band_edge_max` (only when the model passed simulated interval edges, see
+  [`curve_diagnostics`](@ref)): distance of the simulated lower edge to the reference lower edge and
+  of the simulated upper edge to the reference upper edge at every reference x where both are
+  defined, capped at 1; root mean square and maximum over both edges.
+"""
+struct CurveDiagnostics
+    coverage::Float64
+    n_points::Int
+    sim_coverage::Float64
+    rev_rms::Float64
+    rev_p95::Float64
+    rev_n::Int
+    band_centre_dev_rms::Float64
+    band_n::Int
+    band_edge_rms::Float64
+    band_edge_max::Float64
+end
+
+# span of the reference x values as a fraction of the axis, in displayed coordinates
+function ref_coverage(ref::ReferenceCurve)
+    nx = [normalise(ref.xaxis, x) for x in ref.x if isfinite(x)]
+    isempty(nx) && return 0.0
+    return clamp(maximum(nx) - minimum(nx), 0.0, 1.0)
+end
+
+# fraction of the axis x range covered by segments joining neighbouring placeable simulated points
+function sim_x_coverage(ref::ReferenceCurve, xs, ys)
+    ivs = Tuple{Float64, Float64}[]
+    ok = [usable(ref.xaxis, x) && usable(ref.yaxis, y) for (x, y) in zip(xs, ys)]
+    for i in 1:(length(xs) - 1)
+        (ok[i] && ok[i + 1]) || continue
+        a, b = minmax(normalise(ref.xaxis, xs[i]), normalise(ref.xaxis, xs[i + 1]))
+        a, b = max(a, 0.0), min(b, 1.0)
+        b > a && push!(ivs, (a, b))
+    end
+    isempty(ivs) && return 0.0
+    sort!(ivs)
+    total, (cur_lo, cur_hi) = 0.0, ivs[1]
+    for (a, b) in ivs[2:end]
+        if a <= cur_hi
+            cur_hi = max(cur_hi, b)
+        else
+            total += cur_hi - cur_lo
+            cur_lo, cur_hi = a, b
+        end
+    end
+    return clamp(total + cur_hi - cur_lo, 0.0, 1.0)
+end
+
+# distance of every simulated point inside the reference x range to the reference polyline
+function reverse_distances(ref::ReferenceCurve, xs, ys)
+    xlo, xhi = extrema(ref.x)
+    rp = [(normalise(ref.xaxis, x), normalise(ref.yaxis, y)) for (x, y) in zip(ref.x, ref.y)]
+    d = Float64[]
+    for (x, y) in zip(xs, ys)
+        (usable(ref.xaxis, x) && usable(ref.yaxis, y) && xlo <= x <= xhi) || continue
+        p = (normalise(ref.xaxis, x), normalise(ref.yaxis, y))
+        dd = length(rp) == 1 ? norm(p .- rp[1]) : minimum(segdist(p, rp[i], rp[i + 1]) for i in 1:(length(rp) - 1))
+        push!(d, min(dd, 1.0))
+    end
+    return d
+end
+
+# Simulated value (normalised y) at every reference x, NaN where it is not defined. Same rules as
+# `compare_vertical`: an exact finite match first, else linear interpolation inside a segment of two
+# neighbouring finite points, never across a gap or outside the simulated range.
+function sim_at_reference_x(ref::ReferenceCurve, xs, ys)
+    finite = [usable(ref.xaxis, x) && usable(ref.yaxis, y) for (x, y) in zip(xs, ys)]
+    nx = [usable(ref.xaxis, x) ? normalise(ref.xaxis, x) : NaN for x in xs]
+    ny = [usable(ref.yaxis, y) ? normalise(ref.yaxis, y) : NaN for y in ys]
+    segs = [i for i in 1:(length(xs) - 1) if finite[i] && finite[i + 1]]
+    return map(ref.x) do x
+        px = normalise(ref.xaxis, x)
+        i = findfirst(i -> finite[i] && abs(nx[i] - px) <= 1e-9, eachindex(xs))
+        i !== nothing && return ny[i]
+        k = findfirst(i -> nx[i] < px < nx[i + 1], segs)
+        k === nothing && return NaN
+        j = segs[k]
+        return ny[j] + (px - nx[j]) / (nx[j + 1] - nx[j]) * (ny[j + 1] - ny[j])
+    end
+end
+
+rms_(v) = isempty(v) ? NaN : sqrt(sum(abs2, v) / length(v))
+
+"""
+    curve_diagnostics(ref, xs, ys; sim_edges = nothing) -> CurveDiagnostics
+
+Report-only checks of a simulated curve `(xs, ys)` against `ref` (see [`CurveDiagnostics`](@ref)):
+coverage of the reference and of the simulation, the reverse distance for `:curve` references, and
+the distance from the band centre for `:band` references. Nothing here is used for pass/fail.
+
+`sim_edges = (lo = ..., hi = ...)` is optional and only read for `:band` references: the model's own
+simulated interval edges (for example the `lo` and `hi` of a VPC) at the simulated `xs`, vectors of the
+same length as `xs`. They are compared with the reference edges at the reference x (same
+interpolation and gap rules as the band score) and reported as `band_edge_rms` and `band_edge_max`.
+[`run_curves`](@ref) passes them on when the model's function returns `(x, y, (lo = lo, hi = hi))`.
+"""
+function curve_diagnostics(ref::ReferenceCurve, xs::AbstractVector, ys::AbstractVector; sim_edges = nothing)
+    length(xs) == length(ys) || throw(DimensionMismatch("xs and ys differ in length"))
+    cov = ref_coverage(ref)
+    scov = sim_x_coverage(ref, xs, ys)
+    rev_rms, rev_p95, rev_n = NaN, NaN, 0
+    if ref.kind === :curve
+        d = reverse_distances(ref, xs, ys)
+        if !isempty(d)
+            rev_rms, rev_p95, rev_n = rms_(d), quantile(d, 0.95), length(d)
+        end
+    end
+    centre_dev, band_n, edge_rms, edge_max = NaN, 0, NaN, NaN
+    if ref.kind === :band
+        s = sim_at_reference_x(ref, xs, ys)
+        nlo = [normalise(ref.yaxis, v) for v in ref.ylo]
+        nhi = [normalise(ref.yaxis, v) for v in ref.yhi]
+        band_n = count(!isnan, s)
+        dev = [abs(si - (l + h) / 2) / ((h - l) / 2) for (si, l, h) in zip(s, nlo, nhi) if !isnan(si) && h > l]
+        centre_dev = rms_(dev)
+        if sim_edges !== nothing
+            (haskey(sim_edges, :lo) && haskey(sim_edges, :hi)) || throw(ArgumentError("sim_edges must be (lo = ..., hi = ...)"))
+            (length(sim_edges.lo) == length(xs) && length(sim_edges.hi) == length(xs)) ||
+                throw(DimensionMismatch("sim_edges.lo and sim_edges.hi must have the length of xs"))
+            slo = sim_at_reference_x(ref, xs, sim_edges.lo)
+            shi = sim_at_reference_x(ref, xs, sim_edges.hi)
+            e = Float64[]
+            for i in eachindex(slo)
+                (isnan(slo[i]) || isnan(shi[i])) && continue
+                push!(e, min(abs(slo[i] - nlo[i]), 1.0), min(abs(shi[i] - nhi[i]), 1.0))
+            end
+            isempty(e) || ((edge_rms, edge_max) = (rms_(e), maximum(e)))
+        end
+    end
+    return CurveDiagnostics(cov, length(ref.x), scov, rev_rms, rev_p95, rev_n, centre_dev, band_n, edge_rms, edge_max)
 end

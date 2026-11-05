@@ -70,3 +70,30 @@ jobs:
           name: benchmarks-population
           path: benchmarks/population/results/
 
+
+  # Reruns the scoring of every deterministic model with other solvers, tighter tolerances and denser output
+  # (benchmarks/convergence/README.md). Stein is left out (Monte Carlo, about 45 minutes). The job fails if a curve flips
+  # pass/fail, a solve ends without a successful retcode (except the three documented Lindauer published bars), or an
+  # rms moves by more than 10 % of its tolerance.
+  convergence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.10'
+      - uses: julia-actions/cache@v2
+      - name: Install root environment
+        run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
+      - name: Run convergence study
+        run: julia --startup-file=no --threads=auto --project=. benchmarks/convergence/run.jl nostein
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmarks-convergence
+          path: |
+            benchmarks/convergence/results/
+            benchmarks/convergence/results.csv
+            benchmarks/convergence/solves.csv
+            benchmarks/convergence/tables.md

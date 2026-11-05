@@ -1,0 +1,13 @@
+model,run,curve,rms,toml_rms,p95,toml_p95,passed,toml_passed,rms_rel_diff
+"stein_2019","published","fig3a_left_p10",0.1072121984,0.108,0.156834746,0.1568,false,false,0.007294459605
+"stein_2019","published","fig3a_left_p50",0.05754281367,0.05845,0.0779657415,0.07839,false,false,0.01552072419
+"stein_2019","published","fig3a_left_p90",0.04414773562,0.04689,0.06129238264,0.06444,false,false,0.05848292553
+"stein_2019","published","fig3a_right_p10",0,0,0,0,true,true,0
+"stein_2019","published","fig3a_right_p50",0.009048724129,0.01033,0.01518732831,0.01876,true,true,0.1240344503
+"stein_2019","published","fig3a_right_p90",0.02608146211,0.02574,0.04011997843,0.04079,false,false,0.0132658163
+"stein_2019","fixed","fig3a_left_p10",0.1060971152,0.1081,0.1561460052,0.1552,false,false,0.01852807418
+"stein_2019","fixed","fig3a_left_p50",0.058169366,0.05971,0.07491047227,0.07578,false,false,0.02580194265
+"stein_2019","fixed","fig3a_left_p90",0.03220983947,0.03452,0.04625762429,0.04556,false,false,0.06692237933
+"stein_2019","fixed","fig3a_right_p10",0,5.021e-05,0,0,true,true,1
+"stein_2019","fixed","fig3a_right_p50",0.004607429771,0.005646,0.01016871991,0.01251,true,true,0.1839479683
+"stein_2019","fixed","fig3a_right_p90",0.02397796184,0.02347,0.03948796623,0.03841,false,false,0.02164302668

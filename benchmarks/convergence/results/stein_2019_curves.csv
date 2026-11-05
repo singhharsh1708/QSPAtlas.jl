@@ -1,0 +1,85 @@
+model,run,curve,variant,status,retcode,finite,rms,p95,maxd,passed,own_passed,tol_rms,tol_p95,own_margin,shift_box,shift_rel,n_points
+"stein_2019","published","fig3a_left_p10","own","ok","Success",true,0.1072121984,0.156834746,0.1582123927,false,false,0.015,0.03,7.147479891,NaN,NaN,9
+"stein_2019","published","fig3a_left_p50","own","ok","Success",true,0.05754281367,0.0779657415,0.08564606761,false,false,0.015,0.03,3.836187578,NaN,NaN,9
+"stein_2019","published","fig3a_left_p90","own","ok","Success",true,0.04414773562,0.06129238264,0.06254171316,false,false,0.015,0.03,2.943182375,NaN,NaN,9
+"stein_2019","published","fig3a_right_p10","own","ok","Success",true,0,0,0,true,true,0.015,0.03,0,NaN,NaN,9
+"stein_2019","published","fig3a_right_p50","own","ok","Success",true,0.009048724129,0.01518732831,0.03907462291,true,true,0.015,0.03,0.6032482752,NaN,NaN,9
+"stein_2019","published","fig3a_right_p90","own","ok","Success",true,0.02608146211,0.04011997843,0.07558088245,false,false,0.015,0.03,1.738764141,NaN,NaN,9
+"stein_2019","fixed","fig3a_left_p10","own","ok","Success",true,0.1060971152,0.1561460052,0.1567954231,false,false,0.015,0.03,7.073141012,NaN,NaN,3
+"stein_2019","fixed","fig3a_left_p50","own","ok","Success",true,0.058169366,0.07491047227,0.08340922458,false,false,0.015,0.03,3.877957734,NaN,NaN,3
+"stein_2019","fixed","fig3a_left_p90","own","ok","Success",true,0.03220983947,0.04625762429,0.05567957798,false,false,0.015,0.03,2.147322631,NaN,NaN,3
+"stein_2019","fixed","fig3a_right_p10","own","ok","Success",true,0,0,0,true,true,0.015,0.03,0,NaN,NaN,120
+"stein_2019","fixed","fig3a_right_p50","own","ok","Success",true,0.004607429771,0.01016871991,0.01394895985,true,true,0.015,0.03,0.3389573304,NaN,NaN,120
+"stein_2019","fixed","fig3a_right_p90","own","ok","Success",true,0.02397796184,0.03948796623,0.04596692147,false,false,0.015,0.03,1.598530789,NaN,NaN,120
+"stein_2019","published","fig3a_left_p10","tol/100","ok","Success",true,0.1072121984,0.156834746,0.1582123927,false,false,0.015,0.03,7.147479891,1.327669918e-11,1.233899453e-10,9
+"stein_2019","published","fig3a_left_p50","tol/100","ok","Success",true,0.05754281366,0.07796574147,0.08564606758,false,false,0.015,0.03,3.836187578,2.892280859e-11,2.688005046e-10,9
+"stein_2019","published","fig3a_left_p90","tol/100","ok","Success",true,0.04414773562,0.06129238264,0.06254171316,false,false,0.015,0.03,2.943182375,2.053379689e-11,1.908351789e-10,9
+"stein_2019","published","fig3a_right_p10","tol/100","ok","Success",true,0,0,0,true,true,0.015,0.03,0,1.255230642e-11,1.233899453e-10,9
+"stein_2019","published","fig3a_right_p50","tol/100","ok","Success",true,0.009048724128,0.01518732831,0.03907462291,true,true,0.015,0.03,0.6032482752,2.734476534e-11,2.688005046e-10,9
+"stein_2019","published","fig3a_right_p90","tol/100","ok","Success",true,0.02608146211,0.04011997843,0.07558088244,false,false,0.015,0.03,1.738764141,1.941335981e-11,1.908351789e-10,9
+"stein_2019","fixed","fig3a_left_p10","tol/100","ok","Success",true,0.1060971152,0.1561460052,0.1567954231,false,false,0.015,0.03,7.073141012,7.887170084e-12,7.330105818e-11,3
+"stein_2019","fixed","fig3a_left_p50","tol/100","ok","Success",true,0.058169366,0.07491047227,0.08340922458,false,false,0.015,0.03,3.877957734,3.319844399e-12,3.08533392e-11,3
+"stein_2019","fixed","fig3a_left_p90","tol/100","ok","Success",true,0.03220983946,0.04625762429,0.05567957797,false,false,0.015,0.03,2.147322631,2.053379689e-11,1.908351789e-10,3
+"stein_2019","fixed","fig3a_right_p10","tol/100","ok","Success",true,0,0,0,true,true,0.015,0.03,0,3.338890275e-11,3.282146759e-10,120
+"stein_2019","fixed","fig3a_right_p50","tol/100","ok","Success",true,0.00460742977,0.01016871991,0.01394895985,true,true,0.015,0.03,0.3389573304,2.503097729e-11,2.460561431e-10,120
+"stein_2019","fixed","fig3a_right_p90","tol/100","ok","Success",true,0.02397796183,0.03948796622,0.04596692147,false,false,0.015,0.03,1.598530789,5.343425702e-11,5.252619839e-10,120
+"stein_2019","published","fig3a_left_p10","altA Rodas5P","ok","Success",true,0.1072121984,0.156834746,0.1582123927,false,false,0.015,0.03,7.147479891,2.058123116e-11,1.912760012e-10,9
+"stein_2019","published","fig3a_left_p50","altA Rodas5P","ok","Success",true,0.05754281367,0.07796574151,0.08564606762,false,false,0.015,0.03,3.836187578,6.572631328e-12,6.108433926e-11,9
+"stein_2019","published","fig3a_left_p90","altA Rodas5P","ok","Success",true,0.04414773562,0.06129238264,0.06254171316,false,false,0.015,0.03,2.943182375,2.189959325e-11,2.035278908e-10,9
+"stein_2019","published","fig3a_right_p10","altA Rodas5P","ok","Success",true,0,0,0,true,true,0.015,0.03,0,1.945829609e-11,1.912760012e-10,9
+"stein_2019","published","fig3a_right_p50","altA Rodas5P","ok","Success",true,0.009048724129,0.01518732831,0.03907462291,true,true,0.015,0.03,0.6032482752,6.214029291e-12,6.108433926e-11,9
+"stein_2019","published","fig3a_right_p90","altA Rodas5P","ok","Success",true,0.02608146211,0.04011997843,0.07558088244,false,false,0.015,0.03,1.738764141,2.070477123e-11,2.035278908e-10,9
+"stein_2019","fixed","fig3a_left_p10","altA Rodas5P","ok","Success",true,0.1060971152,0.1561460052,0.1567954231,false,false,0.015,0.03,7.073141012,8.908714044e-12,8.279530628e-11,3
+"stein_2019","fixed","fig3a_left_p50","altA Rodas5P","ok","Success",true,0.058169366,0.07491047227,0.08340922458,false,false,0.015,0.03,3.877957734,1.485728207e-12,1.380804653e-11,3
+"stein_2019","fixed","fig3a_left_p90","altA Rodas5P","ok","Success",true,0.03220983947,0.0462576243,0.05567957798,false,false,0.015,0.03,2.147322631,2.189959325e-11,2.035278908e-10,3
+"stein_2019","fixed","fig3a_right_p10","altA Rodas5P","ok","Success",true,0,0,0,true,true,0.015,0.03,0,2.398375942e-11,2.357620461e-10,120
+"stein_2019","fixed","fig3a_right_p50","altA Rodas5P","ok","Success",true,0.004607429771,0.01016871991,0.01394895985,true,true,0.015,0.03,0.3389573304,2.669686694e-11,2.624325968e-10,120
+"stein_2019","fixed","fig3a_right_p90","altA Rodas5P","ok","Success",true,0.02397796184,0.03948796623,0.04596692147,false,false,0.015,0.03,1.598530789,4.137179488e-11,4.066886135e-10,120
+"stein_2019","published","fig3a_left_p10","altB Tsit5","ok","Success",true,0.1072121984,0.156834746,0.1582123927,false,false,0.015,0.03,7.147479891,7.746996447e-11,7.199840213e-10,9
+"stein_2019","published","fig3a_left_p50","altB Tsit5","ok","Success",true,0.05754281361,0.07796574137,0.08564606747,false,false,0.015,0.03,3.836187578,1.68307035e-10,1.564198414e-09,9
+"stein_2019","published","fig3a_left_p90","altB Tsit5","ok","Success",true,0.04414773563,0.06129238264,0.06254171316,false,false,0.015,0.03,2.943182375,1.025679541e-10,9.532393635e-10,9
+"stein_2019","published","fig3a_right_p10","altB Tsit5","ok","Success",true,0,0,0,true,true,0.015,0.03,0,7.324312684e-11,7.199840213e-10,9
+"stein_2019","published","fig3a_right_p50","altB Tsit5","ok","Success",true,0.009048724116,0.01518732833,0.03907462292,true,true,0.015,0.03,0.6032482752,1.591239362e-10,1.564198414e-09,9
+"stein_2019","published","fig3a_right_p90","altB Tsit5","ok","Success",true,0.0260814621,0.04011997835,0.07558088241,false,false,0.015,0.03,1.738764141,9.697176395e-11,9.532393635e-10,9
+"stein_2019","fixed","fig3a_left_p10","altB Tsit5","ok","Success",true,0.1060971152,0.1561460053,0.1567954231,false,false,0.015,0.03,7.073141012,5.560604754e-11,5.167869694e-10,3
+"stein_2019","fixed","fig3a_left_p50","altB Tsit5","ok","Success",true,0.05816936601,0.07491047228,0.0834092246,false,false,0.015,0.03,3.877957734,2.097960694e-11,1.949785464e-10,3
+"stein_2019","fixed","fig3a_left_p90","altB Tsit5","ok","Success",true,0.03220983946,0.04625762428,0.05567957796,false,false,0.015,0.03,2.147322631,1.61313185e-11,1.499211865e-10,3
+"stein_2019","fixed","fig3a_right_p10","altB Tsit5","ok","Success",true,0,0,0,true,true,0.015,0.03,0,1.441514408e-10,1.417017398e-09,120
+"stein_2019","fixed","fig3a_right_p50","altB Tsit5","ok","Success",true,0.004607429779,0.01016871994,0.01394895983,true,true,0.015,0.03,0.3389573304,1.975465347e-10,1.941893879e-09,120
+"stein_2019","fixed","fig3a_right_p90","altB Tsit5","ok","Success",true,0.02397796185,0.03948796614,0.04596692147,false,false,0.015,0.03,1.598530789,3.773020785e-10,3.708903535e-09,120
+"stein_2019","published","fig3a_left_p10","dense x4","ok","Success",true,0.1072121984,0.156834746,0.1582123927,false,false,0.015,0.03,7.147479891,8.378169686e-12,7.78641161e-11,9
+"stein_2019","published","fig3a_left_p50","dense x4","ok","Success",true,0.05754281366,0.07796574148,0.08564606758,false,false,0.015,0.03,3.836187578,2.754776962e-11,2.560208783e-10,9
+"stein_2019","published","fig3a_left_p90","dense x4","ok","Success",true,0.04414773562,0.06129238264,0.06254171316,false,false,0.015,0.03,2.943182375,2.359012985e-11,2.192384336e-10,9
+"stein_2019","published","fig3a_right_p10","dense x4","ok","Success",true,0,0,0,true,true,0.015,0.03,0,7.921045764e-12,7.78641161e-11,9
+"stein_2019","published","fig3a_right_p50","dense x4","ok","Success",true,0.009048724128,0.01518732831,0.03907462291,true,true,0.015,0.03,0.6032482752,2.604472193e-11,2.560208783e-10,9
+"stein_2019","published","fig3a_right_p90","dense x4","ok","Success",true,0.02608146211,0.04011997844,0.07558088244,false,false,0.015,0.03,1.738764141,2.230293727e-11,2.192384336e-10,9
+"stein_2019","fixed","fig3a_left_p10","dense x4","ok","Success",true,0.1060971152,0.1561460052,0.1567954231,false,false,0.015,0.03,7.073141012,6.816616716e-12,6.33517984e-11,3
+"stein_2019","fixed","fig3a_left_p50","dense x4","ok","Success",true,0.058169366,0.07491047227,0.08340922458,false,false,0.015,0.03,3.877957734,1.641048408e-12,1.525089702e-11,3
+"stein_2019","fixed","fig3a_left_p90","dense x4","ok","Success",true,0.03220983946,0.04625762429,0.05567957797,false,false,0.015,0.03,2.147322631,2.359012985e-11,2.192384336e-10,3
+"stein_2019","fixed","fig3a_right_p10","dense x4","ok","Success",true,0,0,0,true,true,0.015,0.03,0,2.040578817e-11,2.005896867e-10,120
+"stein_2019","fixed","fig3a_right_p50","dense x4","ok","Success",true,0.004607429771,0.01016871991,0.01394895986,true,true,0.015,0.03,0.3389573304,2.862254878e-11,2.813617325e-10,120
+"stein_2019","fixed","fig3a_right_p90","dense x4","ok","Success",true,0.02397796183,0.03948796621,0.04596692147,false,false,0.015,0.03,1.598530789,7.478073716e-11,7.350992314e-10,120
+"stein_2019","published","fig3a_left_p10","reps x2","ok","Success",true,0.1070342262,0.1570288614,0.1582700501,false,false,0.015,0.03,7.147479891,0.006097707737,0.05509454152,9
+"stein_2019","published","fig3a_left_p50","reps x2","ok","Success",true,0.05892280307,0.0788500857,0.08577514826,false,false,0.015,0.03,3.836187578,0.01027751418,0.09109650764,9
+"stein_2019","published","fig3a_left_p90","reps x2","ok","Success",true,0.04641544761,0.06468339884,0.06618997021,false,false,0.015,0.03,2.943182375,0.00621502167,0.05612419454,9
+"stein_2019","published","fig3a_right_p10","reps x2","ok","Success",true,0,0,0,true,true,0.015,0.03,0,0.005765010584,0.05509454152,9
+"stein_2019","published","fig3a_right_p50","reps x2","ok","Success",true,0.01077533948,0.02156786195,0.04332973899,true,true,0.015,0.03,0.6032482752,0.009716762527,0.09109650764,9
+"stein_2019","published","fig3a_right_p90","reps x2","ok","Success",true,0.02645378619,0.04028315705,0.07676534493,false,false,0.015,0.03,1.738764141,0.00587592375,0.05612419454,9
+"stein_2019","fixed","fig3a_left_p10","reps x2","ok","Success",true,0.1083036608,0.1563076578,0.1572671392,false,false,0.015,0.03,7.073141012,0.004969979267,0.0451391019,3
+"stein_2019","fixed","fig3a_left_p50","reps x2","ok","Success",true,0.0586639797,0.07468751735,0.082680884,false,false,0.015,0.03,3.877957734,0.005766277714,0.05217953913,3
+"stein_2019","fixed","fig3a_left_p90","reps x2","ok","Success",true,0.0356621379,0.04763678577,0.05662269544,false,false,0.015,0.03,2.147322631,0.007564981007,0.06789222286,3
+"stein_2019","fixed","fig3a_right_p10","reps x2","ok","Success",true,0,0,0,true,true,0.015,0.03,0,0.01156596044,0.1074690482,120
+"stein_2019","fixed","fig3a_right_p50","reps x2","ok","Success",true,0.005638407057,0.01218459397,0.01669978482,true,true,0.015,0.03,0.3389573304,0.009716762527,0.09109650764,120
+"stein_2019","fixed","fig3a_right_p90","reps x2","ok","Success",true,0.02464002964,0.0400483306,0.04691604606,false,false,0.015,0.03,1.598530789,0.01048010694,0.09789114189,120
+"stein_2019","published","fig3a_left_p10","seed+1000","ok","Success",true,0.1101937032,0.1619498638,0.1629905848,false,false,0.015,0.03,7.147479891,0.01209112784,0.1189285555,9
+"stein_2019","published","fig3a_left_p50","seed+1000","ok","Success",true,0.05687614162,0.07631767768,0.08351823414,false,false,0.015,0.03,3.836187578,0.01255707848,0.1101496677,9
+"stein_2019","published","fig3a_left_p90","seed+1000","ok","Success",true,0.05178799603,0.07174983891,0.07347655895,false,false,0.015,0.03,2.943182375,0.01192263103,0.1048872743,9
+"stein_2019","published","fig3a_right_p10","seed+1000","ok","Success",true,0,0,0,true,true,0.015,0.03,0,0.01143142357,0.1189285555,9
+"stein_2019","published","fig3a_right_p50","seed+1000","ok","Success",true,0.0105547652,0.0202018413,0.04035320336,true,true,0.015,0.03,0.6032482752,0.01187195147,0.1101496677,9
+"stein_2019","published","fig3a_right_p90","seed+1000","ok","Success",true,0.0280008232,0.04553671095,0.0790708314,false,false,0.015,0.03,1.738764141,0.01127212012,0.1048872743,9
+"stein_2019","fixed","fig3a_left_p10","seed+1000","ok","Success",true,0.1097869884,0.1582519281,0.1591686725,false,false,0.015,0.03,7.073141012,0.006098773294,0.05510389886,3
+"stein_2019","fixed","fig3a_left_p50","seed+1000","ok","Success",true,0.06020625368,0.07659821203,0.08508885324,false,false,0.015,0.03,3.877957734,0.01255707848,0.1101496677,3
+"stein_2019","fixed","fig3a_left_p90","seed+1000","ok","Success",true,0.03808463452,0.04855886323,0.05675261889,false,false,0.015,0.03,2.147322631,0.01293101824,0.1132367901,3
+"stein_2019","fixed","fig3a_right_p10","seed+1000","ok","Success",true,6.938271476e-05,0,0.0005374361976,true,true,0.015,0.03,0,0.01555570679,0.1417960746,120
+"stein_2019","fixed","fig3a_right_p50","seed+1000","ok","Success",true,0.00609687692,0.01437203187,0.01803813829,true,true,0.015,0.03,0.3389573304,0.01187195147,0.1101496677,120
+"stein_2019","fixed","fig3a_right_p90","seed+1000","ok","Success",true,0.02465447364,0.0407674393,0.05030132431,false,false,0.015,0.03,1.598530789,0.01056928666,0.09868162189,120

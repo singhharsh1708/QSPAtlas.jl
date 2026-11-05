@@ -64,16 +64,22 @@ Base.showerror(io::IO, e::NotRunnable) = print(io, "NotRunnable: ", e.msg)
 fixes_for(fixes, k) = filter(f -> isempty(f.figures) || k in f.figures, fixes)
 
 """
-    CurveResult(ref, x, y, comparison)
+    CurveResult(ref, x, y, comparison; sim_edges = nothing)
 
-A simulated curve together with its reference and comparison.
+A simulated curve together with its reference, its comparison (which decides pass/fail) and
+its [`CurveDiagnostics`](@ref) (report-only: coverage, reverse distance, band centre and edge
+deviations). `sim_edges` is the optional `(lo = ..., hi = ...)` of [`curve_diagnostics`](@ref).
 """
 struct CurveResult
     ref::ReferenceCurve
     x::Vector{Float64}
     y::Vector{Float64}
     comparison::CurveComparison
+    diagnostics::CurveDiagnostics
 end
+
+CurveResult(ref, x, y, comparison; sim_edges = nothing) =
+    CurveResult(ref, x, y, comparison, curve_diagnostics(ref, x, y; sim_edges))
 
 """
     Run
@@ -99,14 +105,22 @@ curve `ref`; it is called once per reference. `tolerances` can override the
 tolerance per curve id. A [`NotRunnable`](@ref) thrown inside `f` is recorded as the
 run error (the published information does not suffice to run the model); any other
 exception propagates, so a coding error is never mistaken for a gap in the paper.
+
+`f(ref)` may return a third element `(lo = ..., hi = ...)`, the model's own simulated interval
+edges at the returned `x` (for a band reference, e.g. the `lo` and `hi` of a [`vpc`](@ref)). They
+are compared with the reference edges as a report-only metric (`band_edge_rms`, `band_edge_max`
+in [`CurveDiagnostics`](@ref)); the band score and the grade do not use them. Every curve's
+diagnostics (coverage, reverse distance, band centre) are computed here and stored by
+[`write_score`](@ref); none of them changes pass/fail.
 """
 function run_curves(f, refs, label::AbstractString; fixes = Fix[], tolerance::Tolerance = Tolerance(), tolerances = Dict{String, Tolerance}())
     curves = CurveResult[]
     try
         for ref in refs
-            x, y = f(ref)
+            x, y, rest... = f(ref)
+            sim_edges = isempty(rest) ? nothing : first(rest)
             tol = get(tolerances, ref.id, tolerance)
-            push!(curves, CurveResult(ref, collect(Float64, x), collect(Float64, y), compare_curve(ref, x, y; tolerance = tol)))
+            push!(curves, CurveResult(ref, collect(Float64, x), collect(Float64, y), compare_curve(ref, x, y; tolerance = tol); sim_edges))
         end
     catch e
         # only a documented gap in the published information counts as "did not run";
@@ -244,6 +258,15 @@ end
 """
 grade_label(r::Reproduction) = string(grade(r), from_target(r) ? "†" : "")
 
+# report-only fields of score.toml; not-applicable (NaN) values are left out
+function diagnostics_summary(g::CurveDiagnostics)
+    out = Dict{String, Any}("coverage" => round(g.coverage; sigdigits = 4), "sim_coverage" => round(g.sim_coverage; sigdigits = 4))
+    g.rev_n > 0 && merge!(out, Dict{String, Any}("rev_rms" => round(g.rev_rms; sigdigits = 4), "rev_p95" => round(g.rev_p95; sigdigits = 4), "rev_n" => g.rev_n))
+    isnan(g.band_centre_dev_rms) || merge!(out, Dict{String, Any}("band_centre_dev_rms" => round(g.band_centre_dev_rms; sigdigits = 4), "band_n" => g.band_n))
+    isnan(g.band_edge_rms) || merge!(out, Dict{String, Any}("band_edge_rms" => round(g.band_edge_rms; sigdigits = 4), "band_edge_max" => round(g.band_edge_max; sigdigits = 4)))
+    return out
+end
+
 function run_summary(run::Union{Run, Nothing})
     run === nothing && return Dict{String, Any}()
     Dict{String, Any}(
@@ -259,6 +282,7 @@ function run_summary(run::Union{Run, Nothing})
             "max" => round(c.comparison.max; sigdigits = 4),
             "tol_rms" => c.comparison.tolerance.rms, "tol_p95" => c.comparison.tolerance.p95,
             "n_points" => length(c.ref.x),
+            diagnostics_summary(c.diagnostics)...,
         ) for c in run.curves],
     )
 end
@@ -267,7 +291,11 @@ end
     write_score(path, r::Reproduction)
 
 Write `score.toml` with the grade and per-curve metrics. The docs site and the test
-suite read this file.
+suite read this file. Besides `rms`, `p95`, `max` and `passed` each curve carries the
+report-only checks of [`CurveDiagnostics`](@ref): `coverage`, `sim_coverage`, `rev_rms`, `rev_p95`,
+`rev_n` (`:curve` references), `band_centre_dev_rms`, `band_n`, `band_edge_rms`, `band_edge_max`
+(`:band` references; the edge fields only when the model passed simulated edges). They do not
+enter the grade.
 """
 function write_score(path::AbstractString, r::Reproduction)
     d = Dict{String, Any}(

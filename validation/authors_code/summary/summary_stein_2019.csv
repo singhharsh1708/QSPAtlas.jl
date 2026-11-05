@@ -1,0 +1,5 @@
+"model","rx_case","atlas_case","var","n","max_abs","at_time","max_rel","max_atlas"
+"stein_2019","typical","typical","C",651,4.675e-09,9.2,3.18e-13,24000
+"stein_2019","toci4_ster6","toci4_ster6","C",651,1.174e-07,9.3,2.197e-12,61590.7
+"stein_2019","ster2_toci6","ster2_toci6","C",651,7.243e-08,9.3,2.139e-12,43158
+"stein_2019","toci12","toci12","C",651,4.675e-09,9.2,3.18e-13,24000

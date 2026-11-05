@@ -1,0 +1,41 @@
+model,run,curve,variant,status,retcode,finite,rms,p95,maxd,passed,own_passed,tol_rms,tol_p95,own_margin,shift_box,shift_rel,n_points
+"ouerdani_2015","published","fig4_left_K","own","ok","Success",true,0.07948148117,0.09731988164,0.1000596342,false,false,0.015,0.03,5.298765411,NaN,NaN,1000
+"ouerdani_2015","published","fig4_left_P","own","ok","Success",true,0.08097458923,0.09854928861,0.0998510145,false,false,0.015,0.03,5.398305948,NaN,NaN,1000
+"ouerdani_2015","published","fig4_right_K","own","ok","Success",true,0.03305631544,0.04238565244,0.04315291532,false,false,0.015,0.03,2.203754362,NaN,NaN,1000
+"ouerdani_2015","published","fig4_right_P","own","ok","Success",true,0.06403046781,0.1111193647,0.1905261979,false,false,0.015,0.03,4.268697854,NaN,NaN,1000
+"ouerdani_2015","published","fig4_left_K","tol/100","ok","Success",true,0.07948148117,0.09731988164,0.1000596342,false,false,0.015,0.03,5.298765411,1.902944469e-11,1.704615034e-11,1000
+"ouerdani_2015","published","fig4_left_P","tol/100","ok","Success",true,0.08097458922,0.09854928861,0.09985101451,false,false,0.015,0.03,5.398305948,2.632649654e-10,3.580072672e-10,1000
+"ouerdani_2015","published","fig4_right_K","tol/100","ok","Success",true,0.03305631544,0.04238565244,0.04315291532,false,false,0.015,0.03,2.203754362,2.758449025e-11,1.665929682e-11,1000
+"ouerdani_2015","published","fig4_right_P","tol/100","ok","Success",true,0.06403046781,0.1111193648,0.1905261979,false,false,0.015,0.03,4.268697854,8.401024321e-11,4.167489766e-11,1000
+"ouerdani_2015","published","fig4_left_K","altA Rodas5P","ok","Success",true,0.07948148117,0.09731988164,0.1000596342,false,false,0.015,0.03,5.298765411,1.683009287e-11,2.215191722e-11,1000
+"ouerdani_2015","published","fig4_left_P","altA Rodas5P","ok","Success",true,0.08097458923,0.09854928861,0.09985101451,false,false,0.015,0.03,5.398305948,2.421491896e-10,3.29292515e-10,1000
+"ouerdani_2015","published","fig4_right_K","altA Rodas5P","ok","Success",true,0.03305631543,0.04238565244,0.04315291531,false,false,0.015,0.03,2.203754362,4.072364668e-11,1.8987865e-11,1000
+"ouerdani_2015","published","fig4_right_P","altA Rodas5P","ok","Success",true,0.06403046779,0.1111193647,0.1905261978,false,false,0.015,0.03,4.268697854,1.422710838e-10,6.894713219e-11,1000
+"ouerdani_2015","published","fig4_left_K","altB Vern9","ok","Success",true,0.07948148117,0.09731988164,0.1000596342,false,false,0.015,0.03,5.298765411,1.906563796e-11,1.707873869e-11,1000
+"ouerdani_2015","published","fig4_left_P","altB Vern9","ok","Success",true,0.08097458922,0.09854928861,0.09985101451,false,false,0.015,0.03,5.398305948,2.621957096e-10,3.565532559e-10,1000
+"ouerdani_2015","published","fig4_right_K","altB Vern9","ok","Success",true,0.03305631544,0.04238565244,0.04315291532,false,false,0.015,0.03,2.203754362,2.776329167e-11,1.676729295e-11,1000
+"ouerdani_2015","published","fig4_right_P","altB Vern9","ok","Success",true,0.06403046781,0.1111193648,0.1905261979,false,false,0.015,0.03,4.268697854,8.403155949e-11,4.145659621e-11,1000
+"ouerdani_2015","published","fig4_left_K","dense x4","ok","Success",true,0.07948133082,0.09731971003,0.1000594011,false,false,0.015,0.03,5.298765411,0,0,3997
+"ouerdani_2015","published","fig4_left_P","dense x4","ok","Success",true,0.08097437795,0.09854921569,0.0998509086,false,false,0.015,0.03,5.398305948,0,0,3997
+"ouerdani_2015","published","fig4_right_K","dense x4","ok","Success",true,0.03305607537,0.04238531739,0.04315264212,false,false,0.015,0.03,2.203754362,0,0,3997
+"ouerdani_2015","published","fig4_right_P","dense x4","ok","Success",true,0.06402889893,0.1111194397,0.1905261979,false,false,0.015,0.03,4.268697854,0,0,3997
+"ouerdani_2015","fixed","fig4_left_K","own","ok","Success",true,0.001045278143,0.002414440686,0.002510319112,true,true,0.015,0.03,0.0804813562,NaN,NaN,1000
+"ouerdani_2015","fixed","fig4_left_P","own","ok","Success",true,0.0008654313382,0.00155960106,0.003139161298,true,true,0.015,0.03,0.05769542255,NaN,NaN,1000
+"ouerdani_2015","fixed","fig4_right_K","own","ok","Success",true,0.01117398307,0.01598017319,0.01627909214,true,true,0.015,0.03,0.7449322046,NaN,NaN,1000
+"ouerdani_2015","fixed","fig4_right_P","own","ok","Success",true,0.008823717016,0.01384079747,0.01480495891,true,true,0.015,0.03,0.5882478011,NaN,NaN,1000
+"ouerdani_2015","fixed","fig4_left_K","tol/100","ok","Success",true,0.001045278143,0.002414440686,0.002510319111,true,true,0.015,0.03,0.0804813562,3.638866986e-12,5.349197444e-12,1000
+"ouerdani_2015","fixed","fig4_left_P","tol/100","ok","Success",true,0.0008654313378,0.00155960106,0.003139161294,true,true,0.015,0.03,0.05769542255,7.132794355e-11,1.170406124e-10,1000
+"ouerdani_2015","fixed","fig4_right_K","tol/100","ok","Success",true,0.01117398307,0.01598017319,0.01627909213,true,true,0.015,0.03,0.7449322046,2.246158815e-11,1.359533522e-11,1000
+"ouerdani_2015","fixed","fig4_right_P","tol/100","ok","Success",true,0.008823717016,0.01384079747,0.01480495891,true,true,0.015,0.03,0.5882478011,7.607992014e-11,4.139550048e-11,1000
+"ouerdani_2015","fixed","fig4_left_K","altA Rodas5P","ok","Success",true,0.001045278143,0.002414440685,0.002510319111,true,true,0.015,0.03,0.0804813562,4.718003765e-12,2.341742979e-11,1000
+"ouerdani_2015","fixed","fig4_left_P","altA Rodas5P","ok","Success",true,0.0008654313292,0.001559601046,0.003139161249,true,true,0.015,0.03,0.05769542255,6.387212981e-11,1.067902899e-10,1000
+"ouerdani_2015","fixed","fig4_right_K","altA Rodas5P","ok","Success",true,0.01117398306,0.01598017319,0.01627909213,true,true,0.015,0.03,0.7449322046,3.961653228e-11,1.972241386e-11,1000
+"ouerdani_2015","fixed","fig4_right_P","altA Rodas5P","ok","Success",true,0.008823717013,0.01384079746,0.01480495891,true,true,0.015,0.03,0.5882478011,1.443007935e-10,7.930717995e-11,1000
+"ouerdani_2015","fixed","fig4_left_K","altB Vern9","ok","Success",true,0.001045278143,0.002414440686,0.002510319111,true,true,0.015,0.03,0.0804813562,3.671951632e-12,5.608403812e-12,1000
+"ouerdani_2015","fixed","fig4_left_P","altB Vern9","ok","Success",true,0.0008654313378,0.001559601059,0.003139161294,true,true,0.015,0.03,0.05769542255,7.21849247e-11,1.18446798e-10,1000
+"ouerdani_2015","fixed","fig4_right_K","altB Vern9","ok","Success",true,0.01117398307,0.01598017319,0.01627909213,true,true,0.015,0.03,0.7449322046,2.244160413e-11,1.353269467e-11,1000
+"ouerdani_2015","fixed","fig4_right_P","altB Vern9","ok","Success",true,0.008823717016,0.01384079747,0.01480495892,true,true,0.015,0.03,0.5882478011,7.533484947e-11,4.099007539e-11,1000
+"ouerdani_2015","fixed","fig4_left_K","dense x4","ok","Success",true,0.001045341125,0.00241455276,0.002510954952,true,true,0.015,0.03,0.0804813562,0,0,3997
+"ouerdani_2015","fixed","fig4_left_P","dense x4","ok","Success",true,0.0008654984174,0.001559560312,0.003138469545,true,true,0.015,0.03,0.05769542255,0,0,3997
+"ouerdani_2015","fixed","fig4_right_K","dense x4","ok","Success",true,0.01117381105,0.01598014395,0.0162790857,true,true,0.015,0.03,0.7449322046,0,0,3997
+"ouerdani_2015","fixed","fig4_right_P","dense x4","ok","Success",true,0.008823597281,0.01384071686,0.01480487583,true,true,0.015,0.03,0.5882478011,0,0,3997

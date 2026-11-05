@@ -1,0 +1,12 @@
+file,width,height,quality_luminance,table_mismatch_lum,quality_chrominance,table_mismatch_chr,subsampling
+PSP4-4-660-g004.jpg,568,263,92,0,0,-1,grey
+PSP4-5-636-g002.jpg,667,472,92,0,92,0,4:2:0
+PSP4-5-636-g006.jpg,613,242,92,0,92,0,4:2:0
+PSP4-6-11-g004.jpg,583,372,92,0,0,-1,grey
+PSP4-8-858-g003.jpg,709,329,92,0,92,0,4:2:0
+PSP4-8-858-g004.jpg,709,384,92,0,92,0,4:2:0
+PSP4-8-285-g003.jpg,709,768,92,0,92,0,4:2:0
+PSP4-8-676-g003.jpg,709,589,92,0,92,0,4:2:0
+PSP4-8-676-g004.jpg,709,413,92,0,92,0,4:2:0
+stroh_fig3_1.jpg,317,253,92,0,92,0,4:2:0
+ouerdani_fig4_1.jpg,253,255,92,0,0,-1,grey

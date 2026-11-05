@@ -1,0 +1,7 @@
+p95 = 0.031
+safety_factor = 2.0
+worst_q99_rms = 0.007738680000000001
+rms = 0.015
+rule = "tolerance = 2.0 x largest per-panel-type 99th percentile of accepted synthetic digitising error, 2 significant figures"
+accept_max_point_distance = 0.05
+worst_q99_p95 = 0.01565384000000004

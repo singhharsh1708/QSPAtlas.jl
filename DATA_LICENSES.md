@@ -241,3 +241,12 @@ These are unresolved. None is answered here.
     permission has been requested from authors or publisher for any item above. Asking the
     corresponding authors of the four NC-ND papers is a possible way to settle questions 1
     to 3.
+
+## Theses used for the digitising error study
+
+`tools/digitise/error_study/results/real_figures.png` draws curves digitised from figures in two
+theses, to measure digitising error: A. Ouerdani, Université Grenoble Alpes, 2016 (HAL
+tel-01496174, https://theses.hal.science/tel-01496174v1/document) and L. G. Hutchinson,
+University of Oxford (ORA uuid:0c1034ee-ff8e-4ed4-b168-f559f93f9142). Only digitised
+coordinates are drawn; no thesis image or text is included, and the digitised thesis curves
+themselves are not in the repository.

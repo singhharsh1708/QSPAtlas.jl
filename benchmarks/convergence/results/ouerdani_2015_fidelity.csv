@@ -1,0 +1,9 @@
+model,run,curve,rms,toml_rms,p95,toml_p95,passed,toml_passed,rms_rel_diff
+"ouerdani_2015","published","fig4_left_K",0.07948148117,0.07948,0.09731988164,0.09732,false,false,1.863576012e-05
+"ouerdani_2015","published","fig4_left_P",0.08097458923,0.08097,0.09854928861,0.09855,false,false,5.667809418e-05
+"ouerdani_2015","published","fig4_right_K",0.03305631544,0.03306,0.04238565244,0.04239,false,false,0.0001114507798
+"ouerdani_2015","published","fig4_right_P",0.06403046781,0.06403,0.1111193647,0.1111,false,false,7.306140899e-06
+"ouerdani_2015","fixed","fig4_left_K",0.001045278143,0.001045,0.002414440686,0.002414,true,true,0.0002661655569
+"ouerdani_2015","fixed","fig4_left_P",0.0008654313382,0.0008654,0.00155960106,0.00156,true,true,3.621240571e-05
+"ouerdani_2015","fixed","fig4_right_K",0.01117398307,0.01117,0.01598017319,0.01598,true,true,0.0003565863268
+"ouerdani_2015","fixed","fig4_right_P",0.008823717016,0.008824,0.01384079747,0.01384,true,true,3.206980523e-05

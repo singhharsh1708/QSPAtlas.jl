@@ -1,0 +1,74 @@
+what,value,extra
+"own vs production summary (max abs diff of median)",0,NaN
+"median shift vs own: published fig3a_left_p10 tol/100",1.327670017e-11,4.533617809e-09
+"median shift vs own: published fig3a_left_p50 tol/100",2.89228152e-11,1.359270856e-08
+"median shift vs own: published fig3a_left_p90 tol/100",2.053375525e-11,6.367135403e-09
+"median shift vs own: published fig3a_right_p10 tol/100",1.255230986e-11,4.533617809e-09
+"median shift vs own: published fig3a_right_p50 tol/100",2.734475691e-11,1.359270856e-08
+"median shift vs own: published fig3a_right_p90 tol/100",1.941341262e-11,6.367135403e-09
+"median shift vs own: fixed fig3a_left_p10 tol/100",7.887175302e-12,1.937277051e-09
+"median shift vs own: fixed fig3a_left_p50 tol/100",3.319821445e-12,1.703675257e-09
+"median shift vs own: fixed fig3a_left_p90 tol/100",2.053375525e-11,6.367135403e-09
+"median shift vs own: fixed fig3a_right_p10 tol/100",3.338891435e-11,4.834499273e-09
+"median shift vs own: fixed fig3a_right_p50 tol/100",2.503097138e-11,9.547354262e-09
+"median shift vs own: fixed fig3a_right_p90 tol/100",5.34341632e-11,2.860351503e-08
+"median shift vs own: published fig3a_left_p10 altA Rodas5P",2.058123157e-11,7.027900722e-09
+"median shift vs own: published fig3a_left_p50 altA Rodas5P",6.572636916e-12,3.088913922e-09
+"median shift vs own: published fig3a_left_p90 altA Rodas5P",2.189962087e-11,6.790622395e-09
+"median shift vs own: published fig3a_right_p10 altA Rodas5P",1.945829858e-11,7.027900722e-09
+"median shift vs own: published fig3a_right_p50 altA Rodas5P",6.214027143e-12,3.088913922e-09
+"median shift vs own: published fig3a_right_p90 altA Rodas5P",2.070475522e-11,6.790622395e-09
+"median shift vs own: fixed fig3a_left_p10 altA Rodas5P",8.908713837e-12,2.188200972e-09
+"median shift vs own: fixed fig3a_left_p50 altA Rodas5P",1.4857392e-12,7.565696416e-10
+"median shift vs own: fixed fig3a_left_p90 altA Rodas5P",2.189962087e-11,6.790622395e-09
+"median shift vs own: fixed fig3a_right_p10 altA Rodas5P",2.398377097e-11,3.472701022e-09
+"median shift vs own: fixed fig3a_right_p50 altA Rodas5P",2.669690112e-11,1.780276951e-08
+"median shift vs own: fixed fig3a_right_p90 altA Rodas5P",4.137185408e-11,1.445930847e-08
+"median shift vs own: published fig3a_left_p10 altB Tsit5",7.746996384e-11,2.645379552e-08
+"median shift vs own: published fig3a_left_p50 altB Tsit5",1.683070144e-10,8.117081921e-08
+"median shift vs own: published fig3a_left_p90 altB Tsit5",1.025679922e-10,5.352928695e-08
+"median shift vs own: published fig3a_right_p10 altB Tsit5",7.324312361e-11,2.645379552e-08
+"median shift vs own: published fig3a_right_p50 altB Tsit5",1.59124012e-10,8.117081921e-08
+"median shift vs own: published fig3a_right_p90 altB Tsit5",9.697177795e-11,5.352928695e-08
+"median shift vs own: fixed fig3a_left_p10 altB Tsit5",5.560604648e-11,1.365818667e-08
+"median shift vs own: fixed fig3a_left_p50 altB Tsit5",2.097958153e-11,8.236272168e-09
+"median shift vs own: fixed fig3a_left_p90 altB Tsit5",1.613138572e-11,5.436889577e-09
+"median shift vs own: fixed fig3a_right_p10 altB Tsit5",1.44151449e-10,2.944223668e-08
+"median shift vs own: fixed fig3a_right_p50 altB Tsit5",1.975464995e-10,1.267369781e-07
+"median shift vs own: fixed fig3a_right_p90 altB Tsit5",3.773021386e-10,1.752371281e-07
+"median shift vs own: published fig3a_left_p10 dense x4",8.378167355e-12,2.860898777e-09
+"median shift vs own: published fig3a_left_p50 dense x4",2.754776239e-11,1.29464682e-08
+"median shift vs own: published fig3a_left_p90 dense x4",2.359006387e-11,7.314798039e-09
+"median shift vs own: published fig3a_right_p10 dense x4",7.921046e-12,2.860898777e-09
+"median shift vs own: published fig3a_right_p50 dense x4",2.604472838e-11,1.29464682e-08
+"median shift vs own: published fig3a_right_p90 dense x4",2.230296593e-11,7.314798039e-09
+"median shift vs own: fixed fig3a_left_p10 dense x4",6.816620082e-12,1.674327605e-09
+"median shift vs own: fixed fig3a_left_p50 dense x4",1.641041224e-12,8.421317297e-10
+"median shift vs own: fixed fig3a_left_p90 dense x4",2.359006387e-11,7.314798039e-09
+"median shift vs own: fixed fig3a_right_p10 dense x4",2.040579287e-11,3.812883449e-09
+"median shift vs own: fixed fig3a_right_p50 dense x4",2.86225765e-11,1.115322803e-08
+"median shift vs own: fixed fig3a_right_p90 dense x4",7.478074086e-11,4.114519033e-08
+"median shift vs own: published fig3a_left_p10 reps x2",0.006097707737,1.315910203
+"median shift vs own: published fig3a_left_p50 reps x2",0.01027751418,2.383172931
+"median shift vs own: published fig3a_left_p90 reps x2",0.00621502167,1.440092396
+"median shift vs own: published fig3a_right_p10 reps x2",0.005765010584,1.315910203
+"median shift vs own: published fig3a_right_p50 reps x2",0.009716762527,2.383172931
+"median shift vs own: published fig3a_right_p90 reps x2",0.00587592375,1.440092396
+"median shift vs own: fixed fig3a_left_p10 reps x2",0.004969979267,1.37969454
+"median shift vs own: fixed fig3a_left_p50 reps x2",0.005766277714,1.449854062
+"median shift vs own: fixed fig3a_left_p90 reps x2",0.007564981007,1.289092645
+"median shift vs own: fixed fig3a_right_p10 reps x2",0.01156596044,3.020573276
+"median shift vs own: fixed fig3a_right_p50 reps x2",0.009716762527,2.383172931
+"median shift vs own: fixed fig3a_right_p90 reps x2",0.01048010694,2.368608827
+"median shift vs own: published fig3a_left_p10 seed+1000",0.01209112784,2.803904895
+"median shift vs own: published fig3a_left_p50 seed+1000",0.01255707848,3.060604706
+"median shift vs own: published fig3a_left_p90 seed+1000",0.01192263103,3.96371275
+"median shift vs own: published fig3a_right_p10 seed+1000",0.01143142357,2.803904895
+"median shift vs own: published fig3a_right_p50 seed+1000",0.01187195147,3.060604706
+"median shift vs own: published fig3a_right_p90 seed+1000",0.01127212012,3.96371275
+"median shift vs own: fixed fig3a_left_p10 seed+1000",0.006098773294,1.745098344
+"median shift vs own: fixed fig3a_left_p50 seed+1000",0.01255707848,3.060604706
+"median shift vs own: fixed fig3a_left_p90 seed+1000",0.01293101824,2.15006531
+"median shift vs own: fixed fig3a_right_p10 seed+1000",0.01555570679,3.391378766
+"median shift vs own: fixed fig3a_right_p50 seed+1000",0.01187195147,4.055577409
+"median shift vs own: fixed fig3a_right_p90 seed+1000",0.01056928666,4.185587297

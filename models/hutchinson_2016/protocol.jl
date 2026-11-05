@@ -4,6 +4,7 @@
 # before any simulation was compared with them. Tolerances below are the atlas defaults, fixed at the same time.
 using QSPAtlas
 using ModelingToolkit, OrdinaryDiffEq
+using SciMLBase: successful_retcode
 using ModelingToolkit: t_nounits as t, D_nounits as D
 
 const TOLERANCE = Tolerance()                         # RMS 0.015, P95 0.03 of the axis box (default)
@@ -143,6 +144,9 @@ function simulate_scenario(p; fixes = Fix[], grid = GRID, overrides = (;))
     prob, cb = hutchinson_problem(p; fixes)
     kw = cb === nothing ? (;) : (; callback = cb)
     sol = solve(prob, Tsit5(); abstol = 1e-9, reltol = 1e-9, kw...)
+    # a failed solve gives NaN values (scored as a gap); the partial solution is never sampled
+    successful_retcode(sol) || return (; t = grid, T = fill(NaN, length(grid)), V = fill(NaN, length(grid)),
+        N = fill(NaN, length(grid)), C = fill(NaN, length(grid)))
     get(v) = collect(Float64, sol(grid; idxs = v).u)
     return (; t = grid, T = get(SYS.T), V = get(SYS.V), N = get(SYS.N), C = get(SYS.C))
 end

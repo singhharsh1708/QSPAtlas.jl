@@ -18,6 +18,7 @@ matched = false
 ran = true
 
     [[fixed.curves]]
+    coverage = 0.9375
     figure = "Figure 4 right panel, 0.5 mg/kg, bar for parameter multiplied by 0.2x"
     id = "fig4_0p5mgkg_x0p2"
     max = 0.3855
@@ -25,9 +26,11 @@ ran = true
     p95 = 0.09915
     passed = false
     rms = 0.09641
+    sim_coverage = 0.9375
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
+    coverage = 0.9375
     figure = "Figure 4 right panel, 0.5 mg/kg, bar for parameter multiplied by 5x"
     id = "fig4_0p5mgkg_x5"
     max = 0.3911
@@ -35,9 +38,11 @@ ran = true
     p95 = 0.3591
     passed = false
     rms = 0.131
+    sim_coverage = 0.9375
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
+    coverage = 0.9375
     figure = "Figure 4 left panel, 5 mg/kg, bar for parameter multiplied by 0.2x"
     id = "fig4_5mgkg_x0p2"
     max = 0.2021
@@ -45,9 +50,11 @@ ran = true
     p95 = 0.05812
     passed = false
     rms = 0.05096
+    sim_coverage = 0.9375
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
+    coverage = 0.9375
     figure = "Figure 4 left panel, 5 mg/kg, bar for parameter multiplied by 5x"
     id = "fig4_5mgkg_x5"
     max = 1.0
@@ -55,9 +62,11 @@ ran = true
     p95 = 0.3965
     passed = false
     rms = 0.2548
+    sim_coverage = 0.9375
     tol_p95 = 0.03
     tol_rms = 0.015
     [[fixed.curves]]
+    coverage = 0.0625
     figure = "Figure 4 caption, log ratio at the base parameter values: 5 mg/kg (x = 0.25) and 0.5 mg/kg (x = 0.75)"
     id = "fig4_base_case"
     max = 0.001211
@@ -65,6 +74,7 @@ ran = true
     p95 = 0.001171
     passed = true
     rms = 0.000906
+    sim_coverage = 0.0625
     tol_p95 = 0.03
     tol_rms = 0.015
 
@@ -140,6 +150,7 @@ matched = false
 ran = true
 
     [[published.curves]]
+    coverage = 0.9375
     figure = "Figure 4 right panel, 0.5 mg/kg, bar for parameter multiplied by 0.2x"
     id = "fig4_0p5mgkg_x0p2"
     max = 1.0
@@ -147,9 +158,11 @@ ran = true
     p95 = 1.0
     passed = false
     rms = 0.939
+    sim_coverage = 0.9375
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
+    coverage = 0.9375
     figure = "Figure 4 right panel, 0.5 mg/kg, bar for parameter multiplied by 5x"
     id = "fig4_0p5mgkg_x5"
     max = 1.0
@@ -157,9 +170,11 @@ ran = true
     p95 = 1.0
     passed = false
     rms = 1.0
+    sim_coverage = 0.875
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
+    coverage = 0.9375
     figure = "Figure 4 left panel, 5 mg/kg, bar for parameter multiplied by 0.2x"
     id = "fig4_5mgkg_x0p2"
     max = 1.0
@@ -167,9 +182,11 @@ ran = true
     p95 = 1.0
     passed = false
     rms = 0.9372
+    sim_coverage = 0.9375
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
+    coverage = 0.9375
     figure = "Figure 4 left panel, 5 mg/kg, bar for parameter multiplied by 5x"
     id = "fig4_5mgkg_x5"
     max = 1.0
@@ -177,9 +194,11 @@ ran = true
     p95 = 1.0
     passed = false
     rms = 0.9998
+    sim_coverage = 0.75
     tol_p95 = 0.03
     tol_rms = 0.015
     [[published.curves]]
+    coverage = 0.0625
     figure = "Figure 4 caption, log ratio at the base parameter values: 5 mg/kg (x = 0.25) and 0.5 mg/kg (x = 0.75)"
     id = "fig4_base_case"
     max = 1.0
@@ -187,6 +206,7 @@ ran = true
     p95 = 1.0
     passed = false
     rms = 1.0
+    sim_coverage = 0.0625
     tol_p95 = 0.03
     tol_rms = 0.015
 

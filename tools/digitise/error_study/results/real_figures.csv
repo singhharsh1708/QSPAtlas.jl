@@ -1,0 +1,35 @@
+model,curve_id,thesis_source,kind,n,rms,p95,max,median_signed_dy
+ouerdani_2015,fig4_left_P,thesis Fig 4 (HAL tel-01496174 PDF p96),raster 300 ppi,90,0.00064,0.00107,0.00199,+0.00074
+ouerdani_2015,fig4_left_K,thesis Fig 4 (HAL tel-01496174 PDF p96),raster 300 ppi,70,0.00083,0.00165,0.00227,+0.00075
+ouerdani_2015,fig4_right_P,thesis Fig 4 (HAL tel-01496174 PDF p96),raster 300 ppi,90,0.00067,0.00127,0.00142,-0.00058
+ouerdani_2015,fig4_right_K,thesis Fig 4 (HAL tel-01496174 PDF p96),raster 300 ppi,70,0.00106,0.00177,0.00456,-0.00082
+hutchinson_2016,fig2_a_T,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00177,0.00323,0.00413,+0.00150
+hutchinson_2016,fig2_b_V,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00186,0.00321,0.00338,-0.00070
+hutchinson_2016,fig2_c_T_d04,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00148,0.00237,0.00287,-0.00039
+hutchinson_2016,fig2_c_T_d06,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00184,0.00306,0.00570,-0.00004
+hutchinson_2016,fig2_c_T_d08,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00221,0.00525,0.00589,+0.00093
+hutchinson_2016,fig2_c_T_d10,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00600,0.00424,0.04270,+0.00122
+hutchinson_2016,fig2_c_T_d12,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00246,0.00427,0.00608,+0.00094
+hutchinson_2016,fig2_d_V_d04,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00179,0.00345,0.00414,+0.00019
+hutchinson_2016,fig2_d_V_d06,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00229,0.00378,0.00629,+0.00066
+hutchinson_2016,fig2_d_V_d08,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00216,0.00332,0.00701,+0.00102
+hutchinson_2016,fig2_d_V_d10,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00228,0.00379,0.00480,+0.00025
+hutchinson_2016,fig2_d_V_d12,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00202,0.00326,0.00459,+0.00044
+hutchinson_2016,fig2_e_T_N2,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00199,0.00362,0.00459,+0.00033
+hutchinson_2016,fig2_e_T_N3,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00172,0.00320,0.00420,+0.00049
+hutchinson_2016,fig2_e_T_N6,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00213,0.00345,0.00918,+0.00017
+hutchinson_2016,fig2_e_T_N11,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00143,0.00247,0.00286,+0.00072
+hutchinson_2016,fig2_e_T_N21,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00164,0.00320,0.00406,-0.00078
+hutchinson_2016,fig2_f_V_N2,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00262,0.00441,0.00474,+0.00197
+hutchinson_2016,fig2_f_V_N3,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00328,0.00451,0.01637,+0.00207
+hutchinson_2016,fig2_f_V_N6,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00243,0.00437,0.00648,+0.00190
+hutchinson_2016,fig2_f_V_N11,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00244,0.00495,0.00549,+0.00225
+hutchinson_2016,fig2_f_V_N21,thesis Fig 3.2 (ORA thesis PDF p85),vector,60,0.00213,0.00407,0.00502,+0.00112
+hutchinson_2016,fig6_a_T,thesis Fig 3.14 (ORA thesis PDF p111),vector,70,0.00184,0.00364,0.00623,+0.00071
+hutchinson_2016,fig6_a_V,thesis Fig 3.14 (ORA thesis PDF p111),vector,70,0.00516,0.00886,0.00966,+0.00024
+hutchinson_2016,fig6_b_T,thesis Fig 3.14 (ORA thesis PDF p111),vector,70,0.00174,0.00293,0.00548,-0.00025
+hutchinson_2016,fig6_b_V,thesis Fig 3.14 (ORA thesis PDF p111),vector,70,0.00647,0.00968,0.01027,-0.00108
+hutchinson_2016,fig6_c_T,thesis Fig 3.14 (ORA thesis PDF p111),vector,70,0.00290,0.00426,0.01377,-0.00018
+hutchinson_2016,fig6_c_V,thesis Fig 3.14 (ORA thesis PDF p111),vector,70,0.00736,0.01033,0.01039,+0.00709
+hutchinson_2016,fig6_d_T,thesis Fig 3.14 (ORA thesis PDF p111),vector,70,0.00222,0.00370,0.00665,-0.00017
+hutchinson_2016,fig6_d_V,thesis Fig 3.14 (ORA thesis PDF p111),vector,70,0.00803,0.01072,0.01226,-0.00046

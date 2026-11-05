@@ -125,13 +125,17 @@ end
 @testset "mc_se against independent batches" begin
     function batch(b; K = 100, discrete = false)
         rng = Xoshiro(1000 + b)
-        obs = [row(k, 1, 1.0, discrete ? Float64(rand(rng) > 0.6) : exp(0.3 * randn(rng))) for k in 1:K]
+        obs = [row(k, 1, 1.0, discrete ? Float64(rand(rng) > 0.5) : exp(0.3 * randn(rng))) for k in 1:K]
         return only(vpc(simresult(obs); endpoint = :C, q = (0.5,), seed = b).rows)
     end
     for discrete in (false, true)
         xs = [batch(b; discrete) for b in 1:300]
         sd = std([x.median for x in xs])
-        reported = mean_([x.mc_se for x in xs])
+        # a bootstrap that cannot estimate the SE (heavily tied) now gives NaN instead of 0 and is left
+        # out of the mean; it must stay rare here (a balanced 0/1 sample, 100 replicates)
+        ses = [x.mc_se for x in xs]
+        @test count(isnan, ses) <= 0.03 * length(ses)
+        reported = mean_(filter(isfinite, ses))
         @test sd / 1.5 < reported < sd * 1.5
     end
 end
@@ -506,6 +510,116 @@ end
     vnan = @test_logs (:warn, r"non-finite") vpc(badr; endpoint = :C)
     @test plot_vpc(vnan; path = joinpath(dir, "vpc_nan.png")) isa QSPAtlas.Figure
     @test_throws ArgumentError spaghetti(res, :nope)
+end
+
+# ---- population safeguards: failure-rate gate, MC precision, tied bootstrap ---------------------------
+
+@testset "failure rate per bin and overall; the gate only marks" begin
+    # bin 1: 1 of 5 values failed; bin 2: none; bin 3: 3 of 4
+    cols = Dict(1 => [1.0, 2.0, NaN, 4.0, 10.0], 2 => [5.0, 6.0, 7.0, 8.0, 9.0], 3 => [NaN, NaN, 12.0, NaN, missing])
+    obs = [row(1, s, tm, ismissing(v) ? NaN : v) for (tm, vs) in cols for (s, v) in enumerate(vs)]
+    # the fifth value of bin 3 is NaN too: 4 of 5
+    r = simresult(obs)
+    p = @test_logs (:warn, r"non-finite") percentiles(r, :C; q = (0.1, 0.5))
+    @test [x.failure_rate for x in p if x.q == 0.5] == [0.2, 0.0, 0.8]
+    @test [x.n_finite for x in p if x.q == 0.5] == [4, 5, 1]
+    @test all(x -> !x.unreliable, p)                                 # default 0.0: report only
+    @test failure_rate(p) ≈ 5 / 15                                    # each bin once, not once per quantile
+    # the values themselves are as before
+    @test at(p; t_mid = 1.0, q = 0.5).value ≈ 3.0 && at(p; t_mid = 3.0, q = 0.5).value == 12.0
+    # the gate marks bins above the limit (strictly), does not touch values, warns once
+    pg = @test_logs (:warn, r"non-finite") (:warn, r"1 bin\(s\).*unreliable") percentiles(r, :C; q = (0.1, 0.5), max_failure_rate = 0.5)
+    @test [x.unreliable for x in pg if x.q == 0.5] == [false, false, true]
+    @test [x.value for x in pg] == [x.value for x in p]
+    pg2 = @test_logs (:warn, r"non-finite") (:warn, r"2 bin") percentiles(r, :C; q = (0.5,), max_failure_rate = 0.2 - 1e-9)
+    @test [x.unreliable for x in pg2] == [true, false, true]
+    pg3 = @test_logs (:warn, r"non-finite") percentiles(r, :C; q = (0.5,), max_failure_rate = 0.8)   # 0.8 is not above 0.8
+    @test !any(x -> x.unreliable, pg3)
+    # an empty bin has no rate and is never marked
+    pe = percentiles(r, :C; q = (0.5,), bins = [10.0, 11.0], max_failure_rate = 0.1)
+    @test isnan(only(pe).failure_rate) && !only(pe).unreliable && isnan(failure_rate(pe))
+    # per replicate rows carry their own rate
+    rr = simresult(vcat([row(1, s, 1.0, 1.0) for s in 1:4], [row(2, s, 1.0, s == 1 ? NaN : 1.0) for s in 1:4]))
+    pr = @test_logs (:warn, r"non-finite") (:warn, r"unreliable") percentiles(rr, :C; q = (0.5,), by_replicate = true, max_failure_rate = 0.1)
+    @test [(x.replicate, x.failure_rate, x.unreliable) for x in pr] == [(1, 0.0, false), (2, 0.25, true)]
+    # blq handling does not change the failure rate (it counts non-finite values only)
+    pb = @test_logs (:warn, r"non-finite") percentiles(r, :C; q = (0.5,), blq = (lloq = 5.0, handling = :drop))
+    @test [x.failure_rate for x in pb] == [0.2, 0.0, 0.8]
+    @test_throws ArgumentError percentiles(r, :C; max_failure_rate = -0.1)
+    @test_throws ArgumentError percentiles(r, :C; max_failure_rate = 1.5)
+
+    # vpc: per bin over all replicates, and overall
+    K = 20
+    sim = simresult([row(k, s, tm, (tm == 2.0 && k <= 5) || (tm == 1.0 && k == 1 && s == 1) ? NaN : k + s) for k in 1:K for s in 1:4 for tm in (1.0, 2.0)])
+    v = @test_logs (:warn, r"non-finite") vpc(sim; endpoint = :C, q = (0.5,))
+    @test [x.failure_rate for x in v.rows] ≈ [1 / 80, 20 / 80]
+    @test all(x -> !x.unreliable, v.rows) && v.max_failure_rate == 0.0
+    @test v.failure_rate ≈ 21 / 160 && failure_rate(v) == v.failure_rate
+    vg = @test_logs (:warn, r"non-finite") (:warn, r"1 bin\(s\).*unreliable") vpc(sim; endpoint = :C, q = (0.5,), max_failure_rate = 0.1)
+    @test [x.unreliable for x in vg.rows] == [false, true] && vg.max_failure_rate == 0.1
+    @test [x.median for x in vg.rows] == [x.median for x in v.rows]        # values untouched
+    @test_throws ArgumentError vpc(sim; endpoint = :C, max_failure_rate = 2.0)
+    @test !any(isnan, [vpc(simresult([row(k, 1, 1.0, k) for k in 1:K]); endpoint = :C, q = (0.5,)).failure_rate])
+    @test vpc(simresult([row(k, 1, 1.0, k) for k in 1:K]); endpoint = :C, q = (0.5,)).failure_rate == 0.0
+    # the old 11-argument VPCResult constructor still works
+    old = VPCResult(v.rows, nothing, :C, [0.5], 0.95, K, 0, :dv, nothing, 0, 0)
+    @test isnan(old.failure_rate) && old.max_failure_rate == 0.0
+end
+
+@testset "mc_check: Monte Carlo precision against a tolerance" begin
+    K = 400
+    rng = Xoshiro(3)
+    sim = simresult([row(k, 1, tm, exp(0.3 * randn(rng))) for k in 1:K for tm in (1.0, 2.0)])
+    v = vpc(sim; endpoint = :C, q = (0.1, 0.5, 0.9), seed = 1)
+    se = [x.mc_se for x in v.rows]
+    @test all(isfinite, se) && length(mc_check(v, 1.0)) == length(v) == 6
+    c = mc_check(v, 1.0)
+    @test [(x.bin, x.q) for x in c] == [(x.bin, x.q) for x in v.rows] && [x.mc_se for x in c] == se
+    @test all(x -> x.limit == 0.2 && x.ok == (x.mc_se < 0.2), c) && all(x -> x.ok, c)
+    # the stated fraction of the tolerance: se is about 0.02 here
+    tol = maximum(se) / 0.2                                          # limit = max se: strict inequality fails for it
+    @test !all(x -> x.ok, mc_check(v, tol)) && count(x -> x.ok, mc_check(v, tol)) == 5
+    @test all(x -> x.ok, mc_check(v, 1.001 * tol))
+    @test all(x -> x.limit == 0.5 * 2.0, mc_check(v, 2.0; fraction = 0.5))
+    # a function gives a tolerance per row, here a fraction of the median
+    cf = mc_check(v, r -> 0.5 * r.median; fraction = 0.2)
+    @test all(x -> x.ok, cf) && all(isapprox(x.limit, 0.1 * r.median) for (x, r) in zip(cf, v.rows))
+    @test !all(x -> x.ok, mc_check(v, 1e-4))
+    # fewer than 10 replicates: mc_se is NaN, which is never ok
+    few = vpc(simresult([row(k, 1, 1.0, Float64(k)) for k in 1:5]); endpoint = :C, q = (0.5,))
+    @test isnan(only(few.rows).mc_se) && !only(mc_check(few, 1e9)).ok
+    @test_throws ArgumentError mc_check(v, 0.0)
+    @test_throws ArgumentError mc_check(v, -1.0)
+    @test_throws ArgumentError mc_check(v, 1.0; fraction = 0.0)
+    @test_throws ArgumentError mc_check(v, 1.0; fraction = 1.5)
+    @test_throws ArgumentError mc_check(v, r -> "x")
+end
+
+@testset "bootstrap SE with heavily tied samples is NaN, not 0" begin
+    se(x; seed = 1, kw...) = QSPAtlas.mc_se_median(x, Xoshiro(seed); kw...)
+    tied = [zeros(97); ones(3)]                                      # not constant, but every resampled median is 0
+    @test length(unique(tied)) == 2
+    x = @test_logs (:warn, r"not all equal.*NaN") se(tied)
+    @test isnan(x)
+    @test @test_logs(se(tied; warn = false)) |> isnan                # silent on request
+    # a constant sample really has no error; and the other cases are as before
+    @test se(ones(50)) == 0.0
+    @test isnan(se(ones(9)))
+    @test se([zeros(61); ones(39)]) > 0.05
+    # two distinct medians that both occur (balanced 0/1 sample, odd size) are a usable estimate
+    bal = [zeros(50); ones(51)]
+    xb = @test_logs se(bal)
+    @test 0.3 < xb < 0.7
+    # the rare one-sided case in the middle: 90 % zeros still gives distinct medians
+    @test isfinite(@test_logs se([zeros(55); ones(45)]))
+    # the same through vpc: replicate quantiles are 0 in 97 of 100 replicates; one warning for the cell, mc_se NaN
+    sim = simresult([row(k, 1, 1.0, k <= 3 ? 1.0 : 0.0) for k in 1:100])
+    v = @test_logs (:warn, r"mc_se is NaN in 1 \(bin, q\) cell") vpc(sim; endpoint = :C, q = (0.5,))
+    @test isnan(only(v.rows).mc_se) && only(v.rows).median == 0.0
+    @test !only(mc_check(v, 1.0)).ok                                 # an unknown precision does not pass
+    # all replicate quantiles equal: SE 0 and no warning
+    same = simresult([row(k, 1, 1.0, 5.0) for k in 1:100])
+    @test only(@test_logs(vpc(same; endpoint = :C, q = (0.5,))).rows).mc_se == 0.0
 end
 
 end
