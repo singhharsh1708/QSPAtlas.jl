@@ -4,7 +4,7 @@ using DiffEqCallbacks: PresetTimeCallback
 using Random: Xoshiro, rand
 using SciMLBase: CallbackSet, EnsembleProblem, EnsembleThreads, EnsembleSerial, ODEProblem, ReturnCode, remake, solve, derivative_discontinuity!,
     init, reinit!, solve!, successful_retcode
-using SymbolicIndexingInterface: getu, setp
+using SymbolicIndexingInterface: getu, setp, setu, is_variable, is_parameter
 
 """
     SimResult
@@ -191,6 +191,11 @@ function base_problem(model::PopulationModel, subject::Subject)
         cache.param_keys = Any[first(p) for p in pp]
         cache.init_keys = Any[first(p) for p in ii]
         cache.param_setter = isempty(pp) ? nothing : setp(model.sys, cache.param_keys)
+        # value writes need every `init` key to be an unknown with an `Initial` parameter
+        fast = all(k -> is_variable(model.sys, k) && is_parameter(model.sys, ModelingToolkit.Initial(k)), cache.init_keys)
+        cache.init_setter = fast && !isempty(ii) ? setu(model.sys, cache.init_keys) : nothing
+        cache.initial_setter = fast && !isempty(ii) ? setp(model.sys, Any[ModelingToolkit.Initial(k) for k in cache.init_keys]) : nothing
+        cache.fast_remake = fast
         cache.getters = Any[getu(model.sys, o) for o in values(model.observed)]
         cache.time_dependent = explicit_time_dependence(model.sys)
         cache.prob = prob
@@ -311,6 +316,26 @@ function check_subject(model::PopulationModel, s::Subject, η::NamedTuple, κs, 
     return events
 end
 
+# Problem for one trajectory's parameter and initial values. `remake` with symbolic maps rebuilds
+# the initialization problem on every call, and each build keeps about 40 KB alive for the rest
+# of the session (ModelingToolkit 11.46, measured 2026-11-05: 800 replicates of 90 subjects
+# retained 3 GB). Writing the values into copies of the base problem reuses its initialization
+# problem instead. The `Initial` parameters are written too, because the initialization reads
+# the starting state from them, not from `u0`. The result is identical to the symbolic remake.
+# A model whose `init` names something other than an unknown keeps the symbolic path.
+function subject_remake(model::PopulationModel, base, ii, pp, tspan)
+    cache = model.cache
+    cache.fast_remake || return remake(base; u0 = collect(Pair, ii), p = collect(Pair, pp), tspan)
+    prob = remake(base; u0 = copy(base.u0), p = copy(base.p), tspan)
+    cache.param_setter === nothing || cache.param_setter(prob, [last(x) for x in pp])
+    if cache.init_setter !== nothing
+        v = [last(x) for x in ii]
+        cache.init_setter(prob, v)
+        cache.initial_setter(prob, v)
+    end
+    return prob
+end
+
 # Problem for one subject without callbacks (its parameters and initial conditions), and the
 # dose events with the steady-state vector filled in when the regimen has a steady-state dose.
 # The steady state uses the subject's parameters at the steady-state time (covariates and
@@ -324,7 +349,7 @@ function subject_start(model::PopulationModel, base, s::Subject, η::NamedTuple,
     ii = call_model(model.init, model, η, c0, κ0)
     check_keys("params", [first(p) for p in pp], cache.param_keys)
     check_keys("init", [first(p) for p in ii], cache.init_keys)
-    prob0 = remake(base; u0 = collect(Pair, ii), p = collect(Pair, pp), tspan)
+    prob0 = subject_remake(model, base, ii, pp, tspan)
     if has_steady_state(events)
         blocks = [b for b in ss_blocks(s.regimen) if b.time <= tspan[2]]     # later ones are never reached
         events = filter(e -> !((e.kind === :steady_state || e.kind === :steady_state_add) && e.time > tspan[2]), events)
@@ -339,7 +364,7 @@ function subject_start(model::PopulationModel, base, s::Subject, η::NamedTuple,
             cT = covariates_at(s, b.time)
             κT = kappa_of(κs, occasion_at(s, b.time))
             probT = cT == c0 && κT == κ0 ? prob0 :
-                remake(base; u0 = collect(Pair, ii), p = collect(Pair, call_model(model.params, model, η, cT, κT)), tspan)
+                subject_remake(model, base, ii, call_model(model.params, model, η, cT, κT), tspan)
             cyc = block_cycle(b, rmap, ctl)
             x = steady_state_state(model, probT, cyc, opts)
             if b.mode == 1

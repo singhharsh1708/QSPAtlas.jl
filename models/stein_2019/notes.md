@@ -93,8 +93,10 @@ p50 0.038 fail; left p90 0.011, right p10 0.000, p50 0.005, p90 0.007 pass), max
 replicates, so 500 kept. As published unchanged (2 of 6). Previous fixed design 2 of 6 (reported only).
 Grade C, strict D. S1 design (local, 2000 replicates, max MC SE 0.0025): 2 of 6 (right p10, p90); right p50
 0.0155 and left p90 0.0153 just above 0.015. S1 without regressors (500 replicates): 1 of 6.
-Fresh-module check: grade and every curve equal score.toml; 310 s with compilation (over the 4 min budget;
-cost is per simulated subject, solver tolerance 1e-8 vs 1e-10 makes little difference). src/ not edited;
+Fresh-module check: grade and every curve equal score.toml; 310 s with compilation at the time (over the 4 min
+budget; cost is per simulated subject, solver tolerance 1e-8 vs 1e-10 makes little difference), 32 s since
+2026-11-06 (src/ no longer rebuilds the initialization problem per subject; scores byte-identical). src/ not
+edited for this model;
 type 5 percentiles and least-squares binning are local to protocol.jl.
 
 ## Wording and metadata fix (2026-11-05, independent review finding 7)

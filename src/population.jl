@@ -283,9 +283,12 @@ mutable struct SimCache
     param_keys::Vector{Any}   # symbolic parameters returned by `params`, in order
     init_keys::Vector{Any}    # states returned by `init`, in order
     param_setter::Any         # cached setp(sys, param_keys)
+    init_setter::Any          # cached setu(sys, init_keys), or nothing (see subject_remake)
+    initial_setter::Any       # cached setp(sys, Initial.(init_keys)), or nothing
+    fast_remake::Bool         # per-subject problems by value writes, not symbolic remake
     getters::Vector{Any}      # cached getu(sys, observable), one per endpoint
     time_dependent::Bool      # the compiled system depends explicitly on time
-    SimCache() = new(ReentrantLock(), nothing, Any[], Any[], nothing, Any[], false)
+    SimCache() = new(ReentrantLock(), nothing, Any[], Any[], nothing, nothing, nothing, false, Any[], false)
 end
 
 """
