@@ -86,12 +86,12 @@ of 3 runs after compilation. Runner hardware varies, so three runs are shown as 
 
 | model | 100 subjects | 1,000 subjects | 10,000 subjects |
 |---|---|---|---|
-| Ouerdani 2015 tumour model (2 states) | 0.10 to 0.15 s | 0.9 to 1.4 s | 11 to 17 s |
-| Two-compartment PK, 28 infusions, weight covariate | 0.11 to 0.17 s | 0.9 to 2.0 s | 11 to 18 s |
+| Ouerdani 2015 tumour model (2 states) | 0.01 to 0.02 s | 0.08 to 0.15 s | 1.0 to 1.7 s |
+| Two-compartment PK, 28 infusions, weight covariate | 0.02 to 0.03 s | 0.19 to 0.44 s | 2.5 to 4.3 s |
 
-About 1 to 2 ms per simulated subject, linear in cohort size. A visual predictive check with
-200 replicates of a 100-subject cohort (20,000 simulated subjects, 3 quantiles, 14 bins)
-takes 25 to 39 s.
+About 0.1 to 0.4 ms per simulated subject, roughly linear in cohort size. A visual predictive
+check with 200 replicates of a 100-subject cohort (20,000 simulated subjects, 3 quantiles,
+14 bins) takes 8 to 13 s.
 
 **Solver choice.** Work-precision benchmarks on the exact problems each model uses
 ([full results](benchmarks/solvers/results/summary.md)). Explicit Runge-Kutta methods are

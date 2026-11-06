@@ -47,7 +47,7 @@ bands; the upper tail and the persistence phase fall below them.
 ![Stein 2019 VPC](assets/models/stein_2019/fig3.png)
 
 Population simulation: 500 virtual mice from the Ouerdani model with the paper's
-between-subject variability and residual error. Simulating 10,000 subjects takes 11 to 18 s
+between-subject variability and residual error. Simulating 10,000 subjects takes 1 to 4.3 s
 on a standard 4-thread GitHub runner ([benchmarks](benchmarks.md)).
 
 ![500 virtual mice](assets/population_ouerdani.png)
