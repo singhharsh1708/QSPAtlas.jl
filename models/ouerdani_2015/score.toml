@@ -20,6 +20,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8239
     figure = "Figure 4 left, preclinical, carrying capacity K (dashed)"
+    fraction_checked = 0.9734
     id = "fig4_left_K"
     max = 0.00251
     n_points = 70
@@ -35,6 +36,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9741
     figure = "Figure 4 left, preclinical, tumour size P (solid)"
+    fraction_checked = 0.9497
     id = "fig4_left_P"
     max = 0.003139
     n_points = 90
@@ -50,6 +52,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.7939
     figure = "Figure 4 right, clinical, carrying capacity K (dashed)"
+    fraction_checked = 0.9547
     id = "fig4_right_K"
     max = 0.01628
     n_points = 70
@@ -65,6 +68,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9699
     figure = "Figure 4 right, clinical, tumour size P (solid)"
+    fraction_checked = 0.8245
     id = "fig4_right_P"
     max = 0.0148
     n_points = 90
@@ -128,6 +132,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8239
     figure = "Figure 4 left, preclinical, carrying capacity K (dashed)"
+    fraction_checked = 0.9893
     id = "fig4_left_K"
     max = 0.1001
     n_points = 70
@@ -143,6 +148,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9741
     figure = "Figure 4 left, preclinical, tumour size P (solid)"
+    fraction_checked = 0.9435
     id = "fig4_left_P"
     max = 0.09985
     n_points = 90
@@ -158,6 +164,7 @@ ran = true
     [[published.curves]]
     coverage = 0.7939
     figure = "Figure 4 right, clinical, carrying capacity K (dashed)"
+    fraction_checked = 0.9891
     id = "fig4_right_K"
     max = 0.04315
     n_points = 70
@@ -173,6 +180,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9699
     figure = "Figure 4 right, clinical, tumour size P (solid)"
+    fraction_checked = 0.8764
     id = "fig4_right_P"
     max = 0.1905
     n_points = 90

@@ -21,6 +21,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8638
     figure = "Figure 3a (3 mg/kg), model line Pb-Tx M1,S1, total drug in plasma"
+    fraction_checked = 0.9297
     id = "fig3a_M1S1"
     max = 0.03661
     n_points = 60
@@ -36,6 +37,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8672
     figure = "Figure 3a (3 mg/kg), model line Pb-Tx M1,0, total drug in plasma"
+    fraction_checked = 0.9297
     id = "fig3a_M1_0"
     max = 0.01601
     n_points = 60
@@ -51,6 +53,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.5669
     figure = "Figure 3a (3 mg/kg), model line Pb-Tx M2,S2, total drug in plasma"
+    fraction_checked = 0.929
     id = "fig3a_M2S2"
     max = 0.02959
     n_points = 60
@@ -66,6 +69,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.3104
     figure = "Figure 3a (3 mg/kg), model line mAb0,0, total drug in plasma"
+    fraction_checked = 0.8821
     id = "fig3a_mAb00"
     max = 0.02194
     n_points = 60
@@ -81,6 +85,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8672
     figure = "Figure 3b (5 mg/kg), model line Pb-Tx M1,S2, total drug in plasma"
+    fraction_checked = 0.9325
     id = "fig3b_M1S2"
     max = 0.03549
     n_points = 60
@@ -96,6 +101,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.5703
     figure = "Figure 3b (5 mg/kg), model line Pb-Tx M2,S1, total drug in plasma"
+    fraction_checked = 0.8454
     id = "fig3b_M2S1"
     max = 0.03147
     n_points = 60
@@ -111,6 +117,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.3611
     figure = "Figure 3b (5 mg/kg), model line mAb0,0, total drug in plasma"
+    fraction_checked = 0.8592
     id = "fig3b_mAb00"
     max = 0.008018
     n_points = 60
@@ -126,6 +133,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.869
     figure = "Figure 3c (10 mg/kg), model line Pb-Tx M1,S2, total drug in plasma"
+    fraction_checked = 0.9336
     id = "fig3c_M1S2"
     max = 0.02855
     n_points = 60
@@ -141,6 +149,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.6289
     figure = "Figure 3c (10 mg/kg), model line Pb-Tx M2,S1, total drug in plasma"
+    fraction_checked = 0.7913
     id = "fig3c_M2S1"
     max = 0.02354
     n_points = 60
@@ -156,6 +165,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.2874
     figure = "Figure 3c (10 mg/kg), model line mAb0,0, total drug in plasma"
+    fraction_checked = 0.6634
     id = "fig3c_mAb00"
     max = 0.03098
     n_points = 60
@@ -171,6 +181,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9278
     figure = "Figure 4a, plasma total drug, 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.989
     id = "fig4a_10000x"
     max = 0.1231
     n_points = 60
@@ -186,6 +197,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.7833
     figure = "Figure 4a, plasma total drug, 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8227
     id = "fig4a_1000x"
     max = 0.1067
     n_points = 60
@@ -201,6 +213,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.7833
     figure = "Figure 4a, plasma total drug, 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9814
     id = "fig4a_100x"
     max = 0.05504
     n_points = 60
@@ -216,6 +229,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.4944
     figure = "Figure 4a, plasma total drug, 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9157
     id = "fig4a_10x"
     max = 0.01168
     n_points = 60
@@ -231,6 +245,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.4111
     figure = "Figure 4a, plasma total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.8314
     id = "fig4a_mAb"
     max = 0.008798
     n_points = 60
@@ -246,6 +261,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9278
     figure = "Figure 4b, periphery total drug, 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8134
     id = "fig4b_10000x"
     max = 0.1298
     n_points = 60
@@ -261,6 +277,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8556
     figure = "Figure 4b, periphery total drug, 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.727
     id = "fig4b_1000x"
     max = 0.116
     n_points = 60
@@ -276,6 +293,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.7444
     figure = "Figure 4b, periphery total drug, 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8044
     id = "fig4b_100x"
     max = 0.06399
     n_points = 60
@@ -291,6 +309,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.4111
     figure = "Figure 4b, periphery total drug, 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.7541
     id = "fig4b_10x"
     max = 0.02434
     n_points = 60
@@ -306,6 +325,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.1722
     figure = "Figure 4b, periphery total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.3573
     id = "fig4b_mAb"
     max = 0.005407
     n_points = 32
@@ -321,6 +341,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9222
     figure = "Figure 4c, tumour total drug, 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8149
     id = "fig4c_10000x"
     max = 0.1516
     n_points = 60
@@ -336,6 +357,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9
     figure = "Figure 4c, tumour total drug, 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8072
     id = "fig4c_1000x"
     max = 0.1263
     n_points = 60
@@ -351,6 +373,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.5444
     figure = "Figure 4c, tumour total drug, 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8413
     id = "fig4c_100x"
     max = 0.05346
     n_points = 60
@@ -366,6 +389,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.2611
     figure = "Figure 4c, tumour total drug, 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8873
     id = "fig4c_10x"
     max = 0.01947
     n_points = 48
@@ -381,6 +405,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.1111
     figure = "Figure 4c, tumour total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.8019
     id = "fig4c_mAb"
     max = 0.002958
     n_points = 21
@@ -396,6 +421,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9056
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9664
     id = "fig4d_10000x"
     max = 0.2293
     n_points = 60
@@ -411,6 +437,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9056
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9538
     id = "fig4d_1000x"
     max = 0.133
     n_points = 60
@@ -426,6 +453,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9278
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.992
     id = "fig4d_100x"
     max = 0.02112
     n_points = 60
@@ -441,6 +469,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9167
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9461
     id = "fig4d_10x"
     max = 0.005056
     n_points = 60
@@ -456,6 +485,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8889
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.8359
     id = "fig4d_mAb"
     max = 0.009529
     n_points = 60
@@ -471,6 +501,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9222
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9808
     id = "fig4e_10000x"
     max = 0.2657
     n_points = 60
@@ -486,6 +517,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8586
     id = "fig4e_1000x"
     max = 0.09516
     n_points = 60
@@ -501,6 +533,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9111
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8929
     id = "fig4e_100x"
     max = 0.04011
     n_points = 60
@@ -516,6 +549,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8222
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.5764
     id = "fig4e_10x"
     max = 0.01083
     n_points = 60
@@ -531,6 +565,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8111
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.562
     id = "fig4e_mAb"
     max = 0.007794
     n_points = 60
@@ -642,6 +677,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8638
     figure = "Figure 3a (3 mg/kg), model line Pb-Tx M1,S1, total drug in plasma"
+    fraction_checked = 0.9297
     id = "fig3a_M1S1"
     max = 0.03661
     n_points = 60
@@ -657,6 +693,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8672
     figure = "Figure 3a (3 mg/kg), model line Pb-Tx M1,0, total drug in plasma"
+    fraction_checked = 0.9297
     id = "fig3a_M1_0"
     max = 0.01601
     n_points = 60
@@ -672,6 +709,7 @@ ran = true
     [[published.curves]]
     coverage = 0.5669
     figure = "Figure 3a (3 mg/kg), model line Pb-Tx M2,S2, total drug in plasma"
+    fraction_checked = 0.929
     id = "fig3a_M2S2"
     max = 0.02959
     n_points = 60
@@ -687,6 +725,7 @@ ran = true
     [[published.curves]]
     coverage = 0.3104
     figure = "Figure 3a (3 mg/kg), model line mAb0,0, total drug in plasma"
+    fraction_checked = 0.8821
     id = "fig3a_mAb00"
     max = 0.02194
     n_points = 60
@@ -702,6 +741,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8672
     figure = "Figure 3b (5 mg/kg), model line Pb-Tx M1,S2, total drug in plasma"
+    fraction_checked = 0.9325
     id = "fig3b_M1S2"
     max = 0.03549
     n_points = 60
@@ -717,6 +757,7 @@ ran = true
     [[published.curves]]
     coverage = 0.5703
     figure = "Figure 3b (5 mg/kg), model line Pb-Tx M2,S1, total drug in plasma"
+    fraction_checked = 0.8454
     id = "fig3b_M2S1"
     max = 0.03147
     n_points = 60
@@ -732,6 +773,7 @@ ran = true
     [[published.curves]]
     coverage = 0.3611
     figure = "Figure 3b (5 mg/kg), model line mAb0,0, total drug in plasma"
+    fraction_checked = 0.8592
     id = "fig3b_mAb00"
     max = 0.008018
     n_points = 60
@@ -747,6 +789,7 @@ ran = true
     [[published.curves]]
     coverage = 0.869
     figure = "Figure 3c (10 mg/kg), model line Pb-Tx M1,S2, total drug in plasma"
+    fraction_checked = 0.9336
     id = "fig3c_M1S2"
     max = 0.02855
     n_points = 60
@@ -762,6 +805,7 @@ ran = true
     [[published.curves]]
     coverage = 0.6289
     figure = "Figure 3c (10 mg/kg), model line Pb-Tx M2,S1, total drug in plasma"
+    fraction_checked = 0.7913
     id = "fig3c_M2S1"
     max = 0.02354
     n_points = 60
@@ -777,6 +821,7 @@ ran = true
     [[published.curves]]
     coverage = 0.2874
     figure = "Figure 3c (10 mg/kg), model line mAb0,0, total drug in plasma"
+    fraction_checked = 0.6634
     id = "fig3c_mAb00"
     max = 0.03098
     n_points = 60
@@ -792,6 +837,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9278
     figure = "Figure 4a, plasma total drug, 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.989
     id = "fig4a_10000x"
     max = 0.1231
     n_points = 60
@@ -807,6 +853,7 @@ ran = true
     [[published.curves]]
     coverage = 0.7833
     figure = "Figure 4a, plasma total drug, 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8227
     id = "fig4a_1000x"
     max = 0.1067
     n_points = 60
@@ -822,6 +869,7 @@ ran = true
     [[published.curves]]
     coverage = 0.7833
     figure = "Figure 4a, plasma total drug, 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9814
     id = "fig4a_100x"
     max = 0.05504
     n_points = 60
@@ -837,6 +885,7 @@ ran = true
     [[published.curves]]
     coverage = 0.4944
     figure = "Figure 4a, plasma total drug, 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9157
     id = "fig4a_10x"
     max = 0.01168
     n_points = 60
@@ -852,6 +901,7 @@ ran = true
     [[published.curves]]
     coverage = 0.4111
     figure = "Figure 4a, plasma total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.8314
     id = "fig4a_mAb"
     max = 0.008798
     n_points = 60
@@ -867,6 +917,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9278
     figure = "Figure 4b, periphery total drug, 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8131
     id = "fig4b_10000x"
     max = 0.1289
     n_points = 60
@@ -882,6 +933,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8556
     figure = "Figure 4b, periphery total drug, 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.7265
     id = "fig4b_1000x"
     max = 0.1146
     n_points = 60
@@ -897,6 +949,7 @@ ran = true
     [[published.curves]]
     coverage = 0.7444
     figure = "Figure 4b, periphery total drug, 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8052
     id = "fig4b_100x"
     max = 0.05894
     n_points = 60
@@ -912,6 +965,7 @@ ran = true
     [[published.curves]]
     coverage = 0.4111
     figure = "Figure 4b, periphery total drug, 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.7429
     id = "fig4b_10x"
     max = 0.02237
     n_points = 60
@@ -927,6 +981,7 @@ ran = true
     [[published.curves]]
     coverage = 0.1722
     figure = "Figure 4b, periphery total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.3147
     id = "fig4b_mAb"
     max = 0.1079
     n_points = 32
@@ -942,6 +997,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9222
     figure = "Figure 4c, tumour total drug, 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8124
     id = "fig4c_10000x"
     max = 0.1446
     n_points = 60
@@ -957,6 +1013,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9
     figure = "Figure 4c, tumour total drug, 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8001
     id = "fig4c_1000x"
     max = 0.1048
     n_points = 60
@@ -972,6 +1029,7 @@ ran = true
     [[published.curves]]
     coverage = 0.5444
     figure = "Figure 4c, tumour total drug, 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.7717
     id = "fig4c_100x"
     max = 0.08341
     n_points = 60
@@ -987,6 +1045,7 @@ ran = true
     [[published.curves]]
     coverage = 0.2611
     figure = "Figure 4c, tumour total drug, 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.4774
     id = "fig4c_10x"
     max = 0.1766
     n_points = 48
@@ -1002,6 +1061,7 @@ ran = true
     [[published.curves]]
     coverage = 0.1111
     figure = "Figure 4c, tumour total drug, mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.1743
     id = "fig4c_mAb"
     max = 0.2952
     n_points = 21
@@ -1017,6 +1077,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9056
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9664
     id = "fig4d_10000x"
     max = 0.2293
     n_points = 60
@@ -1032,6 +1093,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9056
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9538
     id = "fig4d_1000x"
     max = 0.133
     n_points = 60
@@ -1047,6 +1109,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9278
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.992
     id = "fig4d_100x"
     max = 0.02112
     n_points = 60
@@ -1062,6 +1125,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9167
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9461
     id = "fig4d_10x"
     max = 0.005056
     n_points = 60
@@ -1077,6 +1141,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8889
     figure = "Figure 4d, periphery receptor-mediated uptake [nmol], mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.8359
     id = "fig4d_mAb"
     max = 0.009529
     n_points = 60
@@ -1092,6 +1157,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9222
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 10000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.9808
     id = "fig4e_10000x"
     max = 0.2657
     n_points = 60
@@ -1107,6 +1173,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 1000x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8586
     id = "fig4e_1000x"
     max = 0.09516
     n_points = 60
@@ -1122,6 +1189,7 @@ ran = true
     [[published.curves]]
     coverage = 0.9111
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 100x mask, human 4.5 mg/kg"
+    fraction_checked = 0.8929
     id = "fig4e_100x"
     max = 0.04011
     n_points = 60
@@ -1137,6 +1205,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8222
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], 10x mask, human 4.5 mg/kg"
+    fraction_checked = 0.5764
     id = "fig4e_10x"
     max = 0.01083
     n_points = 60
@@ -1152,6 +1221,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8111
     figure = "Figure 4e, tumour receptor-mediated uptake [nmol], mAb0,0 (no mask), human 4.5 mg/kg"
+    fraction_checked = 0.562
     id = "fig4e_mAb"
     max = 0.007794
     n_points = 60

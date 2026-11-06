@@ -131,8 +131,17 @@ the axis (Lindauer's base case is two points; Stroh `fig4c_mAb` covers 11 % of i
 
 These diagnostics are **report-only for the first six models**: they were added after
 those models were graded, and turning them into pass criteria now would change grades
-after the results were known. For models added from now on, a minimum coverage and a
-reverse-distance criterion will be fixed before any comparison.
+after the results were known. Every curve also reports its `fraction_checked`: the arc
+length of the simulated curve inside the axis box over the x range of the digitised
+reference, divided by its whole arc length inside the box, measured in the normalised axis
+box (log axes in decades). It shows how much of the simulated curve a pass rests on and is
+report-only for every model; it is left out for bar charts. Phase 3 models also apply the
+reverse-distance criterion: a curve reference passes only if, in addition to the tolerance
+above, its whole-trace reverse-distance 95th percentile (`rev_p95`) is at most **0.31** of the
+axis box, as fixed in Amendment 1 of the Phase 3 protocol. It is set per model with
+`Tolerance(reverse_p95_max = 0.31)`, applies to curve references only (never bands, bars or
+points), counts as failed when no simulated point lies inside the reference's x range, and is
+recorded as `failed_reverse` in `score.toml`. Coverage stays report-only.
 
 ## Population figures
 

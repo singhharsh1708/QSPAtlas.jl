@@ -21,6 +21,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9767
     figure = "Figure 3, common myeloid progenitors, mean model prediction"
+    fraction_checked = 0.9739
     id = "fig3_CMP"
     max = 0.007676
     n_points = 102
@@ -36,6 +37,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9614
     figure = "Figure 3, megakaryocyte-erythrocyte progenitors, mean model prediction"
+    fraction_checked = 0.9508
     id = "fig3_MEP"
     max = 0.00989
     n_points = 128
@@ -51,6 +53,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.976
     figure = "Figure 3, multipotent progenitors (rat, carboplatin 40 mg/kg x8 q14d), mean model prediction"
+    fraction_checked = 0.9333
     id = "fig3_MPP"
     max = 0.01372
     n_points = 131
@@ -66,6 +69,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9468
     figure = "Figure 3, neutrophils, mean model prediction"
+    fraction_checked = 0.9463
     id = "fig3_Neut"
     max = 0.01784
     n_points = 54
@@ -81,6 +85,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9694
     figure = "Figure 3, platelets, mean model prediction"
+    fraction_checked = 0.9856
     id = "fig3_Plt"
     max = 0.02543
     n_points = 129
@@ -96,6 +101,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.887
     figure = "Figure 4a top, human neutrophils, model prediction with rat slope values (red line)"
+    fraction_checked = 0.8948
     id = "fig4a_neut"
     max = 0.1097
     n_points = 60
@@ -111,6 +117,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9652
     figure = "Figure 4a bottom, human platelets, model prediction with rat slope values (red line)"
+    fraction_checked = 0.9658
     id = "fig4a_plt"
     max = 0.05723
     n_points = 60
@@ -126,6 +133,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9688
     figure = "Figure 4b top, human neutrophils, model prediction with IC50-scaled slope values (red line)"
+    fraction_checked = 0.9709
     id = "fig4b_neut"
     max = 0.02002
     n_points = 60
@@ -141,6 +149,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.9048
     figure = "Figure 4b bottom, human platelets, model prediction with IC50-scaled slope values (red line)"
+    fraction_checked = 0.9057
     id = "fig4b_plt"
     max = 0.05349
     n_points = 60

@@ -111,7 +111,9 @@ edges at the returned `x` (for a band reference, e.g. the `lo` and `hi` of a [`v
 are compared with the reference edges as a report-only metric (`band_edge_rms`, `band_edge_max`
 in [`CurveDiagnostics`](@ref)); the band score and the grade do not use them. Every curve's
 diagnostics (coverage, reverse distance, band centre) are computed here and stored by
-[`write_score`](@ref); none of them changes pass/fail.
+[`write_score`](@ref); none of them changes pass/fail. The one opt-in exception is the reverse-distance criterion of
+[`Tolerance`](@ref) (`reverse_p95_max`), which is part of `compare_curve` and so of pass/fail; pass it
+in `tolerance` and in every curve-specific entry of `tolerances`.
 """
 function run_curves(f, refs, label::AbstractString; fixes = Fix[], tolerance::Tolerance = Tolerance(), tolerances = Dict{String, Tolerance}())
     curves = CurveResult[]
@@ -276,9 +278,19 @@ grade_label(r::Reproduction) = grade(r) == 'B' ? b_label(matching_run(r).fixes) 
 # report-only fields of score.toml; not-applicable (NaN) values are left out
 function diagnostics_summary(g::CurveDiagnostics)
     out = Dict{String, Any}("coverage" => round(g.coverage; sigdigits = 4), "sim_coverage" => round(g.sim_coverage; sigdigits = 4))
+    isnan(g.fraction_checked) || (out["fraction_checked"] = round(g.fraction_checked; sigdigits = 4))
     g.rev_n > 0 && merge!(out, Dict{String, Any}("rev_rms" => round(g.rev_rms; sigdigits = 4), "rev_p95" => round(g.rev_p95; sigdigits = 4), "rev_n" => g.rev_n))
     isnan(g.band_centre_dev_rms) || merge!(out, Dict{String, Any}("band_centre_dev_rms" => round(g.band_centre_dev_rms; sigdigits = 4), "band_n" => g.band_n))
     isnan(g.band_edge_rms) || merge!(out, Dict{String, Any}("band_edge_rms" => round(g.band_edge_rms; sigdigits = 4), "band_edge_max" => round(g.band_edge_max; sigdigits = 4)))
+    return out
+end
+
+# fields of the opt-in reverse-distance criterion; empty (so score.toml is unchanged) when it is off
+function reverse_summary(c::CurveResult)
+    tol = c.comparison.tolerance.reverse_p95_max
+    tol === nothing && return Dict{String, Any}()
+    out = Dict{String, Any}("tol_reverse_p95" => tol)
+    c.ref.kind === :curve && (out["failed_reverse"] = c.comparison.failed_reverse)
     return out
 end
 
@@ -298,6 +310,7 @@ function run_summary(run::Union{Run, Nothing})
             "tol_rms" => c.comparison.tolerance.rms, "tol_p95" => c.comparison.tolerance.p95,
             "n_points" => length(c.ref.x),
             diagnostics_summary(c.diagnostics)...,
+            reverse_summary(c)...,
         ) for c in run.curves],
     )
 end
@@ -307,10 +320,13 @@ end
 
 Write `score.toml` with the grade and per-curve metrics. The docs site and the test
 suite read this file. Besides `rms`, `p95`, `max` and `passed` each curve carries the
-report-only checks of [`CurveDiagnostics`](@ref): `coverage`, `sim_coverage`, `rev_rms`, `rev_p95`,
+report-only checks of [`CurveDiagnostics`](@ref): `coverage`, `sim_coverage`, `fraction_checked`
+(not for `:bars`), `rev_rms`, `rev_p95`,
 `rev_n` (`:curve` references), `band_centre_dev_rms`, `band_n`, `band_edge_rms`, `band_edge_max`
 (`:band` references; the edge fields only when the model passed simulated edges). They do not
-enter the grade.
+enter the grade. When a curve's [`Tolerance`](@ref) sets the opt-in `reverse_p95_max`, the entry also
+has `tol_reverse_p95` and, for `:curve` references, `failed_reverse` (true when that criterion
+made the curve fail, whether or not the rms and p95 rule also did).
 """
 function write_score(path::AbstractString, r::Reproduction)
     d = Dict{String, Any}(

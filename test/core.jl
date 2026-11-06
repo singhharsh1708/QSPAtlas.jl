@@ -245,6 +245,115 @@ end
     @test compare_curve(refs, sx, sy).d ≈ d
 end
 
+@testset "fraction checked: the part of the simulated curve the reference compares" begin
+    ax = Axis("t", "-", :linear, 0, 10)
+    ay = Axis("y", "-", :linear, 0, 10)
+    mk(xs; xaxis = ax, yaxis = ay, kind = :curve) = ReferenceCurve("c", "f", Float64.(xs), Float64.(xs), xaxis, yaxis, kind, Dict{String, String}())
+    fc(ref, xs, ys) = curve_diagnostics(ref, xs, ys).fraction_checked
+    # a straight line: arc length is proportional to x, so a reference on [2, 8] checks 60 %
+    @test fc(mk([2.0, 5.0, 8.0]), [0.0, 10.0], [0.0, 10.0]) ≈ 0.6
+    @test fc(mk([0.0, 10.0]), [0.0, 10.0], [0.0, 10.0]) ≈ 1.0
+    # the part outside the axis box is not counted in either length: the line runs from -5 to 15
+    @test fc(mk([2.0, 8.0]), [-5.0, 15.0], [-5.0, 15.0]) ≈ 0.6
+    # a spike the reference does not reach: up the line x = 1 (0.9 long), then along y = 9 to x = 9
+    # (0.8 long); a reference on [0, 5] checks 0.9 + 0.4 of 1.7
+    @test fc(mk([0.0, 5.0]), [1.0, 1.0, 9.0], [0.0, 9.0, 9.0]) ≈ 13 / 17
+    # a reference beyond the simulation, or a simulation drawn outside the box, leaves nothing to check
+    @test fc(mk([9.0, 10.0]), [0.0, 5.0], [0.0, 5.0]) == 0.0
+    @test isnan(fc(mk([2.0, 8.0]), [0.0, 10.0], [20.0, 30.0]))
+    # a gap is not bridged: x = 4 and 5 are NaN, so [0, 3] and [6, 10] are drawn; [2, 8] checks 3 of 7
+    xs = collect(0.0:1.0:10.0); ys = copy(xs); ys[5] = NaN; ys[6] = NaN
+    @test fc(mk([2.0, 8.0]), xs, ys) ≈ 3 / 7
+    # log axes are measured in decades: 1 to 100 on both axes, a reference on [10, 100] checks half
+    lg = Axis("t", "-", :log, 1, 100)
+    @test fc(mk([10.0, 100.0]; xaxis = lg, yaxis = lg), [1.0, 100.0], [1.0, 100.0]) ≈ 0.5
+    # a band is checked over its own x range; points like a curve; bars have no meaning for it
+    band = ReferenceCurve("b", "f", [2.0, 8.0], [5.0, 5.0], ax, ay, :band, Dict{String, String}(), [4.0, 4.0], [6.0, 6.0])
+    @test fc(band, [0.0, 10.0], [0.0, 10.0]) ≈ 0.6
+    @test fc(mk([2.0, 8.0]; kind = :points), [0.0, 10.0], [0.0, 10.0]) ≈ 0.6
+    @test isnan(fc(mk([2.0, 8.0]; kind = :bars), [0.0, 10.0], [0.0, 10.0]))
+end
+
+@testset "reverse-distance criterion: opt-in, curve references only" begin
+    ax = Axis("t", "-", :linear, 0, 10)
+    ay = Axis("y", "-", :linear, 0, 10)
+    # the reference ends at x = 2 and resumes at x = 8, y = 5 throughout; the simulation passes through
+    # every reference point (forward error zero) but climbs to the top of the box between them
+    rx = [0.0, 1.0, 2.0, 8.0, 9.0, 10.0]
+    flat = ReferenceCurve("flat", "f", rx, fill(5.0, 6), ax, ay, :curve, Dict{String, String}())
+    xs = collect(0.0:0.01:10.0)
+    spike = [3 < x < 7 ? 10.0 : 5.0 for x in xs]
+    clean = fill(5.0, length(xs))
+    on = Tolerance(reverse_p95_max = 0.31)
+    @test Tolerance().reverse_p95_max === nothing
+    # off by default: the spike costs nothing
+    c0 = compare_curve(flat, xs, spike)
+    @test passes(c0) && !c0.failed_reverse && c0.rms < 1e-9
+    @test curve_diagnostics(flat, xs, spike).rev_p95 > 0.31
+    # on: the same curve fails, and says why; the forward numbers do not change
+    c1 = compare_curve(flat, xs, spike; tolerance = on)
+    @test !passes(c1) && c1.failed_reverse && c1.rms == c0.rms && c1.p95 == c0.p95 && c1.d == c0.d
+    @test occursin("reverse", sprint(show, c1))
+    # a simulation on the reference passes with the criterion on
+    c2 = compare_curve(flat, xs, clean; tolerance = on)
+    @test passes(c2) && !c2.failed_reverse
+    # the maximum is the whole-trace P95 of curve_diagnostics: just above and just below
+    p95 = curve_diagnostics(flat, xs, spike).rev_p95
+    @test !passes(compare_curve(flat, xs, spike; tolerance = Tolerance(reverse_p95_max = p95 - 1e-6)))
+    @test passes(compare_curve(flat, xs, spike; tolerance = Tolerance(reverse_p95_max = p95 + 1e-6)))
+    # a curve that fails only the rms and p95 rule is not flagged as a reverse failure
+    off_by = compare_curve(flat, xs, clean .+ 0.5; tolerance = on)
+    @test !passes(off_by) && !off_by.failed_reverse
+    # a curve that fails both is flagged for the reverse one too
+    both = compare_curve(flat, xs, spike .+ 0.5; tolerance = on)
+    @test !passes(both) && both.failed_reverse && both.rms > on.rms
+    # the vertical metric is a curve reference and is subject to the criterion
+    vert = ReferenceCurve("v", "f", rx, fill(5.0, 6), ax, ay, :curve, Dict("metric" => "vertical"))
+    @test passes(compare_curve(vert, xs, spike)) && !passes(compare_curve(vert, xs, spike; tolerance = on))
+    # bands, points and bars are never subject to it
+    band = ReferenceCurve("b", "f", rx, fill(5.0, 6), ax, ay, :band, Dict{String, String}(), fill(4.0, 6), fill(6.0, 6))
+    cb = compare_curve(band, xs, spike; tolerance = on)
+    @test passes(cb) && !cb.failed_reverse && cb.d == compare_curve(band, xs, spike).d
+    pts = ReferenceCurve("p", "f", rx, fill(5.0, 6), ax, ay, :points, Dict{String, String}())
+    @test passes(compare_curve(pts, xs, spike; tolerance = on))
+    bars = ReferenceCurve("r", "f", [1.0, 2.0], [5.0, 5.0], ax, ay, :bars, Dict{String, String}())
+    @test passes(compare_curve(bars, [1.0, 2.0], [5.0, 5.0]; tolerance = on))
+    # undefined reverse distance (no simulated point inside the reference x range) fails when on only
+    mid = ReferenceCurve("m", "f", [2.0, 5.0, 8.0], fill(5.0, 3), ax, ay, :curve, Dict{String, String}())
+    sparse = [0.0, 1.0, 9.0, 10.0]                         # the segment 1 to 9 spans the reference, no point inside
+    @test passes(compare_curve(mid, sparse, fill(5.0, 4)))
+    cu = compare_curve(mid, sparse, fill(5.0, 4); tolerance = on)
+    @test !passes(cu) && cu.failed_reverse && cu.rms < 1e-9
+    @test isnan(curve_diagnostics(mid, sparse, fill(5.0, 4)).rev_p95)
+    narrow = ReferenceCurve("n", "f", [4.0, 6.0], [5.0, 5.0], ax, ay, :curve, Dict{String, String}())
+    @test passes(compare_curve(narrow, [0.0, 10.0], [5.0, 5.0])) && !passes(compare_curve(narrow, [0.0, 10.0], [5.0, 5.0]; tolerance = on))
+    # a simulation entirely below a log axis is a complete miss, and its reverse distance is undefined
+    ly = Axis("y", "-", :log, 1, 10)
+    rl = ReferenceCurve("l", "f", [2.0, 8.0], [2.0, 5.0], ax, ly, :curve, Dict{String, String}())
+    @test !compare_curve(rl, [0.0, 10.0], [-1.0, -1.0]).failed_reverse
+    @test compare_curve(rl, [0.0, 10.0], [-1.0, -1.0]; tolerance = on).failed_reverse
+
+    # through run_curves and score.toml: grade, per-curve flag and the tolerance used
+    refs = [flat, band]
+    sim(_) = (xs, spike)
+    plain = run_curves(sim, refs, "as published")
+    strict = run_curves(sim, refs, "as published"; tolerance = on)
+    @test QSPAtlas.matched(plain) && !QSPAtlas.matched(strict)
+    @test grade(Reproduction(id = "x", citation = "", doi = "", published = plain)) == 'A'
+    @test grade(Reproduction(id = "x", citation = "", doi = "", published = strict)) == 'C'
+    # a per-curve tolerance replaces the whole Tolerance, so it decides on its own
+    mixed = run_curves(sim, refs, "as published"; tolerance = on, tolerances = Dict("flat" => Tolerance()))
+    @test QSPAtlas.matched(mixed)
+    sp = read_score(write_score(tempname() * ".toml", Reproduction(id = "x", citation = "", doi = "", published = plain)))
+    @test !any(haskey(c, "failed_reverse") || haskey(c, "tol_reverse_p95") for c in sp["published"]["curves"])
+    @test all(haskey(c, "fraction_checked") for c in sp["published"]["curves"])
+    ss = read_score(write_score(tempname() * ".toml", Reproduction(id = "x", citation = "", doi = "", published = strict)))
+    cs = Dict(c["id"] => c for c in ss["published"]["curves"])
+    @test cs["flat"]["failed_reverse"] === true && !cs["flat"]["passed"] && cs["flat"]["tol_reverse_p95"] == 0.31
+    @test !haskey(cs["b"], "failed_reverse") && cs["b"]["passed"]
+    @test ss["published"]["matched"] == false && haskey(cs["flat"], "rev_p95")
+end
+
 @testset "diagnostics ride along run_curves and write_score without changing a score" begin
     ax = Axis("t", "-", :linear, 0, 10)
     ay = Axis("y", "-", :linear, 0, 10)

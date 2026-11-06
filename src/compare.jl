@@ -1,10 +1,22 @@
 """
-    Tolerance(; rms = 0.015, p95 = 0.03)
+    Tolerance(; rms = 0.015, p95 = 0.03, reverse_p95_max = nothing)
 
 Pass rule for one curve. Errors are distances in the figure's own axis box, where
 both axes are scaled to `[0, 1]` (log axes in decades). `rms` bounds the root mean
 square distance over all reference points and `p95` bounds the 95th percentile, so
 one badly traced point cannot fail a curve on its own. The maximum is still reported.
+
+`reverse_p95_max` is an opt-in extra criterion for `kind = :curve` references only (never
+bands, bars or points): the curve passes only if, in addition, the 95th percentile of its
+whole-trace reverse distance (`rev_p95` of [`curve_diagnostics`](@ref): from every simulated
+point inside the reference's x range back to the reference polyline) is at most this value. It
+catches a simulated feature that the digitised reference does not contain, which the forward
+distance cannot see. `nothing` (the default) switches it off, so scores are exactly those of
+the rms and p95 rule. Phase 3 models set it to 0.31 (amendment 1 of the Phase 3 protocol), for
+example `Tolerance(reverse_p95_max = 0.31)`. If the reverse distance is undefined, because no
+simulated point lies inside the reference's x range, the criterion counts as failed. Because
+a curve-specific entry of `run_curves(...; tolerances)` replaces the whole `Tolerance`, such an
+entry must repeat `reverse_p95_max`.
 
 The defaults rest on a measured digitising error study (tools/digitise/error_study/):
 twice the worst panel type's 99th percentile of digitising-only error gives RMS 0.015
@@ -15,6 +27,7 @@ model's `protocol.jl` before its simulations are compared.
 Base.@kwdef struct Tolerance
     rms::Float64 = 0.015
     p95::Float64 = 0.03
+    reverse_p95_max::Union{Nothing, Float64} = nothing
 end
 
 """
@@ -22,7 +35,10 @@ end
 
 Result of comparing one simulated curve with one reference curve: per-point distances
 `d` (axis-box units), their `rms`, `p95` and `max`, the `tolerance` used and whether
-it `passed`.
+it `passed`. `failed_reverse` is true when the opt-in reverse-distance criterion of the
+`tolerance` (`reverse_p95_max`) was active for this curve and not met (including when the reverse
+distance is undefined); `passed` is then false, whether or not the rms and p95 rule held too.
+It is always false when the criterion is off or the reference is not a `:curve`.
 """
 struct CurveComparison
     id::String
@@ -32,7 +48,10 @@ struct CurveComparison
     max::Float64
     tolerance::Tolerance
     passed::Bool
+    failed_reverse::Bool
 end
+
+CurveComparison(id, d, rms, p95, max, tolerance, passed) = CurveComparison(id, d, rms, p95, max, tolerance, passed, false)
 
 passes(c::CurveComparison) = c.passed
 
@@ -47,7 +66,21 @@ below_axis(ref, xs, ys) = any(isfinite(x) && isfinite(y) && !(usable(ref.xaxis, 
 
 function all_missed(ref, tolerance)
     d = fill(1.0, length(ref.x))
-    return CurveComparison(ref.id, d, 1.0, 1.0, 1.0, tolerance, false)
+    # no placeable simulated point: the reverse distance, if asked for, is undefined and fails
+    return CurveComparison(ref.id, d, 1.0, 1.0, 1.0, tolerance, false, reverse_applies(ref, tolerance))
+end
+
+# the opt-in reverse-distance criterion applies to curve references only
+reverse_applies(ref, tolerance) = tolerance.reverse_p95_max !== nothing && ref.kind === :curve
+
+# Add the opt-in reverse-distance criterion to a forward comparison `c`. Off (the default) or not a
+# :curve reference: `c` unchanged. An undefined reverse distance (no simulated point inside the
+# reference's x range) fails, as does NaN.
+function with_reverse(c::CurveComparison, ref, xs, ys)
+    reverse_applies(ref, c.tolerance) || return c
+    d = reverse_distances(ref, xs, ys)
+    failed = isempty(d) || !(quantile(d, 0.95) <= c.tolerance.reverse_p95_max)
+    return CurveComparison(c.id, c.d, c.rms, c.p95, c.max, c.tolerance, c.passed && !failed, failed)
 end
 
 # distance from point p to segment ab in 2-D
@@ -97,9 +130,18 @@ default [`Tolerance`](@ref) is the allowance for digitising its edges.
 Each point's error is capped at 1.0 (one full axis box), so a simulation that leaves
 the figure is scored as far off rather than infinitely off; the cap is applied to the
 distance, never to the simulated points.
+
+If `tolerance.reverse_p95_max` is set (see [`Tolerance`](@ref)) and the reference is a
+`kind = :curve`, the curve must also meet the reverse-distance criterion, and
+`failed_reverse` of the result says whether it did not. Bands, bars and points are never
+subject to it.
 """
 function compare_curve(ref::ReferenceCurve, xs::AbstractVector, ys::AbstractVector; tolerance::Tolerance = Tolerance())
     length(xs) == length(ys) || throw(DimensionMismatch("xs and ys differ in length"))
+    return with_reverse(compare_forward(ref, xs, ys, tolerance), ref, xs, ys)
+end
+
+function compare_forward(ref::ReferenceCurve, xs, ys, tolerance::Tolerance)
     ref.kind === :bars && return compare_bars(ref, xs, ys, tolerance)
     ref.kind === :band && return compare_vertical(ref, xs, ys, tolerance, (ref.ylo, ref.yhi))
     ref.kind === :curve && get(ref.meta, "metric", "nearest") == "vertical" && return compare_vertical(ref, xs, ys, tolerance, (ref.y, ref.y))
@@ -177,6 +219,7 @@ end
 
 function Base.show(io::IO, c::CurveComparison)
     print(io, c.passed ? "PASS " : "FAIL ", c.id, @sprintf(" rms=%.4f p95=%.4f max=%.4f (tol rms %.3f, p95 %.3f)", c.rms, c.p95, c.max, c.tolerance.rms, c.tolerance.p95))
+    c.failed_reverse && print(io, @sprintf(" [reverse distance above %.3g or undefined]", c.tolerance.reverse_p95_max))
 end
 
 # ---- report-only diagnostics ---------------------------------------------------------------
@@ -197,6 +240,14 @@ means "does not apply" or "nothing to measure".
 - `sim_coverage`: fraction of the axis x range on which the simulated curve is defined, i.e. the
   union of the segments between neighbouring simulated points that are both finite and placeable
   on the axes (a gap of non-finite points is not bridged), clipped to the axis.
+- `fraction_checked`: how much of the simulated curve the reference compares. The arc length of
+  the simulated curve inside the axis box over the x range of the digitised reference, divided by its
+  whole arc length inside the axis box. Lengths are measured on the polyline of neighbouring placeable
+  simulated points (a gap is not bridged) in the normalised axis box, log axes in decades, with each
+  segment clipped to the box. 1 means the reference spans everything the simulation draws in the
+  figure; a small value means the pass rests on a short stretch of the simulated curve. Defined for
+  `:curve`, `:points` and `:band` references (for a band, the x range of the band); `NaN` for `:bars`,
+  whose x are category positions, and when no part of the simulated curve lies inside the box.
 - `rev_rms`, `rev_p95`, `rev_n` (`kind = :curve` only): the reverse distance. For every simulated
   point that is placeable and whose x lies inside the reference's x range, the shortest distance
   to the reference polyline (reference points in file order), capped at 1 like the forward error.
@@ -219,6 +270,7 @@ struct CurveDiagnostics
     coverage::Float64
     n_points::Int
     sim_coverage::Float64
+    fraction_checked::Float64
     rev_rms::Float64
     rev_p95::Float64
     rev_n::Int
@@ -257,6 +309,40 @@ function sim_x_coverage(ref::ReferenceCurve, xs, ys)
         end
     end
     return clamp(total + cur_hi - cur_lo, 0.0, 1.0)
+end
+
+# Length of the part of segment a-b that lies in the box [x0, x1] x [y0, y1] (Liang-Barsky clipping;
+# edges inclusive). Zero if the segment misses the box or the box is empty.
+function clipped_length(a, b, x0, x1, y0, y1)
+    (x0 <= x1 && y0 <= y1) || return 0.0
+    dx, dy = b[1] - a[1], b[2] - a[2]
+    t0, t1 = 0.0, 1.0
+    for (p, q) in ((-dx, a[1] - x0), (dx, x1 - a[1]), (-dy, a[2] - y0), (dy, y1 - a[2]))
+        if p == 0
+            q < 0 && return 0.0
+        else
+            t = q / p
+            p < 0 ? (t0 = max(t0, t)) : (t1 = min(t1, t))
+        end
+    end
+    return t1 > t0 ? (t1 - t0) * hypot(dx, dy) : 0.0
+end
+
+# arc length of the simulated polyline inside the axis box and inside the reference's x range, over
+# its arc length inside the box (see `CurveDiagnostics`); NaN if nothing of it lies in the box
+function fraction_checked(ref::ReferenceCurve, xs, ys)
+    nx = [normalise(ref.xaxis, x) for x in ref.x if isfinite(x)]
+    isempty(nx) && return NaN
+    xlo, xhi = max(minimum(nx), 0.0), min(maximum(nx), 1.0)
+    ok = [usable(ref.xaxis, x) && usable(ref.yaxis, y) for (x, y) in zip(xs, ys)]
+    sim = [(normalise(ref.xaxis, x), normalise(ref.yaxis, y)) for (x, y) in zip(xs, ys)]
+    inside, whole = 0.0, 0.0
+    for i in 1:(length(sim) - 1)
+        (ok[i] && ok[i + 1]) || continue
+        whole += clipped_length(sim[i], sim[i + 1], 0.0, 1.0, 0.0, 1.0)
+        inside += clipped_length(sim[i], sim[i + 1], xlo, xhi, 0.0, 1.0)
+    end
+    return whole > 0 ? clamp(inside / whole, 0.0, 1.0) : NaN
 end
 
 # distance of every simulated point inside the reference x range to the reference polyline
@@ -298,7 +384,8 @@ rms_(v) = isempty(v) ? NaN : sqrt(sum(abs2, v) / length(v))
     curve_diagnostics(ref, xs, ys; sim_edges = nothing) -> CurveDiagnostics
 
 Report-only checks of a simulated curve `(xs, ys)` against `ref` (see [`CurveDiagnostics`](@ref)):
-coverage of the reference and of the simulation, the reverse distance for `:curve` references, and
+coverage of the reference and of the simulation, the fraction of the simulated curve that the reference
+checks, the reverse distance for `:curve` references, and
 the distance from the band centre for `:band` references. Nothing here is used for pass/fail.
 
 `sim_edges = (lo = ..., hi = ...)` is optional and only read for `:band` references: the model's own
@@ -311,6 +398,7 @@ function curve_diagnostics(ref::ReferenceCurve, xs::AbstractVector, ys::Abstract
     length(xs) == length(ys) || throw(DimensionMismatch("xs and ys differ in length"))
     cov = ref_coverage(ref)
     scov = sim_x_coverage(ref, xs, ys)
+    fchk = ref.kind === :bars ? NaN : fraction_checked(ref, xs, ys)
     rev_rms, rev_p95, rev_n = NaN, NaN, 0
     if ref.kind === :curve
         d = reverse_distances(ref, xs, ys)
@@ -340,5 +428,5 @@ function curve_diagnostics(ref::ReferenceCurve, xs::AbstractVector, ys::Abstract
             isempty(e) || ((edge_rms, edge_max) = (rms_(e), maximum(e)))
         end
     end
-    return CurveDiagnostics(cov, length(ref.x), scov, rev_rms, rev_p95, rev_n, centre_dev, band_n, edge_rms, edge_max)
+    return CurveDiagnostics(cov, length(ref.x), scov, fchk, rev_rms, rev_p95, rev_n, centre_dev, band_n, edge_rms, edge_max)
 end

@@ -21,6 +21,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8866
     figure = "Figure 2a, control, tumour volume T"
+    fraction_checked = 0.9913
     id = "fig2_a_T"
     max = 0.004159
     n_points = 60
@@ -36,6 +37,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8904
     figure = "Figure 2b, control, vessel carrying capacity V"
+    fraction_checked = 0.9982
     id = "fig2_b_V"
     max = 0.003426
     n_points = 60
@@ -51,6 +53,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.6782
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.04, tumour volume T"
+    fraction_checked = 0.7855
     id = "fig2_c_T_d04"
     max = 0.002895
     n_points = 60
@@ -66,6 +69,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.7388
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.06, tumour volume T"
+    fraction_checked = 0.8239
     id = "fig2_c_T_d06"
     max = 0.005736
     n_points = 60
@@ -81,6 +85,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.682
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.08, tumour volume T"
+    fraction_checked = 0.7485
     id = "fig2_c_T_d08"
     max = 0.005791
     n_points = 60
@@ -96,6 +101,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.6668
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.10, tumour volume T"
+    fraction_checked = 0.7284
     id = "fig2_c_T_d10"
     max = 0.04256
     n_points = 60
@@ -111,6 +117,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8866
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.12, tumour volume T"
+    fraction_checked = 0.9939
     id = "fig2_c_T_d12"
     max = 0.005869
     n_points = 60
@@ -126,6 +133,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8449
     figure = "Figure 2d, treatment Nmax=1, delta_V=0.04, carrying capacity V"
+    fraction_checked = 0.956
     id = "fig2_d_V_d04"
     max = 0.004213
     n_points = 60
@@ -141,6 +149,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8676
     figure = "Figure 2d, treatment Nmax=1, delta_V=0.06, carrying capacity V"
+    fraction_checked = 0.9735
     id = "fig2_d_V_d06"
     max = 0.006213
     n_points = 60
@@ -156,6 +165,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8601
     figure = "Figure 2d, treatment Nmax=1, delta_V=0.08, carrying capacity V"
+    fraction_checked = 0.9625
     id = "fig2_d_V_d08"
     max = 0.007143
     n_points = 60
@@ -171,6 +181,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8373
     figure = "Figure 2d, treatment Nmax=1, delta_V=0.10, carrying capacity V"
+    fraction_checked = 0.9291
     id = "fig2_d_V_d10"
     max = 0.004805
     n_points = 60
@@ -186,6 +197,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8866
     figure = "Figure 2d, treatment Nmax=1, delta_V=0.12, carrying capacity V"
+    fraction_checked = 0.9939
     id = "fig2_d_V_d12"
     max = 0.004602
     n_points = 60
@@ -201,6 +213,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.3827
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=11, tumour volume T"
+    fraction_checked = 0.5371
     id = "fig2_e_T_N11"
     max = 0.0046
     n_points = 60
@@ -216,6 +229,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.4698
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=2, tumour volume T"
+    fraction_checked = 0.5454
     id = "fig2_e_T_N2"
     max = 0.01342
     n_points = 60
@@ -231,6 +245,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8904
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=21, tumour volume T"
+    fraction_checked = 0.9988
     id = "fig2_e_T_N21"
     max = 0.01346
     n_points = 60
@@ -246,6 +261,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.4736
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=3, tumour volume T"
+    fraction_checked = 0.5851
     id = "fig2_e_T_N3"
     max = 0.00976
     n_points = 60
@@ -261,6 +277,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.4698
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=6, tumour volume T"
+    fraction_checked = 0.6318
     id = "fig2_e_T_N6"
     max = 0.01073
     n_points = 60
@@ -276,6 +293,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.2879
     figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=11, carrying capacity V"
+    fraction_checked = 0.3143
     id = "fig2_f_V_N11"
     max = 0.009215
     n_points = 60
@@ -291,6 +309,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.3637
     figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=2, carrying capacity V"
+    fraction_checked = 0.3418
     id = "fig2_f_V_N2"
     max = 0.01373
     n_points = 60
@@ -306,6 +325,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8866
     figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=21, carrying capacity V"
+    fraction_checked = 0.9946
     id = "fig2_f_V_N21"
     max = 0.02513
     n_points = 60
@@ -321,6 +341,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.4092
     figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=3, carrying capacity V"
+    fraction_checked = 0.3995
     id = "fig2_f_V_N3"
     max = 0.01541
     n_points = 60
@@ -336,6 +357,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.4016
     figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=6, carrying capacity V"
+    fraction_checked = 0.4225
     id = "fig2_f_V_N6"
     max = 0.008413
     n_points = 60
@@ -351,6 +373,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.658
     figure = "Figure 6a, no chemotherapy, tumour volume T (black)"
+    fraction_checked = 0.998
     id = "fig6_a_T"
     max = 0.0904
     n_points = 70
@@ -366,6 +389,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.6413
     figure = "Figure 6a, no chemotherapy, carrying capacity V (magenta)"
+    fraction_checked = 0.9735
     id = "fig6_a_V"
     max = 0.0803
     n_points = 70
@@ -381,6 +405,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.7439
     figure = "Figure 6b, chemotherapy days 42-49, tumour volume T (black)"
+    fraction_checked = 0.9261
     id = "fig6_b_T"
     max = 0.2545
     n_points = 70
@@ -396,6 +421,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.807
     figure = "Figure 6b, chemotherapy days 42-49, carrying capacity V (magenta)"
+    fraction_checked = 0.9764
     id = "fig6_b_V"
     max = 0.1941
     n_points = 70
@@ -411,6 +437,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8263
     figure = "Figure 6c, chemotherapy days 54-61, tumour volume T (black)"
+    fraction_checked = 0.9989
     id = "fig6_c_T"
     max = 0.0456
     n_points = 70
@@ -426,6 +453,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8305
     figure = "Figure 6c, chemotherapy days 54-61, carrying capacity V (magenta)"
+    fraction_checked = 1.0
     id = "fig6_c_V"
     max = 0.04739
     n_points = 70
@@ -441,6 +469,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.8027
     figure = "Figure 6d, chemotherapy days 38-59, tumour volume T (black)"
+    fraction_checked = 0.8832
     id = "fig6_d_T"
     max = 0.2913
     n_points = 70
@@ -456,6 +485,7 @@ ran = true
     [[fixed.curves]]
     coverage = 0.79
     figure = "Figure 6d, chemotherapy days 38-59, carrying capacity V (magenta)"
+    fraction_checked = 0.9562
     id = "fig6_d_V"
     max = 0.2824
     n_points = 70
@@ -495,6 +525,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8866
     figure = "Figure 2a, control, tumour volume T"
+    fraction_checked = 0.9927
     id = "fig2_a_T"
     max = 0.6171
     n_points = 60
@@ -510,6 +541,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8904
     figure = "Figure 2b, control, vessel carrying capacity V"
+    fraction_checked = 0.999
     id = "fig2_b_V"
     max = 0.6055
     n_points = 60
@@ -525,6 +557,7 @@ ran = true
     [[published.curves]]
     coverage = 0.6782
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.04, tumour volume T"
+    fraction_checked = 0.754
     id = "fig2_c_T_d04"
     max = 0.6521
     n_points = 60
@@ -540,6 +573,7 @@ ran = true
     [[published.curves]]
     coverage = 0.7388
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.06, tumour volume T"
+    fraction_checked = 0.8092
     id = "fig2_c_T_d06"
     max = 0.4934
     n_points = 60
@@ -555,6 +589,7 @@ ran = true
     [[published.curves]]
     coverage = 0.682
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.08, tumour volume T"
+    fraction_checked = 0.6145
     id = "fig2_c_T_d08"
     max = 0.357
     n_points = 60
@@ -570,6 +605,7 @@ ran = true
     [[published.curves]]
     coverage = 0.6668
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.10, tumour volume T"
+    fraction_checked = 0.0
     id = "fig2_c_T_d10"
     max = 0.2771
     n_points = 60
@@ -585,6 +621,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8866
     figure = "Figure 2c, treatment Nmax=1, delta_V=0.12, tumour volume T"
+    fraction_checked = 0.991
     id = "fig2_c_T_d12"
     max = 0.2401
     n_points = 60
@@ -600,6 +637,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8449
     figure = "Figure 2d, treatment Nmax=1, delta_V=0.04, carrying capacity V"
+    fraction_checked = 0.9993
     id = "fig2_d_V_d04"
     max = 0.6422
     n_points = 60
@@ -615,6 +653,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8676
     figure = "Figure 2d, treatment Nmax=1, delta_V=0.06, carrying capacity V"
+    fraction_checked = 0.9939
     id = "fig2_d_V_d06"
     max = 0.4116
     n_points = 60
@@ -630,6 +669,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8601
     figure = "Figure 2d, treatment Nmax=1, delta_V=0.08, carrying capacity V"
+    fraction_checked = 0.9906
     id = "fig2_d_V_d08"
     max = 0.3299
     n_points = 60
@@ -675,6 +715,7 @@ ran = true
     [[published.curves]]
     coverage = 0.3827
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=11, tumour volume T"
+    fraction_checked = 0.6119
     id = "fig2_e_T_N11"
     max = 0.4959
     n_points = 60
@@ -690,6 +731,7 @@ ran = true
     [[published.curves]]
     coverage = 0.4698
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=2, tumour volume T"
+    fraction_checked = 0.6907
     id = "fig2_e_T_N2"
     max = 0.3088
     n_points = 60
@@ -705,6 +747,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8904
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=21, tumour volume T"
+    fraction_checked = 0.9977
     id = "fig2_e_T_N21"
     max = 0.5191
     n_points = 60
@@ -720,6 +763,7 @@ ran = true
     [[published.curves]]
     coverage = 0.4736
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=3, tumour volume T"
+    fraction_checked = 0.7139
     id = "fig2_e_T_N3"
     max = 0.3716
     n_points = 60
@@ -735,6 +779,7 @@ ran = true
     [[published.curves]]
     coverage = 0.4698
     figure = "Figure 2e, treatment dV=0.1, window 52-62 d, Nmax=6, tumour volume T"
+    fraction_checked = 0.7395
     id = "fig2_e_T_N6"
     max = 0.4305
     n_points = 60
@@ -750,6 +795,7 @@ ran = true
     [[published.curves]]
     coverage = 0.2879
     figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=11, carrying capacity V"
+    fraction_checked = 0.998
     id = "fig2_f_V_N11"
     max = 0.7532
     n_points = 60
@@ -780,6 +826,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8866
     figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=21, carrying capacity V"
+    fraction_checked = 0.9846
     id = "fig2_f_V_N21"
     max = 1.0
     n_points = 60
@@ -810,6 +857,7 @@ ran = true
     [[published.curves]]
     coverage = 0.4016
     figure = "Figure 2f, treatment dV=0.1, window 52-62 d, Nmax=6, carrying capacity V"
+    fraction_checked = 0.9805
     id = "fig2_f_V_N6"
     max = 0.7066
     n_points = 60
@@ -825,6 +873,7 @@ ran = true
     [[published.curves]]
     coverage = 0.658
     figure = "Figure 6a, no chemotherapy, tumour volume T (black)"
+    fraction_checked = 0.9977
     id = "fig6_a_T"
     max = 0.2692
     n_points = 70
@@ -840,6 +889,7 @@ ran = true
     [[published.curves]]
     coverage = 0.6413
     figure = "Figure 6a, no chemotherapy, carrying capacity V (magenta)"
+    fraction_checked = 0.9723
     id = "fig6_a_V"
     max = 0.2539
     n_points = 70
@@ -855,6 +905,7 @@ ran = true
     [[published.curves]]
     coverage = 0.7439
     figure = "Figure 6b, chemotherapy days 42-49, tumour volume T (black)"
+    fraction_checked = 0.9193
     id = "fig6_b_T"
     max = 0.281
     n_points = 70
@@ -870,6 +921,7 @@ ran = true
     [[published.curves]]
     coverage = 0.807
     figure = "Figure 6b, chemotherapy days 42-49, carrying capacity V (magenta)"
+    fraction_checked = 0.9751
     id = "fig6_b_V"
     max = 0.2378
     n_points = 70
@@ -885,6 +937,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8263
     figure = "Figure 6c, chemotherapy days 54-61, tumour volume T (black)"
+    fraction_checked = 0.9987
     id = "fig6_c_T"
     max = 0.1367
     n_points = 70
@@ -900,6 +953,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8305
     figure = "Figure 6c, chemotherapy days 54-61, carrying capacity V (magenta)"
+    fraction_checked = 1.0
     id = "fig6_c_V"
     max = 0.2031
     n_points = 70
@@ -915,6 +969,7 @@ ran = true
     [[published.curves]]
     coverage = 0.8027
     figure = "Figure 6d, chemotherapy days 38-59, tumour volume T (black)"
+    fraction_checked = 0.9132
     id = "fig6_d_T"
     max = 0.276
     n_points = 70
@@ -930,6 +985,7 @@ ran = true
     [[published.curves]]
     coverage = 0.79
     figure = "Figure 6d, chemotherapy days 38-59, carrying capacity V (magenta)"
+    fraction_checked = 0.9565
     id = "fig6_d_V"
     max = 0.2746
     n_points = 70
