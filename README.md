@@ -101,6 +101,16 @@ BDF methods QNDF and FBDF are fastest (2 to 4 ms), with Rodas5P best at tight to
 
 ![Work-precision diagram, Stroh 2019 human projection](benchmarks/solvers/results/stroh_2019__human_4_5mgkg_1000x.png)
 
+## How models are built
+
+The models are rebuilt by AI coding agents. The agents transcribe each paper's equations,
+parameter values and dosing into code, digitise the target figures, run the simulations and
+comparisons, and draft the reports. The author reviews every equation, parameter value, fix
+and grade against the paper before it is committed. The second implementations under
+Validation were written by separate agent sessions with no access to the atlas code. The
+next phase, a pre-registered study of a random sample of CPT:PSP models, adds blind rebuilds
+by outside pharmacometricians, to compare with the agent rebuilds.
+
 ## Validation
 
 - **Against mrgsolve.** The dosing and population machinery agrees with
@@ -111,8 +121,8 @@ BDF methods QNDF and FBDF are fastest (2 to 4 ms), with Rodas5P best at tight to
   interval, a new infusion after a reset), QSPAtlas was checked against explicit doses or the
   closed form instead. Scripts: [`validation/mrgsolve/`](validation/mrgsolve/).
 - **Second implementations.** Every model was implemented a second time from its paper alone,
-  with separate code, within this project (not yet by outside people); no transcription
-  error was found. This compares simulations only, not the digitising.
+  with separate code, by a separate agent session (not yet by outside people); no
+  transcription error was found. This compares simulations only, not the digitising.
 
 Details: [validation page](https://singhharsh1708.github.io/QSPAtlas.jl/dev/validation/).
 

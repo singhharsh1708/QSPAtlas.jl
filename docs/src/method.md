@@ -1,5 +1,15 @@
 # Method
 
+## How models are built
+
+The models are rebuilt by AI coding agents. The agents transcribe each paper's equations,
+parameter values and dosing into code, digitise the target figures, run the simulations and
+comparisons, and draft the reports. The author reviews every equation, parameter value, fix
+and grade against the paper before it is committed. The second implementations on the
+[validation page](validation.md) were written by separate agent sessions with no access to
+the atlas code. The next phase, a pre-registered study of a random sample of CPT:PSP models,
+adds blind rebuilds by outside pharmacometricians, to compare with the agent rebuilds.
+
 ## What counts as reproducing a model
 
 A paper's model is reproduced when the equations and parameter values it publishes,

@@ -6,7 +6,8 @@
 Published PK/PD and quantitative systems pharmacology (QSP) models, rebuilt from their
 papers in Julia ([ModelingToolkit.jl](https://github.com/SciML/ModelingToolkit.jl),
 [OrdinaryDiffEq.jl](https://github.com/SciML/OrdinaryDiffEq.jl)), checked against the
-papers' own figures and graded.
+papers' own figures and graded. The rebuilds are done by AI coding agents and reviewed by
+the author ([how models are built](method.md#How-models-are-built)).
 
 ## Result
 

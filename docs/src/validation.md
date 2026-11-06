@@ -136,8 +136,8 @@ supplement has the reaction matrices, checked entry by entry; Fornari's code is 
 ## Second implementations of the six models
 
 Each model was implemented a second time from its paper and supplement alone, without
-access to the atlas code, in plain OrdinaryDiffEq without ModelingToolkit, within this
-project. The second implementation made its own choices for every unstated input. It
+access to the atlas code, in plain OrdinaryDiffEq without ModelingToolkit, by a separate AI
+agent session within this project (see [How models are built](method.md#How-models-are-built)). The second implementation made its own choices for every unstated input. It
 compared simulations only: nothing was re-digitised, so digitising errors are not covered
 by this check. Where both implementations chose an unstated input (a dose group, a starting
 value) by matching the figure, their agreement is not independent evidence for that choice.
