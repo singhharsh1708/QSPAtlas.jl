@@ -131,7 +131,9 @@ let factors = (0.5, 0.67, 1.0, 1.5, 2.0), io = IOBuffer()
         evid(fs) = all(f -> !isempty(strip(get(f, "evidence", ""))), fs)
         pub !== nothing && pub.ok && isempty(pub.fixes) && return "A"
         for r in (pub, fix)
-            r !== nothing && r.ok && evid(r.fixes) && return any(f -> f["kind"] == "from_target", r.fixes) ? "B†" : "B"
+            r !== nothing && r.ok && evid(r.fixes) && return string("B",
+                any(f -> f["kind"] == "from_target", r.fixes) ? "†" : "",
+                any(f -> get(f, "stage", "") == "after_comparison", r.fixes) ? "‡" : "")
         end
         return any(r -> r !== nothing && r.ran, (pub, fix)) ? "C" : "D"
     end

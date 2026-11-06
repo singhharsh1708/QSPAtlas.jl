@@ -1,8 +1,8 @@
-# ouerdani_2015: grade B†
+# ouerdani_2015: grade B†‡
 
 Ouerdani A, Struemper H, Suttle AB, Ouellet D, Ribba B. Preclinical Modeling of Tumor Growth and Angiogenesis Inhibition to Describe Pazopanib Clinical Effects in Renal Cell Carcinoma. CPT Pharmacometrics Syst Pharmacol 2015;4:660-668. DOI 10.1002/psp4.12001, PMC4716582.
 
-Grade B† (B with inputs read from the target figure): all four Figure 4 curves match after supplying two protocol inputs the paper does not give, the initial tumour size P0 and which mouse dose group the typical simulation shows. Both were taken from Figure 4 itself (P0 at t = 0; the dose group as the one of three published exposures that matches), so they are circular for those two values. Every model equation and parameter value comes from the paper, and with those two inputs set the published model reproduces 75 days (mice) and 82 months (patients) of P and K dynamics within 0.1-1 % of the axis. Three further fills are needed in both runs (the patient exposure, the days-to-months conversion and continuous treatment; see Provenance). Strict grade (article and supplement only): D.
+Grade B†‡ (B with inputs read from the target figure; ‡ because those fixes were made after the first comparison): all four Figure 4 curves match after supplying two protocol inputs the paper does not give, the initial tumour size P0 and which mouse dose group the typical simulation shows. Both were taken from Figure 4 itself (P0 at t = 0; the dose group as the one of three published exposures that matches), so they are circular for those two values. Every model equation and parameter value comes from the paper, and with those two inputs set the published model reproduces 75 days (mice) and 82 months (patients) of P and K dynamics within 0.1-1 % of the axis. Three further fills are needed in both runs (the patient exposure, the days-to-months conversion and continuous treatment; see Provenance). Strict grade (article and supplement only): D.
 
 ## Model
 

@@ -30,7 +30,7 @@ include("benchmark.jl")
 
 export Axis, ReferenceCurve, load_reference, load_references, write_reference
 export Tolerance, CurveComparison, compare_curve, passes, CurveDiagnostics, curve_diagnostics
-export Fix, CurveResult, Run, Reproduction, grade, grade_label, grade_strict, from_target, figure_grades, NotRunnable, run_curves, write_score, read_score
+export Fix, CurveResult, Run, Reproduction, grade, grade_label, grade_strict, from_target, post_comparison, figure_grades, NotRunnable, run_curves, write_score, read_score
 export models_dir, model_ids
 export bolus_callback, repeated_doses
 export Route, Dose, Regimen, DoseControl, DoseEvent, doses, resolve, dosing_callback

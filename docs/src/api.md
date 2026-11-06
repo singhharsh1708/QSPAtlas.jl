@@ -73,6 +73,7 @@ grade_label
 grade_strict
 NotRunnable
 from_target
+post_comparison
 figure_grades
 ```
 

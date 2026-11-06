@@ -33,6 +33,12 @@ so the dagger flags it; the model's equations and parameters are still tested ov
 the whole time course. Parameters read off the target figure are never allowed: that
 model is D. Every fix must cite its evidence, or it cannot earn a B.
 
+**‡** marks a B (or B†) that rests on at least one fix made after the first comparison
+with the target figure (`stage = :after_comparison`). Such a fix was chosen with the
+mismatch in view, so it carries more risk of fitting the figure than a fix decided
+before any comparison, even when its evidence is independent of the figure. Each fix's
+stage is listed on the model page.
+
 **What may fill a gap.** A value the paper leaves out may be supplied only from the
 paper itself (another section, table or figure that is not a scored target), its
 supplement, a reference the paper cites for that value, or a standard physical or

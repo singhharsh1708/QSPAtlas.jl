@@ -84,6 +84,21 @@ end
     @test fg["fig1"] == "A" && fg["fig2"] == "B"
 end
 
+@testset "post-comparison fixes are marked with ‡" begin
+    ax = Axis("t", "-", :linear, 0, 1)
+    r1 = ReferenceCurve("fig1_a", "f1", [0.5], [0.5], ax, ax, :curve, Dict{String, String}())
+    bad = run_curves(_ -> ([0.0, 1.0], [1.0, 1.0]), [r1], "as published")
+    fixed(fs) = run_curves(_ -> ([0.0, 1.0], [0.0, 1.0]), [r1], "with fixes"; fixes = fs)
+    rep(fs) = Reproduction(id = "x", citation = "", doi = "", published = bad, fixed = fixed(fs))
+    before = Fix("f", :typo, "x"; evidence = "e", basis = :paper, stage = :before_comparison)
+    after = Fix("g", :units, "y"; evidence = "e", basis = :paper, stage = :after_comparison)
+    target = Fix("h", :from_target, "z"; evidence = "e", basis = :figure, stage = :after_comparison)
+    @test grade_label(rep([before])) == "B" && !post_comparison(rep([before]))
+    @test grade_label(rep([before, after])) == "B‡" && post_comparison(rep([before, after]))
+    @test grade_label(rep([target])) == "B†‡"
+    @test Dict(figure_grades(rep([after])))["fig1"] == "B‡"
+end
+
 @testset "steep simulated segments are not clipped into a false match" begin
     ax = Axis("x", "-", :linear, 0, 1)
     ref = ReferenceCurve("c", "steep", [0.25], [0.5], ax, ax, :curve, Dict{String, String}())

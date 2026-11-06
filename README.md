@@ -22,15 +22,15 @@ leaves out may come from cited references or standard constants) none of the six
 under the **strict rule**, where only the article and its supplement count, all six are D,
 because every one needs at least one value from elsewhere. And some passes rest on inputs
 read from the figure being reproduced: all four Ouerdani curves, Lindauer's one passing
-target, and 4 of Stroh's 18. The [sensitivity page](https://singhharsh1708.github.io/QSPAtlas.jl/dev/sensitivity/)
+target, and 4 of Stroh's 18. The [sensitivity page](https://singhharsh1708.github.io/QSPAtlas.jl/stable/sensitivity/)
 shows how each grade changes with the tolerance.
 
 | model | what it is | grade | strict grade | curves passing (as printed / with fixes) | main reason |
 |---|---|---|---|---|---|
-| [Ouerdani 2015](models/ouerdani_2015/report.md) | pazopanib, tumour growth + angiogenesis (mouse, human) | **B†** | D | 0 of 4 / 4 of 4 | initial tumour size and mouse dose group not stated; taken from the figure |
+| [Ouerdani 2015](models/ouerdani_2015/report.md) | pazopanib, tumour growth + angiogenesis (mouse, human) | **B†‡** | D | 0 of 4 / 4 of 4 | initial tumour size and mouse dose group not stated; taken from the figure |
 | [Hutchinson 2016](models/hutchinson_2016/report.md) | antiangiogenic transient vessel normalisation | **C** (Fig 2: B, Fig 6: C) | D | 0 of 30 / 22 of 30 | K = T0/V0 printed inverted; Fig 6 drug scale about 100x off Eq. 9, not reproduced |
 | [Lindauer 2017](models/lindauer_2017/report.md) | pembrolizumab translational PK/RO/tumour growth | **C** | D | 0 of 5 / 1 of 5 | human blood volume and base scenario not stated; 6 of 64 tornado bars off |
-| [Fornari 2019](models/fornari_2019/report.md) | carboplatin bone-marrow toxicity QSP (rat, human) | **C** (Fig 3: B, Fig 4: C) | D | did not run / 6 of 9 | equations not closed as printed; rat Figure 3 reproduces once the PK table is read per kg (supported by the supplement's own PK data); human Figure 4 does not |
+| [Fornari 2019](models/fornari_2019/report.md) | carboplatin bone-marrow toxicity QSP (rat, human) | **C** (Fig 3: B‡, Fig 4: C) | D | did not run / 6 of 9 | equations not closed as printed; rat Figure 3 reproduces once the PK table is read per kg (supported by the supplement's own PK data); human Figure 4 does not |
 | [Stroh 2019](models/stroh_2019/report.md) | masked tumour-activated antibody (Probody) QSP | **C** | D | 14 of 35 / 18 of 35 | human cleavage rate given only as an upper bound; "Total Drug" readout undefined |
 
 **Population figures.** Papers whose figures show population spread (visual predictive
@@ -42,8 +42,9 @@ simulation layer below; observed-data lines are a diagnostic only.
 | [Stein 2019](models/stein_2019/report.md) | tisagenlecleucel CAR-T cellular kinetics, VPC | **C** | D | 2 of 6 / 4 of 6 | VPC design not stated; rebuilt with the Monolix defaults the paper's files imply, 4 of 6 bands pass, the two left-panel low percentiles do not; result depends on the simulated trial design |
 
 Grades: **A** matches as published; **B** matches after documented fixes, each with
-evidence; **B†** a B that needed an input read from the figure being checked; **C** runs
-but does not match; **D** cannot be run from published information. How the figures were
+evidence; **B†** a B that needed an input read from the figure being checked; **‡** a B
+that rests on at least one fix made after the first comparison with the target figure;
+**C** runs but does not match; **D** cannot be run from published information. How the figures were
 digitised, how curves are scored, and what may fill a gap are on the method page.
 
 ## See it
@@ -57,7 +58,7 @@ digitised from the paper's own curves (black). All four curves pass.
 using QSPAtlas
 m = Module(); Base.include(m, joinpath(models_dir(), "ouerdani_2015", "reproduce.jl"))
 rep = m.reproduce()        # simulates, scores every curve, writes score.toml and the figure above
-grade_label(rep)           # "B†"
+grade_label(rep)           # "B†‡"
 ```
 
 **A population figure that does not.** Stein 2019, Figure 3a: percentile bands from 800
@@ -124,7 +125,7 @@ by outside pharmacometricians, to compare with the agent rebuilds.
   with separate code, by a separate agent session (not yet by outside people); no
   transcription error was found. This compares simulations only, not the digitising.
 
-Details: [validation page](https://singhharsh1708.github.io/QSPAtlas.jl/dev/validation/).
+Details: [validation page](https://singhharsh1708.github.io/QSPAtlas.jl/stable/validation/).
 
 ## How it works
 
@@ -160,7 +161,7 @@ rep = m.reproduce()   # simulates, compares, writes score.toml and figures
 
 ## Population simulation
 
-An open simulation layer in the spirit of NONMEM/Pumas, built on ModelingToolkit:
+A minimal population simulation layer for reproducing published population figures, with NONMEM-style datasets, built on ModelingToolkit:
 
 - dosing regimens: bolus, repeated doses (`ii`, `addl`), infusions (overlapping),
   bioavailability, lag time, steady state (`ss`), resets;

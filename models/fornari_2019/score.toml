@@ -9,7 +9,7 @@ inputs_from_target = false
 pmcid = "PMC6875710"
 
 [figure_grades]
-fig3 = "B"
+fig3 = "B‡"
 fig4 = "C"
 
 [fixed]

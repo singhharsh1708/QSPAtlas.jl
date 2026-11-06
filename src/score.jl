@@ -207,6 +207,19 @@ from the figure being reproduced. Shown as B† on the site.
 from_target(r::Reproduction) = grade(r) == 'B' && any(f -> f.kind === :from_target, matching_run(r).fixes)
 
 """
+    post_comparison(r::Reproduction) -> Bool
+
+True when the grade is B and rests on at least one fix made after the first comparison with
+the target (`stage = :after_comparison`). Shown as ‡ on the site (B‡, or B†‡ together with
+[`from_target`](@ref)).
+"""
+post_comparison(r::Reproduction) = grade(r) == 'B' && any(f -> f.stage === :after_comparison, matching_run(r).fixes)
+
+# label for a B, from the fixes it rests on: † input read from the target, ‡ a fix made after the first comparison
+b_label(fixes) = string("B", any(f -> f.kind === :from_target, fixes) ? "†" : "",
+    any(f -> f.stage === :after_comparison, fixes) ? "‡" : "")
+
+"""
     figure_key(ref) -> String
 
 Which figure a reference curve belongs to: the `group` header key if present,
@@ -245,7 +258,7 @@ function figure_grades(r::Reproduction)
         fk = r.fixed === nothing ? Fix[] : fixes_for(r.fixed.fixes, k)
         brun = ok(r.published) && evidenced(pk) ? pk : ok(r.fixed) && evidenced(fk) ? fk : nothing
         g = ok(r.published) && isempty(pk) ? "A" :
-            brun !== nothing ? (any(f -> f.kind === :from_target, brun) ? "B†" : "B") : "C"
+            brun !== nothing ? b_label(brun) : "C"
         push!(out, k => g)
     end
     return out
@@ -254,9 +267,11 @@ end
 """
     grade_label(r) -> String
 
-`"A"`, `"B"`, `"B†"`, `"C"` or `"D"`.
+`"A"`, `"B"`, `"B†"`, `"B‡"`, `"B†‡"`, `"C"` or `"D"`. † marks an input read from the
+figure being reproduced ([`from_target`](@ref)); ‡ marks a fix made after the first
+comparison ([`post_comparison`](@ref)).
 """
-grade_label(r::Reproduction) = string(grade(r), from_target(r) ? "†" : "")
+grade_label(r::Reproduction) = grade(r) == 'B' ? b_label(matching_run(r).fixes) : string(grade(r))
 
 # report-only fields of score.toml; not-applicable (NaN) values are left out
 function diagnostics_summary(g::CurveDiagnostics)

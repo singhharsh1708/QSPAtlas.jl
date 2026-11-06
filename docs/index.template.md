@@ -68,7 +68,7 @@ julia --project -e 'using Pkg; Pkg.instantiate(); Pkg.test()'   # reruns every m
 using QSPAtlas
 m = Module(); Base.include(m, joinpath(models_dir(), "ouerdani_2015", "reproduce.jl"))
 rep = m.reproduce()        # simulates, scores every curve, writes score.toml and figures
-grade_label(rep)           # "B†"
+grade_label(rep)           # "B†‡"
 ```
 
 For the population simulation layer on your own models, add the package:

@@ -2,14 +2,14 @@ blocker = ""
 citation = "Ouerdani A, et al. CPT Pharmacometrics Syst Pharmacol 2015;4:660-668"
 doi = "10.1002/psp4.12001"
 grade = "B"
-grade_label = "B†"
+grade_label = "B†‡"
 grade_strict = "D"
 id = "ouerdani_2015"
 inputs_from_target = true
 pmcid = "PMC4716582"
 
 [figure_grades]
-fig4 = "B†"
+fig4 = "B†‡"
 
 [fixed]
 error = ""
